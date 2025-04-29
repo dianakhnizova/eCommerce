@@ -1,0 +1,13 @@
+node_modules/
+
+dist/
+build/
+*.log
+
+.coverage/
+.vscode/
+.idea/
+
+.eslintcache
+*.min.js
+.DS_Store
