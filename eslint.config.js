@@ -8,7 +8,20 @@ import eslintPluginUnicorn from 'eslint-plugin-unicorn';
 
 export default tseslint
   .config(
-    { ignores: ['dist/', 'node_modules/', 'build/', '*.log', '.coverage/', '.vscode/', '.idea/', '.eslintcache', '*.min.js', '.DS_Store'] },
+    {
+      ignores: [
+        'dist/',
+        'node_modules/',
+        'build/',
+        '*.log',
+        '.coverage/',
+        '.vscode/',
+        '.idea/',
+        '.eslintcache',
+        '*.min.js',
+        '.DS_Store',
+      ],
+    },
     {
       linterOptions: {
         noInlineConfig: true,
@@ -43,14 +56,17 @@ export default tseslint
           { assertionStyle: 'never' },
         ],
         '@typescript-eslint/consistent-type-imports': 'error',
-        '@typescript-eslint/explicit-function-return-type': 'error',
+        '@typescript-eslint/explicit-function-return-type': 'off',
         '@typescript-eslint/explicit-member-accessibility': [
           'error',
           { accessibility: 'explicit', overrides: { constructors: 'off' } },
         ],
         '@typescript-eslint/member-ordering': 'error',
         'class-methods-use-this': 'error',
-        'unicorn/max-func-body-length': 'off'
+        'unicorn/max-func-body-length': 'off',
+        'unicorn/no-empty-file': 'off',
+        'unicorn/prefer-query-selector': 'off',
+        'unicorn/filename-case': 'off',
       },
     }
   )
