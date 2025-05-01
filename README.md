@@ -32,13 +32,16 @@ It is a collaborative team project developed in multiple sprints using modern fr
 
 In the project directory, you can run:
 
-| Script         | Command             | Description                                                                 |
-|----------------|---------------------|-----------------------------------------------------------------------------|
-| `dev`          | `vite`              | Starts the development server with hot reloading.                          |
-| `build`        | `tsc -b && vite build` | Builds the app for production. Compiles TypeScript and bundles with Vite. |
-| `preview`      | `vite preview`      | Locally previews the production build.                                     |
-| `lint`         | `eslint .`          | Lints all files in the project using ESLint.                               |
-| `format`       | `prettier --write .`| Formats code using Prettier.                                               |
+| Script         | Command                              | Description                                                                 |
+|----------------|--------------------------------------|-----------------------------------------------------------------------------|
+| `dev`          | `vite`                               | Starts the development server with hot reloading.                          |
+| `build`        | `tsc -b && vite build`               | Builds the app for production. Compiles TypeScript and bundles with Vite. |
+| `preview`      | `vite preview`                       | Locally previews the production build.                                     |
+| `lint`         | `eslint .`                           | Lints all files in the project using ESLint.                               |
+| `format`       | `prettier --write .`                 | Formats code using Prettier.                                               |
+| `test`         | `vitest --config vitest.config.ts`    | Runs unit tests using Vitest with the specified configuration.              |
+| `coverage`     | `vitest run --coverage`              | Runs unit tests with coverage reporting using Vitest.                      |
+
 
 ---
 
