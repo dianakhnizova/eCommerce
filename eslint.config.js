@@ -20,6 +20,7 @@ export default tseslint
         '.eslintcache',
         '*.min.js',
         '.DS_Store',
+        'coverage/'
       ],
     },
     {
