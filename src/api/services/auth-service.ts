@@ -1,6 +1,11 @@
+import {
+  AUTH_URL,
+  CLIENT_ID,
+  CLIENT_SECRET,
+  SCOPE,
+} from '../../sources/constants/api';
 import type { Auth } from '../../sources/types/auth';
 import { api } from '../axios';
-import { AUTH_URL, CLIENT_ID, CLIENT_SECRET, SCOPE } from '../constants';
 import { Endpoints } from '../endpoints';
 
 export const authService = {
