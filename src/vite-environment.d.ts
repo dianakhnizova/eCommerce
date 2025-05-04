@@ -5,6 +5,7 @@ interface ImportMetaEnvironment {
   VITE_CTP_SCOPES: string;
   VITE_CTP_CLIENT_ID: string;
   VITE_CTP_CLIENT_SECRET: string;
+  VITE_CTP_BASE_URL: string;
 }
 
 interface ImportMeta {

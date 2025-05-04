@@ -1,5 +1,5 @@
 import { api } from '../axios';
-import { baseUrl } from '../constants';
+import { BASE_URL } from '../constants';
 import { Endpoints } from '../endpoints';
 
 export interface ProductResponse {
@@ -17,7 +17,7 @@ export interface Product {
 export const productService = {
   getProducts: async (): Promise<ProductResponse> => {
     const response = await api.get<ProductResponse>(
-      `${baseUrl}/${Endpoints.PRODUCTS}`,
+      `${BASE_URL}/${Endpoints.PRODUCTS}`,
       {}
     );
     return response.data;

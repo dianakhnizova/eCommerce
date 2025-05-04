@@ -1,10 +1,10 @@
 import type { InternalAxiosRequestConfig } from 'axios';
 import axios from 'axios';
-import { baseUrl } from './constants';
+import { BASE_URL } from './constants';
 import { authService } from './services/auth-service';
 
 export const api = axios.create({
-  baseURL: baseUrl,
+  baseURL: BASE_URL,
   headers: {
     'Content-Type': 'application/json',
   },
