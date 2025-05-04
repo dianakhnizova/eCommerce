@@ -1,6 +1,6 @@
-import type { Token } from '../sources/token';
+import type { Auth } from '../sources/types/auth';
 
-export function isToken(data: unknown): data is Token {
+export function isToken(data: unknown): data is Auth.Token {
   if (typeof data !== 'object' || data === null) return false;
   return (
     'access_token' in data &&

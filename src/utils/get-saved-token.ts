@@ -1,8 +1,9 @@
-import type { Token } from '../sources/token';
+import { LSKeys } from '../sources/enums/ls-keys';
+import type { Auth } from '../sources/types/auth';
 import { isToken } from './is-token';
 
-export const getSavedToken = (): Token | undefined => {
-  const savedToken = localStorage.getItem('token');
+export const getSavedToken = (): Auth.Token | undefined => {
+  const savedToken = localStorage.getItem(LSKeys.TOKEN);
   if (savedToken) {
     const parsedToken: unknown = JSON.parse(savedToken);
     if (isToken(parsedToken)) {
