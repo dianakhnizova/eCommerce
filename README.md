@@ -52,3 +52,15 @@ export default tseslint.config({
   },
 });
 ```
+
+## Setup client API with .env
+Add to your `vite.config.ts` file, replace <i>[values]</i> with your own values:
+```
+VITE_CTP_PROJECT_KEY=[key]
+VITE_CTP_CLIENT_SECRET=[secret]
+VITE_CTP_CLIENT_ID=[clent-id]
+VITE_CTP_AUTH_URL=[url]
+VITE_CTP_API_URL=[url]
+VITE_CTP_SCOPES=[scopes]
+```
+
