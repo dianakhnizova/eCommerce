@@ -1,5 +1,4 @@
 import { useEffect, useState } from 'react';
-import './App.css';
 import type { Product } from './api/services/product-service';
 import { productService } from './api/services/product-service';
 

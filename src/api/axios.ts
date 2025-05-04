@@ -13,8 +13,12 @@ export const api = axios.create({
 api.interceptors.request.use(handleRequest, handleError);
 
 async function handleRequest(config: InternalAxiosRequestConfig<void>) {
-  const newToken = await authService.getAccessToken();
-  config.headers.Authorization = `Bearer ${newToken.access_token}`;
+  let token = authService.getSavedToken();
+  if (!token) {
+    token = await authService.getAccessToken();
+    authService.saveNewToken(token);
+  }
+  config.headers.Authorization = `Bearer ${token.access_token}`;
   return config;
 }
 

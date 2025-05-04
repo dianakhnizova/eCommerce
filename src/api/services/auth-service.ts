@@ -9,6 +9,20 @@ export type Token = {
   scope: string;
 };
 
+function isToken(data: unknown): data is Token {
+  if (typeof data !== 'object' || data === null) return false;
+  return (
+    'access_token' in data &&
+    typeof data['access_token'] === 'string' &&
+    'token_type' in data &&
+    typeof data['token_type'] === 'string' &&
+    'expires_in' in data &&
+    typeof data['expires_in'] === 'number' &&
+    'scope' in data &&
+    typeof data['scope'] === 'string'
+  );
+}
+
 export const authService = {
   saveNewToken: (token: Token) => {
     token.expires_in = Math.floor(
@@ -19,13 +33,14 @@ export const authService = {
 
   getSavedToken: (): Token | undefined => {
     const savedToken = localStorage.getItem('token');
-
     if (savedToken) {
-      const savedTokenData: Token = JSON.parse(savedToken);
-      const tokenExpiration = new Date(savedTokenData.expires_in * 1000);
-      const currentTime = new Date();
-      if (tokenExpiration < currentTime) return;
-      return savedTokenData;
+      const parsedToken: unknown = JSON.parse(savedToken);
+      if (isToken(parsedToken)) {
+        const tokenExpiration = new Date(parsedToken.expires_in * 1000);
+        if (tokenExpiration >= new Date()) {
+          return parsedToken;
+        }
+      }
     }
     return;
   },
