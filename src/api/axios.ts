@@ -1,7 +1,6 @@
 import type { InternalAxiosRequestConfig } from 'axios';
 import axios from 'axios';
 import { BASE_URL } from './constants';
-import { authService } from './services/auth-service';
 
 export const api = axios.create({
   baseURL: BASE_URL,
@@ -12,20 +11,14 @@ export const api = axios.create({
 
 api.interceptors.request.use(handleRequest, handleError);
 
-async function handleRequest(config: InternalAxiosRequestConfig<void>) {
-  let token = authService.getSavedToken();
-  if (!token) {
-    token = await authService.getAccessToken();
-    authService.saveNewToken(token);
-  }
-  config.headers.Authorization = `Bearer ${token.access_token}`;
+function handleRequest(config: InternalAxiosRequestConfig<void>) {
   return config;
 }
 
 function handleError(error: unknown): never {
   if (axios.isAxiosError(error)) {
-    console.error('Status:', error.response?.status);
-    console.error('Data:', error.response?.data);
+    console.log('Status:', error.response?.status);
+    console.log('Data:', error.response?.data);
   }
   throw new Error('Failed to fetch access token');
 }
