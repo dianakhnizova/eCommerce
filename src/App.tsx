@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { authService } from './api/services/auth-service';
+import styles from './global.module.css';
 
 export default function App() {
   const [token, setToken] = useState<string>();
@@ -16,7 +17,7 @@ export default function App() {
 
   return (
     <>
-      <h1>eCommerce Application</h1>
+      <h1 className={styles.heading}>eCommerce Application</h1>
 
       {loading && <p>Получаем токен…</p>}
       {authError && <p style={{ color: 'red' }}>{authError}</p>}
