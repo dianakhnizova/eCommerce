@@ -6,7 +6,7 @@ export const HomePage = () => {
     <>
       <h1>Home Page</h1>
       <Button
-        variant={ButtonVariants.primary}
+        variant={ButtonVariants.secondary}
         onClick={() => console.log('Clicked!')}
         disabled={false}
       >
