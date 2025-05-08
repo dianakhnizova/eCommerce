@@ -44,7 +44,8 @@ a:active {
   --clr-bg: white;
 }
 
-html, body {
+html,
+body {
   font-family: var(--ff-base);
   color: var(--clr-secondary-800);
   background-color: var(--clr-bg);
