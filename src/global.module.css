@@ -40,11 +40,13 @@ a:active {
   --clr-accent-5: #1db4e7;
   --clr-accent-6: #ffcd38;
   --clr-accent-7: #08d15f;
+  --clr-accent-8: #d3d3d3;
 
   --clr-bg: white;
 }
 
-html, body {
+html,
+body {
   font-family: var(--ff-base);
   color: var(--clr-secondary-800);
   background-color: var(--clr-bg);

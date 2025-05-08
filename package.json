@@ -15,6 +15,7 @@
   "dependencies": {
     "@testing-library/react": "^16.3.0",
     "axios": "^1.9.0",
+    "classnames": "^2.5.1",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "react-router": "^7.5.3",
