@@ -70,6 +70,7 @@ export default tseslint
         'unicorn/no-empty-file': 'off',
         'unicorn/prefer-query-selector': 'off',
         'unicorn/filename-case': 'off',
+        'unicorn/prevent-abbreviations': 'off'
       },
     }
   )

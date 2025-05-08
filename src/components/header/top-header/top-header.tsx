@@ -4,9 +4,9 @@ import { RightNavMenu } from './right-nav-menu';
 
 export const TopHeader = () => {
   return (
-    <header className={styles.topHeader}>
+    <div className={styles.topHeader}>
       <LeftNavMenu />
       <RightNavMenu />
-    </header>
+    </div>
   );
 };
