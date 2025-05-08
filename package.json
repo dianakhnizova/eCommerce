@@ -15,6 +15,7 @@
   "dependencies": {
     "@testing-library/react": "^16.3.0",
     "axios": "^1.9.0",
+    "classnames": "^2.5.1",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "react-router": "^7.5.3",
@@ -47,6 +48,7 @@
     "typescript": "~5.7.2",
     "typescript-eslint": "^8.31.1",
     "vite": "^6.3.1",
+    "vite-plugin-svgr": "^4.3.0",
     "vitest": "^3.1.2"
   },
   "lint-staged": {

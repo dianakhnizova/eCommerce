@@ -1,15 +1,17 @@
 import styles from '../header.module.css';
 import { NavLink } from 'react-router-dom';
+import { leftLinks } from './constants';
 
 export const LeftNavMenu = () => {
   return (
     <nav className={styles.navigationMenu}>
-      <NavLink to="/" className={styles.link}>
-        khnizovad@gmail.com
-      </NavLink>
-      <NavLink to="/about" className={styles.link}>
-        8 707 275 4341
-      </NavLink>
+      {leftLinks.map(link => {
+        return (
+          <NavLink key={link.label} to={link.to} className={styles.link}>
+            {link.label}
+          </NavLink>
+        );
+      })}
     </nav>
   );
 };

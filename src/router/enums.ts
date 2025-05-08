@@ -3,4 +3,6 @@ export enum PagePath {
   notFound = '*',
   loginPage = 'login',
   registerPage = 'registration',
+  aboutPage = 'about',
+  basketPage = 'basket',
 }
