@@ -54,3 +54,9 @@ html, body {
   font-size: 2.5rem;
   font-weight: 700;
 }
+
+@media (hover: hover) {
+  a {
+    cursor: pointer;
+  }
+}
