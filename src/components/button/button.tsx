@@ -3,10 +3,14 @@ import styles from './button.module.css';
 import { ButtonVariants } from './enums';
 
 type Props = {
-  variant: ButtonVariants;
+  variant?: ButtonVariants;
 } & React.ButtonHTMLAttributes<HTMLButtonElement>;
 
-export const Button: React.FC<Props> = ({ variant, className, ...rest }) => {
+export const Button: React.FC<Props> = ({
+  variant = ButtonVariants.primary,
+  className,
+  ...rest
+}) => {
   const primaryClass = styles.primary;
   const secondaryClass = styles.secondary;
 

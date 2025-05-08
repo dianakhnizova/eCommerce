@@ -6,6 +6,10 @@
 	border-radius: 2px;
 	transition: .2s;
 
+	&.default {
+		background-color: var();
+	}
+
 	&.primary {
 		background-color: var(--clr-accent-1);
 	}
