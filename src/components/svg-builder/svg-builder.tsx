@@ -1,7 +1,7 @@
 import type { FC } from 'react';
 import styles from './svg.module.css';
 import LoginIcon from '../../../assets/icons/login.svg?react';
-import RegisterIcon from '../../../assets/icons/register.svg?react';
+import SignUp from '../../../assets/icons/signup.svg?react';
 import LogoIcon from '../../../assets/logo.svg?react';
 import SearchIcon from '../../../assets/icons/search.svg?react';
 import type { IconType } from './enums';
@@ -14,7 +14,7 @@ type Props = {
 
 const iconVariant: IconVariant = {
   login: LoginIcon,
-  registration: RegisterIcon,
+  registration: SignUp,
   logo: LogoIcon,
   search: SearchIcon,
 };
