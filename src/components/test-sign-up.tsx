@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { authService } from '../api/services/auth-service';
 import type { Customer } from '../sources/types/customer';
 
@@ -7,6 +7,8 @@ export const TestSignUp: React.FC = () => {
   const [newCustomer, setNewCustomer] = useState<string>();
   const [authError, setAuthError] = useState<string>();
   const [loading, setLoading] = useState(true);
+
+  const isTokenRequested = useRef(false);
 
   const fetchToken = async () => {
     try {
@@ -21,6 +23,8 @@ export const TestSignUp: React.FC = () => {
   };
 
   useEffect(() => {
+    if (isTokenRequested.current) return;
+    isTokenRequested.current = true;
     void fetchToken();
   }, []);
 
@@ -32,20 +36,23 @@ export const TestSignUp: React.FC = () => {
           return;
         }
 
-        const customer: Pick<
-          Customer.Customer,
-          'email' | 'password' | 'firstName' | 'lastName'
-        > = {
-          email: 'test@example.com',
+        const customer: Customer.Profile = {
+          email: 'test3@example.com',
           password: 'secret123',
           firstName: 'Sobaka',
           lastName: 'Babaka',
+          dateOfBirth: '1990-01-01',
+          addresses: [
+            {
+              city: 'Moscow',
+              country: 'RU',
+              streetName: 'Lenina',
+              postalCode: '123456',
+            },
+          ],
         };
 
-        const response = await authService.signupNewCustomer({
-          token,
-          customer,
-        });
+        const response = await authService.signupNewCustomer(customer);
         console.log('Customer created:', response.customer);
         setNewCustomer(
           `${response.customer.firstName} ${response.customer.lastName} (${response.customer.email}) с ID ${response.customer.id})`
@@ -64,8 +71,6 @@ export const TestSignUp: React.FC = () => {
   }, [token]);
   return (
     <>
-      <h1>eCommerce Application</h1>
-
       {loading && <p>Получаем токен…</p>}
       {authError && <p style={{ color: 'red' }}>{authError}</p>}
       {token && (
