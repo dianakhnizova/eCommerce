@@ -9,7 +9,6 @@
 .navigationMenu {
   display: flex;
   gap: 20px;
-  padding: 14px 14px;
 }
 
 .link {
@@ -17,7 +16,7 @@
   justify-content: center;
   align-items: center;
   gap: 4px;
-  color: var(--clr-bg);
+  color: var(--clr-bg-1);
   padding: 14px 0;
   text-decoration: none;
 

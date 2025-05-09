@@ -1,21 +1,18 @@
 import styles from '../../header.module.css';
-import { leftLinks } from '../constants';
+import svgStyles from '../../../svg-builder/svg.module.css';
+import { NavLink } from 'react-router';
+import { PagePath } from '../../../../router/enums';
+import { messages } from '../../bottom-header/messages';
+import { SvgBuilder } from '../../../svg-builder/svg-builder';
+import { IconType } from '../../../svg-builder/enums';
 
 export const LeftNavMenu = () => {
   return (
     <nav className={styles.navigationMenu}>
-      {leftLinks.map(link => {
-        return (
-          <a
-            key={link.label}
-            href={link.to}
-            className={styles.link}
-            rel="noopener noreferrer"
-          >
-            {link.label}
-          </a>
-        );
-      })}
+      <NavLink to={PagePath.root}>
+        {messages.defaultLink}
+        <SvgBuilder iconType={IconType.Logo} className={svgStyles.logo} />
+      </NavLink>
     </nav>
   );
 };
