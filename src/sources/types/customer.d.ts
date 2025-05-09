@@ -1,5 +1,5 @@
 export namespace Customer {
-  interface Profile {
+  type Profile = {
     id?: string;
     addresses?: Address[];
     email: string;
@@ -7,16 +7,16 @@ export namespace Customer {
     lastName?: string;
     password?: string;
     dateOfBirth?: string;
-  }
+  };
 
-  interface Address {
+  type Address = {
     country: string;
     city: string;
     streetName: string;
     postalCode: string;
-  }
+  };
 
-  interface Cart {
+  type Cart = {
     id: string;
     lineItems: [];
     customLineItems: [];
@@ -26,5 +26,5 @@ export namespace Customer {
       type: string;
       fractionDigits: number;
     };
-  }
+  };
 }

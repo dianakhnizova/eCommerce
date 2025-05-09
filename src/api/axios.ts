@@ -9,7 +9,6 @@ export const api = axios.create({
 });
 
 api.interceptors.request.use(handleRequest);
-
 api.interceptors.response.use(response => response, handleResponseError);
 
 function handleRequest(config: InternalAxiosRequestConfig<void>) {

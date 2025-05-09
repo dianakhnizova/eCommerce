@@ -1,4 +1,4 @@
-export interface ApiError {
+export type ApiError = {
   statusCode: number;
   message: string;
   errors?: {
@@ -7,4 +7,4 @@ export interface ApiError {
     field?: string;
     duplicateValue?: string;
   }[];
-}
+};
