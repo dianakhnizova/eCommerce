@@ -45,7 +45,7 @@ export const registerPage = () => {
             className={styles.formInput}
           />
           <Input
-            type="text"
+            type="date"
             label="Birth"
             placeholder="Birth"
             name="birth"
