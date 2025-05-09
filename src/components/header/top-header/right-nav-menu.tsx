@@ -11,10 +11,7 @@ export const RightNavMenu = () => {
         return (
           <NavLink key={link.label} to={link.to} className={styles.link}>
             {link.label}
-            <SvgBuilder
-              iconType={link.iconType}
-              className={link.iconSize ? svgStyles[link.iconSize] : undefined}
-            />
+            <SvgBuilder iconType={link.iconType} className={svgStyles.small} />
           </NavLink>
         );
       })}

@@ -10,11 +10,16 @@
 }
 
 .medium {
-  width: 18px;
-  height: 18px;
+  width: 20px;
+  height: 20px;
 }
 
 .large {
-  width: 20px;
-  height: 20px;
+  width: 60px;
+  height: 60px;
+}
+
+.basket {
+  width: 24px;
+  height: 24px;
 }

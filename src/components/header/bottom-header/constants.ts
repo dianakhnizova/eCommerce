@@ -29,9 +29,4 @@ const leftLinks: LinkItems[] = [
   },
 ];
 
-// const rightLinks: LinkItems[] = [
-//   { to: PagePath.notFound, label: messages.emailLink },
-//   { to: PagePath.notFound, label: messages.phoneLink },
-// ];
-
 export { leftLinks };

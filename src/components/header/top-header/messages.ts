@@ -4,4 +4,5 @@ export const messages = {
   registerLink: 'Registration',
   emailLink: 'khnizovad@gmail.com',
   phoneLink: '8 707 275 4341',
+  basket: '',
 };

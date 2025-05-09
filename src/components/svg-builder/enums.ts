@@ -4,4 +4,5 @@ export enum IconType {
   Registration = 'registration',
   Basket = 'basket',
   Logo = 'logo',
+  Search = 'search',
 }

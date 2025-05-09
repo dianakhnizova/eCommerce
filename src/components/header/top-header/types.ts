@@ -4,5 +4,4 @@ export type LinkItems = {
   to: string;
   label: string;
   iconType?: IconType;
-  iconSize?: string;
 };

@@ -1,17 +1,17 @@
 import styles from '../header.module.css';
-import { NavLink } from 'react-router-dom';
-import { PagePath } from '../../../router/enums';
-import { messages } from './messages';
+import svgStyles from '../../svg-builder/svg.module.css';
 import { SvgBuilder } from '../../svg-builder/svg-builder';
 import { IconType } from '../../svg-builder/enums';
+import { Input } from '../../input/input';
+import { Button } from '../../button/button';
 
 export const RightNavMenu = () => {
   return (
-    <nav className={styles.navigationMenu}>
-      <NavLink to={PagePath.basketPage} className={styles.logo}>
-        {messages.defaultLink}
-        <SvgBuilder iconType={IconType.Basket} className={styles.logo} />
-      </NavLink>
+    <nav className={styles.bottomNavigationMenu}>
+      <Input type="text" placeholder="Search" className={styles.input} />
+      <Button onClick={() => console.log('Search')} disabled={false}>
+        <SvgBuilder iconType={IconType.Search} className={svgStyles.medium} />
+      </Button>
     </nav>
   );
 };

@@ -5,6 +5,7 @@ import RegisterIcon from '../../../assets/icons/register.svg?react';
 import BasketIcon from '../../../assets/icons/basket.svg?react';
 import LogoIcon from '../../../assets/logo.svg?react';
 import LogoutIcon from '../../../assets/icons/logout.svg?react';
+import SearchIcon from '../../../assets/icons/search.svg?react';
 import type { IconType } from './enums';
 
 type Props = {
@@ -21,6 +22,7 @@ const iconVariant: Record<
   registration: RegisterIcon,
   basket: BasketIcon,
   logo: LogoIcon,
+  search: SearchIcon,
 };
 
 export const SvgBuilder: FC<Props> = ({ iconType, className }) => {

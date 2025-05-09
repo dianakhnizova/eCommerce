@@ -28,9 +28,15 @@
   padding: 14px 14px;
 }
 
+.bottomNavigationMenu {
+  display: flex;
+  padding: 14px 14px;
+}
+
 .link {
   display: flex;
   justify-content: center;
+  align-items: center;
   gap: 4px;
   color: var(--clr-bg);
   padding: 14px 0;
@@ -45,6 +51,8 @@
   }
 }
 
-.logo {
-  margin: 0 20px 0 18px;
+.input {
+  border: 2px solid var(--clr-primary-300);
+  padding: 8px 20px;
 }
+

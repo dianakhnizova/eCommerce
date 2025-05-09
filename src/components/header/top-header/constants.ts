@@ -9,19 +9,21 @@ const rightLinks: LinkItems[] = [
     to: PagePath.registerPage,
     label: messages.registerLink,
     iconType: IconType.Registration,
-    iconSize: 'small',
   },
   {
     to: PagePath.loginPage,
     label: messages.loginLink,
     iconType: IconType.Login,
-    iconSize: 'small',
   },
   {
     to: PagePath.root,
     label: messages.logoutLink,
     iconType: IconType.Logout,
-    iconSize: 'small',
+  },
+  {
+    to: PagePath.basketPage,
+    label: messages.basket,
+    iconType: IconType.Basket,
   },
 ];
 

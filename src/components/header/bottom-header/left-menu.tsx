@@ -1,4 +1,5 @@
 import styles from '../header.module.css';
+import svgStyles from '../../svg-builder/svg.module.css';
 import { NavLink } from 'react-router-dom';
 import { leftLinks } from './constants';
 import { PagePath } from '../../../router/enums';
@@ -11,7 +12,7 @@ export const LeftNavMenu = () => {
     <nav className={styles.navigationMenu}>
       <NavLink to={PagePath.root} className={styles.logo}>
         {messages.defaultLink}
-        <SvgBuilder iconType={IconType.Logo} className={styles.logo} />
+        <SvgBuilder iconType={IconType.Logo} className={svgStyles.large} />
       </NavLink>
 
       {leftLinks.map(link => {
