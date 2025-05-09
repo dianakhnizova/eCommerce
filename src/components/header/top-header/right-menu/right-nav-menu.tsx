@@ -1,8 +1,8 @@
-import styles from '../header.module.css';
-import svgStyles from '../../svg-builder/svg.module.css';
+import styles from '../../header.module.css';
+import svgStyles from '../../../svg-builder/svg.module.css';
 import { NavLink } from 'react-router-dom';
-import { rightLinks } from './constants';
-import { SvgBuilder } from '../../svg-builder/svg-builder';
+import { rightLinks } from '../constants';
+import { SvgBuilder } from '../../../svg-builder/svg-builder';
 
 export const RightNavMenu = () => {
   return (

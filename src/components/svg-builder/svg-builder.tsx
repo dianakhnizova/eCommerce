@@ -2,25 +2,19 @@ import type { FC } from 'react';
 import styles from './svg.module.css';
 import LoginIcon from '../../../assets/icons/login.svg?react';
 import RegisterIcon from '../../../assets/icons/register.svg?react';
-import BasketIcon from '../../../assets/icons/basket.svg?react';
 import LogoIcon from '../../../assets/logo.svg?react';
-import LogoutIcon from '../../../assets/icons/logout.svg?react';
 import SearchIcon from '../../../assets/icons/search.svg?react';
 import type { IconType } from './enums';
+import type { IconVariant } from './types';
 
 type Props = {
   iconType?: IconType;
   className?: string;
 };
 
-const iconVariant: Record<
-  NonNullable<Props['iconType']>,
-  React.FC<React.SVGProps<SVGSVGElement>>
-> = {
+const iconVariant: IconVariant = {
   login: LoginIcon,
-  logout: LogoutIcon,
   registration: RegisterIcon,
-  basket: BasketIcon,
   logo: LogoIcon,
   search: SearchIcon,
 };

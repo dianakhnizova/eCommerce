@@ -1,0 +1,21 @@
+.bottomHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  background-color: var(--clr-bg);
+}
+
+.bottomNavigationMenu {
+  display: flex;
+  padding: 14px 14px;
+}
+
+.input {
+  border: 2px solid var(--clr-primary-300);
+  padding: 8px 20px;
+}
+
+.searchButton {
+  height: 35px;
+}

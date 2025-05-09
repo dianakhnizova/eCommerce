@@ -1,5 +1,5 @@
-import styles from '../header.module.css';
-import { leftLinks } from './constants';
+import styles from '../../header.module.css';
+import { leftLinks } from '../constants';
 
 export const LeftNavMenu = () => {
   return (

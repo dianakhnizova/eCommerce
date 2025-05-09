@@ -2,7 +2,7 @@ import type { LinkItems } from './types';
 import { PagePath } from '../../../router/enums';
 import { messages } from './messages';
 import { IconType } from '../../svg-builder/enums';
-import { OuterPath } from './enums';
+import { OuterPath } from './left-menu/enums';
 
 const rightLinks: LinkItems[] = [
   {
@@ -14,16 +14,6 @@ const rightLinks: LinkItems[] = [
     to: PagePath.loginPage,
     label: messages.loginLink,
     iconType: IconType.Login,
-  },
-  {
-    to: PagePath.root,
-    label: messages.logoutLink,
-    iconType: IconType.Logout,
-  },
-  {
-    to: PagePath.basketPage,
-    label: messages.basket,
-    iconType: IconType.Basket,
   },
 ];
 

@@ -1,6 +1,6 @@
-import styles from '../header.module.css';
-import { LeftNavMenu } from './left-nav-menu';
-import { RightNavMenu } from './right-nav-menu';
+import styles from './top-header.module.css';
+import { LeftNavMenu } from './left-menu/left-nav-menu';
+import { RightNavMenu } from './right-menu/right-nav-menu';
 
 export const TopHeader = () => {
   return (
