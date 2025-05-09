@@ -73,6 +73,7 @@ export default tseslint
         'unicorn/filename-case': 'off',
         'unicorn/prevent-abbreviations': 'off',
         'unicorn/no-useless-undefined': 'off',
+        'unicorn/no-null': 'off',
       },
     }
   )

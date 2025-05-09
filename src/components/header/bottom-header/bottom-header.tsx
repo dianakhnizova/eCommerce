@@ -1,9 +1,12 @@
 import styles from '../header.module.css';
+import { RightNavMenu } from './right-menu';
+import { LeftNavMenu } from './left-menu';
 
 export const BottomHeader = () => {
   return (
     <div className={styles.bottomHeader}>
-      <h1>Bottom Header</h1>
+      <LeftNavMenu />
+      <RightNavMenu />
     </div>
   );
 };

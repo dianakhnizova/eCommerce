@@ -1,5 +1,4 @@
 import styles from '../header.module.css';
-import { NavLink } from 'react-router-dom';
 import { leftLinks } from './constants';
 
 export const LeftNavMenu = () => {
@@ -7,9 +6,14 @@ export const LeftNavMenu = () => {
     <nav className={styles.navigationMenu}>
       {leftLinks.map(link => {
         return (
-          <NavLink key={link.label} to={link.to} className={styles.link}>
+          <a
+            key={link.label}
+            href={link.to}
+            className={styles.link}
+            rel="noopener noreferrer"
+          >
             {link.label}
-          </NavLink>
+          </a>
         );
       })}
     </nav>

@@ -3,6 +3,8 @@ import styles from './svg.module.css';
 import LoginIcon from '../../../assets/icons/login.svg?react';
 import RegisterIcon from '../../../assets/icons/register.svg?react';
 import BasketIcon from '../../../assets/icons/basket.svg?react';
+import LogoIcon from '../../../assets/logo.svg?react';
+import LogoutIcon from '../../../assets/icons/logout.svg?react';
 import type { IconType } from './enums';
 
 type Props = {
@@ -15,19 +17,21 @@ const iconVariant: Record<
   React.FC<React.SVGProps<SVGSVGElement>>
 > = {
   login: LoginIcon,
+  logout: LogoutIcon,
   registration: RegisterIcon,
   basket: BasketIcon,
+  logo: LogoIcon,
 };
 
 export const SvgBuilder: FC<Props> = ({ iconType, className }) => {
   if (!iconType) {
-    return undefined;
+    return null;
   }
 
   const IconComponent = iconVariant[iconType];
 
   if (!IconComponent) {
-    return undefined;
+    return null;
   }
 
   return (

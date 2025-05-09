@@ -46,6 +46,7 @@ a:active {
   --clr-disabled-600: #5f5f5f;
 
   --clr-bg: white;
+  --clr-black: rgb(0, 0, 0);
 }
 
 html,
