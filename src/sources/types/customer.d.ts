@@ -1,22 +1,23 @@
 export namespace Customer {
-  interface Customer {
-    addresses: string[];
+  interface Profile {
+    id?: string;
+    addresses?: Address[];
     email: string;
     firstName?: string;
-    id: string;
-    isEmailVerified: false;
     lastName?: string;
     password?: string;
-    version: number;
-    createdAt: string;
-    lastModifiedAt: string;
-    authenticationMode: string;
-    stores: [];
+    dateOfBirth?: string;
+  }
+
+  interface Address {
+    country: string;
+    city: string;
+    streetName: string;
+    postalCode: string;
   }
 
   interface Cart {
     id: string;
-    version: number;
     lineItems: [];
     customLineItems: [];
     totalPrice: {
