@@ -3,8 +3,11 @@ import { Button } from '../../components/button/button.tsx';
 import { ButtonVariants } from '../../components/button/enums.ts';
 import logo from '../../../assets/images/logo.png';
 import { Input } from '../../components/input/input.tsx';
+import { CountrySelect } from '../../components/country-select/country-select.tsx';
+import { getCountryOptions } from '../../components/country-select/countries.ts';
 
 export const registerPage = () => {
+  const countryOptions = getCountryOptions();
   return (
     <>
       <div className={styles.container}>
@@ -12,7 +15,7 @@ export const registerPage = () => {
           <img src={logo} alt="logo" className={styles.logo} />
           <h2>Sign up</h2>
         </div>
-        <p>
+        <p className={styles.signInHint}>
           Already have an account? <a className={styles.ref}>Sign in</a>
         </p>
         <form action="" className={styles.formContainer}>
@@ -51,11 +54,10 @@ export const registerPage = () => {
             name="birth"
             className={styles.formInput}
           />
-          <Input
-            type="text"
-            label="Country"
-            placeholder="Country"
+          <CountrySelect
             name="country"
+            label="Country"
+            options={countryOptions}
             className={styles.formInput}
           />
           <Input

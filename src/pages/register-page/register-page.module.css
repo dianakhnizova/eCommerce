@@ -17,6 +17,10 @@
     height: 80px;
 }
 
+.signInHint {
+    text-align: center;
+}
+
 .ref {
     color: var(--clr-accent-5);
     border-bottom: 0.1rem solid var(--clr-accent-5);
