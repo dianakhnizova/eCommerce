@@ -13,10 +13,13 @@
     "coverage": "vitest run --coverage"
   },
   "dependencies": {
-    "axios": "^1.9.0",
     "@testing-library/react": "^16.3.0",
+    "axios": "^1.9.0",
+    "classnames": "^2.5.1",
     "react": "^19.0.0",
-    "react-dom": "^19.0.0"
+    "react-dom": "^19.0.0",
+    "react-router": "^7.5.3",
+    "react-router-dom": "^7.5.3"
   },
   "devDependencies": {
     "@commitlint/config-conventional": "^19.8.0",
