@@ -3,15 +3,13 @@
 	flex-direction: row;
 	justify-content: space-between;
 	width: 1440px;
+  padding: 0 63px;
 }
 
 .bottomHeader {
   display: flex;
-  justify-content: space-between;
-  align-items: center;
   width: 100%;
-  background-color: var(--clr-bg);
-  padding: 0 63px;
+  background-color: var(--clr-bg-1);
 }
 
 .bottomNavigationMenu {
