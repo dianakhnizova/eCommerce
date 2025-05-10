@@ -5,21 +5,21 @@
 }
 
 .inputWrapper {
-    display: flex;
-    position: relative;
-    align-items: center;
+  display: flex;
+  position: relative;
+  align-items: center;
 }
 
 .input {
-    width: 100%;
-    padding-right: 1rem;
+  width: 100%;
+  padding-right: 1rem;
 }
 
 .eyeButton {
-    position: absolute;
-    right: 0.5rem;
-    background: none;
-    border: none;
-    cursor: pointer;
-    color: var(--clr-primary-500);
+  position: absolute;
+  right: 0.5rem;
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: var(--clr-primary-500);
 }

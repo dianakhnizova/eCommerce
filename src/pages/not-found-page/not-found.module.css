@@ -1,0 +1,47 @@
+.errorMessageContainer {
+  display: flex;
+  align-items: flex-start;
+  flex-direction: column;
+  justify-content: center;
+  height: 286px;
+  width: 100%;
+  background: var(--clr-bg-2);
+  gap: 9px;
+}
+
+.errorWrapper {
+  display: flex;
+  justify-content: flex-start;
+  flex-direction: column;
+  align-items: flex-start;
+  width: 1440px;
+}
+
+.errorTitle {
+  font-size: 36px;
+}
+
+.mainContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+  width: 60%;
+}
+
+.imgNotFound {
+  height: 600px;
+}
+
+.oopsImg {
+  position: absolute;
+  top: 80px;
+}
+
+.backButton {
+  width: 165px;
+  height: 44px;
+  font-size: 16px;
+  position: absolute;
+  top: 580px;
+}
