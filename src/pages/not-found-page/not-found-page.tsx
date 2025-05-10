@@ -9,6 +9,7 @@ import styles from './not-found.module.css';
 import { NavLink, useNavigate } from 'react-router-dom';
 import { ButtonVariants } from '../../components/button/enums';
 import { PagePath } from '../../router/enums';
+import classNames from 'classnames';
 
 export const NotFoundPage = () => {
   const navigate = useNavigate();
@@ -22,9 +23,17 @@ export const NotFoundPage = () => {
       <div className={styles.errorMessageContainer}>
         <h2 className={styles.errorTitle}>{messages.errorMessage}</h2>
         <div className={styles.linkContainer}>
-          {navigationLinks.map(link => {
+          {navigationLinks.map((link, index) => {
+            const isLastLink = index === navigationLinks.length - 1;
             return (
-              <NavLink key={link.label} to={link.to} className={styles.link}>
+              <NavLink
+                key={link.label}
+                to={link.to}
+                className={classNames(
+                  styles.link,
+                  isLastLink && styles.activeLink
+                )}
+              >
                 {link.label}
               </NavLink>
             );

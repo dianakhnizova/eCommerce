@@ -12,7 +12,7 @@
 .linkContainer {
   display: flex;
   align-items: center;
-  gap: 13px;
+  gap: 18px;
 }
 
 .errorTitle {
@@ -22,6 +22,17 @@
 .link {
   text-decoration: none;
   color: black;
+  position: relative;
+}
+
+.link:not(:last-child)::after {
+  content: '•'; 
+  position: absolute;
+  right: -12px; 
+  top: 50%;
+  transform: translateY(-50%); 
+  color: var(--clr-secondary-800); 
+  font-size: 14px;
 }
 
 .activeLink {
