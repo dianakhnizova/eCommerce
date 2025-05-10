@@ -7,14 +7,16 @@ import classNames from 'classnames';
 
 export const Root = () => {
   return (
-    <Wrapper>
+    <>
       <Header />
-      <main className={styles.section}>
-        <Outlet />
-      </main>
-      <footer className={classNames(styles.section, styles.footer)}>
-        <Footer />
-      </footer>
-    </Wrapper>
+      <Wrapper>
+        <main className={styles.section}>
+          <Outlet />
+        </main>
+        <footer className={classNames(styles.section, styles.footer)}>
+          <Footer />
+        </footer>
+      </Wrapper>
+    </>
   );
 };
