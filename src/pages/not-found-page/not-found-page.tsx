@@ -1,15 +1,12 @@
 import { Button } from '../../components/button/button';
-import {
-  navigationLinks,
-  PATH_TO_IMG_NOTFOUND,
-  PATH_TO_IMG_OOPS,
-} from './constants';
+import { PATH_TO_IMG_NOTFOUND, PATH_TO_IMG_OOPS } from './constants';
 import { messages } from './messages';
 import styles from './not-found.module.css';
-import { NavLink, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { ButtonVariants } from '../../components/button/enums';
 import { PagePath } from '../../router/enums';
-import classNames from 'classnames';
+import { Wrapper } from '../../components/wrapper/wrapper';
+import { BreadCrumbs } from '../../components/bread-crumbs/bread-crumbs';
 
 export const NotFoundPage = () => {
   const navigate = useNavigate();
@@ -21,24 +18,10 @@ export const NotFoundPage = () => {
   return (
     <>
       <div className={styles.errorMessageContainer}>
-        <h2 className={styles.errorTitle}>{messages.errorMessage}</h2>
-        <div className={styles.linkContainer}>
-          {navigationLinks.map((link, index) => {
-            const isLastLink = index === navigationLinks.length - 1;
-            return (
-              <NavLink
-                key={link.label}
-                to={link.to}
-                className={classNames(
-                  styles.link,
-                  isLastLink && styles.activeLink
-                )}
-              >
-                {link.label}
-              </NavLink>
-            );
-          })}
-        </div>
+        <Wrapper className={styles.errorWrapper}>
+          <h2 className={styles.errorTitle}>{messages.errorMessage}</h2>
+          <BreadCrumbs />
+        </Wrapper>
       </div>
 
       <div className={styles.mainContainer}>

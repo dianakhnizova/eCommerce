@@ -9,34 +9,16 @@
   gap: 9px;
 }
 
-.linkContainer {
+.errorWrapper {
   display: flex;
-  align-items: center;
-  gap: 18px;
+  justify-content: flex-start;
+  flex-direction: column;
+  align-items: flex-start;
+  width: 1440px;
 }
 
 .errorTitle {
   font-size: 36px;
-}
-
-.link {
-  text-decoration: none;
-  color: black;
-  position: relative;
-}
-
-.link:not(:last-child)::after {
-  content: '•'; 
-  position: absolute;
-  right: -12px; 
-  top: 50%;
-  transform: translateY(-50%); 
-  color: var(--clr-secondary-800); 
-  font-size: 14px;
-}
-
-.activeLink {
-  color: var(--clr-accent-1);
 }
 
 .mainContainer {
