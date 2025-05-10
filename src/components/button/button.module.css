@@ -6,12 +6,6 @@
   border-radius: 2px;
   transition: 0.2s;
   font-family: var(--ff-base);
-  padding: 8px 20px;
-  background-color: var(--clr-accent-1);
-  color: var(--clr-bg);
-  cursor: pointer;
-  border-radius: 2px;
-  transition: 0.2s;
 
   &.primary {
     background-color: var(--clr-accent-1);
