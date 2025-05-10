@@ -5,13 +5,11 @@ import { Wrapper } from '../../wrapper/wrapper';
 
 export const BottomHeader = () => {
   return (
-    <div className={styles.bottomHeader}>
-      <Wrapper className={styles.bottomWrapper}>
-        <div className={styles.navigationContainer}>
-          <LeftNavMenu />
-          <RightNavMenu />
-        </div>
-      </Wrapper>
-    </div>
+    <Wrapper className={styles.bottomWrapper}>
+      <div className={styles.bottomHeader}>
+        <LeftNavMenu />
+        <RightNavMenu />
+      </div>
+    </Wrapper>
   );
 };

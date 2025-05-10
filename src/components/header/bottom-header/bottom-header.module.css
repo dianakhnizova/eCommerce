@@ -1,19 +1,17 @@
 .bottomWrapper {
+  display: flex;
+	flex-direction: row;
+	justify-content: space-between;
 	width: 1440px;
-  padding: 0 63px;
 }
 
 .bottomHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
   width: 100%;
   background-color: var(--clr-bg);
   padding: 0 63px;
-}
-
-.navigationContainer {
-	display: flex;
-	justify-content: space-between;
-	align-items: center;
-	padding: 0 63px;
 }
 
 .bottomNavigationMenu {
