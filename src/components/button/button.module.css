@@ -1,10 +1,11 @@
 .button {
   padding: 12px 26px;
   background-color: var(--clr-accent-1);
-  color: var(--clr-bg);
+  color: var(--clr-bg-1);
   cursor: pointer;
   border-radius: 2px;
   transition: 0.2s;
+  font-family: var(--ff-base);
 
   &.primary {
     background-color: var(--clr-accent-1);

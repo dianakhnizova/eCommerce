@@ -1,9 +1,22 @@
-import { navigationLinks } from './constants';
+import { Button } from '../../components/button/button';
+import {
+  navigationLinks,
+  PATH_TO_IMG_NOTFOUND,
+  PATH_TO_IMG_OOPS,
+} from './constants';
 import { messages } from './messages';
 import styles from './not-found.module.css';
-import { NavLink } from 'react-router';
+import { NavLink, useNavigate } from 'react-router-dom';
+import { ButtonVariants } from '../../components/button/enums';
+import { PagePath } from '../../router/enums';
 
 export const NotFoundPage = () => {
+  const navigate = useNavigate();
+
+  const backToPage = () => {
+    void navigate(PagePath.root);
+  };
+
   return (
     <>
       <div className={styles.errorMessageContainer}>
@@ -17,6 +30,27 @@ export const NotFoundPage = () => {
             );
           })}
         </div>
+      </div>
+
+      <div className={styles.mainContainer}>
+        <img
+          className={styles.imgNotFound}
+          src={PATH_TO_IMG_NOTFOUND}
+          alt={messages.errorMessage}
+        />
+        <img
+          src={PATH_TO_IMG_OOPS}
+          alt={messages.oopsMessage}
+          className={styles.oopsImg}
+        />
+
+        <Button
+          variant={ButtonVariants.primary}
+          className={styles.backButton}
+          onClick={backToPage}
+        >
+          {messages.backButton}
+        </Button>
       </div>
     </>
   );
