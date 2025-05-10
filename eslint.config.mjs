@@ -65,12 +65,15 @@ export default tseslint
           { accessibility: 'explicit', overrides: { constructors: 'off' } },
         ],
         '@typescript-eslint/member-ordering': 'error',
+        '@typescript-eslint/no-unsafe-member-access': 'off',
         'class-methods-use-this': 'error',
         'unicorn/max-func-body-length': 'off',
         'unicorn/no-empty-file': 'off',
         'unicorn/prefer-query-selector': 'off',
         'unicorn/filename-case': 'off',
         'unicorn/prevent-abbreviations': 'off',
+        'unicorn/no-useless-undefined': 'off',
+        'unicorn/no-null': 'off',
       },
     }
   )
