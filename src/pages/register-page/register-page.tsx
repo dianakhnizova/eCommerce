@@ -5,6 +5,7 @@ import logo from '../../../assets/images/logo.png';
 import { Input } from '../../components/input/input.tsx';
 import { CountrySelect } from '../../components/country-select/country-select.tsx';
 import { getCountryOptions } from '../../components/country-select/countries.ts';
+import { messages } from './messages.ts';
 
 export const registerPage = () => {
   const countryOptions = getCountryOptions();
@@ -12,77 +13,39 @@ export const registerPage = () => {
     <>
       <div className={styles.container}>
         <div className={styles.logoContainer}>
-          <img src={logo} alt="logo" className={styles.logo} />
+          <img src={logo} alt={messages.altLogoText} className={styles.logo} />
           <h2>Sign up</h2>
         </div>
         <p className={styles.signInHint}>
-          Already have an account? <a className={styles.ref}>Sign in</a>
+          {messages.alreadyHaveAnAccountText}
+          <a className={styles.ref}>{messages.buttons.signIn}</a>
         </p>
         <form action="" className={styles.formContainer}>
-          <Input
-            type="email"
-            label="Email"
-            placeholder="Email"
-            name="email"
-            className={styles.formInput}
-          />
-          <Input
-            type="password"
-            label="Password"
-            placeholder="Password"
-            name="password"
-            className={styles.formInput}
-          />
-          <Input
-            type="text"
-            label="First Name"
-            placeholder="First Name"
-            name="firstName"
-            className={styles.formInput}
-          />
-          <Input
-            type="text"
-            label="Last Name"
-            placeholder="Last Name"
-            name="lastName"
-            className={styles.formInput}
-          />
-          <Input
-            type="date"
-            label="Birth"
-            placeholder="Birth"
-            name="birth"
-            className={styles.formInput}
-          />
-          <CountrySelect
-            name="country"
-            label="Country"
-            options={countryOptions}
-            className={styles.formInput}
-          />
-          <Input
-            type="text"
-            label="City"
-            placeholder="City"
-            name="city"
-            className={styles.formInput}
-          />
-          <Input
-            type="text"
-            label="Street"
-            placeholder="Street"
-            name="street"
-            className={styles.formInput}
-          />
-          <Input
-            type="text"
-            label="Post code"
-            placeholder="Post code"
-            name="postCode"
-            className={styles.formInput}
-          />
+          {messages.formFields.map(field => {
+            if (field.type === 'country-select') {
+              return (
+                <CountrySelect
+                  key={field.name}
+                  name={field.name}
+                  label={field.label}
+                  options={countryOptions}
+                  className={styles.formInput}
+                />
+              );
+            }
+            return (
+              <Input
+                key={field.name}
+                type={field.type}
+                label={field.label}
+                placeholder={field.placeholder}
+                name={field.name}
+                className={styles.formInput}
+              />
+            );
+          })}
           <Button variant={ButtonVariants.primary} type="submit">
-            Sign up
+            {messages.buttons.signUp}
           </Button>
         </form>
       </div>

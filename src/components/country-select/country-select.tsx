@@ -1,17 +1,7 @@
-import type { SelectHTMLAttributes } from 'react';
 import styles from './country-select.module.css';
 import classNames from 'classnames';
-
-type Option = {
-  value: string;
-  label: string;
-};
-
-type CountrySelectProps = {
-  label?: string;
-  error?: string;
-  options: Option[];
-} & SelectHTMLAttributes<HTMLSelectElement>;
+import type { CountrySelectProps } from './types.ts';
+import { DEFAULT_COUNTRY_OPTION_VALUE } from './constants.ts';
 
 export const CountrySelect = ({
   label,
@@ -29,7 +19,7 @@ export const CountrySelect = ({
         })}
         {...rest}
       >
-        <option value="">Select a country</option>
+        <option value={DEFAULT_COUNTRY_OPTION_VALUE}></option>
         {options.map(option => (
           <option key={option.value} value={option.value}>
             {option.label}

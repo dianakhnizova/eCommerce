@@ -3,6 +3,7 @@ import { useState } from 'react';
 import styles from './input.module.css';
 import classNames from 'classnames';
 import { Eye, EyeOff } from 'lucide-react';
+import { messages } from './messages.ts';
 
 type Props = {
   label?: string;
@@ -30,7 +31,11 @@ export const Input = ({ label, error, className, type, ...rest }: Props) => {
             type="button"
             className={styles.eyeButton}
             onClick={() => setShowPassword(prev => !prev)}
-            aria-label={showPassword ? 'Hide password' : 'Show password'}
+            aria-label={
+              showPassword
+                ? messages.hidePasswordText
+                : messages.showPasswordText
+            }
           >
             {showPassword ? <EyeOff size={16} /> : <Eye size={16} />}
           </button>
