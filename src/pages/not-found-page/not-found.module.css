@@ -1,0 +1,29 @@
+.errorMessageContainer {
+  display: flex;
+  align-items: flex-start;
+  flex-direction: column;
+  justify-content: center;
+  height: 286px;
+  width: 100%;
+  background: var(--clr-bg-2);
+  gap: 9px;
+}
+
+.linkContainer {
+  display: flex;
+  align-items: center;
+  gap: 13px;
+}
+
+.errorTitle {
+  font-size: 36px;
+}
+
+.link {
+  text-decoration: none;
+  color: black;
+}
+
+.activeLink {
+  color: var(--clr-accent-1);
+}
