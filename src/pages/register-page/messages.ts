@@ -1,49 +1,54 @@
-import type { FormField } from './types.ts';
-
-export const messages: {
-  alreadyHaveAnAccountText: string;
-  altLogoText: string;
-  buttons: {
-    signIn: string;
-    signUp: string;
-  };
-  formFields: FormField[];
-} = {
+export const messages = {
   alreadyHaveAnAccountText: 'Already have an account? ',
   altLogoText: 'logo',
   buttons: {
     signIn: 'Sign In',
     signUp: 'Sign Up',
   },
-  formFields: [
-    { type: 'email', label: 'Email', placeholder: 'Email', name: 'email' },
-    {
-      type: 'password',
+  fields: {
+    email: {
+      label: 'Email',
+      placeholder: 'Email',
+      name: 'email',
+    },
+    password: {
       label: 'Password',
       placeholder: 'Password',
       name: 'password',
     },
-    {
-      type: 'text',
+    firstName: {
       label: 'First Name',
       placeholder: 'First Name',
       name: 'firstName',
     },
-    {
-      type: 'text',
+    lastName: {
       label: 'Last Name',
       placeholder: 'Last Name',
       name: 'lastName',
     },
-    { type: 'date', label: 'Birth', placeholder: 'Birth', name: 'birth' },
-    { type: 'country-select', label: 'Country', name: 'country' },
-    { type: 'text', label: 'City', placeholder: 'City', name: 'city' },
-    { type: 'text', label: 'Street', placeholder: 'Street', name: 'street' },
-    {
-      type: 'text',
+    birth: {
+      label: 'Birth',
+      placeholder: 'Birth',
+      name: 'birth',
+    },
+    country: {
+      label: 'Country',
+      name: 'country',
+    },
+    city: {
+      label: 'City',
+      placeholder: 'City',
+      name: 'city',
+    },
+    street: {
+      label: 'Street',
+      placeholder: 'Street',
+      name: 'street',
+    },
+    postCode: {
       label: 'Post code',
       placeholder: 'Post code',
       name: 'postCode',
     },
-  ],
+  },
 };

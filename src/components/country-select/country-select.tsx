@@ -19,7 +19,7 @@ export const CountrySelect = ({
         })}
         {...rest}
       >
-        <option value={DEFAULT_COUNTRY_OPTION_VALUE}></option>
+        <option value={DEFAULT_COUNTRY_OPTION_VALUE} />
         {options.map(option => (
           <option key={option.value} value={option.value}>
             {option.label}

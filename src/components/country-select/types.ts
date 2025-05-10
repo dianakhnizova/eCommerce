@@ -10,3 +10,15 @@ export type CountrySelectProps = {
   error?: string;
   options: Option[];
 } & SelectHTMLAttributes<HTMLSelectElement>;
+
+export enum CountriesSelectType {
+  'official' = 'official',
+  'all' = 'all',
+  'alias' = 'alias',
+}
+
+export type Messages = {
+  countriesLang: 'en';
+  countriesSelect: CountriesSelectType;
+  selectCountry: string;
+};
