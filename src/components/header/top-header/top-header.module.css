@@ -1,8 +1,6 @@
 .topWrapper {
-	flex-direction: row !important;
-	justify-content: space-between !important;
 	width: 1440px;
-  padding: 0 63px;
+	padding: 0 63px;
 }
 
 .topHeader {
@@ -13,5 +11,11 @@
 	width: 100%;
 	height: 50px;
 	background-color: var(--clr-accent-2);
+}
+
+.navigationContainer {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
 	padding: 0 63px;
 }

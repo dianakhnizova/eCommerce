@@ -6,4 +6,5 @@ export const messages = {
   blogLink: 'Blog',
   shopLink: 'Shop',
   contactsLink: 'Contacts',
+  placeholderSearch: 'Search',
 };

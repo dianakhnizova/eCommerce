@@ -7,8 +7,10 @@ export const TopHeader = () => {
   return (
     <div className={styles.topHeader}>
       <Wrapper className={styles.topWrapper}>
-        <LeftNavMenu />
-        <RightNavMenu />
+        <div className={styles.navigationContainer}>
+          <LeftNavMenu />
+          <RightNavMenu />
+        </div>
       </Wrapper>
     </div>
   );
