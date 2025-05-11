@@ -22,5 +22,6 @@
 }
 
 .searchButton {
-  height: 35px;
+  align-items: center;
+  padding: 8px 14px;
 }

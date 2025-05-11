@@ -18,7 +18,7 @@ export const RightNavMenu = () => {
         onClick={() => console.log('Search')}
         className={styles.searchButton}
       >
-        <SvgBuilder iconType={IconType.Search} className={svgStyles.medium} />
+        <SvgBuilder iconType={IconType.Search} className={svgStyles.small} />
       </Button>
     </div>
   );

@@ -3,7 +3,7 @@
   align-items: flex-start;
   flex-direction: column;
   justify-content: center;
-  height: 286px;
+  height: 130px;
   width: 100%;
   background: var(--clr-bg-2);
   gap: 9px;
@@ -30,18 +30,17 @@
 }
 
 .imgNotFound {
-  height: 600px;
+  height: 409px;
 }
 
-.oopsImg {
-  position: absolute;
-  top: 80px;
+.textImage {
+  font-weight: 700;
+  font-size: 24px;
 }
 
 .backButton {
-  width: 165px;
-  height: 44px;
   font-size: 16px;
-  position: absolute;
-  top: 580px;
+  font-weight: 400px;
+  margin: 40px 0;
+  padding: 15px 30px;
 }

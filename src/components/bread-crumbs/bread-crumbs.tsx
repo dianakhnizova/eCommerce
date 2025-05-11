@@ -1,9 +1,13 @@
 import styles from './bread-crumbs.module.css';
-import { navigationLinks } from './constants';
 import { NavLink } from 'react-router';
 import classNames from 'classnames';
+import type { LinkItems } from '../../sources/types/types';
 
-export const BreadCrumbs = () => {
+type Props = {
+  navigationLinks: LinkItems[];
+};
+
+export const BreadCrumbs = ({ navigationLinks }: Props) => {
   return (
     <div className={styles.linkContainer}>
       {navigationLinks.map((link, index) => {

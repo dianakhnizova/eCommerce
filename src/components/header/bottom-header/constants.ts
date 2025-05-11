@@ -1,4 +1,4 @@
-import type { LinkItems } from '../top-header/types';
+import type { LinkItems } from '../../../sources/types/types';
 import { PagePath } from '../../../router/enums';
 import { messages } from './messages';
 

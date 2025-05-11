@@ -11,7 +11,7 @@ export const LeftNavMenu = () => {
     <nav className={styles.navigationMenu}>
       <NavLink to={PagePath.root}>
         {messages.defaultLink}
-        <SvgBuilder iconType={IconType.Logo} className={svgStyles.logo} />
+        <SvgBuilder iconType={IconType.LogoHeader} className={svgStyles.logo} />
       </NavLink>
     </nav>
   );

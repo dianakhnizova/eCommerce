@@ -37,3 +37,8 @@
 .formInput::placeholder {
   color: var(--clr-primary-500);
 }
+
+.signUpButton {
+  width: 76px;
+  height: 30px;
+}
