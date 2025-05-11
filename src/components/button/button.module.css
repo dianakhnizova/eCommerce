@@ -6,6 +6,7 @@
   transition: 0.2s;
   font-family: var(--ff-base);
   border-radius: 3px;
+  padding: 15px 36px;
 
   &.primary {
     background-color: var(--clr-accent-1);

@@ -23,5 +23,6 @@
 
 .searchButton {
   align-items: center;
-  padding: 8px 14px;
+  height: 32px;
+  padding: 0;
 }
