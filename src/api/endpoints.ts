@@ -1,4 +1,8 @@
 export enum Endpoints {
-  TOKEN = 'oauth/token',
+  TOKEN = 'token',
+  TOKEN_ANONYMOUS = 'anonymous/token',
   PRODUCTS = 'products',
+  CUSTOMERS = 'customers',
+  SIGN_UP = 'me/signup',
+  LOGIN = 'me/login',
 }

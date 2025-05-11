@@ -3,6 +3,7 @@
   flex-direction: row;
   justify-content: space-between;
   width: 1440px;
+  padding: 0 10px;
 }
 
 .bottomHeader {
