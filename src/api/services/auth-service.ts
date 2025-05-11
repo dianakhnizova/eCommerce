@@ -11,6 +11,8 @@ import { api } from '../axios';
 import { Endpoints } from '../endpoints';
 import { saveNewToken } from '../../utils/save-token';
 
+type CustomerResponse = { customer: Customer.Profile; cart: Customer.Cart };
+
 export const authService = {
   getAccessToken: async (): Promise<Auth.Token> => {
     const parameters = new URLSearchParams({
@@ -35,13 +37,20 @@ export const authService = {
 
   signupNewCustomer: async (
     customer: Customer.Profile
-  ): Promise<{ customer: Customer.Profile; cart: Customer.Cart }> => {
+  ): Promise<CustomerResponse> => {
     const signupURL = `${API_URL}/${Endpoints.SIGN_UP}`;
 
-    const response = await api.post<{
-      customer: Customer.Profile;
-      cart: Customer.Cart;
-    }>(signupURL, customer);
+    const response = await api.post<CustomerResponse>(signupURL, customer);
+
+    return response.data;
+  },
+
+  loginCustomer: async (
+    customer: Customer.Profile
+  ): Promise<CustomerResponse> => {
+    const loginURL = `${API_URL}/${Endpoints.LOGIN}`;
+
+    const response = await api.post<CustomerResponse>(loginURL, customer);
 
     return response.data;
   },

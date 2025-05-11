@@ -4,4 +4,5 @@ export enum Endpoints {
   PRODUCTS = 'products',
   CUSTOMERS = 'customers',
   SIGN_UP = 'me/signup',
+  LOGIN = 'me/login',
 }

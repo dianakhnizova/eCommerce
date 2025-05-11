@@ -29,7 +29,44 @@ export const TestSignUp: React.FC = () => {
   }, []);
 
   useEffect(() => {
-    const signupFakeCustomer = async () => {
+    // const signupFakeCustomer = async () => {
+    //   try {
+    //     if (!token) {
+    //       setAuthError('Токен не получен');
+    //       return;
+    //     }
+
+    //     const customer: Customer.Profile = {
+    //       email: 'test3@example.com',
+    //       password: 'secret123',
+    //       firstName: 'Sobaka',
+    //       lastName: 'Babaka',
+    //       dateOfBirth: '1990-01-01',
+    //       addresses: [
+    //         {
+    //           city: 'Moscow',
+    //           country: 'RU',
+    //           streetName: 'Lenina',
+    //           postalCode: '123456',
+    //         },
+    //       ],
+    //     };
+
+    //     const response = await authService.signupNewCustomer(customer);
+    //     console.log('Customer created:', response.customer);
+    //     setNewCustomer(
+    //       `${response.customer.firstName} ${response.customer.lastName} (${response.customer.email}) с ID ${response.customer.id})`
+    //     );
+    //   } catch (error) {
+    //     if (error instanceof Error) {
+    //       setAuthError(error.message);
+    //     } else {
+    //       setAuthError('Неизвестная ошибка');
+    //     }
+    //   }
+    // };
+
+    const loginMockUser = async () => {
       try {
         if (!token) {
           setAuthError('Токен не получен');
@@ -39,21 +76,10 @@ export const TestSignUp: React.FC = () => {
         const customer: Customer.Profile = {
           email: 'test3@example.com',
           password: 'secret123',
-          firstName: 'Sobaka',
-          lastName: 'Babaka',
-          dateOfBirth: '1990-01-01',
-          addresses: [
-            {
-              city: 'Moscow',
-              country: 'RU',
-              streetName: 'Lenina',
-              postalCode: '123456',
-            },
-          ],
         };
 
-        const response = await authService.signupNewCustomer(customer);
-        console.log('Customer created:', response.customer);
+        const response = await authService.loginCustomer(customer);
+        console.log('Customer logined:', response.customer);
         setNewCustomer(
           `${response.customer.firstName} ${response.customer.lastName} (${response.customer.email}) с ID ${response.customer.id})`
         );
@@ -65,8 +91,9 @@ export const TestSignUp: React.FC = () => {
         }
       }
     };
+
     if (token) {
-      void signupFakeCustomer();
+      void loginMockUser();
     }
   }, [token]);
   return (
