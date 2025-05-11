@@ -1,6 +1,7 @@
 export enum IconType {
   Login = 'login',
   Registration = 'registration',
-  Logo = 'logo',
+  LogoHeader = 'logoHeader',
+  LogoMain = 'logoMain',
   Search = 'search',
 }
