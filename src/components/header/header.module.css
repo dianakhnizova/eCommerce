@@ -1,0 +1,31 @@
+.header {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+
+.navigationMenu {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.link {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 4px;
+  color: var(--clr-bg-1);
+  padding: 14px 0;
+  text-decoration: none;
+
+  &.bottomLink {
+    color: var(--clr-black);
+  }
+
+  &.link:hover {
+    text-decoration: underline;
+  }
+}
