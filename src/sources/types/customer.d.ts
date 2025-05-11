@@ -1,0 +1,30 @@
+export namespace Customer {
+  type Profile = {
+    id?: string;
+    addresses?: Address[];
+    email: string;
+    firstName?: string;
+    lastName?: string;
+    password?: string;
+    dateOfBirth?: string;
+  };
+
+  type Address = {
+    country: string;
+    city: string;
+    streetName: string;
+    postalCode: string;
+  };
+
+  type Cart = {
+    id: string;
+    lineItems: [];
+    customLineItems: [];
+    totalPrice: {
+      centAmount: number;
+      currencyCode: string;
+      type: string;
+      fractionDigits: number;
+    };
+  };
+}
