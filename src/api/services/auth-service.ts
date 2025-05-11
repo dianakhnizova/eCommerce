@@ -11,7 +11,7 @@ import { api } from '../axios';
 import { Endpoints } from '../endpoints';
 import { saveNewToken } from '../../utils/save-token';
 
-type CustomerResponse = { customer: Customer.Profile; cart: Customer.Cart };
+type CustomerResponse = { customer: Customer.Profile };
 
 export const authService = {
   getAccessToken: async (): Promise<Auth.Token> => {
@@ -32,6 +32,22 @@ export const authService = {
 
     saveNewToken(response.data);
 
+    return response.data;
+  },
+
+  refreshToken: async (refreshToken: string): Promise<Auth.Token> => {
+    const parameters = new URLSearchParams({
+      grant_type: 'refresh_token',
+      refresh_token: refreshToken,
+    });
+
+    const response = await api.post<Auth.Token>(
+      `${AUTH_URL}/${Endpoints.TOKEN}`,
+      parameters,
+      { headers: { 'Content-Type': 'application/x-www-form-urlencoded' } }
+    );
+
+    saveNewToken(response.data);
     return response.data;
   },
 
