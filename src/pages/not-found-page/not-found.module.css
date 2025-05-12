@@ -29,7 +29,7 @@
   position: relative;
   width: 100%;
   gap: 30px;
-  margin: 49px 0 0 0;
+  margin: 49px 0 0;
 }
 
 .imgNotFound {
@@ -43,6 +43,6 @@
 
 .backButton {
   font-size: 16px;
-  font-weight: 400px;
-  padding: 15px 30px;
+  font-weight: 400;
+  padding: 15px 30px
 }

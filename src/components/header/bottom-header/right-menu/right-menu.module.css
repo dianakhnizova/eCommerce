@@ -1,19 +1,19 @@
 .bottomNavigationMenu {
-	display: flex;
-	position: relative;
-	padding: 14px 0;
+  display: flex;
+  position: relative;
+  padding: 14px 0;
 
-	.searchButton {
-		position: absolute;
-		right: 0.8px;
-		align-items: center;
-		padding: 8px 14px;
-		border-radius: 0;
-	}
+  .searchButton {
+    position: absolute;
+    right: 0.8px;
+    align-items: center;
+    padding: 8px 14px;
+    border-radius: 0;
+  }
 
 }
 
 .input {
-	border: 2px solid var(--clr-primary-300);
-	padding: 8px 20px;
+  border: 2px solid var(--clr-primary-300);
+  padding: 8px 20px;
 }

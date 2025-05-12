@@ -1,12 +1,12 @@
 .bottomWrapper {
-	display: flex;
-	flex-direction: row;
-	justify-content: space-between;
-	width: 1440px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 1440px;
 }
 
 .bottomHeader {
-	display: flex;
-	width: 100%;
-	background-color: var(--clr-bg-1);
+  display: flex;
+  width: 100%;
+  background-color: var(--clr-bg-1);
 }

@@ -40,11 +40,9 @@ a:active {
   --clr-disabled-100: #cacaca;
   --clr-disabled-300: #a0a0a0;
   --clr-disabled-600: #5f5f5f;
-
-  --clr-bg-1: #ffffff;
+  --clr-bg-1: #fff;
   --clr-bg-2: #f6f5ff;
-
-  --clr-line: #000000;
+  --clr-line: #000;
 }
 
 html,
