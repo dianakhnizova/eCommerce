@@ -51,7 +51,14 @@ html,
 body {
   font-family: var(--ff-base);
   color: var(--clr-secondary-800);
-  background-color: var(--clr-bg);
+  background-color: var(--clr-bg-1);
+  min-height: 100vh;
+}
+
+.root {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
 }
 
 .heading {
