@@ -10,20 +10,3 @@
 	width: 100%;
 	background-color: var(--clr-bg-1);
 }
-
-.bottomNavigationMenu {
-	display: flex;
-	padding: 14px 0;
-
-	.searchButton {
-		align-items: center;
-		height: 34px;
-		padding: 8px 14px;
-	}
-
-}
-
-.input {
-	border: 2px solid var(--clr-primary-300);
-	padding: 8px 20px;
-}
