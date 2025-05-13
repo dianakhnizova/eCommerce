@@ -1,6 +1,5 @@
 import { Button } from '../../../components/button/button';
 import { SvgBuilder } from '../../../components/svg-builder/svg-builder';
-import { TEXT_ABOUT_US, TEXT_TITLE } from './constants';
 import { useNavigate } from 'react-router-dom';
 import { PagePath } from '../../../router/enums';
 import { IconType } from '../../../components/svg-builder/enums';
@@ -25,8 +24,8 @@ export const AboutTitle = () => {
           />
         </div>
         <div className={styles.aboutTitleContainer}>
-          <p className={styles.paragraph}>{TEXT_TITLE}</p>
-          <span>{TEXT_ABOUT_US}</span>
+          <p className={styles.paragraph}>{messages.textTitle}</p>
+          <span>{messages.textAboutUs}</span>
           <Button className={styles.contactButton} onClick={navigateToContacts}>
             {messages.contactButton}
           </Button>

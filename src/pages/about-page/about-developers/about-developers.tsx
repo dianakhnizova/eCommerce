@@ -1,11 +1,11 @@
 import styles from './about-dev.module.css';
-import { developers, TITLE_DEVELOPERS } from './constants';
+import { developers } from './constants';
 import { messages } from './messages';
 
 export const AboutDevelopers = () => {
   return (
     <div className={styles.aboutDevelopersContainer}>
-      <p className={styles.paragraph}>{TITLE_DEVELOPERS}</p>
+      <p className={styles.paragraph}>{messages.titleDevelopers}</p>
       <div className={styles.developersContainer}>
         {developers.map(developer => {
           return (

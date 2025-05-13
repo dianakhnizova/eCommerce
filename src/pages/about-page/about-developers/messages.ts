@@ -15,4 +15,5 @@ export const messages = {
   developerGitHub2: 'https://github.com/Starkoans',
   developerGitHub3: 'https://github.com/Ulistonee',
   imgDeveloper: 'developer photo',
+  titleDevelopers: 'Our Developers',
 };

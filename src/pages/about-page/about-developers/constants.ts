@@ -4,8 +4,6 @@ import Diana from '../../../../assets/developers-photos/diana.jpg';
 import Nastya from '../../../../assets/developers-photos/nastya.jpg';
 import Aizhan from '../../../../assets/developers-photos/aizhan.jpg';
 
-const TITLE_DEVELOPERS = 'Our Developers';
-
 const developers: DevelopersType[] = [
   {
     photo: Diana,
@@ -30,4 +28,4 @@ const developers: DevelopersType[] = [
   },
 ];
 
-export { TITLE_DEVELOPERS, developers };
+export { developers };
