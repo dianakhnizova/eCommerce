@@ -5,14 +5,27 @@ import { Input } from '../../components/input/input.tsx';
 import { CountrySelect } from '../../components/country-select/country-select.tsx';
 import { getCountryOptions } from '../../components/country-select/countries.ts';
 import { messages } from './messages.ts';
-import { FIELDS } from './constants.ts';
+import { FIELDS, validationRules } from './constants.ts';
 import { Link } from 'react-router-dom';
 import { PagePath } from '../../router/enums.ts';
 import { SvgBuilder } from '../../components/svg-builder/svg-builder.tsx';
 import { IconType } from '../../components/svg-builder/enums.ts';
+import { useForm } from 'react-hook-form';
+import type { FormValues } from './types.ts';
 
 export const RegisterPage = () => {
   const countryOptions = getCountryOptions();
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<FormValues>();
+
+  const onSubmit = (data: FormValues) => {
+    console.log('Form data:', data);
+  };
+
   return (
     <div className={styles.container}>
       <div className={styles.logoContainer}>
@@ -23,16 +36,24 @@ export const RegisterPage = () => {
         {messages.alreadyHaveAnAccountText}
         <Link to={PagePath.loginPage}>{messages.buttons.signIn}</Link>
       </p>
-      <form action="" className={styles.formContainer}>
+      <form
+        action=""
+        className={styles.formContainer}
+        onSubmit={handleSubmit(onSubmit)}
+      >
         {FIELDS.map(field => {
+          const error = errors[field.name]?.message;
+          const rules = validationRules[field.name];
+
           if (field.type === 'country-select') {
             return (
               <CountrySelect
                 key={field.name}
-                name={field.name}
                 label={field.label}
                 options={countryOptions}
                 className={styles.formInput}
+                {...register(field.name, rules)}
+                error={typeof error === 'string' ? error : undefined}
               />
             );
           }
@@ -42,8 +63,9 @@ export const RegisterPage = () => {
               type={field.type}
               label={field.label}
               placeholder={field.placeholder}
-              name={field.name}
               className={styles.formInput}
+              {...register(field.name, rules)}
+              error={typeof error === 'string' ? error : undefined}
             />
           );
         })}

@@ -6,6 +6,7 @@
     "dev": "vite",
     "build": "tsc -b && vite build",
     "lint": "eslint .",
+    "fix": "eslint --fix .",
     "format": "prettier --write .",
     "preview": "vite preview",
     "prepare": "husky",
@@ -21,6 +22,7 @@
     "lucide-react": "^0.509.0",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
+    "react-hook-form": "^7.56.3",
     "react-router": "^7.5.3",
     "react-router-dom": "^7.6.0"
   },

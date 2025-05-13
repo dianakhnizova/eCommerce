@@ -67,7 +67,6 @@ export default tseslint
           { accessibility: 'explicit', overrides: { constructors: 'off' } },
         ],
         '@typescript-eslint/member-ordering': 'error',
-        '@typescript-eslint/no-unsafe-member-access': 'off',
         'class-methods-use-this': 'error',
         'unicorn/max-func-body-length': 'off',
         'unicorn/no-empty-file': 'off',
@@ -76,6 +75,7 @@ export default tseslint
         'unicorn/prevent-abbreviations': 'off',
         'unicorn/no-useless-undefined': 'off',
         'unicorn/no-null': 'off',
+        '@typescript-eslint/no-misused-promises': 'off',
       },
     }
   )
