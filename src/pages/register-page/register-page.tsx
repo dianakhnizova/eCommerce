@@ -6,15 +6,18 @@ import { CountrySelect } from '../../components/country-select/country-select.ts
 import { getCountryOptions } from '../../components/country-select/countries.ts';
 import { messages } from './messages.ts';
 import { FIELDS, validationRules } from './constants.ts';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { PagePath } from '../../router/enums.ts';
 import { SvgBuilder } from '../../components/svg-builder/svg-builder.tsx';
 import { IconType } from '../../components/svg-builder/enums.ts';
 import { useForm } from 'react-hook-form';
 import type { FormValues } from './types.ts';
+import { useState } from 'react';
 
 export const RegisterPage = () => {
+  const [loading, setLoading] = useState<boolean>(false);
   const countryOptions = getCountryOptions();
+  const router = useNavigate();
 
   const {
     register,
@@ -23,7 +26,12 @@ export const RegisterPage = () => {
   } = useForm<FormValues>();
 
   const onSubmit = (data: FormValues) => {
+    setLoading(true);
     console.log('Form data:', data);
+    setTimeout(() => {
+      setLoading(false);
+      void router(PagePath.root);
+    }, 500);
   };
 
   return (
@@ -70,6 +78,7 @@ export const RegisterPage = () => {
           );
         })}
         <Button
+          disabled={loading}
           variant={ButtonVariants.primary}
           className={styles.signUpButton}
           type="submit"
