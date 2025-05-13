@@ -41,13 +41,7 @@
   padding: 0 10px;
 }
 
-.backButton {
-  font-size: 16px;
-  font-weight: 400;
-  padding: 15px 30px;
-}
-
-@media (width <=800px) {
+@media (width <= 800px) {
   .mainContainer {
     margin: 20px;
   }
@@ -59,10 +53,4 @@
   .textImage {
     font-size: 16px;
   }
-
-  .backButton {
-    font-size: 12px;
-    padding: 8px 15px;
-  }
-
 }

@@ -9,6 +9,7 @@
     "selector-pseudo-class-no-unknown": [
       true,
       { "ignorePseudoClasses": ["global"] }
-    ]
+    ],
+    "no-eol-whitespace": true
   }
 }

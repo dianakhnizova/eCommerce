@@ -3,7 +3,6 @@ import { PATH_TO_IMG_NOTFOUND } from './constants';
 import { messages } from './messages';
 import styles from './not-found.module.css';
 import { useNavigate } from 'react-router-dom';
-import { ButtonVariants } from '../../components/button/enums';
 import { PagePath } from '../../router/enums';
 import { Wrapper } from '../../components/wrapper/wrapper';
 import { BreadCrumbs } from '../../components/bread-crumbs/bread-crumbs';
@@ -32,13 +31,7 @@ export const NotFoundPage = () => {
           alt={messages.errorMessage}
         />
         <p className={styles.textImage}>{messages.textImageOops}</p>
-        <Button
-          variant={ButtonVariants.primary}
-          className={styles.backButton}
-          onClick={backToPage}
-        >
-          {messages.backButton}
-        </Button>
+        <Button onClick={backToPage}>{messages.backButton}</Button>
       </div>
     </>
   );
