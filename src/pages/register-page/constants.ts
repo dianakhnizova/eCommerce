@@ -1,6 +1,10 @@
 import type { FormField, FormValues } from './types.ts';
 import { getCountryOptions } from '../../components/country-select/countries.ts';
 import type { RegisterOptions } from 'react-hook-form';
+import {
+  postcodeValidator,
+  postcodeValidatorExistsForCountry,
+} from 'postcode-validator';
 
 const countryOptions = getCountryOptions();
 
@@ -146,10 +150,15 @@ export const validationRules: Record<
   },
   postCode: {
     required: 'Post code is required',
-    pattern: {
-      value: /^(\d{5}(-\d{4})?|[A-Za-z]\d[A-Za-z][ -]?\d[A-Za-z]\d)$/,
-      message:
-        'Postal code must match the country format (e.g., 12345 or A1B 2C3)',
+    validate: (value: string, formValues: FormValues) => {
+      console.log(formValues);
+      const country = formValues?.country;
+      if (!country || !postcodeValidatorExistsForCountry(country)) {
+        return true;
+      }
+
+      const isValid = postcodeValidator(value, country);
+      return isValid || 'Invalid postal code for the selected country';
     },
   },
 };
