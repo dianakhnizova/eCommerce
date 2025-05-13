@@ -10,9 +10,22 @@
     padding: 8px 14px;
     border-radius: 0;
   }
+
 }
 
 .input {
   border: 2px solid var(--clr-primary-300);
   padding: 8px 20px;
+}
+
+@media (width >=360px) and (width <=800px) {
+  .input {
+    padding: 6px 0;
+  }
+
+  .bottomNavigationMenu {
+    .searchButton {
+      padding: 6px 14px;
+    }
+  }
 }
