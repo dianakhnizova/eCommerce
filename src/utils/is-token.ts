@@ -10,6 +10,8 @@ export function isToken(data: unknown): data is Auth.Token {
     'expires_in' in data &&
     typeof data['expires_in'] === 'number' &&
     'scope' in data &&
-    typeof data['scope'] === 'string'
+    typeof data['scope'] === 'string' &&
+    'refresh_token' in data &&
+    typeof data['refresh_token'] === 'string'
   );
 }

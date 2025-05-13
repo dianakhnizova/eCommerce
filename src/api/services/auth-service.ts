@@ -1,38 +1,50 @@
 import {
-  API_URL,
-  AUTH_URL,
   CLIENT_ID,
   CLIENT_SECRET,
+  PROJECT_KEY,
   SCOPE,
 } from '../../sources/constants/api';
 import type { Auth } from '../../sources/types/auth';
-import type { Customer } from '../../sources/types/customer';
-import { api } from '../axios';
+import { authApi } from '../axios';
 import { Endpoints } from '../endpoints';
-import { saveNewToken } from '../../utils/save-token';
-
-type CustomerResponse = { customer: Customer.Profile };
 
 export const authService = {
-  getAccessToken: async (): Promise<Auth.Token> => {
+  getAnonymousToken: async (): Promise<Auth.Token> => {
     const parameters = new URLSearchParams({
       grant_type: 'client_credentials',
       scope: SCOPE,
     });
-
-    const tokenURL = `${AUTH_URL}/${Endpoints.TOKEN_ANONYMOUS}`;
-
-    const response = await api.post<Auth.Token>(tokenURL, parameters, {
-      auth: {
-        username: CLIENT_ID,
-        password: CLIENT_SECRET,
-      },
-      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-    });
-
-    saveNewToken(response.data);
+    console.log('get new token');
+    const response = await authApi.post<Auth.Token>(
+      `${PROJECT_KEY}/${Endpoints.TOKEN_ANONYMOUS}`,
+      parameters,
+      {
+        auth: {
+          username: CLIENT_ID,
+          password: CLIENT_SECRET,
+        },
+      }
+    );
 
     return response.data;
+  },
+
+  isActive: async (token: string): Promise<boolean> => {
+    const parameters = new URLSearchParams({
+      token: token,
+    });
+    console.log('introspect token');
+    const response = await authApi.post<{ active: boolean }>(
+      `/${Endpoints.INTROSPECT}`,
+      parameters,
+      {
+        auth: {
+          username: CLIENT_ID,
+          password: CLIENT_SECRET,
+        },
+      }
+    );
+    return response.data.active;
   },
 
   refreshToken: async (refreshToken: string): Promise<Auth.Token> => {
@@ -40,33 +52,17 @@ export const authService = {
       grant_type: 'refresh_token',
       refresh_token: refreshToken,
     });
-
-    const response = await api.post<Auth.Token>(
-      `${AUTH_URL}/${Endpoints.TOKEN}`,
+    console.log('refreshing token');
+    const response = await authApi.post<Auth.Token>(
+      `/${Endpoints.TOKEN}`,
       parameters,
-      { headers: { 'Content-Type': 'application/x-www-form-urlencoded' } }
+      {
+        auth: {
+          username: CLIENT_ID,
+          password: CLIENT_SECRET,
+        },
+      }
     );
-
-    saveNewToken(response.data);
-    return response.data;
-  },
-
-  signupNewCustomer: async (
-    customer: Customer.Profile
-  ): Promise<CustomerResponse> => {
-    const signupURL = `${API_URL}/${Endpoints.SIGN_UP}`;
-
-    const response = await api.post<CustomerResponse>(signupURL, customer);
-
-    return response.data;
-  },
-
-  loginCustomer: async (
-    customer: Customer.Profile
-  ): Promise<CustomerResponse> => {
-    const loginURL = `${API_URL}/${Endpoints.LOGIN}`;
-
-    const response = await api.post<CustomerResponse>(loginURL, customer);
 
     return response.data;
   },
