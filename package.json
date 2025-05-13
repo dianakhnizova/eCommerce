@@ -8,9 +8,11 @@
     "lint": "eslint .",
     "format": "prettier --write .",
     "preview": "vite preview",
-    "prepare": "husky",
+    "prepare": "husky install",
     "test": "vitest --config vitest.config.ts",
-    "coverage": "vitest run --coverage"
+    "coverage": "vitest run --coverage",
+    "lint:css": "stylelint \"src/**/*.{css,module.css}\"",
+    "lint:css:fix": "stylelint \"src/**/*.{css,module.css}\" --fix"
   },
   "dependencies": {
     "@testing-library/react": "^16.3.0",
@@ -48,6 +50,8 @@
     "jsdom": "^26.1.0",
     "lint-staged": "^15.5.1",
     "prettier": "^3.5.3",
+    "stylelint": "^15.11.0",
+    "stylelint-config-standard": "^34.0.0",
     "typescript": "~5.7.2",
     "typescript-eslint": "^8.31.1",
     "vite": "^6.3.1",
@@ -62,6 +66,12 @@
     "*.tsx": [
       "eslint --fix",
       "prettier --write"
+    ],
+    "*.css": [
+      "stylelint --fix"
+    ],
+    "*.module.css": [
+      "stylelint --fix"
     ]
   }
 }

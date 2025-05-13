@@ -1,4 +1,4 @@
-import styles from '../bottom-header.module.css';
+import styles from './right-menu.module.css';
 import svgStyles from '../../../svg-builder/svg.module.css';
 import { SvgBuilder } from '../../../svg-builder/svg-builder';
 import { IconType } from '../../../svg-builder/enums';
