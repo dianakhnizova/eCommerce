@@ -13,7 +13,7 @@ export const LeftNavMenu = observer(() => {
     <nav className={styles.navigationMenu}>
       <NavLink to={PagePath.root}>
         {messages.defaultLink}
-        <SvgBuilder iconType={IconType.Logo} className={svgStyles.logo} />
+        <SvgBuilder iconType={IconType.LogoHeader} className={svgStyles.logo} />
       </NavLink>
       {userStore.isAuth && (
         <NavLink to={PagePath.profile} className={styles.link}>

@@ -1,3 +1,9 @@
+import styles from './footer.module.css';
+
 export const Footer = () => {
-  return <p>Footer</p>;
+  return (
+    <footer className={styles.footer}>
+      <p>©Lazer Sharks</p>
+    </footer>
+  );
 };

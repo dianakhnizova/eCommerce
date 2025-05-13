@@ -1,4 +1,4 @@
-import type { IconType } from '../../svg-builder/enums';
+import type { IconType } from '../../components/svg-builder/enums';
 
 export type LinkItems = {
   to: string;

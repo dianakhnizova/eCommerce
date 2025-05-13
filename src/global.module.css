@@ -24,15 +24,12 @@ a:active {
 
 :root {
   --ff-base: 'Josefin Sans', sans-serif;
-
   --clr-primary-100: #f2f0ff;
   --clr-primary-300: #e0d3f5;
   --clr-primary-500: #9f63b5;
-
   --clr-secondary-300: #8990b1;
   --clr-secondary-500: #3f509e;
   --clr-secondary-800: #151875;
-
   --clr-accent-1: #fb2e86;
   --clr-accent-2: #7e33e0;
   --clr-accent-3: #2f1ac4;
@@ -40,22 +37,20 @@ a:active {
   --clr-accent-5: #1db4e7;
   --clr-accent-6: #ffcd38;
   --clr-accent-7: #08d15f;
-
   --clr-disabled-100: #cacaca;
   --clr-disabled-300: #a0a0a0;
   --clr-disabled-600: #5f5f5f;
-
-  --clr-bg-1: #ffffff;
+  --clr-bg-1: #fff;
   --clr-bg-2: #f6f5ff;
-
-  --clr-line: #000000;
+  --clr-line: #000;
 }
 
 html,
 body {
   font-family: var(--ff-base);
   color: var(--clr-secondary-800);
-  background-color: var(--clr-bg);
+  background-color: var(--clr-bg-1);
+  min-height: 100vh;
 }
 
 .heading {

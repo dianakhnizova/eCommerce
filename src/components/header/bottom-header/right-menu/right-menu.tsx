@@ -1,4 +1,4 @@
-import styles from '../bottom-header.module.css';
+import styles from './right-menu.module.css';
 import svgStyles from '../../../svg-builder/svg.module.css';
 import { SvgBuilder } from '../../../svg-builder/svg-builder';
 import { IconType } from '../../../svg-builder/enums';
@@ -18,7 +18,7 @@ export const RightNavMenu = () => {
         onClick={() => console.log('Search')}
         className={styles.searchButton}
       >
-        <SvgBuilder iconType={IconType.Search} className={svgStyles.medium} />
+        <SvgBuilder iconType={IconType.Search} className={svgStyles.small} />
       </Button>
     </div>
   );

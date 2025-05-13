@@ -1,7 +1,6 @@
 import styles from './register-page.module.css';
 import { Button } from '../../components/button/button.tsx';
 import { ButtonVariants } from '../../components/button/enums.ts';
-import logo from '../../../assets/images/logo.png';
 import { Input } from '../../components/input/input.tsx';
 import { CountrySelect } from '../../components/country-select/country-select.tsx';
 import { getCountryOptions } from '../../components/country-select/countries.ts';
@@ -9,13 +8,15 @@ import { messages } from './messages.ts';
 import { FIELDS } from './constants.ts';
 import { Link } from 'react-router-dom';
 import { PagePath } from '../../router/enums.ts';
+import { SvgBuilder } from '../../components/svg-builder/svg-builder.tsx';
+import { IconType } from '../../components/svg-builder/enums.ts';
 
 export const RegisterPage = () => {
   const countryOptions = getCountryOptions();
   return (
     <div className={styles.container}>
       <div className={styles.logoContainer}>
-        <img src={logo} alt={messages.altLogoText} className={styles.logo} />
+        <SvgBuilder iconType={IconType.LogoMain} className={styles.logo} />
         <h2>{messages.buttons.signUp}</h2>
       </div>
       <p className={styles.signInHint}>
@@ -46,7 +47,11 @@ export const RegisterPage = () => {
             />
           );
         })}
-        <Button variant={ButtonVariants.primary} type="submit">
+        <Button
+          variant={ButtonVariants.primary}
+          className={styles.signUpButton}
+          type="submit"
+        >
           {messages.buttons.signUp}
         </Button>
       </form>
