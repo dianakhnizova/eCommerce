@@ -1,0 +1,32 @@
+.aboutTopContainer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 40px 0;
+  width: 100%;
+  gap: 100px;
+}
+
+.aboutImgContainer {
+  display: flex;
+  width: 20%;
+}
+
+.aboutTitleContainer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  width: 50%;
+  gap: 30px;
+  padding: 10px 0;
+}
+
+.paragraph {
+  font-size: 30px;
+  font-weight: 700;
+}
+
+.contactButton {
+  margin: 20px 0;
+}

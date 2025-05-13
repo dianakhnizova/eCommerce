@@ -3,5 +3,6 @@ export enum IconType {
   Registration = 'registration',
   LogoHeader = 'logoHeader',
   LogoMain = 'logoMain',
+  LogoRss = 'logoRss',
   Search = 'search',
 }
