@@ -1,15 +1,17 @@
 .bottomNavigationMenu {
   display: flex;
   position: relative;
-  padding: 14px 0;
+  align-items: center;
+  padding: 14px 42px;
   margin-left: 20px;
 
   .searchButton {
     position: absolute;
-    right: 0.8px;
+    right: 0.2px;
     align-items: center;
-    padding: 8px 14px;
+    padding: 7.6px 14px;
     border-radius: 0;
+    font-size: 16px;
   }
 }
 

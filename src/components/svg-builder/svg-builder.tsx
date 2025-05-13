@@ -4,6 +4,7 @@ import LoginIcon from '../../../assets/icons/login.svg?react';
 import SignUp from '../../../assets/icons/signup.svg?react';
 import LogoHeaderIcon from '../../../assets/logo/logo.svg?react';
 import LogoMainIcon from '../../../assets/logo/logo-2.svg?react';
+import LogoRss from '../../../assets/logo/logo-rss.svg?react';
 import SearchIcon from '../../../assets/icons/search.svg?react';
 import type { IconType } from './enums';
 import type { IconVariant } from './types';
@@ -18,6 +19,7 @@ const iconVariant: IconVariant = {
   registration: SignUp,
   logoHeader: LogoHeaderIcon,
   logoMain: LogoMainIcon,
+  logoRss: LogoRss,
   search: SearchIcon,
 };
 

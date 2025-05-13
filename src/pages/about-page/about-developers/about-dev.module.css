@@ -1,0 +1,74 @@
+.aboutDevelopersContainer {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  gap: 40px;
+  margin: 60px 0;
+}
+
+.paragraph {
+  font-size: 30px;
+  font-weight: 700;
+}
+
+.developersContainer {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+  width: 90%;
+}
+
+.developerCard {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  width: 30%;
+}
+
+.nameParagraph {
+  font-size: 30px;
+  font-weight: 600;
+}
+
+.roleParagraph {
+  font-size: 22px;
+  font-weight: 400;
+}
+
+.bioParagraph {
+  padding: 20px;
+}
+
+.image {
+  width: 60%;
+  border-radius: 50%;
+  margin: 20px 0;
+}
+
+@media (width <= 1330px) {
+  .developerCard {
+    width: 40%;
+  }
+}
+
+@media (width <= 1053px) {
+  .developerCard {
+    width: 60%;
+  }
+}
+
+@media (width <= 700px) {
+  .developerCard {
+    width: 80%;
+  }
+}
+
+@media (width <= 580px) {
+  .developerCard {
+    width: 80%;
+  }
+}
