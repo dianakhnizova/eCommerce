@@ -68,10 +68,12 @@
       "prettier --write"
     ],
     "*.css": [
-      "stylelint --fix"
+      "stylelint --fix",
+      "prettier --write"
     ],
     "*.module.css": [
-      "stylelint --fix"
+      "stylelint --fix",
+      "prettier --write"
     ]
   }
 }

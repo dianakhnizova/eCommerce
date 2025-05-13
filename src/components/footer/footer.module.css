@@ -5,4 +5,5 @@
   align-items: center;
   justify-content: center;
   background-color: var(--clr-bg-2);
+  margin-top: 40px;
 }
