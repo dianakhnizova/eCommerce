@@ -47,7 +47,7 @@
   padding: 15px 30px;
 }
 
-@media (width >=360px) and (width <=800px) {
+@media (width <=800px) {
   .mainContainer {
     margin: 20px;
   }
