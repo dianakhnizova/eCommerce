@@ -1,5 +1,5 @@
 import { Outlet } from 'react-router';
-import styles from './section.module.css';
+import styles from './main-section.module.css';
 
 export const Section = () => {
   return (
