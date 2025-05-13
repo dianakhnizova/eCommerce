@@ -1,5 +1,6 @@
 .button {
   background-color: var(--clr-accent-1);
+  color: var(--clr-bg-1);
   cursor: pointer;
   transition: 0.2s;
   font-family: var(--ff-base);
