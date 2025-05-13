@@ -6,8 +6,5 @@
   "tabWidth": 2,
   "useTabs": false,
   "bracketSpacing": true,
-  "arrowParens": "avoid",
-  "no-eol-whitespace": true,
-  "number-leading-zero": "always",
-  "indentation": 2
+  "arrowParens": "avoid"
 }
