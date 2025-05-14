@@ -1,72 +1,77 @@
-import type { FormField, FormValues } from './types.ts';
+import type { FormField, RegisterFormValues } from './types.ts';
+import { FieldName } from './types.ts';
 import { getCountryOptions } from '../../components/country-select/countries.ts';
 import type { RegisterOptions } from 'react-hook-form';
 import {
   postcodeValidator,
   postcodeValidatorExistsForCountry,
 } from 'postcode-validator';
+import { messages } from './messages.ts';
 
 const countryOptions = getCountryOptions();
 
 export const FIELDS: FormField[] = [
   {
     type: 'email',
-    label: 'Email',
-    placeholder: 'Email',
-    name: 'email',
+    label: messages.email,
+    placeholder: messages.email,
+    name: FieldName.email,
   },
   {
     type: 'password',
-    label: 'Password',
-    placeholder: 'Password',
-    name: 'password',
+    label: messages.password,
+    placeholder: messages.password,
+    name: FieldName.password,
   },
   {
     type: 'text',
-    label: 'First Name',
-    placeholder: 'First Name',
-    name: 'firstName',
+    label: messages.firstName,
+    placeholder: messages.firstName,
+    name: FieldName.firstName,
   },
   {
     type: 'text',
-    label: 'Last Name',
-    placeholder: 'Last Name',
-    name: 'lastName',
+    label: messages.lastName,
+    placeholder: messages.lastName,
+    name: FieldName.lastName,
   },
   {
     type: 'date',
-    label: 'Birth',
-    placeholder: 'Birth',
-    name: 'birth',
+    label: messages.birth,
+    placeholder: messages.birth,
+    name: FieldName.birth,
   },
   {
     type: 'country-select',
-    label: 'Country',
-    name: 'country',
+    label: messages.country,
+    name: FieldName.country,
   },
   {
     type: 'text',
-    label: 'City',
-    placeholder: 'City',
-    name: 'city',
+    label: messages.city,
+    placeholder: messages.city,
+    name: FieldName.city,
   },
   {
     type: 'text',
-    label: 'Street',
-    placeholder: 'Street',
-    name: 'street',
+    label: messages.street,
+    placeholder: messages.street,
+    name: FieldName.street,
   },
   {
     type: 'text',
-    label: 'Post code',
-    placeholder: 'Post code',
-    name: 'postCode',
+    label: messages.postCode,
+    placeholder: messages.postCode,
+    name: FieldName.postCode,
   },
 ];
 
+const MIN_PASSWORD_LENGTH = 8;
+const MIN_AGE = 13;
+
 export const validationRules: Record<
-  keyof FormValues,
-  RegisterOptions<FormValues>
+  FieldName,
+  RegisterOptions<RegisterFormValues>
 > = {
   email: {
     required: 'Email is required',
@@ -78,8 +83,8 @@ export const validationRules: Record<
   password: {
     required: 'Password is required',
     minLength: {
-      value: 8,
-      message: 'Password must be at least 8 characters',
+      value: MIN_PASSWORD_LENGTH,
+      message: `Password must be at least ${MIN_PASSWORD_LENGTH} characters`,
     },
     pattern: {
       value: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)/,
@@ -114,11 +119,13 @@ export const validationRules: Record<
       const birthDate = new Date(value);
       const today = new Date();
       const minBirthDate = new Date(
-        today.getFullYear() - 13,
+        today.getFullYear() - MIN_AGE,
         today.getMonth(),
         today.getDate()
       );
-      return birthDate <= minBirthDate || 'You must be at least 13 years old';
+      return (
+        birthDate <= minBirthDate || `You must be at least ${MIN_AGE} years old`
+      );
     },
   },
   country: {
@@ -150,7 +157,7 @@ export const validationRules: Record<
   },
   postCode: {
     required: 'Post code is required',
-    validate: (value: string, formValues: FormValues) => {
+    validate: (value: string, formValues: RegisterFormValues) => {
       console.log(formValues);
       const country = formValues?.country;
       if (!country || !postcodeValidatorExistsForCountry(country)) {

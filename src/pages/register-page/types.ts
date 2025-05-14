@@ -1,4 +1,4 @@
-export type FormValues = {
+export type RegisterFormValues = {
   email: string;
   password: string;
   firstName: string;
@@ -17,9 +17,21 @@ export type InputFieldType =
   | 'date'
   | 'country-select';
 
-export type FormField<Name extends keyof FormValues = keyof FormValues> = {
+export enum FieldName {
+  email = 'email',
+  password = 'password',
+  firstName = 'firstName',
+  lastName = 'lastName',
+  birth = 'birth',
+  country = 'country',
+  city = 'city',
+  street = 'street',
+  postCode = 'postCode',
+}
+
+export type FormField = {
   type: InputFieldType;
   label: string;
-  name: Name;
+  name: FieldName;
   placeholder?: string;
 };

@@ -11,7 +11,7 @@ import { PagePath } from '../../router/enums.ts';
 import { SvgBuilder } from '../../components/svg-builder/svg-builder.tsx';
 import { IconType } from '../../components/svg-builder/enums.ts';
 import { useForm } from 'react-hook-form';
-import type { FormValues } from './types.ts';
+import type { RegisterFormValues } from './types.ts';
 import { useState } from 'react';
 
 export const RegisterPage = () => {
@@ -23,9 +23,9 @@ export const RegisterPage = () => {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<FormValues>();
+  } = useForm<RegisterFormValues>();
 
-  const onSubmit = (data: FormValues) => {
+  const onSubmit = (data: RegisterFormValues) => {
     setLoading(true);
     console.log('Form data:', data);
     setTimeout(() => {
@@ -44,48 +44,48 @@ export const RegisterPage = () => {
         {messages.alreadyHaveAnAccountText}
         <Link to={PagePath.loginPage}>{messages.buttons.signIn}</Link>
       </p>
-      <form
-        action=""
-        className={styles.formContainer}
-        onSubmit={handleSubmit(onSubmit)}
-      >
-        {FIELDS.map(field => {
-          const error = errors[field.name]?.message;
-          const rules = validationRules[field.name];
+      <fieldset disabled={loading}>
+        <form
+          className={styles.formContainer}
+          onSubmit={handleSubmit(onSubmit)}
+        >
+          {FIELDS.map(field => {
+            const error = errors[field.name]?.message;
+            const rules = validationRules[field.name];
 
-          if (field.type === 'country-select') {
+            if (field.type === 'country-select') {
+              return (
+                <CountrySelect
+                  key={field.name}
+                  label={field.label}
+                  options={countryOptions}
+                  className={styles.formInput}
+                  {...register(field.name, rules)}
+                  error={error}
+                />
+              );
+            }
             return (
-              <CountrySelect
+              <Input
                 key={field.name}
+                type={field.type}
                 label={field.label}
-                options={countryOptions}
+                placeholder={field.placeholder}
                 className={styles.formInput}
                 {...register(field.name, rules)}
-                error={typeof error === 'string' ? error : undefined}
+                error={error}
               />
             );
-          }
-          return (
-            <Input
-              key={field.name}
-              type={field.type}
-              label={field.label}
-              placeholder={field.placeholder}
-              className={styles.formInput}
-              {...register(field.name, rules)}
-              error={typeof error === 'string' ? error : undefined}
-            />
-          );
-        })}
-        <Button
-          disabled={loading}
-          variant={ButtonVariants.primary}
-          className={styles.signUpButton}
-          type="submit"
-        >
-          {messages.buttons.signUp}
-        </Button>
-      </form>
+          })}
+          <Button
+            variant={ButtonVariants.primary}
+            className={styles.signUpButton}
+            type="submit"
+          >
+            {messages.buttons.signUp}
+          </Button>
+        </form>
+      </fieldset>
     </div>
   );
 };
