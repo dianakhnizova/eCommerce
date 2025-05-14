@@ -1,0 +1,30 @@
+.loginLink {
+  display: inline-block;
+  justify-content: center;
+  align-items: center;
+  gap: 4px;
+  color: var(--clr-bg-1);
+  padding: 14px 0;
+  text-decoration: none;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+
+  &.bottomLink {
+    color: var(--clr-black);
+  }
+
+  &.loginLink:hover {
+    text-decoration: underline;
+  }
+}
+
+.userName {
+  padding: 0 10px;
+}
+
+@media (width <= 600px) {
+  .loginLink {
+    max-width: 100px;
+  }
+}

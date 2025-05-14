@@ -9,7 +9,7 @@ export const AboutDevelopers = () => {
       <div className={styles.developersContainer}>
         {developers.map(developer => {
           return (
-            <div className={styles.developerCard}>
+            <div key={developer.name} className={styles.developerCard}>
               <img
                 className={styles.image}
                 src={developer.photo}
