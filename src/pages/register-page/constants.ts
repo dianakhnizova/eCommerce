@@ -68,6 +68,9 @@ export const FIELDS: FormField[] = [
 
 const MIN_PASSWORD_LENGTH = 8;
 const MIN_AGE = 13;
+const MIN_NAME_LENGTH = 1;
+const MIN_CITY_LENGTH = 1;
+const MIN_STREET_LENGTH = 1;
 
 export const validationRules: Record<
   FieldName,
@@ -94,7 +97,7 @@ export const validationRules: Record<
   firstName: {
     required: 'First name is required',
     minLength: {
-      value: 1,
+      value: MIN_NAME_LENGTH,
       message: 'First name must contain at least one character',
     },
     pattern: {
@@ -105,7 +108,7 @@ export const validationRules: Record<
   lastName: {
     required: 'Last name is required',
     minLength: {
-      value: 1,
+      value: MIN_NAME_LENGTH,
       message: 'Last name must contain at least one character',
     },
     pattern: {
@@ -140,7 +143,7 @@ export const validationRules: Record<
   city: {
     required: 'City is required',
     minLength: {
-      value: 1,
+      value: MIN_CITY_LENGTH,
       message: 'City must contain at least one character',
     },
     pattern: {
@@ -151,7 +154,7 @@ export const validationRules: Record<
   street: {
     required: 'Street is required',
     minLength: {
-      value: 1,
+      value: MIN_STREET_LENGTH,
       message: 'Street must contain at least one character',
     },
   },
