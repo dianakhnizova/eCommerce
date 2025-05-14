@@ -5,6 +5,7 @@ import { NotFoundPage } from '../pages/not-found-page/not-found-page';
 import { PagePath } from './enums';
 import { LoginPage } from '../pages/login-page/login-page';
 import { RegisterPage } from '../pages/register-page/register-page';
+import { AboutPage } from '../pages/about-page/about-page';
 
 export const router = createBrowserRouter([
   {
@@ -15,6 +16,7 @@ export const router = createBrowserRouter([
       { path: PagePath.notFound, Component: NotFoundPage },
       { path: PagePath.loginPage, Component: LoginPage },
       { path: PagePath.registerPage, Component: RegisterPage },
+      { path: PagePath.aboutPage, Component: AboutPage },
     ],
   },
   {

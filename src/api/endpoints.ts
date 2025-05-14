@@ -5,4 +5,7 @@ export enum Endpoints {
   CUSTOMERS = 'customers',
   SIGN_UP = 'me/signup',
   LOGIN = 'me/login',
+  OAUTH = '/oauth',
+  CART_ACTIVE = 'me/active-cart',
+  INTROSPECT = 'introspect',
 }
