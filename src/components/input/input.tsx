@@ -33,8 +33,8 @@ export const Input = ({ label, error, className, type, ...rest }: Props) => {
             onClick={() => setShowPassword(prev => !prev)}
             aria-label={
               showPassword
-                ? messages.hidePasswordText
-                : messages.showPasswordText
+                ? messages.showPasswordText
+                : messages.hidePasswordText
             }
           >
             {showPassword ? <EyeOff size={16} /> : <Eye size={16} />}

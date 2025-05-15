@@ -23,6 +23,7 @@ export const RegisterPage = () => {
     register,
     handleSubmit,
     formState: { errors },
+    reset,
   } = useForm<RegisterFormValues>();
 
   const onSubmit = (data: RegisterFormValues) => {
@@ -30,6 +31,7 @@ export const RegisterPage = () => {
     console.log('Form data:', data);
     setTimeout(() => {
       setLoading(false);
+      reset();
       void router(PagePath.root);
     }, 500);
   };
