@@ -28,6 +28,9 @@ export const validationRules: Record<
       value: /^\S+@\S+\.\S+$/,
       message: 'Invalid email address',
     },
+    validate: value =>
+      value.trim() === value ||
+      'Email must not contain leading or trailing whitespace',
   },
   password: {
     required: 'Password is required',
@@ -39,5 +42,8 @@ export const validationRules: Record<
       value: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)/,
       message: 'Password must include uppercase, lowercase, and number',
     },
+    validate: value =>
+      value.trim() === value ||
+      'Password must not contain leading or trailing whitespace',
   },
 };
