@@ -41,7 +41,7 @@ export const Input = ({ label, error, className, type, ...rest }: Props) => {
           </button>
         )}
       </div>
-      {error && <span className={styles.errorText}>{error}</span>}
+      {error && <span className={styles.error}>{error}</span>}
     </div>
   );
 };

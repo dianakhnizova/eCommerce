@@ -37,3 +37,9 @@
 .formInput::placeholder {
   color: var(--clr-primary-500);
 }
+
+@media (width <= 360px) {
+  .container {
+    padding: 1rem;
+  }
+}

@@ -1,57 +1,174 @@
+import type { FormField, RegisterFormValues } from './types.ts';
+import { FieldName } from './types.ts';
+import { getCountryOptions } from '../../components/country-select/countries.ts';
+import type { RegisterOptions } from 'react-hook-form';
+import {
+  postcodeValidator,
+  postcodeValidatorExistsForCountry,
+} from 'postcode-validator';
 import { messages } from './messages.ts';
 
-export const FIELDS = [
+const countryOptions = getCountryOptions();
+
+export const FIELDS: FormField[] = [
   {
     type: 'email',
-    label: messages.fields.email.label,
-    placeholder: messages.fields.email.placeholder,
-    name: messages.fields.email.name,
+    label: messages.email,
+    placeholder: messages.email,
+    name: FieldName.email,
   },
   {
     type: 'password',
-    label: messages.fields.password.label,
-    placeholder: messages.fields.password.placeholder,
-    name: messages.fields.password.name,
+    label: messages.password,
+    placeholder: messages.password,
+    name: FieldName.password,
   },
   {
     type: 'text',
-    label: messages.fields.firstName.label,
-    placeholder: messages.fields.firstName.placeholder,
-    name: messages.fields.firstName.name,
+    label: messages.firstName,
+    placeholder: messages.firstName,
+    name: FieldName.firstName,
   },
   {
     type: 'text',
-    label: messages.fields.lastName.label,
-    placeholder: messages.fields.lastName.placeholder,
-    name: messages.fields.lastName.name,
+    label: messages.lastName,
+    placeholder: messages.lastName,
+    name: FieldName.lastName,
   },
   {
     type: 'date',
-    label: messages.fields.birth.label,
-    placeholder: messages.fields.birth.placeholder,
-    name: messages.fields.birth.name,
+    label: messages.birth,
+    placeholder: messages.birth,
+    name: FieldName.birth,
   },
   {
     type: 'country-select',
-    label: messages.fields.country.label,
-    name: messages.fields.country.name,
+    label: messages.country,
+    name: FieldName.country,
   },
   {
     type: 'text',
-    label: messages.fields.city.label,
-    placeholder: messages.fields.city.placeholder,
-    name: messages.fields.city.name,
+    label: messages.city,
+    placeholder: messages.city,
+    name: FieldName.city,
   },
   {
     type: 'text',
-    label: messages.fields.street.label,
-    placeholder: messages.fields.street.placeholder,
-    name: messages.fields.street.name,
+    label: messages.street,
+    placeholder: messages.street,
+    name: FieldName.street,
   },
   {
     type: 'text',
-    label: messages.fields.postCode.label,
-    placeholder: messages.fields.postCode.placeholder,
-    name: messages.fields.postCode.name,
+    label: messages.postCode,
+    placeholder: messages.postCode,
+    name: FieldName.postCode,
   },
 ];
+
+const MIN_PASSWORD_LENGTH = 8;
+const MIN_AGE = 13;
+const MIN_NAME_LENGTH = 1;
+const MIN_CITY_LENGTH = 1;
+const MIN_STREET_LENGTH = 1;
+
+export const validationRules: Record<
+  FieldName,
+  RegisterOptions<RegisterFormValues>
+> = {
+  email: {
+    required: 'Email is required',
+    pattern: {
+      value: /^\S+@\S+\.\S+$/,
+      message: 'Invalid email address',
+    },
+  },
+  password: {
+    required: 'Password is required',
+    minLength: {
+      value: MIN_PASSWORD_LENGTH,
+      message: `Password must be at least ${MIN_PASSWORD_LENGTH} characters`,
+    },
+    pattern: {
+      value: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)/,
+      message: 'Password must include uppercase, lowercase, and number',
+    },
+  },
+  firstName: {
+    required: 'First name is required',
+    minLength: {
+      value: MIN_NAME_LENGTH,
+      message: 'First name must contain at least one character',
+    },
+    pattern: {
+      value: /^[A-Za-zА-Яа-яЁё\s'-]+$/,
+      message: 'First name must not contain numbers or special characters',
+    },
+  },
+  lastName: {
+    required: 'Last name is required',
+    minLength: {
+      value: MIN_NAME_LENGTH,
+      message: 'Last name must contain at least one character',
+    },
+    pattern: {
+      value: /^[A-Za-zА-Яа-яЁё\s'-]+$/,
+      message: 'Last name must not contain numbers or special characters',
+    },
+  },
+  birth: {
+    required: 'Birth date is required',
+    validate: (value: string) => {
+      const birthDate = new Date(value);
+      const today = new Date();
+      const minBirthDate = new Date(
+        today.getFullYear() - MIN_AGE,
+        today.getMonth(),
+        today.getDate()
+      );
+      return (
+        birthDate <= minBirthDate || `You must be at least ${MIN_AGE} years old`
+      );
+    },
+  },
+  country: {
+    required: 'Country is required',
+    validate: (value: string) => {
+      return (
+        countryOptions.some(option => option.value === value) ||
+        'Please select a valid country'
+      );
+    },
+  },
+  city: {
+    required: 'City is required',
+    minLength: {
+      value: MIN_CITY_LENGTH,
+      message: 'City must contain at least one character',
+    },
+    pattern: {
+      value: /^[A-Za-zА-Яа-яЁё\s'-]+$/,
+      message: 'City must not contain numbers or special characters',
+    },
+  },
+  street: {
+    required: 'Street is required',
+    minLength: {
+      value: MIN_STREET_LENGTH,
+      message: 'Street must contain at least one character',
+    },
+  },
+  postCode: {
+    required: 'Post code is required',
+    validate: (value: string, formValues: RegisterFormValues) => {
+      console.log(formValues);
+      const country = formValues?.country;
+      if (!country || !postcodeValidatorExistsForCountry(country)) {
+        return true;
+      }
+
+      const isValid = postcodeValidator(value, country);
+      return isValid || 'Invalid postal code for the selected country';
+    },
+  },
+};

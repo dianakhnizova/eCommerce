@@ -1,6 +1,6 @@
 .wrapper {
   display: flex;
-  align-items: center;
+  flex-direction: column;
   gap: 0.5rem;
 }
 
@@ -22,4 +22,9 @@
   border: none;
   cursor: pointer;
   color: var(--clr-primary-500);
+}
+
+.error {
+  color: var(--clr-accent-4);
+  font-size: 12px;
 }
