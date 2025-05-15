@@ -1,4 +1,4 @@
-.loginLink {
+.loginContainer {
   display: inline-block;
   justify-content: center;
   align-items: center;
@@ -14,7 +14,7 @@
     color: var(--clr-black);
   }
 
-  &.loginLink:hover {
+  &.loginContainer:hover {
     text-decoration: underline;
   }
 }
@@ -24,7 +24,7 @@
 }
 
 @media (width <= 600px) {
-  .loginLink {
+  .loginContainer {
     max-width: 100px;
   }
 }

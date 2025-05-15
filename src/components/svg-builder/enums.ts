@@ -1,10 +1,10 @@
 export enum IconType {
   Login = 'login',
-  LogOut = 'logOut',
+  LogOut = 'logout',
   Registration = 'registration',
   LogoHeader = 'logoHeader',
   LogoMain = 'logoMain',
   LogoRss = 'logoRss',
   Search = 'search',
-  Basket = 'basket',
+  Cart = 'cart',
 }

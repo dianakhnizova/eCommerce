@@ -4,5 +4,5 @@ export enum PagePath {
   loginPage = '/login',
   registerPage = '/registration',
   aboutPage = '/about',
-  basketPage = '/basket',
+  cartPage = '/cart',
 }

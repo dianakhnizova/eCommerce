@@ -1,14 +1,16 @@
 import styles from '../../header.module.css';
 import svgStyles from '../../../svg-builder/svg.module.css';
 import { NavLink } from 'react-router-dom';
-import { rightLinks } from './constants';
+import { navigationLinks } from './navigation-links';
 import { SvgBuilder } from '../../../svg-builder/svg-builder';
 import { observer } from 'mobx-react-lite';
 
 export const RightNavMenu = observer(() => {
+  const getLinks = navigationLinks.get();
+
   return (
     <nav className={styles.navigationMenu}>
-      {rightLinks.get().map(link => {
+      {getLinks.map(link => {
         return (
           <NavLink
             key={link.label}

@@ -1,6 +1,6 @@
 export const messages = {
   loginLink: 'Login',
-  logoutLink: 'LogOut',
+  logoutLink: 'Logout',
   registerLink: 'Sign up',
-  basketLink: '',
+  cartLink: 'Cart',
 };

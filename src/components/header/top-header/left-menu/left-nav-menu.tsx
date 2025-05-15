@@ -17,12 +17,12 @@ export const LeftNavMenu = observer(() => {
         <SvgBuilder iconType={IconType.LogoHeader} className={svgStyles.logo} />
       </NavLink>
       {userStore.isAuth && (
-        <NavLink to={PagePath.root} className={leftMenuStyles.loginLink}>
+        <div className={leftMenuStyles.loginContainer}>
           <span>{messages.userText}</span>
           <span className={leftMenuStyles.userName}>
             {userStore.user?.firstName}
           </span>
-        </NavLink>
+        </div>
       )}
     </nav>
   );

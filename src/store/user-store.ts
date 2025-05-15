@@ -38,10 +38,10 @@ class UserStore {
     }
   };
 
-  public logout() {
+  public logout = () => {
     this.user = null;
     localStorage.removeItem(LSKeys.TOKEN);
-  }
+  };
 }
 
 export const userStore = new UserStore();
