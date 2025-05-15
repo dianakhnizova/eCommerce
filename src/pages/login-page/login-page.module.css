@@ -31,7 +31,6 @@
   border: 1px solid var(--clr-border);
   border-radius: 4px;
   padding: 0.5rem;
-  color: var(--clr-secondary-100);
 }
 
 .formInput::placeholder {
