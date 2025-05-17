@@ -98,6 +98,7 @@ class UserStore {
 
   public logout() {
     localStorage.removeItem(LSKeys.USER_TOKEN);
+    localStorage.removeItem(LSKeys.ANON_TOKEN);
     localStorage.removeItem(LSKeys.USER_ID);
     this.user = null;
     this.error = '';
