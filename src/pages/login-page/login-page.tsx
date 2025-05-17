@@ -35,7 +35,7 @@ export const LoginPage = () => {
   return (
     <div className={styles.container}>
       <div>
-        <h1 className={styles.header}>{messages.header}</h1>
+        <h2 className={styles.header}>{messages.header}</h2>
         <p className={styles.hint}>{messages.hintText}</p>
       </div>
       <fieldset disabled={isLoading}>
@@ -50,6 +50,7 @@ export const LoginPage = () => {
             return (
               <Input
                 key={field.name}
+                label={field.label}
                 type={field.type}
                 placeholder={field.placeholder}
                 className={styles.formInput}
@@ -68,9 +69,12 @@ export const LoginPage = () => {
           <TestSignUp />
         </form>
       </fieldset>
-      <Link to={PagePath.registerPage} className={styles.hint}>
+      <p>
         {messages.dontHaveAccountText}
-      </Link>
+        <Link to={PagePath.registerPage} className={styles.hint}>
+          {messages.createAccountText}
+        </Link>
+      </p>
     </div>
   );
 };

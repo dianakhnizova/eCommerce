@@ -10,14 +10,14 @@ export type RegisterFormValues = {
   postCode: string;
 };
 
-export type InputFieldType =
-  | 'text'
-  | 'email'
-  | 'password'
-  | 'date'
-  | 'country-select';
+export type RegisterFormField = {
+  type: InputFieldType;
+  label: string;
+  name: RegisterFieldName;
+  placeholder?: string;
+};
 
-export enum FieldName {
+export enum RegisterFieldName {
   email = 'email',
   password = 'password',
   firstName = 'firstName',
@@ -29,9 +29,9 @@ export enum FieldName {
   postCode = 'postCode',
 }
 
-export type FormField = {
-  type: InputFieldType;
-  label: string;
-  name: FieldName;
-  placeholder?: string;
-};
+export type InputFieldType =
+  | 'text'
+  | 'email'
+  | 'password'
+  | 'date'
+  | 'country-select';

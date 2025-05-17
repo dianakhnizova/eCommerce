@@ -1,25 +1,27 @@
-import type { FormField, LoginFormValues } from './types.ts';
-import { FieldName } from './types.ts';
+import type { LoginFormField, LoginFormValues } from './types.ts';
+import { LoginFieldName } from './types.ts';
 import { messages } from './messages.ts';
 import type { RegisterOptions } from 'react-hook-form';
 
-export const FIELDS: FormField[] = [
+export const FIELDS: LoginFormField[] = [
   {
     type: 'email',
     placeholder: messages.email,
-    name: FieldName.email,
+    label: 'Email',
+    name: LoginFieldName.email,
   },
   {
     type: 'password',
+    label: 'Password',
     placeholder: messages.password,
-    name: FieldName.password,
+    name: LoginFieldName.password,
   },
 ];
 
 const MIN_PASSWORD_LENGTH = 8;
 
 export const validationRules: Record<
-  FieldName,
+  LoginFieldName,
   RegisterOptions<LoginFormValues>
 > = {
   email: {

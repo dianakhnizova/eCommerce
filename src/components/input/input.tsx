@@ -11,9 +11,9 @@ type Props = {
 } & InputHTMLAttributes<HTMLInputElement>;
 
 export const Input = ({ label, error, className, type, ...rest }: Props) => {
-  const [showPassword, setShowPassword] = useState(false);
+  const [shouldShowPassword, setShouldShowPassword] = useState(false);
   const isPasswordType = type === 'password';
-  const inputType = isPasswordType && showPassword ? 'text' : type;
+  const inputType = isPasswordType && shouldShowPassword ? 'text' : type;
 
   return (
     <div className={styles.wrapper}>
@@ -30,14 +30,14 @@ export const Input = ({ label, error, className, type, ...rest }: Props) => {
           <button
             type="button"
             className={styles.eyeButton}
-            onClick={() => setShowPassword(prev => !prev)}
+            onClick={() => setShouldShowPassword(prev => !prev)}
             aria-label={
-              showPassword
+              shouldShowPassword
                 ? messages.showPasswordText
                 : messages.hidePasswordText
             }
           >
-            {showPassword ? <EyeOff size={16} /> : <Eye size={16} />}
+            {shouldShowPassword ? <EyeOff size={16} /> : <Eye size={16} />}
           </button>
         )}
       </div>

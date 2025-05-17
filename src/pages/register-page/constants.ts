@@ -1,5 +1,5 @@
-import type { FormField, RegisterFormValues } from './types.ts';
-import { FieldName } from './types.ts';
+import type { RegisterFormField, RegisterFormValues } from './types.ts';
+import { RegisterFieldName } from './types.ts';
 import { getCountryOptions } from '../../components/country-select/countries.ts';
 import type { RegisterOptions } from 'react-hook-form';
 import {
@@ -10,59 +10,59 @@ import { messages } from './messages.ts';
 
 const countryOptions = getCountryOptions();
 
-export const FIELDS: FormField[] = [
+export const FIELDS: RegisterFormField[] = [
   {
     type: 'email',
     label: messages.email,
     placeholder: messages.email,
-    name: FieldName.email,
+    name: RegisterFieldName.email,
   },
   {
     type: 'password',
     label: messages.password,
     placeholder: messages.password,
-    name: FieldName.password,
+    name: RegisterFieldName.password,
   },
   {
     type: 'text',
     label: messages.firstName,
     placeholder: messages.firstName,
-    name: FieldName.firstName,
+    name: RegisterFieldName.firstName,
   },
   {
     type: 'text',
     label: messages.lastName,
     placeholder: messages.lastName,
-    name: FieldName.lastName,
+    name: RegisterFieldName.lastName,
   },
   {
     type: 'date',
     label: messages.birth,
     placeholder: messages.birth,
-    name: FieldName.birth,
+    name: RegisterFieldName.birth,
   },
   {
     type: 'country-select',
     label: messages.country,
-    name: FieldName.country,
+    name: RegisterFieldName.country,
   },
   {
     type: 'text',
     label: messages.city,
     placeholder: messages.city,
-    name: FieldName.city,
+    name: RegisterFieldName.city,
   },
   {
     type: 'text',
     label: messages.street,
     placeholder: messages.street,
-    name: FieldName.street,
+    name: RegisterFieldName.street,
   },
   {
     type: 'text',
     label: messages.postCode,
     placeholder: messages.postCode,
-    name: FieldName.postCode,
+    name: RegisterFieldName.postCode,
   },
 ];
 
@@ -73,7 +73,7 @@ const MIN_CITY_LENGTH = 1;
 const MIN_STREET_LENGTH = 1;
 
 export const validationRules: Record<
-  FieldName,
+  RegisterFieldName,
   RegisterOptions<RegisterFormValues>
 > = {
   email: {
