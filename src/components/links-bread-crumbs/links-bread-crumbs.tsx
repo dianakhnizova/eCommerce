@@ -2,7 +2,7 @@ import styles from './links-bread-crumbs.module.css';
 import { NavLink } from 'react-router-dom';
 import { messages } from './messages';
 import { PagePath } from '../../router/enums';
-import { usePageInfo } from '../../utils/hooks/usePageInfo';
+import { usePageInfo } from '../../utils/hooks/use-page-info';
 
 export const LinksBreadCrumbs = () => {
   const { title } = usePageInfo();

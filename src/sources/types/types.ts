@@ -1,6 +1,5 @@
 import type { IconType } from '../../components/svg-builder/enums';
 import type { MouseEvent } from 'react';
-import type { PagePath } from '../../router/enums';
 
 export type LinkItems = {
   to: string;
@@ -9,12 +8,4 @@ export type LinkItems = {
   onClick?: (event: MouseEvent<HTMLAnchorElement>) => void;
 };
 
-export type PageTitle = {
-  [key: string]: string;
-  [PagePath.root]: string;
-  [PagePath.aboutPage]: string;
-  [PagePath.notFound]: string;
-  [PagePath.loginPage]: string;
-  [PagePath.registerPage]: string;
-  [PagePath.cartPage]: string;
-};
+export type PageTitle = Record<string, string>;
