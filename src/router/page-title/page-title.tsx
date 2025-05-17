@@ -1,6 +1,6 @@
-import { PagePath } from '../../../router/enums';
-import { messages } from './messages';
-import type { PageTitle } from './types';
+import { PagePath } from '../enums';
+import { messages } from '../../sources/messages';
+import type { PageTitle } from '../../sources/types/types';
 
 export const pageTitle: PageTitle = {
   [PagePath.root]: messages.mainPageTitle,

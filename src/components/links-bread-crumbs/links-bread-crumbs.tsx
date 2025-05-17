@@ -1,32 +1,17 @@
 import styles from './links-bread-crumbs.module.css';
 import { NavLink } from 'react-router-dom';
-import classNames from 'classnames';
-import { useLocation } from 'react-router-dom';
-import { getNavigationLinks } from './navigationLinks';
 import { messages } from './messages';
+import { PagePath } from '../../router/enums';
+import { usePageInfo } from '../../utils/hooks/usePageInfo';
 
 export const LinksBreadCrumbs = () => {
-  const location = useLocation();
-  const currentPath = location.pathname;
-  const navigationLinks = getNavigationLinks(currentPath);
-
+  const { title } = usePageInfo();
   return (
     <div className={styles.linkContainer}>
-      {navigationLinks.map((link, index) => {
-        if (index === 1 && link.label === messages.homeLink) {
-          return null;
-        }
-        const isLastLink = index === navigationLinks.length - 1;
-        return (
-          <NavLink
-            key={link.label}
-            to={link.to}
-            className={classNames(styles.link, isLastLink && styles.activeLink)}
-          >
-            {link.label}
-          </NavLink>
-        );
-      })}
+      <NavLink to={PagePath.root} className={styles.link}>
+        {messages.homeLink}
+      </NavLink>
+      <span className={styles.activeLink}>{title}</span>
     </div>
   );
 };
