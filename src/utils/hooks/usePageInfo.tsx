@@ -1,5 +1,5 @@
 import { useLocation } from 'react-router-dom';
-import { pageTitle } from '../../components/bread-crumbs/bread-crumbs-title';
+import { pageTitle } from '../../sources/constants/page-title/bread-crumbs-title';
 
 export const usePageInfo = () => {
   const location = useLocation();

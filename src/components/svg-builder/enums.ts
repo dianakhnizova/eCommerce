@@ -5,6 +5,7 @@ export enum IconType {
   LogoHeader = 'logoHeader',
   LogoMain = 'logoMain',
   LogoRss = 'logoRss',
+  LogoAnimate = 'logoAnimate',
   Search = 'search',
   Cart = 'cart',
 }

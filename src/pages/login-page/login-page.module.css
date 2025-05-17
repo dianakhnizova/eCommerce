@@ -1,0 +1,38 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  padding: 2rem;
+  gap: 1rem;
+}
+
+.header {
+  text-align: center;
+  padding: 1rem;
+}
+
+.hint {
+  font-size: 17px;
+}
+
+.formContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  padding: 1rem;
+}
+
+.formInput {
+  border: 1px solid var(--clr-primary-300);
+  border-radius: 4px;
+  padding: 0.5rem;
+}
+
+.formInput::placeholder {
+  color: var(--clr-primary-500);
+}
+
+@media (width <= 360px) {
+  .container {
+    padding: 1rem;
+  }
+}

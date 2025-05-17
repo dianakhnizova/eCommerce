@@ -6,6 +6,7 @@ import SignUp from '../../../assets/icons/signup.svg?react';
 import LogoHeaderIcon from '../../../assets/logo/logo.svg?react';
 import LogoMainIcon from '../../../assets/logo/logo-2.svg?react';
 import LogoRss from '../../../assets/logo/logo-rss.svg?react';
+import LogoAnimate from '../../../assets/logo/logo-animate.svg?react';
 import SearchIcon from '../../../assets/icons/search.svg?react';
 import Cart from '../../../assets/icons/basket.svg?react';
 import type { IconType } from './enums';
@@ -23,6 +24,7 @@ const iconVariant: IconVariant = {
   logoHeader: LogoHeaderIcon,
   logoMain: LogoMainIcon,
   logoRss: LogoRss,
+  logoAnimate: LogoAnimate,
   search: SearchIcon,
   cart: Cart,
 };

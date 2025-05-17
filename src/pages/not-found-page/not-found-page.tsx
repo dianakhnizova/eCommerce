@@ -4,6 +4,7 @@ import { messages } from './messages';
 import styles from './not-found.module.css';
 import { useNavigate } from 'react-router-dom';
 import { PagePath } from '../../router/enums';
+import { BreadCrumbs } from '../../components/bread-crumbs/bread-crumbs';
 
 export const NotFoundPage = () => {
   const navigate = useNavigate();
@@ -14,6 +15,7 @@ export const NotFoundPage = () => {
 
   return (
     <>
+      <BreadCrumbs />
       <div className={styles.mainContainer}>
         <img
           className={styles.imgNotFound}

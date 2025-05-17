@@ -1,4 +1,4 @@
-import type { PagePath } from '../../router/enums';
+import type { PagePath } from '../../../router/enums';
 
 export type PageTitle = {
   [key: string]: string;

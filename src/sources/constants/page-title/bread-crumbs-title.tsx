@@ -1,4 +1,4 @@
-import { PagePath } from '../../router/enums';
+import { PagePath } from '../../../router/enums';
 import { messages } from './messages';
 import type { PageTitle } from './types';
 
