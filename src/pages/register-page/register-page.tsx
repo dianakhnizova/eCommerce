@@ -24,17 +24,18 @@ export const RegisterPage = observer(() => {
     register,
     handleSubmit,
     formState: { errors },
+    reset,
   } = useForm<RegisterFormValues>();
 
   const onSubmit = (data: RegisterFormValues) => {
     console.log('Form data:', data);
-
-    void userStore.signUp(data).finally(() => {});
+    void userStore.signUp(data);
   };
 
   useEffect(() => {
     console.log({ userStore });
     if (userStore.isAuth) {
+      reset();
       void router(PagePath.root);
     }
   }, [userStore.user, router]);

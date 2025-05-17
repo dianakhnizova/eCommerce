@@ -1,24 +1,3 @@
-.errorMessageContainer {
-  display: flex;
-  align-items: center;
-  height: 130px;
-  width: 100%;
-  background: var(--clr-bg-2);
-}
-
-.errorWrapper {
-  display: flex;
-  justify-content: flex-start;
-  flex-direction: column;
-  align-items: flex-start;
-  width: 1440px;
-  gap: 9px;
-}
-
-.errorTitle {
-  font-size: 36px;
-}
-
 .mainContainer {
   display: flex;
   flex-direction: column;
@@ -42,7 +21,7 @@
   padding: 0 10px;
 }
 
-@media (width <= 800px) {
+@media (width <=800px) {
   .mainContainer {
     margin: 20px;
   }
