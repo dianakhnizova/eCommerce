@@ -1,17 +1,15 @@
 import styles from './bread-crumbs.module.css';
 import { Wrapper } from '../wrapper/wrapper';
 import { LinksBreadCrumbs } from '../links-bread-crumbs/links-bread-crumbs';
-import { useLocation } from 'react-router-dom';
-import { getPathTitle } from './getPathTitle';
+import { usePageInfo } from '../../utils/hooks/usePageInfo';
 
 export const BreadCrumbs = () => {
-  const location = useLocation();
-  const currentPath = location.pathname;
+  const { title } = usePageInfo();
 
   return (
     <div className={styles.breadCrumbsContainer}>
       <Wrapper className={styles.breadCrumbsWrapper}>
-        <h2 className={styles.pageTitle}>{getPathTitle(currentPath)}</h2>
+        <h2 className={styles.pageTitle}>{title}</h2>
         <LinksBreadCrumbs />
       </Wrapper>
     </div>

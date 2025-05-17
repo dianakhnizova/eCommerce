@@ -1,8 +1,11 @@
+import type { PagePath } from '../../router/enums';
+
 export type PageTitle = {
-  mainPage: string;
-  aboutPage: string;
-  notFoundPage: string;
-  loginPage: string;
-  registerPage: string;
-  cartPage: string;
+  [key: string]: string;
+  [PagePath.root]: string;
+  [PagePath.aboutPage]: string;
+  [PagePath.notFound]: string;
+  [PagePath.loginPage]: string;
+  [PagePath.registerPage]: string;
+  [PagePath.cartPage]: string;
 };
