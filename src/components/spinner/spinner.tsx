@@ -3,7 +3,13 @@ import { SvgBuilder } from '../svg-builder/svg-builder';
 import { messages } from './messages';
 import styles from './spinner.module.css';
 
-export const Spinner = () => {
+type Props = {
+  isLoading: boolean;
+};
+
+export const Spinner = ({ isLoading }: Props) => {
+  if (!isLoading) return null;
+
   return (
     <div className={styles.spinnerContainer}>
       <div className={styles.sceneAnimation}>
