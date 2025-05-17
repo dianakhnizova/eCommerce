@@ -1,0 +1,57 @@
+.mainContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 100%;
+  position: relative;
+  padding: 0 0 61px;
+}
+
+.imgMain {
+  width: 100%;
+}
+
+.titleContainer {
+  display: flex;
+  width: 50%;
+  flex-direction: column;
+  align-items: flex-start;
+  position: absolute;
+  gap: 13px;
+  padding: 0 66px;
+}
+
+.mainTitle {
+  font-size: 64px;
+  font-weight: 700;
+}
+
+.mainText {
+  font-size: 24px;
+  font-weight: 400;
+}
+
+.shopButton {
+  font-size: 24px;
+}
+
+@media (width <= 800px) {
+  .titleContainer {
+    padding: 10px 22px;
+    width: 70%;
+  }
+
+  .mainTitle {
+    font-size: 20px;
+    font-weight: 700;
+  }
+
+  .mainText {
+    font-size: 14px;
+    font-weight: 400;
+  }
+
+  .shopButton {
+    font-size: 14px;
+  }
+}

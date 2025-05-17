@@ -21,5 +21,5 @@
     "allowJs": true,
     "noUncheckedSideEffectImports": true
   },
-  "include": ["src", "*.d.ts","types/**/*"]
+  "include": ["src", "*.d.ts", "types/**/*"]
 }
