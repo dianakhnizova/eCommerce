@@ -1,5 +1,6 @@
 import styles from './main-title.module.css';
 import { messages } from './messages';
+import MainPageImage from '../../../../assets/images/main-page-img.jpg';
 import { Button } from '../../../components/button/button';
 
 export const MainTitle = () => {
@@ -7,7 +8,7 @@ export const MainTitle = () => {
     <div className={styles.mainContainer}>
       <img
         className={styles.imgMain}
-        src="../../../assets/images/main-page-img.png"
+        src={MainPageImage}
         alt={messages.mainPageImg}
       />
       <div className={styles.titleContainer}>
