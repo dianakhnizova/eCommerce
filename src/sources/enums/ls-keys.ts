@@ -1,3 +1,5 @@
 export enum LSKeys {
-  TOKEN = 'auth_token',
+  ANON_TOKEN = 'anon_token',
+  USER_TOKEN = 'user_token',
+  USER_ID = 'user_id',
 }

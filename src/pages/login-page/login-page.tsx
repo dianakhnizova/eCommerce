@@ -1,4 +1,4 @@
-import { TestSignUp } from '../../components/test-sign-up';
+import { useEffect } from 'react';
 import styles from './login-page.module.css';
 import { Input } from '../../components/input/input.tsx';
 import { FIELDS, validationRules } from './constants.ts';
@@ -10,8 +10,10 @@ import { useForm } from 'react-hook-form';
 import { PagePath } from '../../router/enums.ts';
 import { Link, useNavigate } from 'react-router-dom';
 import type { LoginFormValues } from './types.ts';
+import { userStore } from '../../store/user-store';
+import { observer } from 'mobx-react-lite';
 
-export const LoginPage = () => {
+export const LoginPage = observer(() => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const navigate = useNavigate();
 
@@ -31,6 +33,15 @@ export const LoginPage = () => {
       void navigate(PagePath.root);
     }, 500);
   };
+
+  const router = useNavigate();
+
+  useEffect(() => {
+    console.log('on Login Page', userStore.isAuth);
+    if (userStore.isAuth) {
+      void router(PagePath.root);
+    }
+  }, [userStore.isAuth, router]);
 
   return (
     <div className={styles.container}>
@@ -66,7 +77,6 @@ export const LoginPage = () => {
           >
             {messages.buttons.signIn}
           </Button>
-          <TestSignUp />
         </form>
       </fieldset>
       <p>
@@ -77,4 +87,4 @@ export const LoginPage = () => {
       </p>
     </div>
   );
-};
+});

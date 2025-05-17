@@ -4,6 +4,8 @@ import { isApiError } from '../utils/is-api-error';
 import { authService } from './services/auth-service';
 import { AUTH_URL, BASE_URL } from '../sources/constants/api';
 import { LSKeys } from '../sources/enums/ls-keys';
+import type { Auth } from '../sources/types/auth';
+import { saveTokenToLS } from '../utils/save-token-to-ls';
 
 export const baseApi = axios.create({ baseURL: BASE_URL });
 
@@ -13,43 +15,26 @@ export const authApi = axios.create({
 });
 
 baseApi.interceptors.request.use(async cfg => {
-  let token = loadTokenFromLS();
+  let userToken = loadTokenFromLS(LSKeys.USER_TOKEN);
+  console.log('userToken', userToken);
+  console.log(
+    'userToken is fresh :',
+    userToken ? isFresh(userToken) : 'no token'
+  );
+  if (userToken && !isFresh(userToken)) {
+    userToken = await authService.refreshToken(userToken.refresh_token);
+    saveTokenToLS(userToken, LSKeys.USER_TOKEN);
+  }
 
-  if (token) {
-    const active = await authService
-      .isActive(token.access_token)
-      .catch(() => false);
+  let anonToken = loadTokenFromLS(LSKeys.ANON_TOKEN);
 
-    if (!active) {
-      try {
-        const refreshed = await authService.refreshToken(token.refresh_token);
-        token = refreshed;
-        localStorage.setItem(LSKeys.TOKEN, JSON.stringify(token));
-        console.log('Token refreshed:', token);
-      } catch (error) {
-        // 5) Если refresh-токен не найден или просрочен — получаем новый токен полностью
-        // const isInvalidGrant =
-        //   axios.isAxiosError(error) &&
-        //   error.response?.status === 400 &&
-        //   error.response?.data.error === 'invalid_grant';
-        // if (isInvalidGrant) {
-        //   token = await authService.getAccessToken();
-        //   localStorage.setItem(LSKeys.TOKEN, JSON.stringify(token));
-        console.log('Refresh failed', error);
-        // } else {
-        //   // 6) Для прочих ошибок пробрасываем дальше
-        //   throw error;
-        // }
-      }
-    }
-  } else {
-    token = await authService.getAnonymousToken();
-    localStorage.setItem(LSKeys.TOKEN, JSON.stringify(token));
-    console.log('No token in storage, got new one:', token);
+  if (!anonToken) {
+    anonToken = await authService.getAnonymousToken();
+    saveTokenToLS(anonToken, LSKeys.ANON_TOKEN);
   }
 
   cfg.headers['Content-Type'] = 'application/json';
-  cfg.headers.Authorization = `Bearer ${token.access_token}`;
+  cfg.headers.Authorization = `Bearer ${userToken?.access_token || anonToken.access_token}`;
 
   return cfg;
 });
@@ -62,4 +47,10 @@ function handleResponseError(error: unknown): never {
     throw new Error(error.response?.data.message);
   }
   throw error;
+}
+
+function isFresh(userToken: Auth.Token): boolean {
+  const now = Date.now();
+  const safetyMargin = 60;
+  return now < userToken.expires_in - safetyMargin;
 }
