@@ -2,8 +2,11 @@ import { makeAutoObservable, runInAction } from 'mobx';
 import type { Customer } from '../sources/types/customer';
 import { LSKeys } from '../sources/enums/ls-keys';
 import { customerService } from '../api/services/customer-service';
+import { authService } from '../api/services/auth-service';
+import { saveTokenToLS } from '../utils/save-token-to-ls';
 
 class UserStore {
+  public isInitLoading = false;
   public isPending = false;
   public error = '';
   public user: Customer.Profile | null = null;
@@ -16,16 +19,46 @@ class UserStore {
     return !!this.user?.id;
   }
 
+  public init = async () => {
+    this.isInitLoading = true;
+    this.error = '';
+
+    try {
+      const userID = localStorage.getItem(LSKeys.USER_ID);
+      if (userID) {
+        const response = await customerService.getCustomerByID(userID);
+        runInAction(() => {
+          console.log(response);
+          this.user = response;
+        });
+      }
+    } catch (error) {
+      runInAction(() => {
+        this.error = error instanceof Error ? error.message : String(error);
+      });
+    } finally {
+      runInAction(() => {
+        this.isInitLoading = false;
+      });
+    }
+  };
+
   public login = async (
-    creds: Pick<Customer.Profile, 'email' | 'password'>
+    customer: Pick<Customer.Profile, 'email' | 'password'>
   ) => {
     this.isPending = true;
     this.error = '';
 
     try {
-      const response = await customerService.loginCustomer(creds);
+      const tokenResponse = await authService.getUserToken(customer);
+      saveTokenToLS(tokenResponse, LSKeys.USER_TOKEN);
+      const response = await customerService.loginCustomer(customer);
       runInAction(() => {
         this.user = response.customer;
+        localStorage.setItem(
+          LSKeys.USER_ID,
+          JSON.stringify(response.customer.id)
+        );
       });
     } catch (error) {
       runInAction(() => {
@@ -38,10 +71,39 @@ class UserStore {
     }
   };
 
-  public logout = () => {
+  public async signUp(customer: Customer.Profile) {
+    this.isPending = true;
+    this.error = '';
+    try {
+      const response = await customerService.signupNewCustomer(customer);
+      runInAction(() => {
+        this.user = response.customer;
+        localStorage.setItem(
+          LSKeys.USER_ID,
+          JSON.stringify(response.customer.id)
+        );
+      });
+      const tokenResponse = await authService.getUserToken(customer);
+      saveTokenToLS(tokenResponse, LSKeys.USER_TOKEN);
+    } catch (error) {
+      runInAction(() => {
+        this.error = error instanceof Error ? error.message : String(error);
+      });
+    } finally {
+      runInAction(() => {
+        this.isPending = false;
+      });
+    }
+  }
+
+  public logout() {
+    localStorage.removeItem(LSKeys.USER_TOKEN);
+    localStorage.removeItem(LSKeys.USER_ID);
     this.user = null;
-    localStorage.removeItem(LSKeys.TOKEN);
-  };
+    this.error = '';
+    this.isPending = false;
+    this.isInitLoading = false;
+  }
 }
 
 export const userStore = new UserStore();

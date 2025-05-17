@@ -12,7 +12,7 @@ export const navigationLinks = computed<LinkItems[]>(() =>
           to: PagePath.root,
           label: messages.logoutLink,
           iconType: IconType.LogOut,
-          onClick: userStore.logout,
+          onClick: () => userStore.logout(),
         },
         {
           to: PagePath.cartPage,
