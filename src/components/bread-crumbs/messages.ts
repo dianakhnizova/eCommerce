@@ -1,4 +1,8 @@
 export const messages = {
-  homeLink: 'Home',
-  notFoundLink: '404 Not Found',
+  mainPageTitle: 'Main Page',
+  aboutPageTitle: 'About Us',
+  notFoundPageTitle: '404 Not Found',
+  loginPageTitle: 'Sign In',
+  registerPageTitle: 'Sign Up',
+  cartPageTitle: 'Cart',
 };
