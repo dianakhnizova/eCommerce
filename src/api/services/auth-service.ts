@@ -5,6 +5,7 @@ import {
   SCOPE,
 } from '../../sources/constants/api';
 import type { Auth } from '../../sources/types/auth';
+import type { Customer } from '../../sources/types/customer';
 import { authApi } from '../axios';
 import { Endpoints } from '../endpoints';
 
@@ -14,7 +15,7 @@ export const authService = {
       grant_type: 'client_credentials',
       scope: SCOPE,
     });
-    console.log('get new token');
+    console.log('get new anonymous token');
     const response = await authApi.post<Auth.Token>(
       `${PROJECT_KEY}/${Endpoints.TOKEN_ANONYMOUS}`,
       parameters,
@@ -29,13 +30,19 @@ export const authService = {
     return response.data;
   },
 
-  isActive: async (token: string): Promise<boolean> => {
+  getUserToken: async (
+    customer: Pick<Customer.Profile, 'email' | 'password'>
+  ): Promise<Auth.Token> => {
     const parameters = new URLSearchParams({
-      token: token,
+      grant_type: 'password',
+      scope: SCOPE,
+      username: customer.email,
+      password: customer.password || '',
     });
-    console.log('introspect token');
-    const response = await authApi.post<{ active: boolean }>(
-      `/${Endpoints.INTROSPECT}`,
+
+    console.log('get new user token');
+    const response = await authApi.post<Auth.Token>(
+      `${PROJECT_KEY}/${Endpoints.CUSTOMERS}/${Endpoints.TOKEN}`,
       parameters,
       {
         auth: {
@@ -44,7 +51,8 @@ export const authService = {
         },
       }
     );
-    return response.data.active;
+
+    return response.data;
   },
 
   refreshToken: async (refreshToken: string): Promise<Auth.Token> => {
