@@ -7,3 +7,5 @@ export type LinkItems = {
   iconType?: IconType;
   onClick?: (event: MouseEvent<HTMLAnchorElement>) => void;
 };
+
+export type PageTitle = Record<string, string>;

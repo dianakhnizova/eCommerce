@@ -1,27 +1,17 @@
 import styles from './bread-crumbs.module.css';
-import { NavLink } from 'react-router';
-import classNames from 'classnames';
-import type { LinkItems } from '../../sources/types/types';
+import { Wrapper } from '../wrapper/wrapper';
+import { LinksBreadCrumbs } from '../links-bread-crumbs/links-bread-crumbs';
+import { usePageInfo } from '../../utils/hooks/use-page-info';
 
-type Props = {
-  navigationLinks: LinkItems[];
-};
+export const BreadCrumbs = () => {
+  const { title } = usePageInfo();
 
-export const BreadCrumbs = ({ navigationLinks }: Props) => {
   return (
-    <div className={styles.linkContainer}>
-      {navigationLinks.map((link, index) => {
-        const isLastLink = index === navigationLinks.length - 1;
-        return (
-          <NavLink
-            key={link.label}
-            to={link.to}
-            className={classNames(styles.link, isLastLink && styles.activeLink)}
-          >
-            {link.label}
-          </NavLink>
-        );
-      })}
+    <div className={styles.breadCrumbsContainer}>
+      <Wrapper className={styles.breadCrumbsWrapper}>
+        <h2 className={styles.pageTitle}>{title}</h2>
+        <LinksBreadCrumbs />
+      </Wrapper>
     </div>
   );
 };

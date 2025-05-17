@@ -1,3 +1,10 @@
+import { BreadCrumbs } from '../../components/bread-crumbs/bread-crumbs';
+
 export const CartPage = () => {
-  return <h2>Cart Page</h2>;
+  return (
+    <>
+      <BreadCrumbs />
+      <h2>Cart Page</h2>;
+    </>
+  );
 };

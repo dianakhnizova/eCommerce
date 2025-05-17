@@ -1,5 +1,5 @@
 import styles from './about-dev.module.css';
-import { developers } from './constants';
+import { developers } from './developers-list';
 import { messages } from './messages';
 
 export const AboutDevelopers = () => {
