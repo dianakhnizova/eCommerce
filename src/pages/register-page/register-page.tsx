@@ -8,8 +8,6 @@ import { messages } from './messages.ts';
 import { FIELDS, validationRules } from './constants.ts';
 import { Link, useNavigate } from 'react-router-dom';
 import { PagePath } from '../../router/enums.ts';
-import { SvgBuilder } from '../../components/svg-builder/svg-builder.tsx';
-import { IconType } from '../../components/svg-builder/enums.ts';
 import { useForm } from 'react-hook-form';
 import type { RegisterFormValues } from './types.ts';
 import { useState } from 'react';
@@ -39,7 +37,6 @@ export const RegisterPage = () => {
   return (
     <div className={styles.container}>
       <div className={styles.logoContainer}>
-        <SvgBuilder iconType={IconType.LogoMain} className={styles.logo} />
         <h2>{messages.buttons.signUp}</h2>
       </div>
       <p className={styles.signInHint}>
