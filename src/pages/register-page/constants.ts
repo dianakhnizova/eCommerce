@@ -201,6 +201,4 @@ export const validationRules: Record<
   shippingCity: cityRule,
   shippingStreet: streetRule,
   shippingPostCode: postCodeRule,
-  defaultShippingAddress: {},
-  defaultBillingAddress: {},
 };

@@ -46,3 +46,7 @@
     padding: 1rem;
   }
 }
+
+.errorMessage {
+  color: var(--clr-accent-4);
+}

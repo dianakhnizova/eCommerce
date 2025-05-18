@@ -11,12 +11,13 @@ import { PagePath } from '../../router/enums.ts';
 import { useForm } from 'react-hook-form';
 import type { RegisterFormValues } from './types.ts';
 import { useState } from 'react';
-import type { Customer } from '../../sources/types/customer';
 import { Checkbox } from '../../components/checkbox/checkbox.tsx';
+import { userStore } from '../../store/user-store.ts';
+import { observer } from 'mobx-react-lite';
+import { useEffect } from 'react';
 
-export const RegisterPage = () => {
-  const [loading, setLoading] = useState<boolean>(false);
-  const [useSameAddress, setUseSameAddress] = useState<boolean>(true);
+export const RegisterPage = observer(() => {
+  const [isSameAddress, setIsSameAddress] = useState<boolean>(false);
   const countryOptions = getCountryOptions();
   const router = useNavigate();
 
@@ -30,28 +31,17 @@ export const RegisterPage = () => {
   } = useForm<RegisterFormValues>();
 
   const onSubmit = (data: RegisterFormValues) => {
-    setLoading(true);
-
-    const customer: Customer.Profile = {
-      email: data.email,
-      firstName: data.firstName,
-      lastName: data.lastName,
-      password: data.password,
-      dateOfBirth: data.birth,
-      addresses: [
-        {
-          country: data.country,
-          city: data.city,
-          streetName: data.street,
-          postalCode: data.postCode,
-        },
-      ],
-    };
-
-    console.log('customer', customer);
-    reset();
-    void router(PagePath.root);
+    console.log('Form data:', data);
+    void userStore.signUp(data);
   };
+
+  useEffect(() => {
+    console.log({ userStore });
+    if (userStore.isAuth) {
+      reset();
+      void router(PagePath.root);
+    }
+  }, [userStore.user, router]);
 
   return (
     <div className={styles.container}>
@@ -62,7 +52,7 @@ export const RegisterPage = () => {
         {messages.alreadyHaveAnAccountText}
         <Link to={PagePath.loginPage}>{messages.buttons.signIn}</Link>
       </p>
-      <fieldset disabled={loading}>
+      <fieldset disabled={userStore.isPending}>
         <form
           className={styles.formContainer}
           onSubmit={handleSubmit(onSubmit)}
@@ -89,34 +79,34 @@ export const RegisterPage = () => {
             label="Country"
             options={countryOptions}
             className={styles.formInput}
-            {...register('country', { required: true })}
+            {...register('country', validationRules['country'])}
             error={errors?.country?.message}
           />
           <Input
             label="City"
             className={styles.formInput}
-            {...register('city', { required: true })}
+            {...register('city', validationRules['city'])}
             error={errors?.city?.message}
           />
           <Input
             label="Street"
             className={styles.formInput}
-            {...register('street', { required: true })}
+            {...register('street', validationRules['street'])}
             error={errors?.street?.message}
           />
           <Input
             label="Post Code"
             className={styles.formInput}
-            {...register('postCode', { required: true })}
+            {...register('postCode', validationRules['postCode'])}
             error={errors?.postCode?.message}
           />
 
           <Checkbox
             label="Set as default shipping address"
-            checked={useSameAddress}
+            checked={isSameAddress}
             onChange={e => {
               const value = e.target.checked;
-              setUseSameAddress(value);
+              setIsSameAddress(value);
               if (value) {
                 setValue('shippingCountry', getValues('country'));
                 setValue('shippingCity', getValues('city'));
@@ -131,40 +121,46 @@ export const RegisterPage = () => {
             label="Country"
             options={countryOptions}
             className={styles.formInput}
-            disabled={useSameAddress}
+            disabled={isSameAddress}
             {...register('shippingCountry', {
-              required: !useSameAddress && 'Country is required',
+              ...validationRules['country'],
+              required: !isSameAddress && 'Country is required',
             })}
             error={errors.country?.message}
           />
           <Input
             label="City"
             className={styles.formInput}
-            disabled={useSameAddress}
+            disabled={isSameAddress}
             {...register('shippingCity', {
-              required: !useSameAddress && 'City is required',
+              ...validationRules['city'],
+              required: !isSameAddress && 'City is required',
             })}
             error={errors.city?.message}
           />
           <Input
             label="Street"
             className={styles.formInput}
-            disabled={useSameAddress}
+            disabled={isSameAddress}
             {...register('shippingStreet', {
-              required: !useSameAddress && 'Street is required',
+              ...validationRules['street'],
+              required: !isSameAddress && 'Street is required',
             })}
             error={errors.street?.message}
           />
           <Input
             label="Post Code"
             className={styles.formInput}
-            disabled={useSameAddress}
+            disabled={isSameAddress}
             {...register('shippingPostCode', {
-              required: !useSameAddress && 'Post Code is required',
+              ...validationRules['postCode'],
+              required: !isSameAddress && 'Post Code is required',
             })}
             error={errors.postCode?.message}
           />
-
+          {userStore.error && (
+            <p className={styles.errorMessage}>{userStore.error}</p>
+          )}
           <Button
             variant={ButtonVariants.primary}
             className={styles.signUpButton}
@@ -176,4 +172,4 @@ export const RegisterPage = () => {
       </fieldset>
     </div>
   );
-};
+});

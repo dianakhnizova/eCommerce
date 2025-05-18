@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import styles from './login-page.module.css';
 import { Input } from '../../components/input/input.tsx';
 import { FIELDS, validationRules } from './constants.ts';
@@ -29,9 +30,14 @@ export const LoginPage = observer(() => {
     await userStore.login(customer);
     if (!userStore.error) {
       reset();
-      void navigate(PagePath.root);
     }
   };
+
+  useEffect(() => {
+    if (userStore.isAuth) {
+      void navigate(PagePath.root);
+    }
+  }, [userStore.isAuth, navigate, reset]);
 
   return (
     <div className={styles.container}>

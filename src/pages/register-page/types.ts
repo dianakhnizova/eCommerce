@@ -12,9 +12,8 @@ export type RegisterFormValues = {
   shippingCity: string;
   shippingStreet: string;
   shippingPostCode: string;
-  defaultShippingAddress: string;
-  defaultBillingAddress: string;
-  // useSameAddress: boolean;
+  // defaultShippingAddress: string;
+  // defaultBillingAddress: string;
 };
 
 export type RegisterFormField = {
@@ -38,8 +37,6 @@ export enum RegisterFieldName {
   shippingCity = 'shippingCity',
   shippingStreet = 'shippingStreet',
   shippingPostCode = 'shippingPostCode',
-  defaultShippingAddress = 'defaultShippingAddress',
-  defaultBillingAddress = 'defaultBillingAddress',
 }
 
 export type InputFieldType =

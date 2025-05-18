@@ -13,10 +13,6 @@
   &.bottomLink {
     color: var(--clr-black);
   }
-
-  &.loginContainer:hover {
-    text-decoration: underline;
-  }
 }
 
 .userName {
