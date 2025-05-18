@@ -45,13 +45,7 @@
   background: var(--clr-accent-8);
 }
 
-@media (width <=1000px) {
-  .mainContainer {
-    height: 500px;
-  }
-}
-
-@media (width >=500px) and (width <=940px) {
+@media (width <=940px) {
   .mainContainer {
     height: 460px;
     margin: 40px 0;
@@ -59,7 +53,6 @@
 
   .titleContainer {
     padding: 10px 22px;
-    width: 70%;
   }
 
   .mainTitle {
@@ -85,7 +78,6 @@
 
   .titleContainer {
     padding: 10px 22px;
-    width: 70%;
   }
 
   .mainTitle {
