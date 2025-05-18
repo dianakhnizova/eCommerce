@@ -4,11 +4,11 @@ import { messages } from './messages';
 import styles from './spinner.module.css';
 
 type Props = {
-  isInitLoading: boolean;
+  isLoading: boolean;
 };
 
-export const Spinner = ({ isInitLoading }: Props) => {
-  if (!isInitLoading) return null;
+export const Spinner = ({ isLoading }: Props) => {
+  if (!isLoading) return null;
 
   return (
     <div className={styles.spinnerContainer}>

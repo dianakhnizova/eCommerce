@@ -1,5 +1,4 @@
 import { StrictMode, useEffect } from 'react';
-import './global.css';
 import { RouterProvider } from 'react-router-dom';
 import { router } from './router/router';
 import { userStore } from './store/user-store';
