@@ -1,18 +1,17 @@
-import styles from './main-title.module.css';
+import styles from './main-navigation.module.css';
 import { messages } from './messages';
-import MainPageImage from '../../../../assets/images/main-page-img.jpg';
 import { Button } from '../../../components/button/button';
 
-export const MainTitle = () => {
+export const MainNavigation = () => {
   return (
     <div className={styles.mainContainer}>
-      <img
+      {/* <img
         className={styles.imgMain}
         src={MainPageImage}
         alt={messages.mainPageImg}
-      />
+      /> */}
       <div className={styles.titleContainer}>
-        <p className={styles.mainTitle}>{messages.mainTitle}</p>
+        <h1 className={styles.mainTitle}>{messages.mainTitle}</h1>
         <span className={styles.mainText}>{messages.mainText}</span>
         <Button
           className={styles.shopButton}

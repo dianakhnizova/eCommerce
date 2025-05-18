@@ -3,8 +3,11 @@
   flex-direction: column;
   justify-content: center;
   width: 100%;
-  position: relative;
-  padding: 0 0 61px;
+  height: 790px;
+  margin: 60px 0;
+  background-image: url('../../../../assets/images/main-page-img.png');
+  background-position: center;
+  background-size: cover;
 }
 
 .imgMain {
@@ -16,19 +19,21 @@
   width: 50%;
   flex-direction: column;
   align-items: flex-start;
-  position: absolute;
-  gap: 13px;
+  gap: 40px;
   padding: 0 66px;
 }
 
 .mainTitle {
   font-size: 64px;
   font-weight: 700;
+  font-style: italic;
+  color: var(--clr-bg-1);
 }
 
 .mainText {
   font-size: 24px;
   font-weight: 400;
+  color: var(--clr-bg-1);
 }
 
 .shopButton {
