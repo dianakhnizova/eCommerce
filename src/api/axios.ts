@@ -4,8 +4,8 @@ import { isApiError } from '../utils/is-api-error';
 import { authService } from './services/auth-service';
 import { AUTH_URL, BASE_URL } from '../sources/constants/api';
 import { LSKeys } from '../sources/enums/ls-keys';
-import type { Auth } from '../sources/types/auth';
 import { saveTokenToLS } from '../utils/save-token-to-ls';
+import { isTokenFresh } from '../utils/is-token-fresh';
 
 export const baseApi = axios.create({ baseURL: BASE_URL });
 
@@ -17,11 +17,10 @@ export const authApi = axios.create({
 baseApi.interceptors.request.use(async cfg => {
   let userToken = loadTokenFromLS(LSKeys.USER_TOKEN);
   console.log('userToken', userToken);
-  console.log(
-    'userToken is fresh :',
-    userToken ? isFresh(userToken) : 'no token'
-  );
-  if (userToken && !isFresh(userToken)) {
+  const isFresh = userToken ? isTokenFresh(userToken) : false;
+  console.log('userToken is fresh :', userToken ? isFresh : 'no token');
+
+  if (userToken && !isFresh) {
     userToken = await authService.refreshToken(userToken.refresh_token);
     saveTokenToLS(userToken, LSKeys.USER_TOKEN);
   }
@@ -47,10 +46,4 @@ function handleResponseError(error: unknown): never {
     throw new Error(error.response?.data.message);
   }
   throw error;
-}
-
-function isFresh(userToken: Auth.Token): boolean {
-  const now = Date.now();
-  const safetyMargin = 60;
-  return now < userToken.expires_in - safetyMargin;
 }

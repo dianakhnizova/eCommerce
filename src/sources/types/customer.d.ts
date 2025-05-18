@@ -3,9 +3,9 @@ export namespace Customer {
     id?: string;
     addresses?: Address[];
     email: string;
+    password: string;
     firstName?: string;
     lastName?: string;
-    password?: string;
     dateOfBirth?: string;
   };
 

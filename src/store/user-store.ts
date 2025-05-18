@@ -4,6 +4,7 @@ import { LSKeys } from '../sources/enums/ls-keys';
 import { customerService } from '../api/services/customer-service';
 import { authService } from '../api/services/auth-service';
 import { saveTokenToLS } from '../utils/save-token-to-ls';
+import { messages } from '../sources/messages';
 
 class UserStore {
   public isInitLoading = false;
@@ -34,7 +35,8 @@ class UserStore {
       }
     } catch (error) {
       runInAction(() => {
-        this.error = error instanceof Error ? error.message : String(error);
+        this.error =
+          error instanceof Error ? error.message : messages.loginError;
       });
     } finally {
       runInAction(() => {
@@ -43,15 +45,13 @@ class UserStore {
     }
   };
 
-  public login = async (
-    customer: Pick<Customer.Profile, 'email' | 'password'>
-  ) => {
+  public login = async (customer: Customer.Profile) => {
     this.isPending = true;
     this.error = '';
 
     try {
-      const tokenResponse = await authService.getUserToken(customer);
-      saveTokenToLS(tokenResponse, LSKeys.USER_TOKEN);
+      const token = await authService.getUserToken(customer);
+      saveTokenToLS(token, LSKeys.USER_TOKEN);
       const response = await customerService.loginCustomer(customer);
       runInAction(() => {
         this.user = response.customer;
@@ -62,7 +62,8 @@ class UserStore {
       });
     } catch (error) {
       runInAction(() => {
-        this.error = error instanceof Error ? error.message : String(error);
+        this.error =
+          error instanceof Error ? error.message : messages.loginError;
       });
     } finally {
       runInAction(() => {
@@ -83,11 +84,12 @@ class UserStore {
           JSON.stringify(response.customer.id)
         );
       });
-      const tokenResponse = await authService.getUserToken(customer);
-      saveTokenToLS(tokenResponse, LSKeys.USER_TOKEN);
+      const token = await authService.getUserToken(customer);
+      saveTokenToLS(token, LSKeys.USER_TOKEN);
     } catch (error) {
       runInAction(() => {
-        this.error = error instanceof Error ? error.message : String(error);
+        this.error =
+          error instanceof Error ? error.message : messages.registerError;
       });
     } finally {
       runInAction(() => {

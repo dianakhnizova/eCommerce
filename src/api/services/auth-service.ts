@@ -30,14 +30,12 @@ export const authService = {
     return response.data;
   },
 
-  getUserToken: async (
-    customer: Pick<Customer.Profile, 'email' | 'password'>
-  ): Promise<Auth.Token> => {
+  getUserToken: async (customer: Customer.Profile): Promise<Auth.Token> => {
     const parameters = new URLSearchParams({
       grant_type: 'password',
       scope: SCOPE,
       username: customer.email,
-      password: customer.password || '',
+      password: customer.password,
     });
 
     console.log('get new user token');

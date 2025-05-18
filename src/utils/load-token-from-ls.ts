@@ -6,7 +6,7 @@ export const loadTokenFromLS = (tokenKey: LSKeys): Auth.Token | undefined => {
   const raw = localStorage.getItem(tokenKey);
   if (!raw) return;
 
-  const parsed: unknown = JSON.parse(raw);
+  const parsed: Auth.Token = JSON.parse(raw);
   if (!isToken(parsed)) return;
 
   return parsed;

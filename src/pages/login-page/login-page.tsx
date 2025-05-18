@@ -5,7 +5,6 @@ import { FIELDS, validationRules } from './constants.ts';
 import { Button } from '../../components/button/button.tsx';
 import { ButtonVariants } from '../../components/button/enums.ts';
 import { messages } from './messages.ts';
-import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { PagePath } from '../../router/enums.ts';
 import { Link, useNavigate } from 'react-router-dom';
@@ -14,7 +13,6 @@ import { userStore } from '../../store/user-store';
 import { observer } from 'mobx-react-lite';
 
 export const LoginPage = observer(() => {
-  const [isLoading, setIsLoading] = useState<boolean>(false);
   const navigate = useNavigate();
 
   const {
@@ -25,23 +23,19 @@ export const LoginPage = observer(() => {
   } = useForm<LoginFormValues>();
 
   const onSubmit = (data: LoginFormValues) => {
-    setIsLoading(true);
     console.log('Form data:', data);
     setTimeout(() => {
-      setIsLoading(false);
       reset();
       void navigate(PagePath.root);
     }, 500);
   };
 
-  const router = useNavigate();
-
   useEffect(() => {
     console.log('on Login Page', userStore.isAuth);
     if (userStore.isAuth) {
-      void router(PagePath.root);
+      void navigate(PagePath.root);
     }
-  }, [userStore.isAuth, router]);
+  }, [userStore.isAuth]);
 
   return (
     <div className={styles.container}>
@@ -49,7 +43,7 @@ export const LoginPage = observer(() => {
         <h2 className={styles.header}>{messages.header}</h2>
         <p className={styles.hint}>{messages.hintText}</p>
       </div>
-      <fieldset disabled={isLoading}>
+      <fieldset disabled={userStore.isPending}>
         <form
           className={styles.formContainer}
           onSubmit={handleSubmit(onSubmit)}
