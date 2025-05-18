@@ -40,7 +40,49 @@
   font-size: 24px;
 }
 
-@media (width <= 800px) {
+.shopButton:hover {
+  opacity: 4;
+  background: var(--clr-accent-8);
+}
+
+@media (width <=1000px) {
+  .mainContainer {
+    height: 500px;
+  }
+}
+
+@media (width >=500px) and (width <=940px) {
+  .mainContainer {
+    height: 460px;
+    margin: 40px 0;
+  }
+
+  .titleContainer {
+    padding: 10px 22px;
+    width: 70%;
+  }
+
+  .mainTitle {
+    font-size: 30px;
+    font-weight: 700;
+  }
+
+  .mainText {
+    font-size: 20px;
+    font-weight: 400;
+  }
+
+  .shopButton {
+    font-size: 20px;
+  }
+}
+
+@media (width <=500px) {
+  .mainContainer {
+    height: 280px;
+    margin: 30px 0;
+  }
+
   .titleContainer {
     padding: 10px 22px;
     width: 70%;
