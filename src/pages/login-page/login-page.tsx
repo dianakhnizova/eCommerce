@@ -1,18 +1,18 @@
-import { TestSignUp } from '../../components/test-sign-up';
+import { useEffect } from 'react';
 import styles from './login-page.module.css';
 import { Input } from '../../components/input/input.tsx';
 import { FIELDS, validationRules } from './constants.ts';
 import { Button } from '../../components/button/button.tsx';
 import { ButtonVariants } from '../../components/button/enums.ts';
 import { messages } from './messages.ts';
-import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { PagePath } from '../../router/enums.ts';
 import { Link, useNavigate } from 'react-router-dom';
 import type { LoginFormValues } from './types.ts';
+import { userStore } from '../../store/user-store';
+import { observer } from 'mobx-react-lite';
 
-export const LoginPage = () => {
-  const [isLoading, setIsLoading] = useState<boolean>(false);
+export const LoginPage = observer(() => {
   const navigate = useNavigate();
 
   const {
@@ -23,14 +23,15 @@ export const LoginPage = () => {
   } = useForm<LoginFormValues>();
 
   const onSubmit = (data: LoginFormValues) => {
-    setIsLoading(true);
-    console.log('Form data:', data);
-    setTimeout(() => {
-      setIsLoading(false);
-      reset();
-      void navigate(PagePath.root);
-    }, 500);
+    void userStore.login(data);
   };
+
+  useEffect(() => {
+    if (userStore.isAuth) {
+      void navigate(PagePath.root);
+      reset();
+    }
+  }, [userStore.isAuth, navigate, reset]);
 
   return (
     <div className={styles.container}>
@@ -38,7 +39,7 @@ export const LoginPage = () => {
         <h2 className={styles.header}>{messages.header}</h2>
         <p className={styles.hint}>{messages.hintText}</p>
       </div>
-      <fieldset disabled={isLoading}>
+      <fieldset disabled={userStore.isPending}>
         <form
           className={styles.formContainer}
           onSubmit={handleSubmit(onSubmit)}
@@ -66,7 +67,6 @@ export const LoginPage = () => {
           >
             {messages.buttons.signIn}
           </Button>
-          <TestSignUp />
         </form>
       </fieldset>
       <p>
@@ -77,4 +77,4 @@ export const LoginPage = () => {
       </p>
     </div>
   );
-};
+});

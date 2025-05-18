@@ -12,10 +12,11 @@ import { SvgBuilder } from '../../components/svg-builder/svg-builder.tsx';
 import { IconType } from '../../components/svg-builder/enums.ts';
 import { useForm } from 'react-hook-form';
 import type { RegisterFormValues } from './types.ts';
-import { useState } from 'react';
+import { userStore } from '../../store/user-store.ts';
+import { observer } from 'mobx-react-lite';
+import { useEffect } from 'react';
 
-export const RegisterPage = () => {
-  const [loading, setLoading] = useState<boolean>(false);
+export const RegisterPage = observer(() => {
   const countryOptions = getCountryOptions();
   const router = useNavigate();
 
@@ -27,14 +28,17 @@ export const RegisterPage = () => {
   } = useForm<RegisterFormValues>();
 
   const onSubmit = (data: RegisterFormValues) => {
-    setLoading(true);
     console.log('Form data:', data);
-    setTimeout(() => {
-      setLoading(false);
+    void userStore.signUp(data);
+  };
+
+  useEffect(() => {
+    console.log({ userStore });
+    if (userStore.isAuth) {
       reset();
       void router(PagePath.root);
-    }, 500);
-  };
+    }
+  }, [userStore.user, router]);
 
   return (
     <div className={styles.container}>
@@ -46,7 +50,7 @@ export const RegisterPage = () => {
         {messages.alreadyHaveAnAccountText}
         <Link to={PagePath.loginPage}>{messages.buttons.signIn}</Link>
       </p>
-      <fieldset disabled={loading}>
+      <fieldset disabled={userStore.isPending}>
         <form
           className={styles.formContainer}
           onSubmit={handleSubmit(onSubmit)}
@@ -79,6 +83,9 @@ export const RegisterPage = () => {
               />
             );
           })}
+          {userStore.error && (
+            <p className={styles.errorMessage}>{userStore.error}</p>
+          )}
           <Button
             variant={ButtonVariants.primary}
             className={styles.signUpButton}
@@ -90,4 +97,4 @@ export const RegisterPage = () => {
       </fieldset>
     </div>
   );
-};
+});
