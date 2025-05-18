@@ -16,20 +16,18 @@ export const authApi = axios.create({
 
 baseApi.interceptors.request.use(async cfg => {
   let userToken = loadTokenFromLS(LSKeys.USER_TOKEN);
-  console.log('userToken', userToken);
-  const isFresh = userToken ? isTokenFresh(userToken) : false;
-  console.log('userToken is fresh :', userToken ? isFresh : 'no token');
+  const isUserTokenFresh = userToken ? isTokenFresh(userToken) : false;
 
-  if (userToken && !isFresh) {
+  if (userToken && !isUserTokenFresh) {
     userToken = await authService.refreshToken(userToken.refresh_token);
-    saveTokenToLS(userToken, LSKeys.USER_TOKEN);
+    saveTokenToLS(LSKeys.USER_TOKEN, userToken);
   }
 
   let anonToken = loadTokenFromLS(LSKeys.ANON_TOKEN);
 
   if (!anonToken) {
     anonToken = await authService.getAnonymousToken();
-    saveTokenToLS(anonToken, LSKeys.ANON_TOKEN);
+    saveTokenToLS(LSKeys.ANON_TOKEN, anonToken);
   }
 
   cfg.headers['Content-Type'] = 'application/json';

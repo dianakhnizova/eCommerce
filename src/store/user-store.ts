@@ -51,7 +51,7 @@ class UserStore {
 
     try {
       const token = await authService.getUserToken(customer);
-      saveTokenToLS(token, LSKeys.USER_TOKEN);
+      saveTokenToLS(LSKeys.USER_TOKEN, token);
       const response = await customerService.loginCustomer(customer);
       runInAction(() => {
         this.user = response.customer;
@@ -85,7 +85,7 @@ class UserStore {
         );
       });
       const token = await authService.getUserToken(customer);
-      saveTokenToLS(token, LSKeys.USER_TOKEN);
+      saveTokenToLS(LSKeys.USER_TOKEN, token);
     } catch (error) {
       runInAction(() => {
         this.error =
