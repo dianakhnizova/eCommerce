@@ -5,15 +5,19 @@ import { Input } from '../../components/input/input.tsx';
 import { CountrySelect } from '../../components/country-select/country-select.tsx';
 import { getCountryOptions } from '../../components/country-select/countries.ts';
 import { messages } from './messages.ts';
-import { FIELDS, validationRules } from './constants.ts';
+import { CHECKBOX_FIELDS, FIELDS, validationRules } from './constants.ts';
 import { Link, useNavigate } from 'react-router-dom';
 import { PagePath } from '../../router/enums.ts';
 import { useForm } from 'react-hook-form';
 import type { RegisterFormValues } from './types.ts';
 import { useState } from 'react';
+import type { Customer } from '../../sources/types/customer';
+import { Checkbox } from '../../components/checkbox/checkbox.tsx';
 
 export const RegisterPage = () => {
   const [loading, setLoading] = useState<boolean>(false);
+  const [isDefaultShipping, setIsDefaultShipping] = useState<boolean>(false);
+  const [isDefaultBilling, setIsDefaultBilling] = useState<boolean>(false);
   const countryOptions = getCountryOptions();
   const router = useNavigate();
 
@@ -27,11 +31,26 @@ export const RegisterPage = () => {
   const onSubmit = (data: RegisterFormValues) => {
     setLoading(true);
     console.log('Form data:', data);
-    setTimeout(() => {
-      setLoading(false);
-      reset();
-      void router(PagePath.root);
-    }, 500);
+    const customer: Customer.Profile = {
+      email: data.email,
+      firstName: data.firstName,
+      lastName: data.lastName,
+      password: data.password,
+      dateOfBirth: data.birth,
+      addresses: [
+        {
+          country: data.country,
+          city: data.city,
+          streetName: data.street,
+          postalCode: data.postCode,
+        },
+      ],
+      defaultShippingAddress: isDefaultShipping ? 0 : undefined,
+      defaultBillingAddress: isDefaultBilling ? 0 : undefined,
+    };
+    console.log(customer, 'customer');
+    reset();
+    void router(PagePath.root);
   };
 
   return (
@@ -73,6 +92,25 @@ export const RegisterPage = () => {
                 className={styles.formInput}
                 {...register(field.name, rules)}
                 error={error}
+              />
+            );
+          })}
+          {CHECKBOX_FIELDS.map(field => {
+            const isChecked =
+              field.name === 'defaultShippingAddress'
+                ? isDefaultShipping
+                : isDefaultBilling;
+            const onChange =
+              field.name === 'defaultShippingAddress'
+                ? setIsDefaultShipping
+                : setIsDefaultBilling;
+            return (
+              <Checkbox
+                key={field.name}
+                type={field.type}
+                label={field.label}
+                checked={isChecked}
+                onChange={e => onChange(e.target.checked)}
               />
             );
           })}

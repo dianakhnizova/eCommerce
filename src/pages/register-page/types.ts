@@ -8,6 +8,8 @@ export type RegisterFormValues = {
   city: string;
   street: string;
   postCode: string;
+  defaultShippingAddress: string;
+  defaultBillingAddress: string;
 };
 
 export type RegisterFormField = {
@@ -27,6 +29,8 @@ export enum RegisterFieldName {
   city = 'city',
   street = 'street',
   postCode = 'postCode',
+  defaultShippingAddress = 'defaultShippingAddress',
+  defaultBillingAddress = 'defaultBillingAddress',
 }
 
 export type InputFieldType =
@@ -34,4 +38,5 @@ export type InputFieldType =
   | 'email'
   | 'password'
   | 'date'
-  | 'country-select';
+  | 'country-select'
+  | 'checkbox';

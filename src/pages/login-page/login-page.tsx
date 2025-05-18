@@ -1,18 +1,17 @@
-import { TestSignUp } from '../../components/test-sign-up';
 import styles from './login-page.module.css';
 import { Input } from '../../components/input/input.tsx';
 import { FIELDS, validationRules } from './constants.ts';
 import { Button } from '../../components/button/button.tsx';
 import { ButtonVariants } from '../../components/button/enums.ts';
 import { messages } from './messages.ts';
-import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { PagePath } from '../../router/enums.ts';
 import { Link, useNavigate } from 'react-router-dom';
 import type { LoginFormValues } from './types.ts';
+import { observer } from 'mobx-react-lite';
+import { userStore } from '../../store/user-store.ts';
 
-export const LoginPage = () => {
-  const [isLoading, setIsLoading] = useState<boolean>(false);
+export const LoginPage = observer(() => {
   const navigate = useNavigate();
 
   const {
@@ -22,14 +21,16 @@ export const LoginPage = () => {
     reset,
   } = useForm<LoginFormValues>();
 
-  const onSubmit = (data: LoginFormValues) => {
-    setIsLoading(true);
-    console.log('Form data:', data);
-    setTimeout(() => {
-      setIsLoading(false);
+  const onSubmit = async (data: LoginFormValues) => {
+    const customer = {
+      email: data.email,
+      password: data.password,
+    };
+    await userStore.login(customer);
+    if (!userStore.error) {
       reset();
       void navigate(PagePath.root);
-    }, 500);
+    }
   };
 
   return (
@@ -38,7 +39,7 @@ export const LoginPage = () => {
         <h2 className={styles.header}>{messages.header}</h2>
         <p className={styles.hint}>{messages.hintText}</p>
       </div>
-      <fieldset disabled={isLoading}>
+      <fieldset disabled={userStore.isPending}>
         <form
           className={styles.formContainer}
           onSubmit={handleSubmit(onSubmit)}
@@ -59,6 +60,7 @@ export const LoginPage = () => {
               />
             );
           })}
+          {userStore.error && <p className={styles.error}>{userStore.error}</p>}
           <Button
             variant={ButtonVariants.primary}
             className={styles.signUpButton}
@@ -66,7 +68,6 @@ export const LoginPage = () => {
           >
             {messages.buttons.signIn}
           </Button>
-          <TestSignUp />
         </form>
       </fieldset>
       <p>
@@ -77,4 +78,4 @@ export const LoginPage = () => {
       </p>
     </div>
   );
-};
+});

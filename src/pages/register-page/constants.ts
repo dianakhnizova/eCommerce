@@ -66,6 +66,19 @@ export const FIELDS: RegisterFormField[] = [
   },
 ];
 
+export const CHECKBOX_FIELDS = [
+  {
+    type: 'checkbox',
+    label: messages.checkboxDefaultShippingAddress,
+    name: RegisterFieldName.defaultShippingAddress,
+  },
+  {
+    type: 'checkbox',
+    label: messages.checkboxDefaultBillingAddress,
+    name: RegisterFieldName.defaultBillingAddress,
+  },
+];
+
 const MIN_PASSWORD_LENGTH = 8;
 const MIN_AGE = 13;
 const MIN_NAME_LENGTH = 1;
@@ -161,7 +174,6 @@ export const validationRules: Record<
   postCode: {
     required: 'Post code is required',
     validate: (value: string, formValues: RegisterFormValues) => {
-      console.log(formValues);
       const country = formValues?.country;
       if (!country || !postcodeValidatorExistsForCountry(country)) {
         return true;
@@ -171,4 +183,6 @@ export const validationRules: Record<
       return isValid || 'Invalid postal code for the selected country';
     },
   },
+  defaultShippingAddress: {},
+  defaultBillingAddress: {},
 };

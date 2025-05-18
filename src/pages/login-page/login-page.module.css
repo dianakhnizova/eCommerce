@@ -34,6 +34,10 @@
   color: var(--clr-primary-500);
 }
 
+.error {
+  color: var(--clr-accent-4);
+}
+
 @media (width <= 360px) {
   .container {
     padding: 1rem;

@@ -14,4 +14,6 @@ export const messages = {
   city: 'City',
   street: 'Street',
   postCode: 'Post code',
+  checkboxDefaultShippingAddress: 'Set as default shipping address',
+  checkboxDefaultBillingAddress: 'Set as default billing address',
 };
