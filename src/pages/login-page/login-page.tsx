@@ -23,19 +23,15 @@ export const LoginPage = observer(() => {
   } = useForm<LoginFormValues>();
 
   const onSubmit = (data: LoginFormValues) => {
-    console.log('Form data:', data);
-    setTimeout(() => {
-      reset();
-      void navigate(PagePath.root);
-    }, 500);
+    void userStore.login(data);
   };
 
   useEffect(() => {
-    console.log('on Login Page', userStore.isAuth);
     if (userStore.isAuth) {
       void navigate(PagePath.root);
+      reset();
     }
-  }, [userStore.isAuth]);
+  }, [userStore.isAuth, navigate, reset]);
 
   return (
     <div className={styles.container}>
