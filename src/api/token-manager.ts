@@ -59,5 +59,3 @@ export class TokenManager {
     return refreshed;
   }
 }
-
-export const tokenManager = new TokenManager();
