@@ -4,7 +4,7 @@ export type LoginFormValues = {
 };
 
 export type LoginFormField = {
-  type: InputFieldType;
+  type: LoginInputFieldType;
   label: string;
   name: LoginFieldName;
   placeholder?: string;
@@ -15,4 +15,4 @@ export enum LoginFieldName {
   password = 'password',
 }
 
-export type InputFieldType = 'email' | 'password';
+export type LoginInputFieldType = 'email' | 'password';

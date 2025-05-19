@@ -22,11 +22,7 @@ export const LoginPage = observer(() => {
     reset,
   } = useForm<LoginFormValues>();
 
-  const onSubmit = async (data: LoginFormValues) => {
-    const customer = {
-      email: data.email,
-      password: data.password,
-    };
+  const onSubmit = async (customer: LoginFormValues) => {
     await userStore.login(customer);
     if (!userStore.error) {
       reset();
@@ -34,6 +30,7 @@ export const LoginPage = observer(() => {
   };
 
   useEffect(() => {
+    userStore.resetErrorAndPendingStatus();
     if (userStore.isAuth) {
       void navigate(PagePath.root);
     }

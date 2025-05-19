@@ -3,9 +3,8 @@
   flex-direction: column;
   padding: 2rem;
   gap: 1rem;
-  box-shadow:
-    0 10px 40px rgb(0 0 0 / 5%),
-    0 -10px 40px rgb(0 0 0 / 5%);
+  box-shadow: var(--shadow-1);
+  max-width: 381px;
 }
 
 .logoContainer {
@@ -41,12 +40,13 @@
   color: var(--clr-primary-500);
 }
 
+.errorMessage {
+  color: var(--clr-accent-4);
+  text-align: center;
+}
+
 @media (width <= 360px) {
   .container {
     padding: 1rem;
   }
-}
-
-.errorMessage {
-  color: var(--clr-accent-4);
 }

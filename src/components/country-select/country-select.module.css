@@ -3,3 +3,8 @@
   flex-direction: column;
   gap: 0.5rem;
 }
+
+.errorText {
+  color: var(--clr-accent-4);
+  font-size: 12px;
+}

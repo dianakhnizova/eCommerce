@@ -4,11 +4,14 @@ import classNames from 'classnames';
 
 type Props = {
   label?: string;
+  className?: string;
 } & InputHTMLAttributes<HTMLInputElement>;
 
-export const Checkbox = ({ label, ...rest }: Props) => {
+export const Checkbox = ({ label, className, ...rest }: Props) => {
   return (
-    <div className={classNames(styles.wrapper, styles.checkboxWrapper)}>
+    <div
+      className={classNames(styles.wrapper, styles.checkboxWrapper, className)}
+    >
       <label className={styles.checkboxLabel}>
         <input type="checkbox" className={styles.checkbox} {...rest} />
         {label}

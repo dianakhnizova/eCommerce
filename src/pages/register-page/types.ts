@@ -12,12 +12,10 @@ export type RegisterFormValues = {
   shippingCity: string;
   shippingStreet: string;
   shippingPostCode: string;
-  // defaultShippingAddress: string;
-  // defaultBillingAddress: string;
 };
 
 export type RegisterFormField = {
-  type: InputFieldType;
+  type: RegisterInputFieldType;
   label: string;
   name: RegisterFieldName;
   placeholder?: string;
@@ -39,7 +37,7 @@ export enum RegisterFieldName {
   shippingPostCode = 'shippingPostCode',
 }
 
-export type InputFieldType =
+export type RegisterInputFieldType =
   | 'text'
   | 'email'
   | 'password'

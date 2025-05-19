@@ -41,52 +41,6 @@ export const FIELDS: RegisterFormField[] = [
     placeholder: messages.birth,
     name: RegisterFieldName.birth,
   },
-  // {
-  //   type: 'country-select',
-  //   label: messages.country,
-  //   name: RegisterFieldName.country,
-  // },
-  // {
-  //   type: 'text',
-  //   label: messages.city,
-  //   placeholder: messages.city,
-  //   name: RegisterFieldName.city,
-  // },
-  // {
-  //   type: 'text',
-  //   label: messages.street,
-  //   placeholder: messages.street,
-  //   name: RegisterFieldName.street,
-  // },
-  // {
-  //   type: 'text',
-  //   label: messages.postCode,
-  //   placeholder: messages.postCode,
-  //   name: RegisterFieldName.postCode,
-  // },
-  // {
-  //   type: 'country-select',
-  //   label: messages.country,
-  //   name: RegisterFieldName.shippingCountry,
-  // },
-  // {
-  //   type: 'text',
-  //   label: messages.city,
-  //   placeholder: messages.city,
-  //   name: RegisterFieldName.shippingCity,
-  // },
-  // {
-  //   type: 'text',
-  //   label: messages.street,
-  //   placeholder: messages.street,
-  //   name: RegisterFieldName.shippingStreet,
-  // },
-  // {
-  //   type: 'text',
-  //   label: messages.postCode,
-  //   placeholder: messages.postCode,
-  //   name: RegisterFieldName.shippingPostCode,
-  // },
 ];
 
 const MIN_PASSWORD_LENGTH = 8;
