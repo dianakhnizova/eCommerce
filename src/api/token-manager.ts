@@ -49,8 +49,7 @@ export class TokenManager {
     token: Auth.Token
   ): Promise<Auth.Token> {
     if (isTokenFresh(token)) return token;
-
-    const refreshed = await authService.refreshToken(token.refresh_token);
+    const refreshed = await authService.refreshToken(token.refresh_token!);
     if (!refreshed.refresh_token) {
       refreshed.refresh_token = token.refresh_token;
     }

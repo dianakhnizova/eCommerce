@@ -53,22 +53,22 @@ export const authService = {
     return response.data;
   },
 
-  refreshToken: async (
-    refreshToken: string
-  ): Promise<Auth.Token & { refresh_token?: string }> => {
+  refreshToken: async (refreshToken: string): Promise<Auth.Token> => {
     const parameters = new URLSearchParams({
       grant_type: 'refresh_token',
       refresh_token: refreshToken,
     });
     console.log('refreshing token');
-    const response = await authApi.post<
-      Auth.Token & { refresh_token?: string }
-    >(`${Endpoints.TOKEN}`, parameters, {
-      auth: {
-        username: CLIENT_ID,
-        password: CLIENT_SECRET,
-      },
-    });
+    const response = await authApi.post<Auth.Token>(
+      `${Endpoints.TOKEN}`,
+      parameters,
+      {
+        auth: {
+          username: CLIENT_ID,
+          password: CLIENT_SECRET,
+        },
+      }
+    );
 
     return response.data;
   },
