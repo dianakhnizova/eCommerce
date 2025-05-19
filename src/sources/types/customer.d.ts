@@ -7,6 +7,8 @@ export namespace Customer {
     firstName?: string;
     lastName?: string;
     dateOfBirth?: string;
+    defaultShippingAddress?: number;
+    defaultBillingAddress?: number;
   };
 
   type Address = {

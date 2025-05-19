@@ -5,6 +5,7 @@ import { customerService } from '../api/services/customer-service';
 import { authService } from '../api/services/auth-service';
 import { saveTokenToLS } from '../utils/save-token-to-ls';
 import { messages } from '../sources/messages';
+import { AxiosError } from 'axios';
 
 class UserStore {
   public isInitLoading = false;
@@ -18,6 +19,11 @@ class UserStore {
 
   public get isAuth() {
     return !!this.user?.id;
+  }
+
+  public resetErrorAndPendingStatus() {
+    this.isPending = false;
+    this.error = '';
   }
 
   public init = async () => {
@@ -35,6 +41,11 @@ class UserStore {
       }
     } catch (error) {
       runInAction(() => {
+        console.log(error);
+        if (error instanceof AxiosError) {
+          this.error = error.response?.data?.message || messages.loginError;
+          return;
+        }
         this.error =
           error instanceof Error ? error.message : messages.loginError;
       });
@@ -62,6 +73,10 @@ class UserStore {
       });
     } catch (error) {
       runInAction(() => {
+        if (error instanceof AxiosError) {
+          this.error = error.response?.data?.message || messages.loginError;
+          return;
+        }
         this.error =
           error instanceof Error ? error.message : messages.loginError;
       });
@@ -88,8 +103,12 @@ class UserStore {
       saveTokenToLS(LSKeys.USER_TOKEN, token);
     } catch (error) {
       runInAction(() => {
+        if (error instanceof AxiosError) {
+          this.error = error.response?.data?.message || messages.loginError;
+          return;
+        }
         this.error =
-          error instanceof Error ? error.message : messages.registerError;
+          error instanceof Error ? error.message : messages.loginError;
       });
     } finally {
       runInAction(() => {

@@ -44,6 +44,7 @@ a:active {
   --clr-bg-1: #fff;
   --clr-bg-2: #f6f5ff;
   --clr-line: #000;
+  --shadow-1: 0 10px 40px rgb(0 0 0 / 5%), 0 -10px 40px rgb(0 0 0 / 5%);
 }
 
 html,

@@ -3,6 +3,8 @@
   flex-direction: column;
   padding: 2rem;
   gap: 1rem;
+  box-shadow: var(--shadow-1);
+  max-width: 375px;
 }
 
 .header {
@@ -12,6 +14,7 @@
 
 .hint {
   font-size: 17px;
+  text-align: center;
 }
 
 .formContainer {
@@ -29,6 +32,11 @@
 
 .formInput::placeholder {
   color: var(--clr-primary-500);
+}
+
+.error {
+  color: var(--clr-accent-4);
+  text-align: center;
 }
 
 @media (width <= 360px) {
