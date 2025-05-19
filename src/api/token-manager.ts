@@ -1,73 +1,62 @@
 import { LSKeys } from '../sources/enums/ls-keys';
+
 import type { Auth } from '../sources/types/auth';
 import type { Customer } from '../sources/types/customer';
 import { isTokenFresh } from '../utils/is-token-fresh';
 import { loadTokenFromLS } from '../utils/load-token-from-ls';
-import { saveTokenToLS } from '../utils/save-token-to-ls';
+import { extendToken } from '../utils/extend-token';
 import { authService } from './services/auth-service';
 
-type Locks = {
-  [LSKeys.USER_TOKEN]?: Promise<Auth.Token>;
-  [LSKeys.ANON_TOKEN]?: Promise<Auth.Token>;
-};
-
 export class TokenManager {
-  private user: Auth.Token | null = loadTokenFromLS(LSKeys.USER_TOKEN) || null;
-  private anon: Auth.Token | null = loadTokenFromLS(LSKeys.ANON_TOKEN) || null;
-  private locks: Locks = {};
-
-  public logout() {
-    localStorage.clear();
-    this.anon = null;
-    this.user = null;
-  }
-
-  public async fetchUserToken(customer: Customer.Profile) {
-    this.user = await authService.getUserToken(customer);
-    this.user = saveTokenToLS(LSKeys.USER_TOKEN, this.user);
-    this.anon = null;
+  public static async fetchUserToken(customer: Customer.Profile) {
+    const newToken = await authService.getUserToken(customer);
+    const extended = extendToken(newToken);
+    localStorage.setItem(LSKeys.USER_TOKEN, JSON.stringify(extended));
     localStorage.removeItem(LSKeys.ANON_TOKEN);
   }
 
-  public async fetchAnonToken() {
-    this.anon = await authService.getAnonymousToken();
-    this.anon = saveTokenToLS(LSKeys.ANON_TOKEN, this.anon);
-  }
+  public static async getAccessToken(): Promise<string> {
+    const anon = loadTokenFromLS(LSKeys.ANON_TOKEN);
+    const user = loadTokenFromLS(LSKeys.USER_TOKEN);
 
-  public async getAccessToken(): Promise<string> {
-    if (this.user) {
-      this.user = await this.ensureFresh(LSKeys.USER_TOKEN, this.user);
-      return this.user.access_token;
+    if (user) {
+      const userRefreshed = await TokenManager.ensureFresh(
+        LSKeys.USER_TOKEN,
+        user
+      );
+      return userRefreshed.access_token;
     }
 
-    if (!this.anon) await this.fetchAnonToken();
+    if (anon) {
+      const refreshed = await TokenManager.ensureFresh(LSKeys.ANON_TOKEN, anon);
+      return refreshed.access_token;
+    }
 
-    this.anon = await this.ensureFresh(LSKeys.ANON_TOKEN, this.anon!);
-    return this.anon.access_token;
+    const newAnon = await authService.getAnonymousToken();
+    const newAnonExtended = extendToken(newAnon);
+    localStorage.setItem(LSKeys.ANON_TOKEN, JSON.stringify(newAnonExtended));
+
+    return newAnonExtended.access_token;
   }
 
-  private async ensureFresh(
+  public static cleanup() {
+    localStorage.removeItem(LSKeys.USER_TOKEN);
+    localStorage.removeItem(LSKeys.ANON_TOKEN);
+  }
+
+  private static async ensureFresh(
     key: LSKeys.USER_TOKEN | LSKeys.ANON_TOKEN,
     token: Auth.Token
   ): Promise<Auth.Token> {
     if (isTokenFresh(token)) return token;
-    if (this.locks[key]) return await this.locks[key];
 
-    this.locks[key] = authService.refreshToken(token.refresh_token);
-
-    try {
-      let refreshed = await this.locks[key];
-
-      if (!refreshed.refresh_token) {
-        refreshed.refresh_token = token.refresh_token;
-      }
-
-      refreshed = saveTokenToLS(key, refreshed);
-
-      return refreshed;
-    } finally {
-      delete this.locks[key];
+    const refreshed = await authService.refreshToken(token.refresh_token);
+    if (!refreshed.refresh_token) {
+      refreshed.refresh_token = token.refresh_token;
     }
+    const extended = extendToken(refreshed);
+    localStorage.setItem(key, JSON.stringify(extended));
+    return refreshed;
   }
 }
 

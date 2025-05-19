@@ -2,7 +2,7 @@ import { makeAutoObservable, runInAction } from 'mobx';
 import type { Customer } from '../sources/types/customer';
 import { customerService } from '../api/services/customer-service';
 import { messages } from '../sources/messages';
-import { tokenManager } from '../api/token-manager';
+import { TokenManager } from '../api/token-manager';
 import { LSKeys } from '../sources/enums/ls-keys';
 
 class UserStore {
@@ -49,7 +49,7 @@ class UserStore {
     this.error = '';
 
     try {
-      await tokenManager.fetchUserToken(customer);
+      await TokenManager.fetchUserToken(customer);
       const response = await customerService.loginCustomer(customer);
       runInAction(() => {
         this.user = response.customer;
@@ -76,7 +76,7 @@ class UserStore {
         this.user = response.customer;
         localStorage.setItem(LSKeys.USER_ID, response.customer.id);
       });
-      await tokenManager.fetchUserToken(customer);
+      await TokenManager.fetchUserToken(customer);
     } catch (error) {
       runInAction(() => {
         this.error =
@@ -90,7 +90,8 @@ class UserStore {
   }
 
   public logout() {
-    tokenManager.logout();
+    TokenManager.cleanup();
+    localStorage.removeItem(LSKeys.USER_ID);
     this.user = null;
     this.error = '';
     this.isPending = false;

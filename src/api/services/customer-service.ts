@@ -9,7 +9,7 @@ export const customerService = {
   ): Promise<{ customer: Required<Customer.Profile> }> => {
     const response = await baseApi.post<{
       customer: Required<Customer.Profile>;
-    }>(`${PROJECT_KEY}/${Endpoints.SIGN_UP_CUSTOMER}`, customer);
+    }>(`${PROJECT_KEY}${Endpoints.SIGN_UP_CUSTOMER}`, customer);
     return response.data;
   },
 
@@ -18,7 +18,7 @@ export const customerService = {
   ): Promise<{ customer: Required<Customer.Profile> }> => {
     const response = await baseApi.post<{
       customer: Required<Customer.Profile>;
-    }>(`${PROJECT_KEY}/${Endpoints.LOGIN}`, customer);
+    }>(`${PROJECT_KEY}${Endpoints.LOGIN}`, customer);
     return response.data;
   },
 
@@ -30,7 +30,7 @@ export const customerService = {
       customer_id: customerID,
     });
     const response = await baseApi.get<Required<Customer.Profile>>(
-      `${PROJECT_KEY}/${Endpoints.ME}`,
+      `${PROJECT_KEY}${Endpoints.ME}`,
       {
         params,
       }
@@ -40,7 +40,7 @@ export const customerService = {
 
   getActiveCart: async (): Promise<Customer.Cart> => {
     const response = await baseApi.get<Customer.Cart>(
-      `/${PROJECT_KEY}/${Endpoints.CART_ACTIVE}`
+      `${PROJECT_KEY}${Endpoints.CART_ACTIVE}`
     );
     return response.data;
   },
