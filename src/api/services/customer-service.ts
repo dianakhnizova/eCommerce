@@ -6,30 +6,30 @@ import { Endpoints } from '../endpoints';
 export const customerService = {
   signupNewCustomer: async (
     customer: Customer.Profile
-  ): Promise<{ customer: Customer.Profile }> => {
-    const response = await baseApi.post<{ customer: Customer.Profile }>(
-      `${PROJECT_KEY}/${Endpoints.SIGN_UP_CUSTOMER}`,
-      customer
-    );
+  ): Promise<{ customer: Required<Customer.Profile> }> => {
+    const response = await baseApi.post<{
+      customer: Required<Customer.Profile>;
+    }>(`${PROJECT_KEY}/${Endpoints.SIGN_UP_CUSTOMER}`, customer);
     return response.data;
   },
 
   loginCustomer: async (
     customer: Customer.Profile
-  ): Promise<{ customer: Customer.Profile }> => {
-    const response = await baseApi.post<{ customer: Customer.Profile }>(
-      `${PROJECT_KEY}/${Endpoints.LOGIN}`,
-      customer
-    );
+  ): Promise<{ customer: Required<Customer.Profile> }> => {
+    const response = await baseApi.post<{
+      customer: Required<Customer.Profile>;
+    }>(`${PROJECT_KEY}/${Endpoints.LOGIN}`, customer);
     return response.data;
   },
 
-  getCustomerByID: async (customerID: string): Promise<Customer.Profile> => {
+  getCustomerByID: async (
+    customerID: string
+  ): Promise<Required<Customer.Profile>> => {
     const params = new URLSearchParams({
       manage_my_profile: PROJECT_KEY,
       customer_id: customerID,
     });
-    const response = await baseApi.get<Customer.Profile>(
+    const response = await baseApi.get<Required<Customer.Profile>>(
       `${PROJECT_KEY}/${Endpoints.ME}`,
       {
         params,

@@ -1,7 +1,7 @@
 import type { Auth } from '../sources/types/auth';
 
-export function isTokenFresh(userToken: Auth.Token): boolean {
+export function isTokenFresh(token: Auth.Token): boolean {
   const now = Date.now();
-  const safetyMargin = 60;
-  return now < userToken.expires_in - safetyMargin;
+  const safetyMarginMs = 120_000;
+  return now < token.expires_in - safetyMarginMs;
 }
