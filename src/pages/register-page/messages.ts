@@ -10,10 +10,8 @@ export const messages = {
   firstName: 'First Name',
   lastName: 'Last Name',
   birth: 'Birth',
-  checkboxSetDefaultShippingAddress: 'Set as default shipping address',
+  checkboxSetDefaultAddress: 'Set as default address',
   checkboxUseShippingAddress: 'Use as shipping address',
-  checkboxSetDefaultBillingAddress: 'Set as default billing address',
   headerForDefaultBillingAddress: 'Billing address',
   headerForDefaultShippingAddress: 'Shipping address',
-  emptyValue: '',
 };

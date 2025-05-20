@@ -75,7 +75,7 @@ export const RegisterPage = observer(() => {
           </h3>
 
           <Checkbox
-            label={messages.checkboxSetDefaultBillingAddress}
+            label={messages.checkboxSetDefaultAddress}
             checked={isDefaultBilling}
             onChange={event => {
               setIsDefaultBilling(event.target.checked);
@@ -106,7 +106,7 @@ export const RegisterPage = observer(() => {
               </h3>
 
               <Checkbox
-                label={messages.checkboxSetDefaultShippingAddress}
+                label={messages.checkboxSetDefaultAddress}
                 checked={isDefaultShipping}
                 onChange={event => {
                   setIsDefaultShipping(event.target.checked);
