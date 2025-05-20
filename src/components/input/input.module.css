@@ -22,6 +22,7 @@
   border: none;
   cursor: pointer;
   color: var(--clr-primary-500);
+  padding: 0 8px;
 }
 
 .error {

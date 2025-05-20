@@ -16,6 +16,7 @@ import { Checkbox } from '../../components/checkbox/checkbox.tsx';
 import { userStore } from '../../store/user-store.ts';
 import { observer } from 'mobx-react-lite';
 import { useEffect } from 'react';
+import { createSignUpData } from './create-signup-data.tsx';
 
 export const RegisterPage = observer(() => {
   const [isSameAddress, setIsSameAddress] = useState<boolean>(false);
@@ -25,40 +26,27 @@ export const RegisterPage = observer(() => {
   const {
     register,
     handleSubmit,
-    setValue,
     formState: { errors },
     reset,
-    getValues,
   } = useForm<RegisterFormValues>();
 
-  const onSubmit = (data: RegisterFormValues) => {
-    console.log('Form data:', data);
-    const signUpData = {
-      email: data.email,
-      password: data.password,
-      firstName: data.firstName,
-      lastName: data.lastName,
-      dateOfBirth: data.birth,
-      addresses: [
-        {
-          country: data.country,
-          city: data.city,
-          streetName: data.street,
-          postalCode: data.postCode,
-        },
-        {
-          country: data.shippingCountry,
-          city: data.shippingCity,
-          streetName: data.shippingStreet,
-          postalCode: data.shippingPostCode,
-        },
-      ],
-      defaultBillingAddress: 0,
-      defaultShippingAddress: isSameAddress ? 0 : 1,
-      shippingAddresses: [1],
-    };
-    void userStore.signUp(signUpData);
+  const onSubmit = async (data: RegisterFormValues) => {
+    try {
+      await userStore.signUp(createSignUpData(data, isSameAddress));
+    } catch (error) {
+      console.log('Sign-up error:', error);
+    }
   };
+
+  useEffect(() => {
+    if (userStore.error) {
+      const timer = setTimeout(() => {
+        userStore.resetErrorAndPendingStatus();
+      }, 3000);
+
+      return () => clearTimeout(timer);
+    }
+  }, [userStore.error]);
 
   useEffect(() => {
     userStore.resetErrorAndPendingStatus();
@@ -147,71 +135,52 @@ export const RegisterPage = observer(() => {
             onChange={e => {
               const isChecked = e.target.checked;
               setIsSameAddress(isChecked);
-              if (isChecked) {
-                setValue(
-                  RegisterFieldName.shippingCountry,
-                  getValues(RegisterFieldName.country)
-                );
-                setValue(
-                  RegisterFieldName.shippingCity,
-                  getValues(RegisterFieldName.city)
-                );
-                setValue(
-                  RegisterFieldName.shippingStreet,
-                  getValues(RegisterFieldName.street)
-                );
-                setValue(
-                  RegisterFieldName.shippingPostCode,
-                  getValues(RegisterFieldName.postCode)
-                );
-              }
             }}
           />
-
-          <h3 className={styles.titleCheckBox}>
-            {messages.headerForDefaultShippingAddress}
-          </h3>
-          <CountrySelect
-            label={messages.country}
-            options={countryOptions}
-            className={styles.formInput}
-            disabled={isSameAddress}
-            {...register(RegisterFieldName.shippingCountry, {
-              ...validationRules[RegisterFieldName.country],
-              required: !isSameAddress && 'Country is required',
-            })}
-            error={errors.shippingCountry?.message}
-          />
-          <Input
-            label={messages.city}
-            className={styles.formInput}
-            disabled={isSameAddress}
-            {...register(RegisterFieldName.shippingCity, {
-              ...validationRules[RegisterFieldName.city],
-              required: !isSameAddress && 'City is required',
-            })}
-            error={errors.shippingCity?.message}
-          />
-          <Input
-            label={messages.street}
-            className={styles.formInput}
-            disabled={isSameAddress}
-            {...register(RegisterFieldName.shippingStreet, {
-              ...validationRules[RegisterFieldName.street],
-              required: !isSameAddress && 'Street is required',
-            })}
-            error={errors.shippingStreet?.message}
-          />
-          <Input
-            label={messages.postCode}
-            className={styles.formInput}
-            disabled={isSameAddress}
-            {...register(RegisterFieldName.shippingPostCode, {
-              ...validationRules[RegisterFieldName.postCode],
-              required: !isSameAddress && 'Post Code is required',
-            })}
-            error={errors.shippingPostCode?.message}
-          />
+          {!isSameAddress && (
+            <>
+              <h3 className={styles.titleCheckBox}>
+                {messages.headerForDefaultShippingAddress}
+              </h3>
+              <CountrySelect
+                label={messages.country}
+                options={countryOptions}
+                className={styles.formInput}
+                {...register(RegisterFieldName.shippingCountry, {
+                  ...validationRules[RegisterFieldName.country],
+                  required: !isSameAddress && 'Country is required',
+                })}
+                error={errors.shippingCountry?.message}
+              />
+              <Input
+                label={messages.city}
+                className={styles.formInput}
+                {...register(RegisterFieldName.shippingCity, {
+                  ...validationRules[RegisterFieldName.city],
+                  required: !isSameAddress && 'City is required',
+                })}
+                error={errors.shippingCity?.message}
+              />
+              <Input
+                label={messages.street}
+                className={styles.formInput}
+                {...register(RegisterFieldName.shippingStreet, {
+                  ...validationRules[RegisterFieldName.street],
+                  required: !isSameAddress && 'Street is required',
+                })}
+                error={errors.shippingStreet?.message}
+              />
+              <Input
+                label={messages.postCode}
+                className={styles.formInput}
+                {...register(RegisterFieldName.shippingPostCode, {
+                  ...validationRules[RegisterFieldName.postCode],
+                  required: !isSameAddress && 'Post Code is required',
+                })}
+                error={errors.shippingPostCode?.message}
+              />
+            </>
+          )}
           {userStore.error && (
             <p className={styles.errorMessage}>{userStore.error}</p>
           )}
