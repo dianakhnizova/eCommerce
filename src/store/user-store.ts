@@ -21,6 +21,10 @@ class UserStore {
     return !!this.user?.id;
   }
 
+  public resetError() {
+    this.error = '';
+  }
+
   public resetErrorAndPendingStatus() {
     this.isPending = false;
     this.error = '';

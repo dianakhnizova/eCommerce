@@ -29,7 +29,7 @@ export const createSignUpData = (
     dateOfBirth: data.birth,
     addresses,
     defaultBillingAddress: 0,
-    defaultShippingAddress: 0,
-    shippingAddresses: [0],
+    defaultShippingAddress: isSameAddress ? 0 : 1,
+    shippingAddresses: [isSameAddress ? 0 : 1],
   };
 };

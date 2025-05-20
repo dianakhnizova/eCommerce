@@ -31,17 +31,13 @@ export const RegisterPage = observer(() => {
   } = useForm<RegisterFormValues>();
 
   const onSubmit = async (data: RegisterFormValues) => {
-    try {
-      await userStore.signUp(createSignUpData(data, isSameAddress));
-    } catch (error) {
-      console.log('Sign-up error:', error);
-    }
+    await userStore.signUp(createSignUpData(data, isSameAddress));
   };
 
   useEffect(() => {
     if (userStore.error) {
       const timer = setTimeout(() => {
-        userStore.resetErrorAndPendingStatus();
+        userStore.resetError();
       }, 3000);
 
       return () => clearTimeout(timer);
@@ -50,7 +46,6 @@ export const RegisterPage = observer(() => {
 
   useEffect(() => {
     userStore.resetErrorAndPendingStatus();
-    console.log({ userStore });
     if (userStore.isAuth) {
       reset();
       void router(PagePath.root);
