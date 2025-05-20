@@ -1,0 +1,11 @@
+.formInput {
+  border: 1px solid var(--clr-primary-300);
+  border-radius: 4px;
+  padding: 0.5rem;
+  color: var(--clr-primary-500);
+  width: 98%;
+}
+
+.formInput::placeholder {
+  color: var(--clr-primary-500);
+}

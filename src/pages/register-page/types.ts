@@ -1,3 +1,5 @@
+import type { RegisterOptions } from 'react-hook-form';
+
 export type RegisterFormValues = {
   email: string;
   password: string;
@@ -44,3 +46,5 @@ export type RegisterInputFieldType =
   | 'date'
   | 'country-select'
   | 'checkbox';
+
+export type ValidationRules = Record<string, RegisterOptions>;

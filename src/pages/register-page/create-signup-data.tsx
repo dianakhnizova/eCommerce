@@ -2,7 +2,9 @@ import type { RegisterFormValues } from './types';
 
 export const createSignUpData = (
   data: RegisterFormValues,
-  isSameAddress: boolean
+  isSameAddress: boolean,
+  isDefaultBilling: boolean,
+  isDefaultShipping: boolean
 ) => {
   const billingAddress = {
     country: data.country,
@@ -21,6 +23,22 @@ export const createSignUpData = (
     });
   }
 
+  const defaultShippingAddress = isSameAddress
+    ? isDefaultBilling
+      ? 0
+      : undefined
+    : isDefaultShipping
+      ? 1
+      : undefined;
+
+  const shippingAddresses = isSameAddress
+    ? isDefaultBilling
+      ? [0]
+      : []
+    : isDefaultShipping
+      ? [1]
+      : [];
+
   return {
     email: data.email,
     password: data.password,
@@ -28,8 +46,8 @@ export const createSignUpData = (
     lastName: data.lastName,
     dateOfBirth: data.birth,
     addresses,
-    defaultBillingAddress: 0,
-    defaultShippingAddress: isSameAddress ? 0 : 1,
-    shippingAddresses: [isSameAddress ? 0 : 1],
+    defaultBillingAddress: isDefaultBilling ? 0 : undefined,
+    defaultShippingAddress,
+    shippingAddresses,
   };
 };

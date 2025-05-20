@@ -30,6 +30,16 @@ export const LoginPage = observer(() => {
   };
 
   useEffect(() => {
+    if (userStore.error) {
+      const timer = setTimeout(() => {
+        userStore.resetError();
+      }, 3000);
+
+      return () => clearTimeout(timer);
+    }
+  }, [userStore.error]);
+
+  useEffect(() => {
     userStore.resetErrorAndPendingStatus();
     if (userStore.isAuth) {
       void navigate(PagePath.root);
