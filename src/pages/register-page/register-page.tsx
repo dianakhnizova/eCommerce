@@ -16,7 +16,6 @@ import { useEffect } from 'react';
 import { createSignUpData } from './create-signup-data.tsx';
 import { AddressFields } from '../../components/address-fields/address-fields.tsx';
 import { CustomerFields } from '../../components/customer-fields/customer-fields.tsx';
-import { copyBillingToShipping } from './copy-billing-fields.tsx';
 
 export const RegisterPage = observer(() => {
   const [isSameAddress, useIsSameAddress] = useState<boolean>(false);
@@ -29,8 +28,6 @@ export const RegisterPage = observer(() => {
     handleSubmit,
     formState: { errors },
     reset,
-    watch,
-    setValue,
   } = useForm<RegisterFormValues>();
 
   const onSubmit = async (data: RegisterFormValues) => {
@@ -38,17 +35,6 @@ export const RegisterPage = observer(() => {
       createSignUpData(data, isSameAddress, isDefaultBilling, isDefaultShipping)
     );
   };
-
-  useEffect(() => {
-    if (isSameAddress) {
-      copyBillingToShipping(isSameAddress, watch, setValue);
-    } else {
-      setValue(RegisterFieldName.shippingCountry, messages.emptyValue);
-      setValue(RegisterFieldName.shippingCity, messages.emptyValue);
-      setValue(RegisterFieldName.shippingStreet, messages.emptyValue);
-      setValue(RegisterFieldName.shippingPostCode, messages.emptyValue);
-    }
-  }, [isSameAddress, watch, setValue]);
 
   useEffect(() => {
     if (userStore.error) {
@@ -113,30 +99,32 @@ export const RegisterPage = observer(() => {
               useIsSameAddress(event.target.checked);
             }}
           />
+          {!isSameAddress && (
+            <>
+              <h3 className={styles.titleCheckBox}>
+                {messages.headerForDefaultShippingAddress}
+              </h3>
 
-          <h3 className={styles.titleCheckBox}>
-            {messages.headerForDefaultShippingAddress}
-          </h3>
+              <Checkbox
+                label={messages.checkboxSetDefaultShippingAddress}
+                checked={isDefaultShipping}
+                onChange={event => {
+                  setIsDefaultShipping(event.target.checked);
+                }}
+              />
 
-          <Checkbox
-            label={messages.checkboxSetDefaultShippingAddress}
-            checked={isDefaultShipping}
-            onChange={event => {
-              setIsDefaultShipping(event.target.checked);
-            }}
-          />
-
-          <AddressFields
-            register={register}
-            errors={errors}
-            countryField={RegisterFieldName.shippingCountry}
-            cityField={RegisterFieldName.shippingCity}
-            streetField={RegisterFieldName.shippingStreet}
-            postCodeField={RegisterFieldName.shippingPostCode}
-            validationRules={validationRules}
-            isRequired={!isSameAddress}
-          />
-
+              <AddressFields
+                register={register}
+                errors={errors}
+                countryField={RegisterFieldName.shippingCountry}
+                cityField={RegisterFieldName.shippingCity}
+                streetField={RegisterFieldName.shippingStreet}
+                postCodeField={RegisterFieldName.shippingPostCode}
+                validationRules={validationRules}
+                isRequired={!isSameAddress}
+              />
+            </>
+          )}
           {userStore.error && (
             <p className={styles.errorMessage}>{userStore.error}</p>
           )}

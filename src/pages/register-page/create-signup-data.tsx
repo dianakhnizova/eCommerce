@@ -31,13 +31,7 @@ export const createSignUpData = (
       ? 1
       : undefined;
 
-  const shippingAddresses = isSameAddress
-    ? isDefaultBilling
-      ? [0]
-      : []
-    : isDefaultShipping
-      ? [1]
-      : [];
+  const shippingAddresses = isSameAddress ? [0] : [1];
 
   return {
     email: data.email,
@@ -49,5 +43,6 @@ export const createSignUpData = (
     defaultBillingAddress: isDefaultBilling ? 0 : undefined,
     defaultShippingAddress,
     shippingAddresses,
+    billingAddress: [0],
   };
 };
