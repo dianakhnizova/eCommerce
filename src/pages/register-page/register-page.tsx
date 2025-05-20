@@ -100,7 +100,9 @@ export const RegisterPage = observer(() => {
             );
           })}
 
-          <h3>{messages.headerForDefaultBillingAddress}</h3>
+          <h3 className={styles.titleCheckBox}>
+            {messages.headerForDefaultBillingAddress}
+          </h3>
           <CountrySelect
             label={messages.country}
             options={countryOptions}
@@ -166,7 +168,9 @@ export const RegisterPage = observer(() => {
             }}
           />
 
-          <h3>{messages.headerForDefaultShippingAddress}</h3>
+          <h3 className={styles.titleCheckBox}>
+            {messages.headerForDefaultShippingAddress}
+          </h3>
           <CountrySelect
             label={messages.country}
             options={countryOptions}

@@ -6,7 +6,7 @@ import { PagePath } from './enums';
 import { LoginPage } from '../pages/login-page/login-page';
 import { RegisterPage } from '../pages/register-page/register-page';
 import { AboutPage } from '../pages/about-page/about-page';
-import { CartPage } from '../pages/cart-page/cart';
+import { CartPage } from '../pages/cart-page/cart-page';
 
 export const router = createBrowserRouter([
   {

@@ -5,6 +5,7 @@
   gap: 1rem;
   box-shadow: var(--shadow-1);
   max-width: 381px;
+  margin-top: 40px;
 }
 
 .logoContainer {
@@ -21,12 +22,14 @@
 
 .signInHint {
   text-align: center;
+  padding-bottom: 20px;
 }
 
 .formContainer {
   display: flex;
   flex-direction: column;
   gap: 1rem;
+  width: 96%;
 }
 
 .formInput {
@@ -34,6 +37,7 @@
   border-radius: 4px;
   padding: 0.5rem;
   color: var(--clr-primary-500);
+  width: 98%;
 }
 
 .formInput::placeholder {
@@ -45,7 +49,18 @@
   text-align: center;
 }
 
-@media (width <= 360px) {
+.titleCheckBox {
+  padding-top: 40px;
+}
+
+@media (width <=430px) {
+  .container {
+    padding: 1rem;
+    width: 90%;
+  }
+}
+
+@media (width <=360px) {
   .container {
     padding: 1rem;
   }

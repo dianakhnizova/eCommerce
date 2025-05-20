@@ -5,6 +5,7 @@
   gap: 1rem;
   box-shadow: var(--shadow-1);
   max-width: 375px;
+  margin-top: 40px;
 }
 
 .header {
@@ -39,7 +40,14 @@
   text-align: center;
 }
 
-@media (width <= 360px) {
+@media (width <=430px) {
+  .container {
+    padding: 1rem;
+    width: 90%;
+  }
+}
+
+@media (width <=360px) {
   .container {
     padding: 1rem;
   }
