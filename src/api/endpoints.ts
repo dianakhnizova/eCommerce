@@ -2,7 +2,7 @@ export enum Endpoints {
   TOKEN = '/token',
   TOKEN_ANONYMOUS = '/anonymous/token',
   PRODUCTS = '/products',
-  CUSTOMERS = 'customers',
+  CUSTOMERS = '/customers',
   ME = '/me',
   SIGN_UP_CUSTOMER = '/me/signup',
   LOGIN = '/me/login',

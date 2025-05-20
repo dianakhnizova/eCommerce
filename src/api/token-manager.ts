@@ -7,15 +7,15 @@ import { loadTokenFromLS } from '../utils/load-token-from-ls';
 import { extendToken } from '../utils/extend-token';
 import { authService } from './services/auth-service';
 
-export class TokenManager {
-  public static async fetchUserToken(customer: Customer.Profile) {
+export const TokenManager = {
+  async fetchUserToken(customer: Customer.Profile) {
     const newToken = await authService.getUserToken(customer);
     const extended = extendToken(newToken);
     localStorage.setItem(LSKeys.USER_TOKEN, JSON.stringify(extended));
     localStorage.removeItem(LSKeys.ANON_TOKEN);
-  }
+  },
 
-  public static async getAccessToken(): Promise<string> {
+  async getAccessToken(): Promise<string> {
     const anon = loadTokenFromLS(LSKeys.ANON_TOKEN);
     const user = loadTokenFromLS(LSKeys.USER_TOKEN);
 
@@ -37,14 +37,14 @@ export class TokenManager {
     localStorage.setItem(LSKeys.ANON_TOKEN, JSON.stringify(newAnonExtended));
 
     return newAnonExtended.access_token;
-  }
+  },
 
-  public static cleanup() {
+  cleanup() {
     localStorage.removeItem(LSKeys.USER_TOKEN);
     localStorage.removeItem(LSKeys.ANON_TOKEN);
-  }
+  },
 
-  private static async ensureFresh(
+  async ensureFresh(
     key: LSKeys.USER_TOKEN | LSKeys.ANON_TOKEN,
     token: Auth.Token
   ): Promise<Auth.Token> {
@@ -56,5 +56,5 @@ export class TokenManager {
     const extended = extendToken(refreshed);
     localStorage.setItem(key, JSON.stringify(extended));
     return refreshed;
-  }
-}
+  },
+};

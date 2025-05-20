@@ -41,29 +41,6 @@ export const FIELDS: RegisterFormField[] = [
     placeholder: messages.birth,
     name: RegisterFieldName.birth,
   },
-  {
-    type: 'country-select',
-    label: messages.country,
-    name: RegisterFieldName.country,
-  },
-  {
-    type: 'text',
-    label: messages.city,
-    placeholder: messages.city,
-    name: RegisterFieldName.city,
-  },
-  {
-    type: 'text',
-    label: messages.street,
-    placeholder: messages.street,
-    name: RegisterFieldName.street,
-  },
-  {
-    type: 'text',
-    label: messages.postCode,
-    placeholder: messages.postCode,
-    name: RegisterFieldName.postCode,
-  },
 ];
 
 const MIN_PASSWORD_LENGTH = 8;
@@ -71,6 +48,45 @@ const MIN_AGE = 13;
 const MIN_NAME_LENGTH = 1;
 const MIN_CITY_LENGTH = 1;
 const MIN_STREET_LENGTH = 1;
+const countryRule = {
+  required: 'Country is required',
+  validate: (value: string) => {
+    return (
+      countryOptions.some(option => option.value === value) ||
+      'Please select a valid country'
+    );
+  },
+};
+const cityRule = {
+  required: 'City is required',
+  minLength: {
+    value: MIN_CITY_LENGTH,
+    message: 'City must contain at least one character',
+  },
+  pattern: {
+    value: /^[A-Za-zА-Яа-яЁё\s'-]+$/,
+    message: 'City must not contain numbers or special characters',
+  },
+};
+const streetRule = {
+  required: 'Street is required',
+  minLength: {
+    value: MIN_STREET_LENGTH,
+    message: 'Street must contain at least one character',
+  },
+};
+const postCodeRule = {
+  required: 'Post code is required',
+  validate: (value: string, formValues: RegisterFormValues) => {
+    const country = formValues?.country;
+    if (!country || !postcodeValidatorExistsForCountry(country)) {
+      return true;
+    }
+
+    const isValid = postcodeValidator(value, country);
+    return isValid || 'Invalid postal code for the selected country';
+  },
+};
 
 export const validationRules: Record<
   RegisterFieldName,
@@ -131,44 +147,12 @@ export const validationRules: Record<
       );
     },
   },
-  country: {
-    required: 'Country is required',
-    validate: (value: string) => {
-      return (
-        countryOptions.some(option => option.value === value) ||
-        'Please select a valid country'
-      );
-    },
-  },
-  city: {
-    required: 'City is required',
-    minLength: {
-      value: MIN_CITY_LENGTH,
-      message: 'City must contain at least one character',
-    },
-    pattern: {
-      value: /^[A-Za-zА-Яа-яЁё\s'-]+$/,
-      message: 'City must not contain numbers or special characters',
-    },
-  },
-  street: {
-    required: 'Street is required',
-    minLength: {
-      value: MIN_STREET_LENGTH,
-      message: 'Street must contain at least one character',
-    },
-  },
-  postCode: {
-    required: 'Post code is required',
-    validate: (value: string, formValues: RegisterFormValues) => {
-      console.log(formValues);
-      const country = formValues?.country;
-      if (!country || !postcodeValidatorExistsForCountry(country)) {
-        return true;
-      }
-
-      const isValid = postcodeValidator(value, country);
-      return isValid || 'Invalid postal code for the selected country';
-    },
-  },
+  country: countryRule,
+  city: cityRule,
+  street: streetRule,
+  postCode: postCodeRule,
+  shippingCountry: countryRule,
+  shippingCity: cityRule,
+  shippingStreet: streetRule,
+  shippingPostCode: postCodeRule,
 };

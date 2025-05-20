@@ -8,10 +8,14 @@ export type RegisterFormValues = {
   city: string;
   street: string;
   postCode: string;
+  shippingCountry: string;
+  shippingCity: string;
+  shippingStreet: string;
+  shippingPostCode: string;
 };
 
 export type RegisterFormField = {
-  type: InputFieldType;
+  type: RegisterInputFieldType;
   label: string;
   name: RegisterFieldName;
   placeholder?: string;
@@ -27,11 +31,16 @@ export enum RegisterFieldName {
   city = 'city',
   street = 'street',
   postCode = 'postCode',
+  shippingCountry = 'shippingCountry',
+  shippingCity = 'shippingCity',
+  shippingStreet = 'shippingStreet',
+  shippingPostCode = 'shippingPostCode',
 }
 
-export type InputFieldType =
+export type RegisterInputFieldType =
   | 'text'
   | 'email'
   | 'password'
   | 'date'
-  | 'country-select';
+  | 'country-select'
+  | 'checkbox';

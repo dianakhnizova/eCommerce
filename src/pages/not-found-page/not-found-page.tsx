@@ -1,10 +1,10 @@
 import { Button } from '../../components/button/button';
-import { PATH_TO_IMG_NOTFOUND } from './constants';
 import { messages } from './messages';
 import styles from './not-found.module.css';
 import { useNavigate } from 'react-router-dom';
 import { PagePath } from '../../router/enums';
 import { BreadCrumbs } from '../../components/bread-crumbs/bread-crumbs';
+import NotFoundImage from '../../../assets/images/not-found.png';
 
 export const NotFoundPage = () => {
   const navigate = useNavigate();
@@ -19,7 +19,7 @@ export const NotFoundPage = () => {
       <div className={styles.mainContainer}>
         <img
           className={styles.imgNotFound}
-          src={PATH_TO_IMG_NOTFOUND}
+          src={NotFoundImage}
           alt={messages.errorMessage}
         />
         <p className={styles.textImage}>{messages.textImageOops}</p>

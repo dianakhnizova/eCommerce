@@ -9,8 +9,8 @@ import { useForm } from 'react-hook-form';
 import { PagePath } from '../../router/enums.ts';
 import { Link, useNavigate } from 'react-router-dom';
 import type { LoginFormValues } from './types.ts';
-import { userStore } from '../../store/user-store';
 import { observer } from 'mobx-react-lite';
+import { userStore } from '../../store/user-store.ts';
 
 export const LoginPage = observer(() => {
   const navigate = useNavigate();
@@ -22,14 +22,17 @@ export const LoginPage = observer(() => {
     reset,
   } = useForm<LoginFormValues>();
 
-  const onSubmit = (data: LoginFormValues) => {
-    void userStore.login(data);
+  const onSubmit = async (customer: LoginFormValues) => {
+    await userStore.login(customer);
+    if (!userStore.error) {
+      reset();
+    }
   };
 
   useEffect(() => {
+    userStore.resetErrorAndPendingStatus();
     if (userStore.isAuth) {
       void navigate(PagePath.root);
-      reset();
     }
   }, [userStore.isAuth, navigate, reset]);
 
@@ -60,6 +63,7 @@ export const LoginPage = observer(() => {
               />
             );
           })}
+          {userStore.error && <p className={styles.error}>{userStore.error}</p>}
           <Button
             variant={ButtonVariants.primary}
             className={styles.signUpButton}

@@ -4,6 +4,7 @@ import { customerService } from '../api/services/customer-service';
 import { messages } from '../sources/messages';
 import { TokenManager } from '../api/token-manager';
 import { LSKeys } from '../sources/enums/ls-keys';
+import { AxiosError } from 'axios';
 
 class UserStore {
   public isInitLoading = false;
@@ -17,6 +18,11 @@ class UserStore {
 
   public get isAuth() {
     return !!this.user?.id;
+  }
+
+  public resetErrorAndPendingStatus() {
+    this.isPending = false;
+    this.error = '';
   }
 
   public init = async () => {
@@ -34,6 +40,11 @@ class UserStore {
       }
     } catch (error) {
       runInAction(() => {
+        console.log(error);
+        if (error instanceof AxiosError) {
+          this.error = error.response?.data?.message || messages.loginError;
+          return;
+        }
         this.error =
           error instanceof Error ? error.message : messages.loginError;
       });
@@ -57,6 +68,10 @@ class UserStore {
       });
     } catch (error) {
       runInAction(() => {
+        if (error instanceof AxiosError) {
+          this.error = error.response?.data?.message || messages.loginError;
+          return;
+        }
         this.error =
           error instanceof Error ? error.message : messages.loginError;
       });
@@ -79,8 +94,12 @@ class UserStore {
       await TokenManager.fetchUserToken(customer);
     } catch (error) {
       runInAction(() => {
+        if (error instanceof AxiosError) {
+          this.error = error.response?.data?.message || messages.loginError;
+          return;
+        }
         this.error =
-          error instanceof Error ? error.message : messages.registerError;
+          error instanceof Error ? error.message : messages.loginError;
       });
     } finally {
       runInAction(() => {
