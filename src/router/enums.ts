@@ -5,4 +5,5 @@ export enum PagePath {
   registerPage = '/registration',
   aboutPage = '/about',
   cartPage = '/cart',
+  catalogPage = '/catalog',
 }
