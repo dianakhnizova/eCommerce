@@ -1,10 +1,9 @@
 import { makeAutoObservable, runInAction } from 'mobx';
 import type { Customer } from '../sources/types/customer';
-import { LSKeys } from '../sources/enums/ls-keys';
 import { customerService } from '../api/services/customer-service';
-import { authService } from '../api/services/auth-service';
-import { saveTokenToLS } from '../utils/save-token-to-ls';
 import { messages } from '../sources/messages';
+import { TokenManager } from '../api/token-manager';
+import { LSKeys } from '../sources/enums/ls-keys';
 import { AxiosError } from 'axios';
 
 class UserStore {
@@ -65,15 +64,11 @@ class UserStore {
     this.error = '';
 
     try {
-      const token = await authService.getUserToken(customer);
-      saveTokenToLS(LSKeys.USER_TOKEN, token);
+      await TokenManager.fetchUserToken(customer);
       const response = await customerService.loginCustomer(customer);
       runInAction(() => {
         this.user = response.customer;
-        localStorage.setItem(
-          LSKeys.USER_ID,
-          JSON.stringify(response.customer.id)
-        );
+        localStorage.setItem(LSKeys.USER_ID, response.customer.id);
       });
     } catch (error) {
       runInAction(() => {
@@ -98,13 +93,9 @@ class UserStore {
       const response = await customerService.signupNewCustomer(customer);
       runInAction(() => {
         this.user = response.customer;
-        localStorage.setItem(
-          LSKeys.USER_ID,
-          JSON.stringify(response.customer.id)
-        );
+        localStorage.setItem(LSKeys.USER_ID, response.customer.id);
       });
-      const token = await authService.getUserToken(customer);
-      saveTokenToLS(LSKeys.USER_TOKEN, token);
+      await TokenManager.fetchUserToken(customer);
     } catch (error) {
       runInAction(() => {
         if (error instanceof AxiosError) {
@@ -122,8 +113,7 @@ class UserStore {
   }
 
   public logout() {
-    localStorage.removeItem(LSKeys.USER_TOKEN);
-    localStorage.removeItem(LSKeys.ANON_TOKEN);
+    TokenManager.cleanup();
     localStorage.removeItem(LSKeys.USER_ID);
     this.user = null;
     this.error = '';

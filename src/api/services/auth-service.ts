@@ -17,7 +17,7 @@ export const authService = {
     });
     console.log('get new anonymous token');
     const response = await authApi.post<Auth.Token>(
-      `${PROJECT_KEY}/${Endpoints.TOKEN_ANONYMOUS}`,
+      `${PROJECT_KEY}${Endpoints.TOKEN_ANONYMOUS}`,
       parameters,
       {
         auth: {
@@ -40,7 +40,7 @@ export const authService = {
 
     console.log('get new user token');
     const response = await authApi.post<Auth.Token>(
-      `${PROJECT_KEY}/${Endpoints.CUSTOMERS}/${Endpoints.TOKEN}`,
+      `${PROJECT_KEY}${Endpoints.CUSTOMERS}${Endpoints.TOKEN}`,
       parameters,
       {
         auth: {
@@ -60,7 +60,7 @@ export const authService = {
     });
     console.log('refreshing token');
     const response = await authApi.post<Auth.Token>(
-      `/${Endpoints.TOKEN}`,
+      `${Endpoints.TOKEN}`,
       parameters,
       {
         auth: {
