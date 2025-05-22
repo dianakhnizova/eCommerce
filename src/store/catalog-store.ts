@@ -13,35 +13,13 @@ export class CatalogStore {
     makeAutoObservable(this);
   }
 
-  public fetchProducts = async () => {
+  public getProducts = async () => {
     this.isLoading = true;
     this.error = null;
     try {
       const data = await productService.getProducts();
-      console.log('Полученные продукты:', data);
       runInAction(() => {
         this.products = data;
-      });
-    } catch (error) {
-      runInAction(() => {
-        if (error instanceof AxiosError) {
-          this.error = error.response?.data?.message || messages.catalogError;
-        }
-      });
-    } finally {
-      runInAction(() => {
-        this.isLoading = false;
-      });
-    }
-  };
-
-  public addProduct = async (product: Product) => {
-    this.isLoading = true;
-    this.error = null;
-    try {
-      const response = await productService.addNewProducts(product);
-      runInAction(() => {
-        this.products.push(response.product);
       });
     } catch (error) {
       runInAction(() => {

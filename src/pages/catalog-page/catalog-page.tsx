@@ -6,10 +6,10 @@ import { Spinner } from '../../components/spinner/spinner';
 import { observer } from 'mobx-react-lite';
 
 export const CatalogPage = observer(() => {
-  const { products, fetchProducts } = catalogStore;
+  const { products, getProducts } = catalogStore;
 
   useEffect(() => {
-    void fetchProducts().then(() => {});
+    void getProducts();
   }, []);
 
   return (
