@@ -1,6 +1,6 @@
 import styles from '../../header.module.css';
 import { NavLink } from 'react-router-dom';
-import { leftLinks } from './constants';
+import { leftLinks } from './left-links-list';
 import classNames from 'classnames';
 
 export const LeftNavMenu = () => {

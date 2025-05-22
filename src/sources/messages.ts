@@ -5,6 +5,9 @@ export const messages = {
   loginPageTitle: 'Sign In',
   registerPageTitle: 'Sign Up',
   cartPageTitle: 'Cart',
+  catalogPageTitle: 'Catalog',
   loginError: 'Login failed',
+  catalogError: 'Catalog failed',
   registerError: 'Sign up failed',
+  productError: 'Product loading error',
 };

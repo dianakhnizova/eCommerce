@@ -11,6 +11,10 @@ const leftLinks: LinkItems[] = [
     to: PagePath.aboutPage,
     label: messages.aboutLink,
   },
+  {
+    to: PagePath.catalogPage,
+    label: messages.catalogLink,
+  },
 ];
 
 export { leftLinks };
