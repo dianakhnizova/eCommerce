@@ -1,0 +1,21 @@
+.bottomNavigationMenu {
+  display: flex;
+  position: relative;
+  align-items: center;
+  padding: 14px 42px;
+  margin-left: 20px;
+
+  .searchButton {
+    position: absolute;
+    right: 0.2px;
+    align-items: center;
+    padding: 7.6px 14px;
+    border-radius: 0;
+    font-size: 16px;
+  }
+}
+
+.input {
+  border: 2px solid var(--clr-primary-300);
+  padding: 8px 20px;
+}

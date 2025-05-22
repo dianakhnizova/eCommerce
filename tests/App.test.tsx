@@ -1,7 +1,7 @@
 import { render, screen } from '@testing-library/react';
-import App from '../src/App';
+import { Root } from '../src/router/root.tsx';
 
 test('renders heading', () => {
-  render(<App />);
+  render(<Root />);
   expect(screen.getByText('eCommerce Application')).toBeDefined();
 });

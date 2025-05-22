@@ -6,19 +6,30 @@
     "dev": "vite",
     "build": "tsc -b && vite build",
     "lint": "eslint .",
+    "fix": "eslint --fix .",
     "format": "prettier --write .",
     "preview": "vite preview",
-    "prepare": "husky",
+    "prepare": "husky install",
     "test": "vitest --config vitest.config.ts",
-    "coverage": "vitest run --coverage"
+    "coverage": "vitest run --coverage",
+    "lint:css": "stylelint \"src/**/*.{css,module.css}\"",
+    "lint:css:fix": "stylelint \"src/**/*.{css,module.css}\" --fix"
   },
   "dependencies": {
     "@testing-library/react": "^16.3.0",
     "axios": "^1.9.0",
+    "classnames": "^2.5.1",
+    "i18n-iso-countries": "^7.14.0",
+    "i18next": "^25.1.2",
+    "lucide-react": "^0.509.0",
+    "postcode-validator": "^3.10.3",
+    "mobx": "^6.13.7",
+    "mobx-react-lite": "^4.1.0",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
+    "react-hook-form": "^7.56.3",
     "react-router": "^7.5.3",
-    "react-router-dom": "^7.5.3"
+    "react-router-dom": "^7.6.0"
   },
   "devDependencies": {
     "@commitlint/config-conventional": "^19.8.0",
@@ -44,9 +55,12 @@
     "jsdom": "^26.1.0",
     "lint-staged": "^15.5.1",
     "prettier": "^3.5.3",
+    "stylelint": "^15.11.0",
+    "stylelint-config-standard": "^34.0.0",
     "typescript": "~5.7.2",
     "typescript-eslint": "^8.31.1",
     "vite": "^6.3.1",
+    "vite-plugin-svgr": "^4.3.0",
     "vitest": "^3.1.2"
   },
   "lint-staged": {
@@ -56,6 +70,14 @@
     ],
     "*.tsx": [
       "eslint --fix",
+      "prettier --write"
+    ],
+    "*.css": [
+      "stylelint --fix",
+      "prettier --write"
+    ],
+    "*.module.css": [
+      "stylelint --fix",
       "prettier --write"
     ]
   }

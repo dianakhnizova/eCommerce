@@ -1,0 +1,67 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  padding: 2rem;
+  gap: 1rem;
+  box-shadow: var(--shadow-1);
+  max-width: 381px;
+  margin-top: 40px;
+}
+
+.logoContainer {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+  justify-content: center;
+}
+
+.logo {
+  width: 50px;
+  height: 80px;
+}
+
+.signInHint {
+  text-align: center;
+  padding-bottom: 20px;
+}
+
+.formContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  width: 96%;
+}
+
+.formInput {
+  border: 1px solid var(--clr-primary-300);
+  border-radius: 4px;
+  padding: 0.5rem;
+  color: var(--clr-primary-500);
+  width: 98%;
+}
+
+.formInput::placeholder {
+  color: var(--clr-primary-500);
+}
+
+.errorMessage {
+  color: var(--clr-accent-4);
+  text-align: center;
+}
+
+.titleCheckBox {
+  padding-top: 40px;
+}
+
+@media (width <=430px) {
+  .container {
+    padding: 1rem;
+    width: 90%;
+  }
+}
+
+@media (width <=360px) {
+  .container {
+    padding: 1rem;
+  }
+}

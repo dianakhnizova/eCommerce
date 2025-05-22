@@ -1,0 +1,20 @@
+.breadCrumbsContainer {
+  display: flex;
+  align-items: center;
+  height: 130px;
+  width: 100%;
+  background: var(--clr-bg-2);
+}
+
+.breadCrumbsWrapper {
+  display: flex;
+  justify-content: flex-start;
+  flex-direction: column;
+  align-items: flex-start;
+  width: 1440px;
+  gap: 9px;
+}
+
+.pageTitle {
+  font-size: 36px;
+}

@@ -1,11 +1,20 @@
-import { Outlet } from 'react-router-dom';
+import { Header } from '../components/header/header';
+import { Footer } from '../components/footer/footer';
+import { MainSection } from '../components/main-section/main-section';
+import styles from './root.module.css';
+import { Spinner } from '../components/spinner/spinner';
+import { observer } from 'mobx-react-lite';
+import { userStore } from '../store/user-store';
 
-export const Root = () => {
+export const Root = observer(() => {
   return (
     <>
-      <h1>Header</h1>
-      <Outlet />
-      <h1>Footer</h1>
+      <div className={styles.root}>
+        <Header />
+        <MainSection />
+        <Footer />
+      </div>
+      <Spinner isLoading={userStore.isInitLoading} />
     </>
   );
-};
+});

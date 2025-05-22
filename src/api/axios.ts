@@ -1,24 +1,30 @@
-import type { InternalAxiosRequestConfig } from 'axios';
 import axios from 'axios';
-import { BASE_URL } from '../sources/constants/api';
+import { isApiError } from '../utils/is-api-error';
+import { AUTH_URL, BASE_URL } from '../sources/constants/api';
+import { TokenManager } from './token-manager';
 
-export const api = axios.create({
-  baseURL: BASE_URL,
-  headers: {
-    'Content-Type': 'application/json',
-  },
+export const baseApi = axios.create({ baseURL: BASE_URL });
+
+export const authApi = axios.create({
+  baseURL: AUTH_URL,
+  headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
 });
 
-api.interceptors.request.use(handleRequest, handleError);
+baseApi.interceptors.request.use(async cfg => {
+  const token = await TokenManager.getAccessToken();
 
-function handleRequest(config: InternalAxiosRequestConfig<void>) {
-  return config;
-}
+  cfg.headers['Content-Type'] = 'application/json';
+  cfg.headers.Authorization = `Bearer ${token}`;
 
-function handleError(error: unknown): never {
-  if (axios.isAxiosError(error)) {
-    console.log('Status:', error.response?.status);
-    console.log('Data:', error.response?.data);
+  return cfg;
+});
+
+baseApi.interceptors.response.use(response => response, handleResponseError);
+
+function handleResponseError(error: unknown): never {
+  if (isApiError(error)) {
+    console.log(error.response?.data.message);
+    throw new Error(error.response?.data.message);
   }
-  throw new Error('Failed to fetch access token');
+  throw error;
 }

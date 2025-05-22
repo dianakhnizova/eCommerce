@@ -1,20 +1,24 @@
 import { createBrowserRouter } from 'react-router-dom';
 import { Root } from './root';
-import { HomePage } from '../pages/home-page/home-page';
-import { NotFoundPage } from '../pages/notfound-page/notfound-page';
+import { MainPage } from '../pages/main-page/main-page';
+import { NotFoundPage } from '../pages/not-found-page/not-found-page';
 import { PagePath } from './enums';
 import { LoginPage } from '../pages/login-page/login-page';
-import { registerPage } from '../pages/register-page/register-page';
+import { RegisterPage } from '../pages/register-page/register-page';
+import { AboutPage } from '../pages/about-page/about-page';
+import { CartPage } from '../pages/cart-page/cart-page';
 
 export const router = createBrowserRouter([
   {
     path: PagePath.root,
     Component: Root,
     children: [
-      { index: true, Component: HomePage },
+      { index: true, Component: MainPage },
       { path: PagePath.notFound, Component: NotFoundPage },
       { path: PagePath.loginPage, Component: LoginPage },
-      { path: PagePath.registerPage, Component: registerPage },
+      { path: PagePath.registerPage, Component: RegisterPage },
+      { path: PagePath.aboutPage, Component: AboutPage },
+      { path: PagePath.cartPage, Component: CartPage },
     ],
   },
   {

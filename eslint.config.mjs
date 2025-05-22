@@ -58,6 +58,8 @@ export default tseslint
         ],
         '@typescript-eslint/no-unsafe-assignment': 'off',
         '@typescript-eslint/no-unsafe-call': 'off',
+        '@typescript-eslint/no-unsafe-argument': 'off',
+        '@typescript-eslint/no-unsafe-member-access': 'off',
         '@typescript-eslint/consistent-type-imports': 'error',
         '@typescript-eslint/explicit-function-return-type': 'off',
         '@typescript-eslint/explicit-member-accessibility': [
@@ -65,11 +67,16 @@ export default tseslint
           { accessibility: 'explicit', overrides: { constructors: 'off' } },
         ],
         '@typescript-eslint/member-ordering': 'error',
+        '@typescript-eslint/no-misused-promises': 'off',
+        '@typescript-eslint/no-unsafe-enum-comparison': 'off',
         'class-methods-use-this': 'error',
         'unicorn/max-func-body-length': 'off',
         'unicorn/no-empty-file': 'off',
         'unicorn/prefer-query-selector': 'off',
         'unicorn/filename-case': 'off',
+        'unicorn/prevent-abbreviations': 'off',
+        'unicorn/no-useless-undefined': 'off',
+        'unicorn/no-null': 'off',
       },
     }
   )

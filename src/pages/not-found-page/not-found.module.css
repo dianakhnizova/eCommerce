@@ -1,0 +1,36 @@
+.mainContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  width: 100%;
+  gap: 30px;
+  margin: 49px 0 0;
+}
+
+.imgNotFound {
+  width: 60%;
+  max-width: 900px;
+}
+
+.textImage {
+  text-align: center;
+  font-weight: 700;
+  font-size: 24px;
+  padding: 0 10px;
+}
+
+@media (width <=800px) {
+  .mainContainer {
+    margin: 20px;
+  }
+
+  .errorTitle {
+    font-size: 20px;
+  }
+
+  .textImage {
+    font-size: 16px;
+  }
+}
