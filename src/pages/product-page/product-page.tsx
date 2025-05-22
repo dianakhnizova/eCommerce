@@ -30,7 +30,7 @@ export const ProductPage = observer(() => {
 
   return (
     <>
-      <h2 className={styles.productPage}>{messages.text.header}</h2>
+      <h2 className={styles.wrapper}>{messages.text.header}</h2>
       <div>Product with ID: {product.id}</div>
       <div>Product Name: {product.name.en}</div>
     </>
