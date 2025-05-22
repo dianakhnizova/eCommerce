@@ -1,5 +1,5 @@
 import { makeAutoObservable, runInAction } from 'mobx';
-import { productService } from '../api/services/catalog-service';
+import { catalogService } from '../api/services/catalog-service';
 import { messages } from '../sources/messages';
 import { AxiosError } from 'axios';
 import type { Catalog } from '../sources/types/catalog';
@@ -21,7 +21,7 @@ export class CatalogStore {
     this.isLoading = true;
     this.error = null;
     try {
-      const data = await productService.getProducts();
+      const data = await catalogService.getProducts();
       runInAction(() => {
         this.products = data.results;
         this.limit = data.limit;
