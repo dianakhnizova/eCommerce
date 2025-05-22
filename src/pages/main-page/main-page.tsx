@@ -7,7 +7,6 @@ export const MainPage = () => {
   return (
     <Wrapper className={styles.container}>
       <PromoBanner />
-      <h2>Featured Product</h2>
       <Products />
     </Wrapper>
   );
