@@ -1,7 +1,7 @@
-.catalogWrapper {
+.container {
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
-  width: 100%;
-  flex-direction: column;
   justify-content: center;
+  gap: 53px;
 }

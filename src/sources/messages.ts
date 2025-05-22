@@ -9,4 +9,7 @@ export const messages = {
   loginError: 'Login failed',
   catalogError: 'Catalog failed',
   registerError: 'Sign up failed',
+  noName: 'No name',
+  noDescription: 'No description',
+  placeholderJpg: 'placeholder.jpg',
 };

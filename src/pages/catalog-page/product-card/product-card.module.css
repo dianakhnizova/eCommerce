@@ -1,0 +1,39 @@
+.cardContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  width: 20%;
+  gap: 8px;
+  box-shadow: var(--shadow-2);
+  padding: 20px;
+}
+
+.name {
+  font-size: 20px;
+  font-weight: 700;
+}
+
+.image {
+  width: 80%;
+  height: 200px;
+}
+
+.description {
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.priceContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  padding: 10px 8px;
+  border: 1px solid var(--clr-accent-9);
+  border-radius: 10px;
+}
+
+.discountPrice {
+  color: var(--clr-accent-1);
+}
