@@ -6,7 +6,7 @@ import { Spinner } from '../../components/spinner/spinner';
 import { observer } from 'mobx-react-lite';
 
 export const CatalogPage = observer(() => {
-  const { products, getProducts } = catalogStore;
+  const { products, getProducts, isLoading } = catalogStore;
 
   useEffect(() => {
     void getProducts();
@@ -15,8 +15,8 @@ export const CatalogPage = observer(() => {
   return (
     <>
       <BreadCrumbs />
-      <Spinner isLoading={catalogStore.isLoading} />
-      <h2 className={styles.catalogPage}>Catalog Page</h2>;
+      <Spinner isLoading={isLoading} />
+      <h2 className={styles.catalogPage}>Catalog Page</h2>
       <ul>
         {products.map(product => (
           <li key={product.id}>{product.masterData.current.name.en}</li>
