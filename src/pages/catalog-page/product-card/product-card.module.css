@@ -3,7 +3,7 @@
   flex-direction: column;
   align-items: center;
   justify-content: flex-start;
-  width: 20%;
+  width: 270px;
   gap: 8px;
   box-shadow: var(--shadow-2);
   padding: 20px;
@@ -15,23 +15,20 @@
 }
 
 .image {
-  width: 80%;
-  height: 200px;
+  width: 100%;
+  height: 220px;
 }
 
 .description {
   font-size: 18px;
-  font-weight: 600;
+  font-weight: 700;
 }
 
 .priceContainer {
   display: flex;
-  flex-direction: column;
   align-items: center;
-  gap: 4px;
+  gap: 10px;
   padding: 10px 8px;
-  border: 1px solid var(--clr-accent-9);
-  border-radius: 10px;
 }
 
 .discountPrice {

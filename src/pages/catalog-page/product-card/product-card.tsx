@@ -3,8 +3,9 @@ import { catalogStore } from '../../../store/catalog-store';
 import { useEffect } from 'react';
 import { messages } from './messages';
 import { observer } from 'mobx-react-lite';
+import DEFAULT_IMAGE from '../../../../assets/images/placeholder.jpg';
 
-export const ProductCard = observer(() => {
+export const ProductList = observer(() => {
   const { productList, getProducts } = catalogStore;
 
   useEffect(() => {
@@ -14,23 +15,28 @@ export const ProductCard = observer(() => {
   return (
     <>
       {productList.map(product => (
-        <div key={product.name} className={styles.cardContainer}>
+        <li key={product.id} className={styles.cardContainer}>
           <span className={styles.name}>{product.name}</span>
           <img
             className={styles.image}
             src={product.image}
             alt={product.name}
+            onError={event => {
+              event.currentTarget.src = DEFAULT_IMAGE;
+            }}
           />
           <p className={styles.description}>{product.description}</p>
           <div className={styles.priceContainer}>
             <p>
-              {messages.priceTitle} {product.price}
+              {messages.priceTitle}
+              {product.price}
             </p>
             <p className={styles.discountPrice}>
-              {messages.discountPriceTitle} {product.discountPrice}
+              {messages.priceTitle}
+              {product.discountPrice}
             </p>
           </div>
-        </div>
+        </li>
       ))}
     </>
   );

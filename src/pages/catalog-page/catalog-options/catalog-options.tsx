@@ -9,7 +9,7 @@ export const CatalogOptions = () => {
       <div className={styles.optionsContainer}>
         <div className={styles.option}>
           <span className={styles.optionsTitle}>{messages.perPage}</span>
-          <Input className={styles.input}></Input>
+          <Input className={styles.input} />
         </div>
         <div className={styles.option}>
           <span className={styles.optionsTitle}>{messages.sortBy}</span>

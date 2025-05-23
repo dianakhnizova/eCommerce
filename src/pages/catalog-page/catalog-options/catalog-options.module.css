@@ -1,9 +1,8 @@
 .container {
   display: flex;
-  justify-content: flex-start;
+  justify-content: space-between;
   width: 100%;
-  gap: 280px;
-  padding: 124px 0 144px;
+  padding: 124px 20px 144px;
 }
 
 .title {
@@ -41,4 +40,14 @@
   height: 25px;
   border: 1px solid var(--clr-accent-9);
   color: var(--clr-accent-10);
+}
+
+@media (width <= 650px) {
+  .container {
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 30px;
+    padding: 40px 0 60px;
+  }
 }
