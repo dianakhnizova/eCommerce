@@ -9,5 +9,5 @@ export enum Endpoints {
   OAUTH = '/oauth',
   CART_ACTIVE = '/me/active-cart',
   INTROSPECT = '/introspect',
-  PRODUCT_PROJECTIONS = '/product-projections',
+  PRODUCT_INFORMATION = '/product-projections',
 }
