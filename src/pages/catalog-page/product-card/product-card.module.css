@@ -1,0 +1,41 @@
+.cardContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  width: 270px;
+  gap: 8px;
+  box-shadow: var(--shadow-2);
+  padding: 20px;
+}
+
+.name {
+  font-size: 20px;
+  font-weight: 700;
+}
+
+.image {
+  width: 100%;
+  height: 220px;
+}
+
+.description {
+  font-size: 18px;
+  font-weight: 700;
+  padding: 20px 0;
+}
+
+.priceContainer {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 8px;
+}
+
+.price {
+  text-decoration: line-through;
+}
+
+.discountPrice {
+  color: var(--clr-accent-1);
+}

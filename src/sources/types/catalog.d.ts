@@ -4,7 +4,6 @@ export namespace Catalog {
     masterData: MasterData;
     productType: ProductType;
     taxCategory: TaxCategory;
-    version: number;
     createdAt: string;
     lastModifiedAt: string;
   };
