@@ -2,10 +2,11 @@ import { makeAutoObservable, runInAction } from 'mobx';
 import { messages } from '../sources/messages';
 import { AxiosError } from 'axios';
 import { productService } from '../api/services/product-service.ts';
-import type { Product } from '../sources/types/product';
+import { prepareDetailedProduct } from '../utils/prepare-detailed-product.ts';
+import type { Catalog } from '../sources/types/catalog';
 
 export class ProductStore {
-  public product: Product.Product | null;
+  public product: Catalog.DetailedProduct | null;
   public isLoading = false;
   public error: string | null = null;
 
@@ -21,7 +22,7 @@ export class ProductStore {
     try {
       const data = await productService.getProductByID(id);
       runInAction(() => {
-        this.product = data;
+        this.product = prepareDetailedProduct(data);
       });
     } catch (error) {
       runInAction(() => {

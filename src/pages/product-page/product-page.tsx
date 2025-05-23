@@ -25,14 +25,14 @@ export const ProductPage = observer(() => {
   }
 
   if (!product) {
-    return <div className={styles.empty}>{messages.text.productNotFound}</div>;
+    return <div className={styles.empty}>{messages.productNotFound}</div>;
   }
 
   return (
     <>
-      <h2 className={styles.wrapper}>{messages.text.header}</h2>
+      <h2 className={styles.wrapper}>{messages.header}</h2>
       <div>Product with ID: {product.id}</div>
-      <div>Product Name: {product.name.en}</div>
+      <div>Product Name: {product.name}</div>
     </>
   );
 });
