@@ -1,4 +1,20 @@
+.header {
+  padding-top: 4rem;
+  padding-bottom: 4rem;
+  padding-left: 20px;
+  background: var(--clr-bg-2);
+  width: 100vw;
+}
+
 .wrapper {
   display: flex;
   flex-direction: column;
+}
+
+.slider {
+  display: flex;
+}
+
+.productInfo {
+  display: flex;
 }

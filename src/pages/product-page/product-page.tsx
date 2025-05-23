@@ -28,11 +28,17 @@ export const ProductPage = observer(() => {
     return <div className={styles.empty}>{messages.productNotFound}</div>;
   }
 
+  console.log(product.images);
   return (
     <>
-      <h2 className={styles.wrapper}>{messages.header}</h2>
-      <div>Product with ID: {product.id}</div>
-      <div>Product Name: {product.name}</div>
+      <h2 className={styles.header}>{messages.header}</h2>
+      <div>
+        <div className={styles.slider}></div>
+        <div>
+          <img src="" alt="" />
+        </div>
+        <div className={styles.productInfo}></div>
+      </div>
     </>
   );
 });
