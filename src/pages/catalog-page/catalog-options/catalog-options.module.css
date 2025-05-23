@@ -42,7 +42,7 @@
   color: var(--clr-accent-10);
 }
 
-@media (width <= 650px) {
+@media (width <= 1268px) {
   .container {
     flex-direction: column;
     justify-content: center;

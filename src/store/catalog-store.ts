@@ -4,15 +4,15 @@ import { messages } from '../sources/messages';
 import { AxiosError } from 'axios';
 import type { Catalog } from '../sources/types/catalog';
 import type { ProductCard } from '../pages/catalog-page/product-card/types';
-import { prepareProductCard } from '../utils/prepare-product';
+import { prepareProductCard } from '../utils/prepare-product-card';
 import type { Pagination } from '../sources/types/pagination';
-import { prepareProductPagination } from '../utils/prepare-product';
 import {
   DEFAULT_COUNT,
   DEFAULT_LIMIT,
   DEFAULT_OFFSET,
   DEFAULT_TOTAL,
 } from '../sources/constants/catalog';
+import { preparePagination } from '../utils/prepare-pagination';
 
 export class CatalogStore {
   public products: Catalog.Product[] = [];
@@ -37,10 +37,8 @@ export class CatalogStore {
       const data = await catalogService.getProducts();
       runInAction(() => {
         this.products = data.results;
-        this.productList = data.results.map(product =>
-          prepareProductCard(product)
-        );
-        this.pagination = prepareProductPagination(data);
+        this.productList = data.results.map(prepareProductCard);
+        this.pagination = preparePagination(data);
       });
     } catch (error) {
       runInAction(() => {

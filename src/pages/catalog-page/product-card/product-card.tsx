@@ -27,7 +27,7 @@ export const ProductList = observer(() => {
           />
           <p className={styles.description}>{product.description}</p>
           <div className={styles.priceContainer}>
-            <p>
+            <p className={styles.price}>
               {messages.priceTitle}
               {product.price}
             </p>
