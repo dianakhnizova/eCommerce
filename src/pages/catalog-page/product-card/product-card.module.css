@@ -1,12 +1,28 @@
 .cardContainer {
+  text-decoration: none;
+  color: inherit;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: flex-start;
+  box-shadow: var(--shadow-2);
+  transition:
+    transform 0.3s ease,
+    box-shadow 0.3s ease;
+  cursor: pointer;
   width: 270px;
   gap: 8px;
-  box-shadow: var(--shadow-2);
+  height: 100%;
   padding: 20px;
+}
+
+.cardContainer:hover {
+  transform: scale(1.05);
+  box-shadow: var(--shadow-3);
+}
+
+li {
+  list-style: none;
 }
 
 .name {

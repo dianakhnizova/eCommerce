@@ -9,12 +9,14 @@ import LogoRss from '../../../assets/logo/logo-rss.svg?react';
 import LogoAnimate from '../../../assets/logo/logo-animate.svg?react';
 import SearchIcon from '../../../assets/icons/search.svg?react';
 import Cart from '../../../assets/icons/basket.svg?react';
+import Burger from '../../../assets/icons/burger.svg?react';
 import type { IconType } from './enums';
 import type { IconVariant } from './types';
 
 type Props = {
   iconType?: IconType;
   className?: string;
+  onClick?: () => void;
 };
 
 const iconVariant: IconVariant = {
@@ -27,9 +29,10 @@ const iconVariant: IconVariant = {
   logoAnimate: LogoAnimate,
   search: SearchIcon,
   cart: Cart,
+  burger: Burger,
 };
 
-export const SvgBuilder: FC<Props> = ({ iconType, className }) => {
+export const SvgBuilder: FC<Props> = ({ iconType, className, onClick }) => {
   if (!iconType) {
     return null;
   }
@@ -41,7 +44,7 @@ export const SvgBuilder: FC<Props> = ({ iconType, className }) => {
   }
 
   return (
-    <span className={styles.iconWrapper}>
+    <span className={styles.iconWrapper} onClick={onClick}>
       <IconComponent className={className} />
     </span>
   );

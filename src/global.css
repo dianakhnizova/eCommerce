@@ -48,6 +48,7 @@ a:active {
   --clr-line: #000;
   --shadow-1: 0 10px 40px rgb(0 0 0 / 5%), 0 -10px 40px rgb(0 0 0 / 5%);
   --shadow-2: rgb(99 99 99 / 20%) 0px 2px 8px 0px;
+  --shadow-3: 0 12px 24px rgb(0 0 0 / 20%);
 }
 
 html,
