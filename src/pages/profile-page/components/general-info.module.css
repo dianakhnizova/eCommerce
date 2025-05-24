@@ -1,0 +1,58 @@
+.card {
+  width: 100%;
+  max-width: 400px;
+  background: var(--clr-bg-1);
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgb(0 0 0 / 10%);
+  padding: 24px;
+}
+
+.title {
+  margin: 0 0 16px;
+}
+
+.body {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+.avatar {
+  width: 120px;
+  aspect-ratio: 1/1;
+  background-color: var(--clr-primary-300);
+  border-radius: 4px;
+}
+
+.list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.item {
+  display: flex;
+  flex-wrap: wrap;
+  margin-bottom: 12px;
+}
+
+.label {
+  min-width: 80px;
+  margin-right: 10px;
+  color: var(--clr-secondary-300);
+}
+
+.value {
+  flex: 1;
+  font-weight: 500;
+}
+
+.item:last-child {
+  margin-bottom: 0;
+}
+
+@media (width <= 480px) {
+  .body {
+    flex-direction: column;
+  }
+}

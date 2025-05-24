@@ -14,4 +14,13 @@ export const messages = {
   noName: 'No name',
   noDescription: 'No description',
   placeholderJpg: 'placeholder.jpg',
+  email: 'Email',
+  password: 'Password',
+  firstName: 'First Name',
+  lastName: 'Last Name',
+  birth: 'Birth',
+  checkboxSetDefaultAddress: 'Set as default address',
+  checkboxUseShippingAddress: 'Use as shipping address',
+  headerForDefaultBillingAddress: 'Billing address',
+  headerForDefaultShippingAddress: 'Shipping address',
 };
