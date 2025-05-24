@@ -5,6 +5,10 @@ import { productStore } from '../../store/product-store.ts';
 import { Spinner } from '../../components/spinner/spinner.tsx';
 import styles from './product-page.module.css';
 import { messages } from './messages.ts';
+import { BreadCrumbs } from '../../components/bread-crumbs/bread-crumbs.tsx';
+import Slider from 'react-slick';
+import { FaArrowLeft, FaArrowRight } from 'react-icons/fa';
+import { Button } from '../../components/button/button.tsx';
 
 export const ProductPage = observer(() => {
   const { id } = useParams<{ id: string }>();
@@ -28,16 +32,58 @@ export const ProductPage = observer(() => {
     return <div className={styles.empty}>{messages.productNotFound}</div>;
   }
 
-  console.log(product.images);
+  const settings = {
+    fade: true,
+    infinite: true,
+    speed: 500,
+    slidesToShow: 1,
+    slidesToScroll: 1,
+    waitForAnimate: false,
+    nextArrow: (
+      <button>
+        <FaArrowRight style={{ color: '#3f509e', fontSize: '16px' }} />
+      </button>
+    ),
+    prevArrow: (
+      <button>
+        <FaArrowLeft style={{ color: '#3f509e', fontSize: '16px' }} />
+      </button>
+    ),
+  };
+
   return (
     <>
-      <h2 className={styles.header}>{messages.header}</h2>
-      <div>
-        <div className={styles.slider}></div>
-        <div>
-          <img src="" alt="" />
+      <BreadCrumbs />
+      <div className={styles.wrapper}>
+        <div className={styles.sliderWrapper}>
+          <Slider {...settings}>
+            {product.images.map(image => (
+              <div>
+                <img
+                  src={image.url}
+                  alt={messages.imageAltText}
+                  className={styles.image}
+                />
+              </div>
+            ))}
+          </Slider>
         </div>
-        <div className={styles.productInfo}></div>
+        <div className={styles.productInfo}>
+          <h2 className={styles.productName}>{product.name}</h2>
+          <div className={styles.pricesWrapper}>
+            <p className={styles.price}>
+              {messages.USD}
+              {product.price}
+            </p>
+            <p className={styles.discountPrice}>
+              {messages.USD}
+              {product.discountPrice}
+            </p>
+          </div>
+          <p className={styles.description}>{product.description}</p>
+          <Button className={styles.cartText}>{messages.addToCart}</Button>
+          <p></p>
+        </div>
       </div>
     </>
   );
