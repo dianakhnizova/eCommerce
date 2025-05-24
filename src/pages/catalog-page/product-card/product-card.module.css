@@ -1,16 +1,30 @@
 .cardContainer {
+  text-decoration: none;
+  color: inherit;
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: flex-start;
   justify-content: flex-start;
-  width: 270px;
-  gap: 8px;
   box-shadow: var(--shadow-2);
-  padding: 20px;
+  transition:
+    transform 0.3s ease,
+    box-shadow 0.3s ease;
+  cursor: pointer;
+  width: 255px;
+  gap: 21px;
+  padding: 15px;
+}
+
+.cardContainer:hover {
+  transform: scale(1.1);
+}
+
+li {
+  list-style: none;
 }
 
 .name {
-  font-size: 20px;
+  font-size: 24px;
   font-weight: 700;
 }
 
@@ -20,22 +34,22 @@
 }
 
 .description {
-  font-size: 18px;
-  font-weight: 700;
-  padding: 20px 0;
+  font-size: 20px;
+  font-weight: 400;
 }
 
 .priceContainer {
   display: flex;
   align-items: center;
   gap: 10px;
-  padding: 10px 8px;
 }
 
 .price {
   text-decoration: line-through;
+  font-size: 20px;
 }
 
 .discountPrice {
   color: var(--clr-accent-1);
+  font-size: 20px;
 }
