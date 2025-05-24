@@ -11,7 +11,15 @@ export namespace Customer {
     defaultBillingAddress?: number;
   };
 
+  type ProfileExtended = Profile & {
+    defaultShippingAddressId: string;
+    defaultBillingAddressId: string;
+    shippingAddressIds: string[];
+    billingAddressIds: string[];
+  };
+
   type Address = {
+    id?: string;
     country: string;
     city: string;
     streetName: string;
