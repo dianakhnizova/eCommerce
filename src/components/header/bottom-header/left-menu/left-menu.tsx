@@ -6,36 +6,22 @@ import { SvgBuilder } from '../../../svg-builder/svg-builder';
 import { IconType } from '../../../svg-builder/enums';
 import { useState } from 'react';
 import { Button } from '../../../button/button';
-import { useEffect } from 'react';
 
 export const LeftNavMenu = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
-  useEffect(() => {
-    const handleClickOutside = (event: Event) => {
-      if (
-        event.target instanceof Element &&
-        !event.target.closest(`.${styles.navigationLeftMenu}`) &&
-        !event.target.closest(`.${styles.burgerMenu}`)
-      ) {
-        setIsMenuOpen(false);
-      }
-    };
-
-    document.addEventListener('click', handleClickOutside);
-    return () => document.removeEventListener('click', handleClickOutside);
-  }, []);
-
-  const openMenu = () => {
+  const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
+  };
+
+  const closeMenu = () => {
+    setIsMenuOpen(false);
   };
 
   return (
     <>
-      {isMenuOpen && (
-        <div className={styles.overlay} onClick={() => setIsMenuOpen(false)} />
-      )}
-      <Button className={styles.burgerMenu} onClick={openMenu}>
+      {isMenuOpen && <div className={styles.overlay} onClick={closeMenu} />}
+      <Button className={styles.burgerMenu} onClick={toggleMenu}>
         <SvgBuilder iconType={IconType.Burger} className={styles.burger} />
       </Button>
       <nav
@@ -49,7 +35,7 @@ export const LeftNavMenu = () => {
               key={link.label}
               to={link.to}
               className={classNames(styles.link, styles.bottomLink)}
-              onClick={() => setIsMenuOpen(false)}
+              onClick={closeMenu}
             >
               {link.label}
             </NavLink>

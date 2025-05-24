@@ -6,9 +6,3 @@
   justify-content: center;
   gap: 49px;
 }
-
-@media (width <= 1416px) {
-  .container {
-    gap: 20px;
-  }
-}
