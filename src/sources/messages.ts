@@ -1,5 +1,6 @@
 export const messages = {
   mainPageTitle: 'Main Page',
+  profilePageTitle: 'My profile',
   aboutPageTitle: 'About Us',
   notFoundPageTitle: '404 Not Found',
   loginPageTitle: 'Sign In',
