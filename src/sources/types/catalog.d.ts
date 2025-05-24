@@ -84,4 +84,54 @@ export namespace Catalog {
     count: number;
     total: number;
   };
+
+  type DetailedProductResponse = {
+    id: string;
+    version: number;
+    productType: ProductType;
+    name: Record<string, string>;
+    description: Record<string, string>;
+    categories: ProductCategory[];
+    categoryOrderHints: Record<string, string>;
+    slug: Record<string, string>;
+    metaTitle: Record<string, string>;
+    metaDescription: Record<string, string>;
+    masterVariant: ProductVariant;
+    variants: ProductVariant[];
+    searchKeywords: searchKeyword[];
+    attributes: [];
+    hasStagedChanges: boolean;
+    published: boolean;
+    key: string;
+    taxCategory: TaxCategory;
+    priceMode: 'Embedded' | 'Standalone';
+    createdAt: string;
+    lastModifiedAt: string;
+  };
+
+  type DetailedProduct = {
+    id: string;
+    name: string;
+    description: string;
+    prices: [
+      {
+        value: {
+          type: string;
+          fractionDigits: number;
+          centAmount: number;
+          currencyCode: string;
+        };
+        id: string;
+      },
+    ];
+    images: [
+      {
+        dimensions: {
+          h: number;
+          w: number;
+        };
+        url: string;
+      },
+    ];
+  };
 }
