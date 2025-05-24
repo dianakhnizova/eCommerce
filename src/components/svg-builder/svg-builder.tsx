@@ -16,7 +16,6 @@ import type { IconVariant } from './types';
 type Props = {
   iconType?: IconType;
   className?: string;
-  onClick?: () => void;
 };
 
 const iconVariant: IconVariant = {
@@ -32,7 +31,7 @@ const iconVariant: IconVariant = {
   burger: Burger,
 };
 
-export const SvgBuilder: FC<Props> = ({ iconType, className, onClick }) => {
+export const SvgBuilder: FC<Props> = ({ iconType, className }) => {
   if (!iconType) {
     return null;
   }
@@ -44,7 +43,7 @@ export const SvgBuilder: FC<Props> = ({ iconType, className, onClick }) => {
   }
 
   return (
-    <span className={styles.iconWrapper} onClick={onClick}>
+    <span className={styles.iconWrapper}>
       <IconComponent className={className} />
     </span>
   );
