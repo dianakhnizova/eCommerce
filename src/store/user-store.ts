@@ -10,7 +10,7 @@ class UserStore {
   public isInitLoading = false;
   public isPending = false;
   public error = '';
-  public user: Customer.Profile | null = null;
+  public user: Customer.ProfileExtended | null = null;
 
   constructor() {
     makeAutoObservable(this);

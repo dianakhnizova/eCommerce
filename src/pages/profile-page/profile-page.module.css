@@ -1,6 +1,7 @@
 .aboutWrapper {
   display: flex;
+  gap: 30px;
+  padding: 30px;
   flex-direction: column;
   width: 100%;
-  background-color: var(--clr-bg-2);
 }

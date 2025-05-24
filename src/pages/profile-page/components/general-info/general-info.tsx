@@ -1,14 +1,13 @@
 import { observer } from 'mobx-react-lite';
-import { userStore } from '../../../store/user-store';
-import { messages } from '../../../sources/messages';
+import { userStore } from '../../../../store/user-store';
+import { messages } from '../../../../sources/messages';
 import styles from './general-info.module.css';
 
 export const GeneralInfo = observer(() => {
   return (
-    <div className={styles.card}>
-      <h2 className={styles.title}>General info</h2>
-      <div className={styles.body}>
-        <div className={styles.avatar} />
+    <div>
+      <h2 className={styles.title}>{messages.generalInfo}</h2>
+      <div className={styles.card}>
         <ul className={styles.list}>
           <li className={styles.item}>
             <span className={styles.label}> {messages.firstName}</span>
