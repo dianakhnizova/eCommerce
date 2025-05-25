@@ -21,10 +21,6 @@
   padding: 14px 0;
   text-decoration: none;
 
-  &.bottomLink {
-    color: var(--clr-black);
-  }
-
   &.link:hover {
     text-decoration: underline;
   }
