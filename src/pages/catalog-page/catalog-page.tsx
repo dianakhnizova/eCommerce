@@ -6,6 +6,7 @@ import { observer } from 'mobx-react-lite';
 import { Wrapper } from '../../components/wrapper/wrapper';
 import { CatalogOptions } from './catalog-options/catalog-options';
 import { Catalog } from './catalog/catalog';
+import { SideBar } from './components/sidebar';
 
 export const CatalogPage = observer(() => {
   const { isLoading } = catalogStore;
@@ -13,6 +14,7 @@ export const CatalogPage = observer(() => {
   return (
     <>
       <BreadCrumbs />
+      <SideBar />
       <Spinner isLoading={isLoading} />
       <Wrapper className={styles.catalogWrapper}>
         <CatalogOptions />
