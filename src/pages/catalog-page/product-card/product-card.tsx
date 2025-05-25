@@ -5,7 +5,6 @@ import { messages } from './messages';
 import { observer } from 'mobx-react-lite';
 import DEFAULT_IMAGE from '../../../../assets/images/placeholder.png';
 import { Link } from 'react-router';
-import { PagePath } from '../../../router/enums';
 
 export const ProductList = observer(() => {
   const { productList, getProducts } = catalogStore;
@@ -18,7 +17,7 @@ export const ProductList = observer(() => {
     <>
       {productList.map(product => (
         <li key={product.id}>
-          <Link to={PagePath.productPage} className={styles.cardContainer}>
+          <Link to={`/catalog/${product.id}`} className={styles.cardContainer}>
             <img
               className={styles.image}
               src={product.image}
