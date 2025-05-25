@@ -14,4 +14,7 @@ export const messages = {
   noName: 'No name',
   noDescription: 'No description',
   placeholderJpg: 'placeholder.jpg',
+  buttons: {
+    addToCart: 'Add To Cart',
+  },
 };

@@ -4,6 +4,7 @@ const DEFAULT_LIMIT = 0;
 const DEFAULT_COUNT = 0;
 const DEFAULT_TOTAL = 0;
 const DEFAULT_PRICE = '0.00';
+const CURRENCY_USD = '$';
 
 export {
   LIMIT_PRODUCTS_ON_PAGE,
@@ -12,4 +13,5 @@ export {
   DEFAULT_LIMIT,
   DEFAULT_COUNT,
   DEFAULT_TOTAL,
+  CURRENCY_USD,
 };

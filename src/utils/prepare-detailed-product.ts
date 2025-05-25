@@ -1,5 +1,5 @@
 import type { Catalog } from '../sources/types/catalog';
-import { DEFAULT_PRICE } from '../sources/constants/catalog.ts';
+import { DEFAULT_PRICE } from '../sources/constants/catalog';
 
 export const prepareDetailedProduct = (
   data: Catalog.DetailedProductResponse
