@@ -35,13 +35,6 @@
   border: 1px solid var(--clr-accent-9);
 }
 
-.select {
-  width: 96px;
-  height: 25px;
-  border: 1px solid var(--clr-accent-9);
-  color: var(--clr-accent-10);
-}
-
 @media (width <= 1268px) {
   .container {
     flex-direction: column;

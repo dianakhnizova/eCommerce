@@ -1,0 +1,6 @@
+.select {
+  width: 96px;
+  height: 25px;
+  border: 1px solid var(--clr-accent-9);
+  color: var(--clr-accent-10);
+}

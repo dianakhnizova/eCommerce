@@ -1,6 +1,7 @@
 import { messages } from './messages';
 import styles from './catalog-options.module.css';
 import { Input } from '../../../components/input/input';
+import { Select } from './components/select/select';
 
 export const CatalogOptions = () => {
   return (
@@ -13,7 +14,7 @@ export const CatalogOptions = () => {
         </div>
         <div className={styles.option}>
           <span className={styles.optionsTitle}>{messages.sortBy}</span>
-          <select className={styles.select} name="" id=""></select>
+          <Select />
         </div>
       </div>
     </div>
