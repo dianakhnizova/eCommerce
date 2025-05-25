@@ -17,6 +17,7 @@ import { preparePagination } from '../utils/prepare-pagination';
 export class CatalogStore {
   public products: Catalog.Product[] = [];
   public productList: ProductCard[] = [];
+  public originalList: ProductCard[] = [];
   public pagination: Pagination = {
     limit: DEFAULT_LIMIT,
     offset: DEFAULT_OFFSET,
@@ -36,8 +37,10 @@ export class CatalogStore {
     try {
       const data = await catalogService.getProducts();
       runInAction(() => {
+        const cards = data.results.map(prepareProductCard);
         this.products = data.results;
-        this.productList = data.results.map(prepareProductCard);
+        this.productList = cards;
+        this.originalList = cards;
         this.pagination = preparePagination(data);
       });
     } catch (error) {
@@ -51,6 +54,34 @@ export class CatalogStore {
         this.isLoading = false;
       });
     }
+  };
+
+  public sortByPriceAsc = () => {
+    this.productList = [...this.productList].sort(
+      (a, b) => Number.parseFloat(a.price) - Number.parseFloat(b.price)
+    );
+  };
+
+  public sortByPriceDesc = () => {
+    this.productList = [...this.productList].sort(
+      (a, b) => Number.parseFloat(b.price) - Number.parseFloat(a.price)
+    );
+  };
+
+  public sortByNameAsc = () => {
+    this.productList = [...this.productList].sort((a, b) =>
+      a.name.localeCompare(b.name)
+    );
+  };
+
+  public sortByNameDesc = () => {
+    this.productList = [...this.productList].sort((a, b) =>
+      b.name.localeCompare(a.name)
+    );
+  };
+
+  public resetSort = () => {
+    this.productList = [...this.originalList];
   };
 }
 

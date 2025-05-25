@@ -11,15 +11,13 @@
 
 .optionsContainer {
   display: flex;
-  align-items: center;
-  justify-content: center;
+  justify-content: flex-start;
   gap: 27px;
 }
 
 .option {
   display: flex;
-  align-items: center;
-  justify-content: center;
+  justify-content: flex-start;
   gap: 8px;
 }
 
@@ -27,6 +25,7 @@
   font-size: 16px;
   font-weight: 400;
   color: var(--clr-secondary-500);
+  padding: 6px;
 }
 
 .input {
