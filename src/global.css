@@ -64,6 +64,10 @@ body {
   font-weight: 700;
 }
 
+.bodyBlock {
+  overflow: hidden;
+}
+
 @media (hover: hover) {
   a {
     cursor: pointer;

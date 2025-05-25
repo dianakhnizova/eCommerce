@@ -6,9 +6,14 @@ import { SvgBuilder } from '../../../svg-builder/svg-builder';
 import { IconType } from '../../../svg-builder/enums';
 import { useState } from 'react';
 import { Button } from '../../../button/button';
+import { useEffect } from 'react';
 
 export const LeftNavMenu = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+
+  useEffect(() => {
+    document.body.classList.toggle('bodyBlock', isMenuOpen);
+  }, [isMenuOpen]);
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
