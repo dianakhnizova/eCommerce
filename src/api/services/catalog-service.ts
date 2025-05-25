@@ -11,13 +11,17 @@ export const catalogService = {
   getProducts: async (
     offset = DEFAULT_OFFSET,
     limit = LIMIT_PRODUCTS_ON_PAGE,
-    withTotal: boolean = true
+    withTotal: boolean = true,
+    sort?: string
   ): Promise<Catalog.ProductResponse> => {
     const params = new URLSearchParams({
       offset: offset.toString(),
       limit: limit.toString(),
       withTotal: withTotal.toString(),
     });
+    if (sort) {
+      params.append('sort', sort);
+    }
     const response = await baseApi.get<Catalog.ProductResponse>(
       `${PROJECT_KEY}${Endpoints.PRODUCTS}`,
       {

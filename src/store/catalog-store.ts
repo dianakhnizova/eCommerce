@@ -8,34 +8,41 @@ import { prepareProductCard } from '../utils/prepare-product-card';
 import type { Pagination } from '../sources/types/pagination';
 import {
   DEFAULT_COUNT,
-  DEFAULT_LIMIT,
   DEFAULT_OFFSET,
   DEFAULT_TOTAL,
 } from '../sources/constants/catalog';
 import { preparePagination } from '../utils/prepare-pagination';
+import { LIMIT_PRODUCTS_ON_PAGE } from '../sources/constants/catalog';
 
 export class CatalogStore {
   public products: Catalog.Product[] = [];
   public productList: ProductCard[] = [];
   public originalList: ProductCard[] = [];
   public pagination: Pagination = {
-    limit: DEFAULT_LIMIT,
+    limit: LIMIT_PRODUCTS_ON_PAGE,
     offset: DEFAULT_OFFSET,
     count: DEFAULT_COUNT,
     total: DEFAULT_TOTAL,
   };
   public isLoading = false;
   public error: string | null = null;
+  public sortField: string | null = null;
+  public sortOrder: string | null = null;
 
   constructor() {
     makeAutoObservable(this);
   }
 
-  public getProducts = async () => {
+  public getProducts = async (sort?: string) => {
     this.isLoading = true;
     this.error = null;
     try {
-      const data = await catalogService.getProducts();
+      const data = await catalogService.getProducts(
+        this.pagination.offset,
+        this.pagination.limit,
+        true,
+        sort
+      );
       runInAction(() => {
         const cards = data.results.map(prepareProductCard);
         this.products = data.results;
@@ -56,32 +63,20 @@ export class CatalogStore {
     }
   };
 
-  public sortByPriceAsc = () => {
-    this.productList = [...this.productList].sort(
-      (a, b) => Number.parseFloat(a.price) - Number.parseFloat(b.price)
-    );
-  };
-
-  public sortByPriceDesc = () => {
-    this.productList = [...this.productList].sort(
-      (a, b) => Number.parseFloat(b.price) - Number.parseFloat(a.price)
-    );
-  };
-
-  public sortByNameAsc = () => {
-    this.productList = [...this.productList].sort((a, b) =>
-      a.name.localeCompare(b.name)
-    );
-  };
-
-  public sortByNameDesc = () => {
-    this.productList = [...this.productList].sort((a, b) =>
-      b.name.localeCompare(a.name)
-    );
+  public setSort = (field: string, order: string) => {
+    this.sortField = field;
+    this.sortOrder = order;
+    const sortParam =
+      field === 'price'
+        ? `masterData.current.masterVariant.prices[0]?.value.centAmount ${order === 'asc' ? 'asc' : 'desc'}`
+        : `masterData.current.name.en ${order === 'asc' ? 'asc' : 'desc'}`;
+    void this.getProducts(sortParam);
   };
 
   public resetSort = () => {
-    this.productList = [...this.originalList];
+    this.sortField = null;
+    this.sortOrder = null;
+    void this.getProducts();
   };
 }
 

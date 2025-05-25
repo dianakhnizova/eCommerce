@@ -11,11 +11,11 @@ export const handleOrderOptions = (
   if (field === 'price') {
     switch (selectedOrder) {
       case 'price-asc': {
-        catalogStore.sortByPriceAsc();
+        catalogStore.setSort('price', 'asc');
         break;
       }
       case 'price-desc': {
-        catalogStore.sortByPriceDesc();
+        catalogStore.setSort('price', 'desc');
         break;
       }
     }
@@ -24,11 +24,11 @@ export const handleOrderOptions = (
   if (field === 'name') {
     switch (selectedOrder) {
       case 'name-asc': {
-        catalogStore.sortByNameAsc();
+        catalogStore.setSort('name', 'asc');
         break;
       }
       case 'name-desc': {
-        catalogStore.sortByNameDesc();
+        catalogStore.setSort('name', 'desc');
         break;
       }
     }
