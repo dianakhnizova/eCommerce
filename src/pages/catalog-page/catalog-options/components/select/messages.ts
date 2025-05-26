@@ -3,4 +3,5 @@ export const messages = {
   sortByAbc: 'Alphabetically',
   sortByAsc: 'Ascending',
   sortByDesc: 'Descending',
+  sortByDefault: 'Default ',
 };

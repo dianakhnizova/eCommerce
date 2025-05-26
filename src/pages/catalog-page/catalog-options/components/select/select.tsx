@@ -1,28 +1,35 @@
 import { messages } from './messages';
 import styles from './select.module.css';
 import { handleFieldOptions } from './handle-field-options';
-import { handleOrderOptions } from './handle-order-options';
-import { useState } from 'react';
+import { catalogStore } from '../../../../../store/catalog-store';
+import { useEffect } from 'react';
+import { observer } from 'mobx-react-lite';
 
-export const Select = () => {
-  const [field, setField] = useState('');
-  const [order, setOrder] = useState('');
+export const Select = observer(() => {
+  const field = catalogStore.sortField || '';
+  const order = catalogStore.sortOrder || '';
 
-  const handleFieldChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
-    handleFieldOptions(event, setField, setOrder);
-  };
+  const orderValue = field && order ? `${field}-${order}` : '';
 
   const handleOrderChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
-    handleOrderOptions(event, setOrder, field);
+    const newOrder = event.target.value === `${field}-asc` ? 'asc' : 'desc';
+    catalogStore.setSort(field, newOrder);
   };
+
+  useEffect(() => {
+    if (!field) {
+      catalogStore.resetSort();
+    }
+  }, [field]);
 
   return (
     <div className={styles.optionsContainer}>
       <select
         className={styles.select}
-        onChange={handleFieldChange}
+        onChange={handleFieldOptions}
         value={field}
       >
+        <option value="">{messages.sortByDefault}</option>
         <option value="price">{messages.sortByPrice}</option>
         <option value="name">{messages.sortByAbc}</option>
       </select>
@@ -30,7 +37,7 @@ export const Select = () => {
         <select
           className={styles.select}
           onChange={handleOrderChange}
-          value={order}
+          value={orderValue}
         >
           {field === 'price' ? (
             <>
@@ -47,4 +54,4 @@ export const Select = () => {
       )}
     </div>
   );
-};
+});

@@ -1,9 +1,9 @@
+import { catalogStore } from '../../../../../store/catalog-store';
+
 export const handleFieldOptions = (
-  event: React.ChangeEvent<HTMLSelectElement>,
-  setField: (value: string) => void,
-  setOrder: (value: string) => void
+  event: React.ChangeEvent<HTMLSelectElement>
 ) => {
-  const selectedField = event.target.value;
-  setField(selectedField);
-  setOrder('');
+  const newField = event.target.value;
+  const newOrder = newField === 'price' ? 'asc' : 'asc';
+  catalogStore.setSort(newField, newOrder);
 };
