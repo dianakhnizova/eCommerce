@@ -14,7 +14,7 @@ export const SortingSelects = observer(() => {
     if (newField === SortField.Default) {
       catalogStore.resetSort();
     } else if (newField === SortField.Name_en || newField === SortField.Price) {
-      catalogStore.setSort(newField, order || SortOrder.Asc);
+      catalogStore.setSort(newField, SortOrder.Asc);
     }
   };
 
