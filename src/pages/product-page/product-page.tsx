@@ -32,7 +32,6 @@ export const ProductPage = observer(() => {
     return <div className={styles.empty}>{messages.productNotFound}</div>;
   }
 
-  console.log(product.images);
   return (
     <>
       <BreadCrumbs />
