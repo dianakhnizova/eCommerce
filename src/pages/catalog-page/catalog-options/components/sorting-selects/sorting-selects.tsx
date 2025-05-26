@@ -11,9 +11,7 @@ export const SortingSelects = observer(() => {
 
   const handleFieldChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
     const newField = event.target.value;
-    if (newField === SortField.Default) {
-      catalogStore.resetSort();
-    } else if (newField === SortField.Name_en || newField === SortField.Price) {
+    if (newField === SortField.Name_en || newField === SortField.Price) {
       catalogStore.setSort(newField, SortOrder.Asc);
     }
   };
@@ -26,11 +24,12 @@ export const SortingSelects = observer(() => {
   };
 
   useEffect(() => {
-    if (!field) {
-      catalogStore.resetSort();
+    if (field === SortField.Default) {
+      void catalogStore.getProducts();
       return;
     }
-    const sortParam = `${field} ${order}`;
+
+    const sortParam = order === SortOrder.Default ? field : `${field} ${order}`;
     void catalogStore.getProducts(sortParam);
   }, [field, order]);
 

@@ -68,22 +68,6 @@ export class CatalogStore {
   public setSort = (field: SortField, order: SortOrder) => {
     this.sortField = field;
     this.sortOrder = order;
-
-    if (field === SortField.Default) {
-      void this.getProducts();
-      return;
-    }
-
-    const sortParam = `${field} ${order}`;
-    console.log('Sort param:', sortParam);
-
-    void this.getProducts(sortParam);
-  };
-
-  public resetSort = () => {
-    this.sortField = SortField.Default;
-    this.sortOrder = SortOrder.Default;
-    void this.getProducts();
   };
 }
 
