@@ -13,6 +13,10 @@ import {
 } from '../sources/constants/catalog';
 import { preparePagination } from '../utils/prepare-pagination';
 import { LIMIT_PRODUCTS_ON_PAGE } from '../sources/constants/catalog';
+import {
+  SortField,
+  SortOrder,
+} from '../pages/catalog-page/catalog-options/components/sorting-selects/enums';
 
 export class CatalogStore {
   public products: Catalog.ProductProjection[] = [];
@@ -25,8 +29,8 @@ export class CatalogStore {
   };
   public isLoading = false;
   public error: string | null = null;
-  public sortField: string | null = null;
-  public sortOrder: string | null = null;
+  public sortField: SortField = SortField.Default;
+  public sortOrder: SortOrder = SortOrder.Default;
 
   constructor() {
     makeAutoObservable(this);
@@ -61,19 +65,25 @@ export class CatalogStore {
     }
   };
 
-  public setSort = (field: string, order: string) => {
+  public setSort = (field: SortField, order: SortOrder) => {
     this.sortField = field;
     this.sortOrder = order;
+
+    if (!field) {
+      void this.getProducts();
+      return;
+    }
+
     const sortParam =
-      field === 'price'
-        ? `price ${order === 'asc' ? 'asc' : 'desc'}`
-        : `name.en ${order === 'asc' ? 'asc' : 'desc'}`;
+      field === SortField.Price
+        ? `${SortField.Price} ${order === SortOrder.Asc ? SortOrder.Asc : SortOrder.Desc}`
+        : `${SortField.Name_en} ${order === SortOrder.Asc ? SortOrder.Asc : SortOrder.Desc}`;
     void this.getProducts(sortParam);
   };
 
   public resetSort = () => {
-    this.sortField = null;
-    this.sortOrder = null;
+    this.sortField = SortField.Default;
+    this.sortOrder = SortOrder.Default;
     void this.getProducts();
   };
 }

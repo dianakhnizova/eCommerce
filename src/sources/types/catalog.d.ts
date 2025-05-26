@@ -54,26 +54,8 @@ export namespace Catalog {
   type ProductVariant = {
     attributes: [];
     id: number;
-    images: [
-      {
-        dimensions: {
-          h: number;
-          w: number;
-        };
-        url: string;
-      },
-    ];
-    prices: [
-      {
-        value: {
-          type: string;
-          fractionDigits: number;
-          centAmount: number;
-          currencyCode: string;
-        };
-        id: string;
-      },
-    ];
+    images: Image[];
+    prices: Price[];
     sku: string;
   };
 
@@ -90,12 +72,9 @@ export namespace Catalog {
     name: { en: string };
     description?: { en: string };
     masterVariant?: {
-      prices?: Array<{
-        value: { centAmount: number; currencyCode: string };
-        discounted?: { value: { centAmount: number; currencyCode: string } };
-      }>;
-      images?: Array<{ url: string; dimensions: { w: number; h: number } }>;
-      attributes?: Array<{ name: string; value: { en: string } }>;
+      prices?: Price[];
+      images?: Image[];
+      attributes?: Attribute[];
     };
   };
 
@@ -113,7 +92,7 @@ export namespace Catalog {
     masterVariant: ProductVariant;
     variants: ProductVariant[];
     searchKeywords: searchKeyword[];
-    attributes: [];
+    attributes: Attribute[];
     hasStagedChanges: boolean;
     published: boolean;
     key: string;
@@ -147,5 +126,32 @@ export namespace Catalog {
         url: string;
       },
     ];
+  };
+
+  type Price = {
+    value: {
+      centAmount: number;
+      currencyCode: string;
+    };
+    discounted?: {
+      value: {
+        centAmount: number;
+        currencyCode: string;
+      };
+    };
+    id?: string;
+  };
+
+  type Image = {
+    url: string;
+    dimensions: {
+      w: number;
+      h: number;
+    };
+  };
+
+  type Attribute = {
+    name: string;
+    value: Record<string, string> | string | number | boolean;
   };
 }

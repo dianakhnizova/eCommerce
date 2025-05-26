@@ -30,7 +30,6 @@ export const catalogService = {
         params,
       }
     );
-    console.log(JSON.stringify(response.data.results, null, 2));
     return response.data;
   },
 };
