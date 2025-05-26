@@ -78,11 +78,25 @@ export namespace Catalog {
   };
 
   type ProductResponse = {
-    results: Product[];
+    results: ProductProjection[];
     limit: number;
     offset: number;
     count: number;
     total: number;
+  };
+
+  type ProductProjection = {
+    id: string;
+    name: { en: string };
+    description?: { en: string };
+    masterVariant?: {
+      prices?: Array<{
+        value: { centAmount: number; currencyCode: string };
+        discounted?: { value: { centAmount: number; currencyCode: string } };
+      }>;
+      images?: Array<{ url: string; dimensions: { w: number; h: number } }>;
+      attributes?: Array<{ name: string; value: { en: string } }>;
+    };
   };
 
   type DetailedProductResponse = {

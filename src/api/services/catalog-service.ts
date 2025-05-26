@@ -19,15 +19,18 @@ export const catalogService = {
       limit: limit.toString(),
       withTotal: withTotal.toString(),
     });
+
     if (sort) {
       params.append('sort', sort);
     }
+
     const response = await baseApi.get<Catalog.ProductResponse>(
-      `${PROJECT_KEY}${Endpoints.PRODUCTS}`,
+      `${PROJECT_KEY}${Endpoints.PRODUCT_PROJECTIONS_SEARCH}`,
       {
         params,
       }
     );
+    console.log(JSON.stringify(response.data.results, null, 2));
     return response.data;
   },
 };

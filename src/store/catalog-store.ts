@@ -15,9 +15,8 @@ import { preparePagination } from '../utils/prepare-pagination';
 import { LIMIT_PRODUCTS_ON_PAGE } from '../sources/constants/catalog';
 
 export class CatalogStore {
-  public products: Catalog.Product[] = [];
+  public products: Catalog.ProductProjection[] = [];
   public productList: ProductCard[] = [];
-  public originalList: ProductCard[] = [];
   public pagination: Pagination = {
     limit: LIMIT_PRODUCTS_ON_PAGE,
     offset: DEFAULT_OFFSET,
@@ -47,7 +46,6 @@ export class CatalogStore {
         const cards = data.results.map(prepareProductCard);
         this.products = data.results;
         this.productList = cards;
-        this.originalList = cards;
         this.pagination = preparePagination(data);
       });
     } catch (error) {
@@ -68,8 +66,8 @@ export class CatalogStore {
     this.sortOrder = order;
     const sortParam =
       field === 'price'
-        ? `masterData.current.masterVariant.prices[0]?.value.centAmount ${order === 'asc' ? 'asc' : 'desc'}`
-        : `masterData.current.name.en ${order === 'asc' ? 'asc' : 'desc'}`;
+        ? `price ${order === 'asc' ? 'asc' : 'desc'}`
+        : `name.en ${order === 'asc' ? 'asc' : 'desc'}`;
     void this.getProducts(sortParam);
   };
 

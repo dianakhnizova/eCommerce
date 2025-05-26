@@ -4,5 +4,7 @@ export type ProductCard = {
   image: string;
   description: string;
   price: string;
-  discountPrice: string;
+  discountPrice?: string;
+  color?: string;
+  size?: string;
 };
