@@ -7,14 +7,6 @@ import styles from './product-page.module.css';
 import { messages } from './messages.ts';
 import { BreadCrumbs } from '../../components/bread-crumbs/bread-crumbs.tsx';
 import { ProductSlider } from '../../components/product-slider/product-slider.tsx';
-import {
-  SLIDE_SPEED,
-  SLIDES_TO_SCROLL,
-  SLIDES_TO_SHOW,
-  WAIT_FOR_ANIMATE,
-} from './constants.ts';
-import { ArrowNext } from './arrow-next/arrow-next.tsx';
-import { ArrowPrev } from './arrow-prev/arrow-prev.tsx';
 import { ProductInfo } from './product-info/product-info.tsx';
 import { Wrapper } from '../../components/wrapper/wrapper.tsx';
 
@@ -40,21 +32,13 @@ export const ProductPage = observer(() => {
     return <div className={styles.empty}>{messages.productNotFound}</div>;
   }
 
+  console.log(product.images);
   return (
     <>
       <BreadCrumbs />
       <Wrapper className={styles.wrapper}>
         <div className={styles.sliderWrapper}>
-          <ProductSlider
-            images={product.images}
-            speed={SLIDE_SPEED}
-            slidesToShow={SLIDES_TO_SHOW}
-            slidesToScroll={SLIDES_TO_SCROLL}
-            waitForAnimate={WAIT_FOR_ANIMATE}
-            nextArrow={<ArrowNext />}
-            prevArrow={<ArrowPrev />}
-            arrows={product.images.length > 1}
-          />
+          <ProductSlider images={product.images} />
         </div>
         <ProductInfo product={product} />
       </Wrapper>

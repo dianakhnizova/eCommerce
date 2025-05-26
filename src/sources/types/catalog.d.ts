@@ -85,6 +85,14 @@ export namespace Catalog {
     total: number;
   };
 
+  type Image = {
+    dimensions: {
+      h: number;
+      w: number;
+    };
+    url: string;
+  };
+
   type DetailedProductResponse = {
     id: string;
     version: number;
@@ -115,14 +123,6 @@ export namespace Catalog {
     description: string;
     price: string;
     discountPrice: string;
-    images: [
-      {
-        dimensions: {
-          h: number;
-          w: number;
-        };
-        url: string;
-      },
-    ];
+    images: Image[];
   };
 }
