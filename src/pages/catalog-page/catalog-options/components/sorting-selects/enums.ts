@@ -12,9 +12,7 @@ export enum SortField {
 }
 
 export enum SortValue {
-  Price_asc = 'price-asc',
-  Price_desc = 'price-desc',
-  Name_asc = 'name-asc',
-  Name_desc = 'name-desc',
+  Asc = 'asc',
+  Desc = 'desc',
   Default = '',
 }

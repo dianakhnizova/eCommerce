@@ -3,24 +3,34 @@ import styles from './sorting-selects.module.css';
 import { catalogStore } from '../../../../../store/catalog-store';
 import { useEffect } from 'react';
 import { observer } from 'mobx-react-lite';
-import { SortField, SortOrder, SortValue } from './enums';
-import { handleFieldChange } from './handle-field-change';
-import { handleOrderChange } from './handle-order-change';
-import { getSortValue } from './get-sort-value';
+import { SortField, SortValue, SortOrder } from './enums';
 
 export const SortingSelects = observer(() => {
   const field = catalogStore.sortField;
   const order = catalogStore.sortOrder;
+
+  const handleFieldChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+    const newField = event.target.value;
+    if (newField === SortField.Default) {
+      catalogStore.resetSort();
+    } else if (newField === SortField.Name_en || newField === SortField.Price) {
+      catalogStore.setSort(newField, order || SortOrder.Asc);
+    }
+  };
+
+  const handleOrderChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+    const newOrder = event.target.value;
+    if ((newOrder === SortOrder.Asc || newOrder === SortOrder.Desc) && field) {
+      catalogStore.setSort(field, newOrder);
+    }
+  };
 
   useEffect(() => {
     if (!field) {
       catalogStore.resetSort();
       return;
     }
-    const sortParam =
-      field === SortField.Price
-        ? `${SortField.Price} ${order === SortOrder.Asc ? SortOrder.Asc : SortOrder.Desc}`
-        : `${SortField.Name_en} ${order === SortOrder.Asc ? SortOrder.Asc : SortOrder.Desc}`;
+    const sortParam = `${field} ${order}`;
     void catalogStore.getProducts(sortParam);
   }, [field, order]);
 
@@ -31,29 +41,18 @@ export const SortingSelects = observer(() => {
         onChange={handleFieldChange}
         value={field}
       >
-        <option value="">{messages.sortByDefault}</option>
+        <option value={SortField.Default}>{messages.sortByDefault}</option>
         <option value={SortField.Price}>{messages.sortByPrice}</option>
-        <option value={SortField.Name}>{messages.sortByAbc}</option>
+        <option value={SortField.Name_en}>{messages.sortByAbc}</option>
       </select>
       {field && (
         <select
           className={styles.select}
-          onChange={event => handleOrderChange(event, field)}
-          value={getSortValue(field, order)}
+          onChange={handleOrderChange}
+          value={order}
         >
-          {field === SortField.Price ? (
-            <>
-              <option value={SortValue.Price_asc}>{messages.sortByAsc}</option>
-              <option value={SortValue.Price_desc}>
-                {messages.sortByDesc}
-              </option>
-            </>
-          ) : (
-            <>
-              <option value={SortValue.Name_asc}>{messages.sortByAsc}</option>
-              <option value={SortValue.Name_desc}>{messages.sortByDesc}</option>
-            </>
-          )}
+          <option value={SortValue.Asc}>{messages.sortByAsc}</option>
+          <option value={SortValue.Desc}>{messages.sortByDesc}</option>
         </select>
       )}
     </div>

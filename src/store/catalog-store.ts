@@ -69,15 +69,14 @@ export class CatalogStore {
     this.sortField = field;
     this.sortOrder = order;
 
-    if (!field) {
+    if (field === SortField.Default) {
       void this.getProducts();
       return;
     }
 
-    const sortParam =
-      field === SortField.Price
-        ? `${SortField.Price} ${order === SortOrder.Asc ? SortOrder.Asc : SortOrder.Desc}`
-        : `${SortField.Name_en} ${order === SortOrder.Asc ? SortOrder.Asc : SortOrder.Desc}`;
+    const sortParam = `${field} ${order}`;
+    console.log('Sort param:', sortParam);
+
     void this.getProducts(sortParam);
   };
 
