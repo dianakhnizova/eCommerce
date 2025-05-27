@@ -3,7 +3,7 @@ import styles from './sorting-selects.module.css';
 import { catalogStore } from '../../../../../store/catalog-store';
 import { useEffect } from 'react';
 import { observer } from 'mobx-react-lite';
-import { SortField, SortValue, SortOrder } from './enums';
+import { SortField, SortOrder } from './enums';
 
 export const SortingSelects = observer(() => {
   const field = catalogStore.sortField;
@@ -13,24 +13,20 @@ export const SortingSelects = observer(() => {
     const newField = event.target.value;
     if (newField === SortField.Name_en || newField === SortField.Price) {
       catalogStore.setSort(newField, SortOrder.Asc);
+    } else if (newField === SortField.Default) {
+      catalogStore.setSort(SortField.Default, SortOrder.Asc);
     }
   };
 
   const handleOrderChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
     const newOrder = event.target.value;
-    if ((newOrder === SortOrder.Asc || newOrder === SortOrder.Desc) && field) {
+    if (newOrder === SortOrder.Asc || newOrder === SortOrder.Desc) {
       catalogStore.setSort(field, newOrder);
     }
   };
 
   useEffect(() => {
-    if (field === SortField.Default) {
-      void catalogStore.getProducts();
-      return;
-    }
-
-    const sortParam = order === SortOrder.Default ? field : `${field} ${order}`;
-    void catalogStore.getProducts(sortParam);
+    void catalogStore.getProducts();
   }, [field, order]);
 
   return (
@@ -50,8 +46,8 @@ export const SortingSelects = observer(() => {
           onChange={handleOrderChange}
           value={order}
         >
-          <option value={SortValue.Asc}>{messages.sortByAsc}</option>
-          <option value={SortValue.Desc}>{messages.sortByDesc}</option>
+          <option value={SortOrder.Asc}>{messages.sortByAsc}</option>
+          <option value={SortOrder.Desc}>{messages.sortByDesc}</option>
         </select>
       )}
     </div>

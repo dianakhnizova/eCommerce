@@ -1,6 +1,5 @@
 import styles from './product-card.module.css';
 import { catalogStore } from '../../../store/catalog-store';
-import { useEffect } from 'react';
 import { messages } from './messages';
 import { observer } from 'mobx-react-lite';
 import DEFAULT_IMAGE from '../../../../assets/images/placeholder.png';
@@ -8,11 +7,7 @@ import { Link } from 'react-router';
 import { PagePath } from '../../../router/enums';
 
 export const ProductList = observer(() => {
-  const { productList, getProducts } = catalogStore;
-
-  useEffect(() => {
-    void getProducts();
-  }, []);
+  const { productList } = catalogStore;
 
   return (
     <>

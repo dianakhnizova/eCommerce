@@ -36,7 +36,7 @@ export class CatalogStore {
     makeAutoObservable(this);
   }
 
-  public getProducts = async (sort?: string) => {
+  public getProducts = async () => {
     this.isLoading = true;
     this.error = null;
     try {
@@ -44,7 +44,8 @@ export class CatalogStore {
         this.pagination.offset,
         this.pagination.limit,
         true,
-        sort
+        this.sortField === SortField.Default ? undefined : this.sortField,
+        this.sortOrder === SortOrder.Default ? undefined : this.sortOrder
       );
       runInAction(() => {
         const cards = data.results.map(prepareProductCard);

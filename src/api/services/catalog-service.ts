@@ -6,13 +6,18 @@ import {
 import type { Catalog } from '../../sources/types/catalog';
 import { baseApi } from '../axios';
 import { Endpoints } from '../endpoints';
+import type {
+  SortField,
+  SortOrder,
+} from '../../pages/catalog-page/catalog-options/components/sorting-selects/enums';
 
 export const catalogService = {
   getProducts: async (
     offset = DEFAULT_OFFSET,
     limit = LIMIT_PRODUCTS_ON_PAGE,
     withTotal: boolean = true,
-    sort?: string
+    sortField?: SortField,
+    sortOrder?: SortOrder
   ): Promise<Catalog.ProductResponse> => {
     const params = new URLSearchParams({
       offset: offset.toString(),
@@ -20,8 +25,8 @@ export const catalogService = {
       withTotal: withTotal.toString(),
     });
 
-    if (sort) {
-      params.append('sort', sort);
+    if (sortField && sortOrder) {
+      params.append('sort', `${sortField} ${sortOrder}`);
     }
 
     const response = await baseApi.get<Catalog.ProductResponse>(
