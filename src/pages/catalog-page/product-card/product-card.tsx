@@ -1,18 +1,17 @@
 import styles from './product-card.module.css';
 import { catalogStore } from '../../../store/catalog-store';
-import { useEffect } from 'react';
 import { messages } from './messages';
 import { observer } from 'mobx-react-lite';
 import DEFAULT_IMAGE from '../../../../assets/images/placeholder.png';
 import { Link } from 'react-router';
 import { PagePath } from '../../../router/enums';
-
+import { useEffect } from 'react';
 export const ProductList = observer(() => {
-  const { productList, getProducts } = catalogStore;
+  const { productList, sortField, sortOrder } = catalogStore;
 
   useEffect(() => {
-    void getProducts();
-  }, []);
+    void catalogStore.getProducts();
+  }, [sortField, sortOrder]);
 
   return (
     <>
