@@ -8,23 +8,29 @@ import { prepareProductCard } from '../utils/prepare-product-card';
 import type { Pagination } from '../sources/types/pagination';
 import {
   DEFAULT_COUNT,
-  DEFAULT_LIMIT,
   DEFAULT_OFFSET,
   DEFAULT_TOTAL,
 } from '../sources/constants/catalog';
 import { preparePagination } from '../utils/prepare-pagination';
+import { LIMIT_PRODUCTS_ON_PAGE } from '../sources/constants/catalog';
+import {
+  SortField,
+  SortOrder,
+} from '../pages/catalog-page/catalog-options/components/sorting-selects/enums';
 
 export class CatalogStore {
-  public products: Catalog.Product[] = [];
+  public products: Catalog.ProductProjection[] = [];
   public productList: ProductCard[] = [];
   public pagination: Pagination = {
-    limit: DEFAULT_LIMIT,
+    limit: LIMIT_PRODUCTS_ON_PAGE,
     offset: DEFAULT_OFFSET,
     count: DEFAULT_COUNT,
     total: DEFAULT_TOTAL,
   };
   public isLoading = false;
   public error: string | null = null;
+  public sortField: SortField = SortField.Default;
+  public sortOrder: SortOrder = SortOrder.Default;
 
   constructor() {
     makeAutoObservable(this);
@@ -34,10 +40,17 @@ export class CatalogStore {
     this.isLoading = true;
     this.error = null;
     try {
-      const data = await catalogService.getProducts();
+      const data = await catalogService.getProducts(
+        this.pagination.offset,
+        this.pagination.limit,
+        true,
+        this.sortField,
+        this.sortOrder
+      );
       runInAction(() => {
+        const cards = data.results.map(prepareProductCard);
         this.products = data.results;
-        this.productList = data.results.map(prepareProductCard);
+        this.productList = cards;
         this.pagination = preparePagination(data);
       });
     } catch (error) {
@@ -51,6 +64,11 @@ export class CatalogStore {
         this.isLoading = false;
       });
     }
+  };
+
+  public setSort = (field: SortField, order: SortOrder) => {
+    this.sortField = field;
+    this.sortOrder = order;
   };
 }
 
