@@ -14,8 +14,8 @@ import { userStore } from '../../store/user-store.ts';
 import { observer } from 'mobx-react-lite';
 import { useEffect } from 'react';
 import { createSignUpData } from './create-signup-data.tsx';
-import { AddressFields } from '../../components/address-fields/address-fields.tsx';
-import { CustomerFields } from '../../components/customer-fields/customer-fields.tsx';
+import { AddressFields } from './address-fields/address-fields.tsx';
+import { CustomerFields } from './customer-fields/customer-fields.tsx';
 
 export const RegisterPage = observer(() => {
   const [isSameAddress, useIsSameAddress] = useState<boolean>(false);

@@ -3,12 +3,9 @@ import type {
   FieldErrors,
   RegisterOptions,
 } from 'react-hook-form';
-import type {
-  RegisterFormValues,
-  RegisterFieldName,
-} from '../../pages/register-page/types';
+import type { RegisterFormValues, RegisterFieldName } from '../types.ts';
 import { getCountryOptions } from '../country-select/countries';
-import { Input } from '../input/input';
+import { Input } from '../../../components/input/input';
 import { CountrySelect } from '../country-select/country-select';
 import { messages } from './messages';
 import styles from './address-field.module.css';

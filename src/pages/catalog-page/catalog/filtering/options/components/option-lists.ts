@@ -1,41 +1,41 @@
 import { messages } from './messages';
 
-export const subCategoryList: {
-  id: string;
-  label: string;
-  checked: boolean;
-}[] = [
-  { id: 'bear', label: messages.subCategoryOptions.bearTitle, checked: true },
-  {
-    id: 'rabbit',
-    label: messages.subCategoryOptions.rabbitTitle,
-    checked: true,
-  },
-  { id: 'cat', label: messages.subCategoryOptions.catTitle, checked: true },
-  { id: 'dog', label: messages.subCategoryOptions.dogTitle, checked: true },
-  { id: 'duck', label: messages.subCategoryOptions.duckTitle, checked: true },
-  { id: 'fish', label: messages.subCategoryOptions.fishTitle, checked: true },
-  {
-    id: 'barbie',
-    label: messages.subCategoryOptions.barbieTitle,
-    checked: true,
-  },
-  {
-    id: 'knitting-dolls',
-    label: messages.subCategoryOptions.knittingDolsTitle,
-    checked: true,
-  },
-  {
-    id: 'tractor',
-    label: messages.subCategoryOptions.tractorTitle,
-    checked: true,
-  },
-  {
-    id: 'airplane',
-    label: messages.subCategoryOptions.airplaneTitle,
-    checked: true,
-  },
-];
+// export const subCategoryList: {
+//   id: string;
+//   label: string;
+//   checked: boolean;
+// }[] = [
+//   { id: 'bear', label: messages.subCategoryOptions.bearTitle, checked: true },
+//   {
+//     id: 'rabbit',
+//     label: messages.subCategoryOptions.rabbitTitle,
+//     checked: true,
+//   },
+//   { id: 'cat', label: messages.subCategoryOptions.catTitle, checked: true },
+//   { id: 'dog', label: messages.subCategoryOptions.dogTitle, checked: true },
+//   { id: 'duck', label: messages.subCategoryOptions.duckTitle, checked: true },
+//   { id: 'fish', label: messages.subCategoryOptions.fishTitle, checked: true },
+//   {
+//     id: 'barbie',
+//     label: messages.subCategoryOptions.barbieTitle,
+//     checked: true,
+//   },
+//   {
+//     id: 'knitting-dolls',
+//     label: messages.subCategoryOptions.knittingDolsTitle,
+//     checked: true,
+//   },
+//   {
+//     id: 'tractor',
+//     label: messages.subCategoryOptions.tractorTitle,
+//     checked: true,
+//   },
+//   {
+//     id: 'airplane',
+//     label: messages.subCategoryOptions.airplaneTitle,
+//     checked: true,
+//   },
+// ];
 
 export const priceList: { id: string; label: string; checked: boolean }[] = [
   { id: 'range', label: messages.priceOptions.rangeTitle, checked: true },

@@ -9,6 +9,8 @@ import { AboutPage } from '../pages/about-page/about-page';
 import { CartPage } from '../pages/cart-page/cart-page';
 import { CatalogPage } from '../pages/catalog-page/catalog-page';
 import { ProductPage } from '../pages/product-page/product-page.tsx';
+import { CategoryPage } from '../pages/category-page/category-page.tsx';
+import { SubCategoryPage } from '../pages/subcategory-page/subcategory-page.tsx';
 
 export const router = createBrowserRouter([
   {
@@ -22,6 +24,8 @@ export const router = createBrowserRouter([
       { path: PagePath.aboutPage, Component: AboutPage },
       { path: PagePath.cartPage, Component: CartPage },
       { path: PagePath.catalogPage, Component: CatalogPage },
+      { path: PagePath.categoryPage, Component: CategoryPage },
+      { path: PagePath.subCategoryPage, Component: SubCategoryPage },
       { path: PagePath.productPage, Component: ProductPage },
     ],
   },

@@ -1,6 +1,6 @@
 import type { RegisterFormField, RegisterFormValues } from './types.ts';
 import { RegisterFieldName } from './types.ts';
-import { getCountryOptions } from '../../components/country-select/countries.ts';
+import { getCountryOptions } from './country-select/countries.ts';
 import type { RegisterOptions } from 'react-hook-form';
 import {
   postcodeValidator,

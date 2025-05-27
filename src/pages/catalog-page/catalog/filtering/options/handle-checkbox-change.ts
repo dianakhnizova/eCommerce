@@ -8,11 +8,6 @@ export const handleCheckboxChange = (sectionTitle: string, id: string) => {
       void catalogStore.getProducts();
       break;
     }
-    case messages.subCategoryTitle: {
-      //здесь также будут catalogStore.toggleSubCategorySelection(id);
-      void catalogStore.getProducts();
-      break;
-    }
     case messages.priceTitle: {
       // catalogStore.togglePriceSelection(id);
       void catalogStore.getProducts();

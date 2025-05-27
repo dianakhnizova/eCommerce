@@ -100,7 +100,7 @@ export class CatalogStore {
     }
   };
 
-  public toggleCategorySelection = (categoryId: string) => {
+  public toggleCategorySelection = (categoryId: string | null) => {
     runInAction(() => {
       this.selectedCategoryId =
         this.selectedCategoryId === categoryId ? null : categoryId;

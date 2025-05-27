@@ -101,26 +101,9 @@ export namespace Catalog {
     id: string;
     name: string;
     description: string;
-    prices: [
-      {
-        value: {
-          type: string;
-          fractionDigits: number;
-          centAmount: number;
-          currencyCode: string;
-        };
-        id: string;
-      },
-    ];
-    images: [
-      {
-        dimensions: {
-          h: number;
-          w: number;
-        };
-        url: string;
-      },
-    ];
+    price: string;
+    discountPrice: string;
+    images: Image[];
   };
 
   type Price = {
