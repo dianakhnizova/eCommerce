@@ -5,9 +5,13 @@ import { observer } from 'mobx-react-lite';
 import DEFAULT_IMAGE from '../../../../assets/images/placeholder.png';
 import { Link } from 'react-router';
 import { PagePath } from '../../../router/enums';
-
+import { useEffect } from 'react';
 export const ProductList = observer(() => {
-  const { productList } = catalogStore;
+  const { productList, sortField, sortOrder } = catalogStore;
+
+  useEffect(() => {
+    void catalogStore.getProducts();
+  }, [sortField, sortOrder]);
 
   return (
     <>

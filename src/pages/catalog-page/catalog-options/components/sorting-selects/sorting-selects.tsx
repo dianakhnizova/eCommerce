@@ -1,7 +1,6 @@
 import { messages } from './messages';
 import styles from './sorting-selects.module.css';
 import { catalogStore } from '../../../../../store/catalog-store';
-import { useEffect } from 'react';
 import { observer } from 'mobx-react-lite';
 import { SortField, SortOrder } from './enums';
 
@@ -24,10 +23,6 @@ export const SortingSelects = observer(() => {
       catalogStore.setSort(field, newOrder);
     }
   };
-
-  useEffect(() => {
-    void catalogStore.getProducts();
-  }, [field, order]);
 
   return (
     <div className={styles.optionsContainer}>
