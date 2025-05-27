@@ -11,4 +11,5 @@ export enum Endpoints {
   INTROSPECT = '/introspect',
   PRODUCT_INFORMATION = '/product-projections',
   PRODUCT_PROJECTIONS_SEARCH = '/product-projections/search',
+  CATEGORIES = '/categories',
 }

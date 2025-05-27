@@ -11,6 +11,7 @@ export const ProductList = observer(() => {
 
   useEffect(() => {
     void catalogStore.getProducts();
+    void catalogStore.getCategories();
   }, [sortField, sortOrder]);
 
   return (

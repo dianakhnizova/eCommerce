@@ -21,6 +21,8 @@ import {
 export class CatalogStore {
   public products: Catalog.ProductProjection[] = [];
   public productList: ProductCard[] = [];
+  public categories: Catalog.ProductCategory[] = [];
+  public selectedCategoryId: string | null = null;
   public pagination: Pagination = {
     limit: LIMIT_PRODUCTS_ON_PAGE,
     offset: DEFAULT_OFFSET,
@@ -40,12 +42,17 @@ export class CatalogStore {
     this.isLoading = true;
     this.error = null;
     try {
+      const selectedCategoryIds = this.selectedCategoryId
+        ? [this.selectedCategoryId]
+        : [];
+
       const data = await catalogService.getProducts(
         this.pagination.offset,
         this.pagination.limit,
         true,
         this.sortField,
-        this.sortOrder
+        this.sortOrder,
+        selectedCategoryIds
       );
       runInAction(() => {
         const cards = data.results.map(prepareProductCard);
@@ -69,6 +76,44 @@ export class CatalogStore {
   public setSort = (field: SortField, order: SortOrder) => {
     this.sortField = field;
     this.sortOrder = order;
+  };
+
+  public getCategories = async () => {
+    this.isLoading = true;
+    this.error = null;
+    try {
+      const data = await catalogService.getCategories();
+
+      runInAction(() => {
+        this.categories = data.results || [];
+      });
+    } catch (error) {
+      runInAction(() => {
+        if (error instanceof AxiosError) {
+          this.error = error.response?.data?.message || messages.catalogError;
+        }
+      });
+    } finally {
+      runInAction(() => {
+        this.isLoading = false;
+      });
+    }
+  };
+
+  public toggleCategorySelection = (categoryId: string) => {
+    runInAction(() => {
+      this.selectedCategoryId =
+        this.selectedCategoryId === categoryId ? null : categoryId;
+      void this.getProducts();
+    });
+  };
+
+  public getCategoryList = () => {
+    return this.categories.map(category => ({
+      id: category.id,
+      label: category.name?.en || category.id,
+      checked: this.selectedCategoryId === category.id,
+    }));
   };
 }
 

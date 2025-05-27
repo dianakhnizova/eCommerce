@@ -1,16 +1,20 @@
+import { catalogStore } from '../../../../../store/catalog-store';
 import { messages } from './messages';
 import {
-  categoryList,
   colorList,
   priceList,
   sizeList,
   subCategoryList,
 } from './option-lists';
+import type { Option } from './types';
 
-export const optionSectionList = [
+export const getOptionSectionList = (): {
+  title: string;
+  options: Option[];
+}[] => [
   {
     title: messages.categoryTitle,
-    options: categoryList,
+    options: catalogStore.getCategoryList(),
   },
   {
     title: messages.subCategoryTitle,

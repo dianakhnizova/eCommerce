@@ -1,23 +1,28 @@
 import styles from './option.module.css';
 import { Checkbox } from '../../../../../components/checkbox/checkbox';
-import { optionSectionList } from './option-section-list';
+import { getOptionSectionList } from './option-section-list';
+import { observer } from 'mobx-react-lite';
+import { handleCheckboxChange } from './handle-checkbox-change';
 
-export const OptionForm = () => {
+export const OptionForm = observer(() => {
+  const sectionList = getOptionSectionList();
+
   return (
     <div className={styles.categoryContainer}>
-      {optionSectionList.map((section, sectionIndex) => (
-        <div className={styles.optionContainer} key={sectionIndex}>
+      {sectionList.map(section => (
+        <div className={styles.optionContainer} key={section.title}>
           <p className={styles.title}>{section.title}</p>
-          {section.options.map((option, optionIndex) => (
+          {section.options.map(option => (
             <Checkbox
-              key={optionIndex}
+              key={option.id}
               className={styles.option}
               label={option.label}
               checked={option.checked}
+              onChange={() => handleCheckboxChange(section.title, option.id)}
             />
           ))}
         </div>
       ))}
     </div>
   );
-};
+});
