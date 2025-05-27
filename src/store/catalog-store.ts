@@ -44,8 +44,8 @@ export class CatalogStore {
         this.pagination.offset,
         this.pagination.limit,
         true,
-        this.sortField === SortField.Default ? undefined : this.sortField,
-        this.sortOrder === SortOrder.Default ? undefined : this.sortOrder
+        this.sortField,
+        this.sortOrder
       );
       runInAction(() => {
         const cards = data.results.map(prepareProductCard);
