@@ -8,7 +8,7 @@ export const productService = {
     productId: string
   ): Promise<Catalog.DetailedProductResponse> => {
     const response = await baseApi.get<Catalog.DetailedProductResponse>(
-      `${PROJECT_KEY}${Endpoints.PRODUCT_PROJECTIONS}/${productId}`
+      `${PROJECT_KEY}${Endpoints.PRODUCT_INFORMATION}/${productId}`
     );
     return response.data;
   },

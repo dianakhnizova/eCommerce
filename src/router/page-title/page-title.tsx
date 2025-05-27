@@ -10,4 +10,5 @@ export const pageTitle: PageTitle = {
   [PagePath.registerPage]: messages.registerPageTitle,
   [PagePath.cartPage]: messages.cartPageTitle,
   [PagePath.catalogPage]: messages.catalogPageTitle,
+  [PagePath.productPage]: messages.productPageTitle,
 };

@@ -5,6 +5,10 @@ import { productStore } from '../../store/product-store.ts';
 import { Spinner } from '../../components/spinner/spinner.tsx';
 import styles from './product-page.module.css';
 import { messages } from './messages.ts';
+import { BreadCrumbs } from '../../components/bread-crumbs/bread-crumbs.tsx';
+import { ProductSlider } from '../../components/product-slider/product-slider.tsx';
+import { ProductInfo } from './product-info/product-info.tsx';
+import { Wrapper } from '../../components/wrapper/wrapper.tsx';
 
 export const ProductPage = observer(() => {
   const { id } = useParams<{ id: string }>();
@@ -30,9 +34,13 @@ export const ProductPage = observer(() => {
 
   return (
     <>
-      <h2 className={styles.wrapper}>{messages.header}</h2>
-      <div>Product with ID: {product.id}</div>
-      <div>Product Name: {product.name}</div>
+      <BreadCrumbs />
+      <Wrapper className={styles.wrapper}>
+        <div className={styles.sliderWrapper}>
+          <ProductSlider images={product.images} />
+        </div>
+        <ProductInfo product={product} />
+      </Wrapper>
     </>
   );
 });

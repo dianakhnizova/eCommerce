@@ -3,7 +3,7 @@ import type { RegisterFormValues } from '../../pages/register-page/types';
 import { Input } from '../input/input';
 import { FIELDS } from '../../pages/register-page/constants';
 import { validationRules } from '../../pages/register-page/constants';
-import styles from '../address-fields/address-field.module.css';
+import styles from '../../pages/register-page/address-fields/address-field.module.css';
 
 type Props = {
   register: UseFormRegister<RegisterFormValues>;

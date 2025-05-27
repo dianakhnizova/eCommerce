@@ -1,11 +1,12 @@
 import styles from './product-card.module.css';
 import { catalogStore } from '../../../store/catalog-store';
-import { messages } from './messages';
 import { observer } from 'mobx-react-lite';
-import DEFAULT_IMAGE from '../../../../assets/images/placeholder.png';
 import { Link } from 'react-router';
 import { PagePath } from '../../../router/enums';
 import { useEffect } from 'react';
+import DEFAULT_IMAGE from '../../../../assets/images/placeholder.jpg';
+import { CURRENCY_USD } from '../../../sources/constants/catalog.ts';
+
 export const ProductList = observer(() => {
   const { productList, sortField, sortOrder } = catalogStore;
 
@@ -34,11 +35,11 @@ export const ProductList = observer(() => {
             <p className={styles.description}>{product.description}</p>
             <div className={styles.priceContainer}>
               <p className={styles.price}>
-                {messages.priceTitle}
+                {CURRENCY_USD}
                 {product.price}
               </p>
               <p className={styles.discountPrice}>
-                {messages.priceTitle}
+                {CURRENCY_USD}
                 {product.discountPrice}
               </p>
             </div>
