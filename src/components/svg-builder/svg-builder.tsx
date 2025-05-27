@@ -10,6 +10,7 @@ import LogoAnimate from '../../../assets/logo/logo-animate.svg?react';
 import SearchIcon from '../../../assets/icons/search.svg?react';
 import Cart from '../../../assets/icons/basket.svg?react';
 import Burger from '../../../assets/icons/burger.svg?react';
+import Filter from '../../../assets/icons/filter.svg?react';
 import type { IconType } from './enums';
 import type { IconVariant } from './types';
 
@@ -29,6 +30,7 @@ const iconVariant: IconVariant = {
   search: SearchIcon,
   cart: Cart,
   burger: Burger,
+  filter: Filter,
 };
 
 export const SvgBuilder: FC<Props> = ({ iconType, className }) => {
