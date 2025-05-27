@@ -23,8 +23,7 @@ export const ProductInfo = ({ product }: Props) => {
         </p>
       </div>
       <p className={styles.description}>{product.description}</p>
-      <Button className={styles.cartText}>{messages.buttons.addToCart}</Button>
-      <p></p>
+      <Button>{messages.buttons.addToCart}</Button>
     </div>
   );
 };

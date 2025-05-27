@@ -8,9 +8,9 @@ import {
   SLIDES_TO_SCROLL,
   SLIDES_TO_SHOW,
   WAIT_FOR_ANIMATE,
-} from '../../pages/product-page/constants.ts';
-import { ArrowNext } from '../../pages/product-page/arrow-next/arrow-next.tsx';
-import { ArrowPrev } from '../../pages/product-page/arrow-prev/arrow-prev.tsx';
+} from './constants.ts';
+import { ArrowNext } from './arrow-next/arrow-next.tsx';
+import { ArrowPrev } from './arrow-prev/arrow-prev.tsx';
 import DEFAULT_IMAGE from '../../../assets/images/placeholder.jpg';
 
 type Props = {
