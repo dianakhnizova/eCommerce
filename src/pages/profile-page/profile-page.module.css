@@ -1,7 +1,28 @@
-.aboutWrapper {
+.profileWrapper {
   display: flex;
   gap: 30px;
   padding: 30px;
   flex-direction: column;
   width: 100%;
+}
+
+.addressesContainer {
+  display: 'flex';
+  flex-wrap: 'wrap';
+  gap: '10px';
+}
+
+.title {
+  margin: 0 0 16px;
+}
+
+.section {
+  width: 100%;
+  max-width: 600px;
+  background-color: var(--clr-bg-2);
+  border-radius: 8px;
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
 }

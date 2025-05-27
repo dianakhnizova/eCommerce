@@ -22,10 +22,7 @@ export const messages = {
   billingAddresses: 'Billing addresses',
   shippingAddresses: 'Shipping addresses',
   default: 'Default',
-  country: 'Country',
-  city: 'City',
-  street: 'Street',
-  postcode: 'Post code',
+  noData: '-',
   noAddresses: 'No addresses added.',
   generalInfo: 'General info',
 };

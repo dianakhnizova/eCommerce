@@ -20,6 +20,38 @@ class UserStore {
     return !!this.user?.id;
   }
 
+  public get billingAddresses(): (Customer.Address & { isDefault: boolean })[] {
+    const {
+      addresses = [],
+      billingAddressIds = [],
+      defaultBillingAddressId,
+    } = this.user || {};
+
+    return addresses
+      .filter(({ id }) => id && billingAddressIds.includes(id))
+      .map(address => ({
+        ...address,
+        isDefault: address.id === defaultBillingAddressId,
+      }));
+  }
+
+  public get shippingAddresses(): (Customer.Address & {
+    isDefault: boolean;
+  })[] {
+    const {
+      addresses = [],
+      shippingAddressIds = [],
+      defaultShippingAddressId,
+    } = this.user || {};
+
+    return addresses
+      .filter(({ id }) => id && shippingAddressIds.includes(id))
+      .map(address => ({
+        ...address,
+        isDefault: address.id === defaultShippingAddressId,
+      }));
+  }
+
   public resetError() {
     this.error = '';
   }
