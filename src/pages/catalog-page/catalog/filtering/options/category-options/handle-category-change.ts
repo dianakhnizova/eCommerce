@@ -7,18 +7,18 @@ export const handleCategoryChange = (
   event: React.ChangeEvent<HTMLSelectElement>,
   navigate: NavigateFunction
 ) => {
-  const selectedSlug = event.target.value;
-  console.log('Selected slug:', selectedSlug);
-  if (selectedSlug === messages.defaultTitle) {
+  const selectedId = event.target.value;
+  if (selectedId === messages.defaultTitle) {
     catalogStore.setCategories('');
+    void catalogStore.getProducts();
     void navigate('/catalog');
   } else {
-    catalogStore.setCategories(selectedSlug);
+    catalogStore.setCategories(selectedId);
     void catalogStore.getProducts();
 
     void navigate(
-      selectedSlug
-        ? `${PagePath.categoryPage.replace(':categorySlug', selectedSlug)}`
+      selectedId
+        ? `${PagePath.categoryPage.replace(':categoryId', selectedId)}`
         : PagePath.catalogPage
     );
   }

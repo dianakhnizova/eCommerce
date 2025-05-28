@@ -1,5 +1,5 @@
 export type CategoryOption = {
-  slug: string;
+  id: string;
   label: string;
   checked: boolean;
 };

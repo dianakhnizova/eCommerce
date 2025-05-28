@@ -21,7 +21,7 @@ export const OptionForm = observer(() => {
               className={styles.option}
               label={option.label}
               checked={option.checked}
-              onChange={() => handleCheckboxChange(section.title, option.id)}
+              onChange={() => handleCheckboxChange(section.title)}
             />
           ))}
         </div>

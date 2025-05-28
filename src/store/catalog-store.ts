@@ -22,7 +22,7 @@ export class CatalogStore {
   public products: Catalog.ProductProjection[] = [];
   public productList: ProductCard[] = [];
   public categories: Catalog.ProductCategory[] = [];
-  public selectedCategorySlug: string = messages.emptyValue;
+  public selectedCategoryId: string = messages.emptyValue;
   public pagination: Pagination = {
     limit: LIMIT_PRODUCTS_ON_PAGE,
     offset: DEFAULT_OFFSET,
@@ -49,14 +49,13 @@ export class CatalogStore {
         true,
         this.sortField,
         this.sortOrder,
-        this.selectedCategorySlug
+        this.selectedCategoryId
       );
       runInAction(() => {
         const cards = data.results.map(prepareProductCard);
         this.products = data.results;
         this.productList = cards;
         this.pagination = preparePagination(data);
-        console.log('Products:', data.results);
       });
     } catch (error) {
       runInAction(() => {
@@ -98,20 +97,16 @@ export class CatalogStore {
     }
   };
 
-  public setCategories = (categorySlug: string) => {
-    this.selectedCategorySlug = categorySlug;
+  public setCategories = (categoryId: string) => {
+    this.selectedCategoryId = categoryId;
   };
 
   public getCategoryList = () => {
-    const result = this.categories.map(category => ({
-      slug: category.slug?.en || messages.emptyValue,
-      label: category.name?.en || category.slug?.en || messages.emptyValue,
-      checked:
-        this.selectedCategorySlug ===
-        (category.slug?.en || category.slug || messages.emptyValue),
+    return this.categories.map(category => ({
+      id: category.id,
+      label: category.name?.en || category.id,
+      checked: this.selectedCategoryId === category.id,
     }));
-    console.log('Category list:', result);
-    return result;
   };
 }
 

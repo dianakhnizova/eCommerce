@@ -18,7 +18,7 @@ export const catalogService = {
     withTotal: boolean = true,
     sortField?: SortField,
     sortOrder?: SortOrder,
-    categorySlug?: string
+    categoryId?: string
   ): Promise<Catalog.ProductResponse> => {
     const params = new URLSearchParams({
       offset: offset.toString(),
@@ -30,8 +30,8 @@ export const catalogService = {
       params.append('sort', `${sortField} ${sortOrder}`);
     }
 
-    if (categorySlug) {
-      params.append('filter', `categories.slug.en:"${categorySlug}"`);
+    if (categoryId) {
+      params.append('filter.query', `categories.id:"${categoryId}"`);
     }
 
     const response = await baseApi.get<Catalog.ProductResponse>(

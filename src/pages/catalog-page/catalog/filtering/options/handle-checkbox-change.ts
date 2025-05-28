@@ -1,13 +1,8 @@
 import { messages } from './messages';
 import { catalogStore } from '../../../../../store/catalog-store';
 
-export const handleCheckboxChange = (sectionTitle: string, id: string) => {
+export const handleCheckboxChange = (sectionTitle: string) => {
   switch (sectionTitle) {
-    case messages.categoryTitle: {
-      catalogStore.toggleCategorySelection(id);
-      void catalogStore.getProducts();
-      break;
-    }
     case messages.priceTitle: {
       // catalogStore.togglePriceSelection(id);
       void catalogStore.getProducts();
