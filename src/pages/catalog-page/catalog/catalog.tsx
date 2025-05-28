@@ -1,4 +1,4 @@
-import { ProductList } from '../product-card/product-card';
+import { ProductList } from '../product-list/product-list';
 import styles from './catalog.module.css';
 import { SideBar } from './filtering/sidebar';
 

@@ -17,4 +17,5 @@ export const messages = {
   buttons: {
     addToCart: 'Add To Cart',
   },
+  emptyValue: '',
 };

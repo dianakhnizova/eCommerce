@@ -1,8 +1,8 @@
-import styles from './product-card.module.css';
-import { catalogStore } from '../../../store/catalog-store';
+import styles from './product-list.module.css';
+import { catalogStore } from '../../../store/catalog-store.ts';
 import { observer } from 'mobx-react-lite';
 import { Link } from 'react-router';
-import { PagePath } from '../../../router/enums';
+import { PagePath } from '../../../router/enums.ts';
 import { useEffect } from 'react';
 import DEFAULT_IMAGE from '../../../../assets/images/placeholder.png';
 import { CURRENCY_USD } from '../../../sources/constants/catalog.ts';
@@ -12,8 +12,11 @@ export const ProductList = observer(() => {
 
   useEffect(() => {
     void catalogStore.getProducts();
-    void catalogStore.getCategories();
   }, [sortField, sortOrder]);
+
+  useEffect(() => {
+    void catalogStore.getCategories();
+  }, []);
 
   return (
     <>

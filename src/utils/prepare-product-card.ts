@@ -1,4 +1,4 @@
-import type { ProductCard } from '../pages/catalog-page/product-card/types';
+import type { ProductCard } from '../pages/catalog-page/product-list/types';
 import { DEFAULT_PRICE } from '../sources/constants/catalog';
 import { messages } from '../sources/messages';
 import type { Catalog } from '../sources/types/catalog';

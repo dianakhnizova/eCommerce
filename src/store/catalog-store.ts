@@ -3,7 +3,7 @@ import { catalogService } from '../api/services/catalog-service';
 import { messages } from '../sources/messages';
 import { AxiosError } from 'axios';
 import type { Catalog } from '../sources/types/catalog';
-import type { ProductCard } from '../pages/catalog-page/product-card/types';
+import type { ProductCard } from '../pages/catalog-page/product-list/types';
 import { prepareProductCard } from '../utils/prepare-product-card';
 import type { Pagination } from '../sources/types/pagination';
 import {
@@ -22,7 +22,7 @@ export class CatalogStore {
   public products: Catalog.ProductProjection[] = [];
   public productList: ProductCard[] = [];
   public categories: Catalog.ProductCategory[] = [];
-  public selectedCategoryId: string | null = null;
+  public selectedCategorySlug: string = messages.emptyValue;
   public pagination: Pagination = {
     limit: LIMIT_PRODUCTS_ON_PAGE,
     offset: DEFAULT_OFFSET,
@@ -30,6 +30,7 @@ export class CatalogStore {
     total: DEFAULT_TOTAL,
   };
   public isLoading = false;
+  public isCategoryLoading = false;
   public error: string | null = null;
   public sortField: SortField = SortField.Default;
   public sortOrder: SortOrder = SortOrder.Default;
@@ -42,23 +43,20 @@ export class CatalogStore {
     this.isLoading = true;
     this.error = null;
     try {
-      const selectedCategoryIds = this.selectedCategoryId
-        ? [this.selectedCategoryId]
-        : [];
-
       const data = await catalogService.getProducts(
         this.pagination.offset,
         this.pagination.limit,
         true,
         this.sortField,
         this.sortOrder,
-        selectedCategoryIds
+        this.selectedCategorySlug
       );
       runInAction(() => {
         const cards = data.results.map(prepareProductCard);
         this.products = data.results;
         this.productList = cards;
         this.pagination = preparePagination(data);
+        console.log('Products:', data.results);
       });
     } catch (error) {
       runInAction(() => {
@@ -79,7 +77,7 @@ export class CatalogStore {
   };
 
   public getCategories = async () => {
-    this.isLoading = true;
+    this.isCategoryLoading = true;
     this.error = null;
     try {
       const data = await catalogService.getCategories();
@@ -95,25 +93,25 @@ export class CatalogStore {
       });
     } finally {
       runInAction(() => {
-        this.isLoading = false;
+        this.isCategoryLoading = false;
       });
     }
   };
 
-  public toggleCategorySelection = (categoryId: string | null) => {
-    runInAction(() => {
-      this.selectedCategoryId =
-        this.selectedCategoryId === categoryId ? null : categoryId;
-      void this.getProducts();
-    });
+  public setCategories = (categorySlug: string) => {
+    this.selectedCategorySlug = categorySlug;
   };
 
   public getCategoryList = () => {
-    return this.categories.map(category => ({
-      id: category.id,
-      label: category.name?.en || category.id,
-      checked: this.selectedCategoryId === category.id,
+    const result = this.categories.map(category => ({
+      slug: category.slug?.en || messages.emptyValue,
+      label: category.name?.en || category.slug?.en || messages.emptyValue,
+      checked:
+        this.selectedCategorySlug ===
+        (category.slug?.en || category.slug || messages.emptyValue),
     }));
+    console.log('Category list:', result);
+    return result;
   };
 }
 
