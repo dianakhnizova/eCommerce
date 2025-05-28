@@ -11,10 +11,11 @@ import {
 } from './constants.ts';
 import { ArrowNext } from './arrow-next/arrow-next.tsx';
 import { ArrowPrev } from './arrow-prev/arrow-prev.tsx';
-import DEFAULT_IMAGE from '../../../assets/images/placeholder.jpg';
+import DEFAULT_IMAGE from '../../../assets/images/placeholder.png';
 
 type Props = {
   images: Catalog.Image[];
+  onClick: (index: number) => void;
 } & Settings;
 
 const defaultSettings = {
@@ -28,12 +29,12 @@ const defaultSettings = {
   prevArrow: <ArrowPrev />,
 };
 
-export const ProductSlider = ({ images, ...rest }: Props) => {
+export const ProductSlider = ({ images, onClick, ...rest }: Props) => {
   const arrows = images.length > 1;
 
   return (
     <Slider {...defaultSettings} arrows={arrows} {...rest}>
-      {images.map(image => (
+      {images.map((image, index) => (
         <img
           src={image.url}
           alt={messages.imageAltText}
@@ -41,6 +42,7 @@ export const ProductSlider = ({ images, ...rest }: Props) => {
           onError={event => {
             event.currentTarget.src = DEFAULT_IMAGE;
           }}
+          onClick={() => onClick(index)}
         />
       ))}
     </Slider>

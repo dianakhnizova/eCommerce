@@ -4,7 +4,7 @@ import { observer } from 'mobx-react-lite';
 import { Link } from 'react-router';
 import { PagePath } from '../../../router/enums';
 import { useEffect } from 'react';
-import DEFAULT_IMAGE from '../../../../assets/images/placeholder.jpg';
+import DEFAULT_IMAGE from '../../../../assets/images/placeholder.png';
 import { CURRENCY_USD } from '../../../sources/constants/catalog.ts';
 
 export const ProductList = observer(() => {
