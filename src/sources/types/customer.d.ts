@@ -1,5 +1,6 @@
 export namespace Customer {
   type Profile = {
+    version?: number;
     id?: string;
     addresses?: Address[];
     email: string;
@@ -9,9 +10,6 @@ export namespace Customer {
     dateOfBirth?: string;
     defaultShippingAddress?: number;
     defaultBillingAddress?: number;
-  };
-
-  type ProfileExtended = Profile & {
     defaultShippingAddressId: string;
     defaultBillingAddressId: string;
     shippingAddressIds: string[];
