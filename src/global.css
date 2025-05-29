@@ -69,10 +69,6 @@ body {
   overflow: hidden;
 }
 
-.noScroll {
-  overflow: hidden;
-}
-
 @media (hover: hover) {
   a {
     cursor: pointer;

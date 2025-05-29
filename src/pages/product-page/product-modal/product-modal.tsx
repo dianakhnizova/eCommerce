@@ -7,13 +7,11 @@ import {
   SHOW_THUMBNAILS,
 } from './constants.ts';
 import { useEffect } from 'react';
-
-type Image = {
-  original: string;
-};
+import DEFAULT_IMAGE from '../../../../assets/images/placeholder.png';
+import type { Catalog } from '../../../sources/types/catalog';
 
 type Props = {
-  images: Image[];
+  images: Catalog.Image[];
   onClick: () => void;
   startIndex: number;
 };
@@ -31,16 +29,16 @@ const stopPropagation = (e: React.MouseEvent) => {
 
 export const ProductModal = ({ images, startIndex, onClick }: Props) => {
   useEffect(() => {
-    if (globalThis.window !== undefined && typeof document !== 'undefined') {
-      document.body.classList.add('noScroll');
-    }
+    document.body.classList.add('bodyBlock');
 
     return () => {
-      if (globalThis.window !== undefined && typeof document !== 'undefined') {
-        document.body.classList.remove('noScroll');
-      }
+      document.body.classList.remove('bodyBlock');
     };
   }, []);
+
+  const imagesForModal = images.map(img => ({
+    original: img.url,
+  }));
 
   return (
     <div className={styles.modal} onClick={onClick}>
@@ -49,7 +47,8 @@ export const ProductModal = ({ images, startIndex, onClick }: Props) => {
           x
         </button>
         <ImageGallery
-          items={images}
+          onErrorImageURL={DEFAULT_IMAGE}
+          items={imagesForModal}
           startIndex={startIndex}
           {...defaultSettings}
         />

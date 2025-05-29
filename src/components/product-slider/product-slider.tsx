@@ -30,12 +30,13 @@ const defaultSettings = {
 };
 
 export const ProductSlider = ({ images, onClick, ...rest }: Props) => {
-  const arrows = images.length > 1;
+  const hasImages = images.length > 0;
+  const arrows = hasImages && images.length > 1;
 
-  return (
-    <Slider {...defaultSettings} arrows={arrows} {...rest}>
-      {images.map((image, index) => (
+  const slides = hasImages
+    ? images.map((image, index) => (
         <img
+          key={index}
           src={image.url}
           alt={messages.imageAltText}
           className={styles.image}
@@ -44,7 +45,19 @@ export const ProductSlider = ({ images, onClick, ...rest }: Props) => {
           }}
           onClick={() => onClick(index)}
         />
-      ))}
+      ))
+    : [
+        <img
+          key="default"
+          src={DEFAULT_IMAGE}
+          alt={messages.imageAltText}
+          className={styles.defaultImage}
+        />,
+      ];
+
+  return (
+    <Slider {...defaultSettings} arrows={arrows} {...rest}>
+      {slides}
     </Slider>
   );
 };

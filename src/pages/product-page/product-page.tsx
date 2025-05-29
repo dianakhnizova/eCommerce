@@ -37,10 +37,6 @@ export const ProductPage = observer(() => {
     return <div className={styles.empty}>{messages.productNotFound}</div>;
   }
 
-  const imagesForModal = product.images.map(img => ({
-    original: img.url,
-  }));
-
   const onImageClick = (index: number) => {
     setSelectedImageIndex(index);
     setIsOpen(true);
@@ -57,7 +53,7 @@ export const ProductPage = observer(() => {
       </Wrapper>
       {isOpen && (
         <ProductModal
-          images={imagesForModal}
+          images={product.images}
           onClick={() => setIsOpen(false)}
           startIndex={selectedImageIndex}
         />
