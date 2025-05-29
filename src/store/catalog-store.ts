@@ -22,7 +22,7 @@ export class CatalogStore {
   public products: Catalog.ProductProjection[] = [];
   public productList: ProductCard[] = [];
   public categories: Catalog.ProductCategory[] = [];
-  public selectedCategoryId: string = messages.emptyValue;
+  public selectedCategoryId: string = '';
   public pagination: Pagination = {
     limit: LIMIT_PRODUCTS_ON_PAGE,
     offset: DEFAULT_OFFSET,
@@ -76,6 +76,10 @@ export class CatalogStore {
   };
 
   public getCategories = async () => {
+    if (this.categories.length > 0) {
+      return;
+    }
+
     this.isCategoryLoading = true;
     this.error = null;
     try {

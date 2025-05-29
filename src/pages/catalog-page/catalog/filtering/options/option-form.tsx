@@ -2,7 +2,6 @@ import styles from './option.module.css';
 import { Checkbox } from '../../../../../components/checkbox/checkbox';
 import { getOptionSectionList } from './components/option-section-list';
 import { observer } from 'mobx-react-lite';
-import { handleCheckboxChange } from './handle-checkbox-change';
 import { CategoryOptions } from './category-options/category-options';
 
 export const OptionForm = observer(() => {
@@ -21,7 +20,6 @@ export const OptionForm = observer(() => {
               className={styles.option}
               label={option.label}
               checked={option.checked}
-              onChange={() => handleCheckboxChange(section.title)}
             />
           ))}
         </div>

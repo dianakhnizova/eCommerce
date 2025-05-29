@@ -1,25 +1,22 @@
 import type { NavigateFunction } from 'react-router-dom';
 import { catalogStore } from '../../../../../../store/catalog-store';
 import { PagePath } from '../../../../../../router/enums';
-import { messages } from './messages';
+import { generatePath } from 'react-router-dom';
 
 export const handleCategoryChange = (
   event: React.ChangeEvent<HTMLSelectElement>,
   navigate: NavigateFunction
 ) => {
   const selectedId = event.target.value;
-  if (selectedId === messages.defaultTitle) {
+  if (!selectedId) {
     catalogStore.setCategories('');
-    void catalogStore.getProducts();
-    void navigate('/catalog');
+    void navigate(PagePath.catalogPage);
   } else {
     catalogStore.setCategories(selectedId);
-    void catalogStore.getProducts();
 
-    void navigate(
-      selectedId
-        ? `${PagePath.categoryPage.replace(':categoryId', selectedId)}`
-        : PagePath.catalogPage
-    );
+    const category = catalogStore.categories.find(cat => cat.id === selectedId);
+
+    const slug = category?.slug?.en || selectedId;
+    void navigate(generatePath(PagePath.categoryPage, { categoryId: slug }));
   }
 };

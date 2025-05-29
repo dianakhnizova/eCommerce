@@ -8,5 +8,5 @@ export enum PagePath {
   catalogPage = '/catalog',
   categoryPage = '/catalog/:categoryId',
   subCategoryPage = '/catalog/:categoryId/:subcategoryId',
-  productPage = '/catalog/:categoryId/:subcategorySId/:id',
+  productPage = '/catalog/:categoryId/:subcategoryId/:id',
 }

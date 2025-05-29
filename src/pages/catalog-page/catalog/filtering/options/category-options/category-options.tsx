@@ -15,12 +15,10 @@ export const CategoryOptions = observer(() => {
       <p className={styles.title}>{messages.categoryTitle}</p>
       <select
         className={styles.select}
-        value={catalogStore.selectedCategoryId || messages.defaultTitle}
+        value={catalogStore.selectedCategoryId}
         onChange={event => handleCategoryChange(event, navigate)}
       >
-        <option value={messages.defaultTitle}>
-          {messages.categoryOptions.allCategories}
-        </option>
+        <option value="">{messages.categoryOptions.allCategories}</option>
         {categoryList.map(({ id, label }) => (
           <option key={id} value={id}>
             {label}
