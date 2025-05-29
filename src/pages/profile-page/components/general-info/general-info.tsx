@@ -40,9 +40,10 @@ export const GeneralInfo = observer(() => {
         {!isEditMode && (
           <Button
             onClick={() => setIsEditMode(true)}
-            children="Edit"
             className={styles.editBtn}
-          />
+          >
+            {messages.edit}
+          </Button>
         )}
       </div>
       <FormProvider {...form}>
@@ -64,7 +65,9 @@ export const GeneralInfo = observer(() => {
           })}
 
           {isEditMode && (
-            <Button type="submit" children="Save" className={styles.button} />
+            <Button type="submit" className={styles.button}>
+              {messages.save}
+            </Button>
           )}
         </form>
       </FormProvider>
