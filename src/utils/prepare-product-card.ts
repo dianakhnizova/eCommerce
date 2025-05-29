@@ -8,6 +8,8 @@ export const prepareProductCard = (
 ): ProductCard => {
   return {
     id: product.id,
+    categorySlug: product.categorySlug,
+    subcategorySlug: product.subcategorySlug,
     name: product.name?.en || messages.noName,
     image: product.masterVariant?.images?.[0]?.url || messages.placeholderJpg,
     description: product.description?.en || messages.noDescription,

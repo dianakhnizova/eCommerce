@@ -13,6 +13,10 @@ export const ProductList = observer(() => {
     catalogStore;
 
   const hasProducts = productList.length > 0;
+  const category = catalogStore.categories.find(
+    cat => cat.id === selectedCategoryId
+  );
+  const slug = category?.slug?.en;
 
   useEffect(() => {
     void catalogStore.getProducts();
@@ -29,9 +33,9 @@ export const ProductList = observer(() => {
           <li key={product.id}>
             <Link
               to={generatePath(PagePath.productPage, {
-                categoryId: product.categoryId || messages.defaultCategory,
-                subcategoryId:
-                  product.subcategoryId || messages.defaultSubcategory,
+                categorySlug: slug || 'default-category',
+                subcategorySlug:
+                  product.subcategorySlug || 'default-subcategory',
                 id: product.id,
               })}
               className={styles.cardContainer}

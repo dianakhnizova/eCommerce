@@ -64,6 +64,8 @@ export namespace Catalog {
 
   type ProductProjection = {
     id: string;
+    categorySlug: string;
+    subcategorySlug: string;
     name: { en: string };
     description?: { en: string };
     masterVariant?: {
