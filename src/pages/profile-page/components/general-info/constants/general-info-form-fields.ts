@@ -1,20 +1,15 @@
-import type { CustomerForm } from '../types/customer-form';
+import type { FormFields } from '../form-fields';
 import { messages } from './messages';
 
-export const CustomerFields: {
-  name: keyof CustomerForm;
+type FieldConfig = {
+  name: keyof FormFields;
   label: string;
   type: 'password' | 'email' | 'date' | 'text';
   placeholder?: string;
   required?: boolean;
-}[] = [
-  {
-    name: 'password',
-    label: messages.password,
-    type: 'password',
-    placeholder: messages.password,
-    required: false,
-  },
+};
+
+export const GeneralInfoFormFields: FieldConfig[] = [
   {
     name: 'email',
     label: messages.email,

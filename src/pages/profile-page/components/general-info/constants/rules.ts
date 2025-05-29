@@ -1,29 +1,15 @@
-import type { CustomerForm } from '../types/customer-form.ts';
 import type { RegisterOptions } from 'react-hook-form';
+import type { FormFields } from '../form-fields';
 
-const MIN_PASSWORD_LENGTH = 8;
 const MIN_AGE = 13;
 const MIN_NAME_LENGTH = 1;
 
-export const rules: Record<
-  keyof CustomerForm,
-  RegisterOptions<CustomerForm>
-> = {
+export const rules: Record<keyof FormFields, RegisterOptions<FormFields>> = {
   email: {
     required: 'Email is required',
     pattern: {
       value: /^\S+@\S+\.\S+$/,
       message: 'Invalid email address',
-    },
-  },
-  password: {
-    minLength: {
-      value: MIN_PASSWORD_LENGTH,
-      message: `Password must be at least ${MIN_PASSWORD_LENGTH} characters`,
-    },
-    pattern: {
-      value: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)/,
-      message: 'Password must include uppercase, lowercase, and number',
     },
   },
   firstName: {
