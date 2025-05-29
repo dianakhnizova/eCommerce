@@ -48,7 +48,10 @@ export const customerService = {
   },
 
   updateCustomerGeneralInfo: async (
-    customer: Customer.Profile
+    customer: Pick<
+      Customer.Profile,
+      'dateOfBirth' | 'email' | 'lastName' | 'firstName' | 'id' | 'version'
+    >
   ): Promise<Customer.Profile> => {
     const parameters = new URLSearchParams({
       manage_my_profile: PROJECT_KEY,

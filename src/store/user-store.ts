@@ -5,6 +5,7 @@ import { messages } from '../sources/messages';
 import { TokenManager } from '../api/token-manager';
 import { LSKeys } from '../sources/enums/ls-keys';
 import { AxiosError } from 'axios';
+import { isApiError } from '../utils/is-api-error';
 
 class UserStore {
   public isInitLoading = false;
@@ -144,6 +145,41 @@ class UserStore {
     }
   }
 
+  public async updateGeneralInfo(
+    customer: Pick<
+      Customer.Profile,
+      'dateOfBirth' | 'email' | 'lastName' | 'firstName'
+    >
+  ) {
+    try {
+      if (!this.user) return;
+      this.user.firstName = customer.firstName;
+      this.user.lastName = customer.lastName;
+      this.user.dateOfBirth = customer.dateOfBirth;
+      this.user.email = customer.email;
+      const updated = await customerService.updateCustomerGeneralInfo(
+        this.user
+      );
+      runInAction(() => {
+        this.user = updated;
+        console.log({ updated });
+      });
+    } catch (error) {
+      runInAction(() => {
+        console.log(error);
+        if (isApiError(error)) {
+          this.error = error.response?.data?.message || messages.loginError;
+          return;
+        }
+        this.error =
+          error instanceof Error ? error.message : messages.loginError;
+      });
+    } finally {
+      runInAction(() => {
+        this.isInitLoading = false;
+      });
+    }
+  }
   public logout() {
     TokenManager.cleanup();
     localStorage.removeItem(LSKeys.USER_ID);

@@ -1,29 +1,36 @@
 import { Input } from '../../../../components/input/input';
 import styles from '../../profile-page.module.css';
 import { FormProvider, useForm } from 'react-hook-form';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { messages } from './constants/messages';
 import { userStore } from '../../../../store/user-store';
 import { Button } from '../../../../components/button/button';
 import { GeneralInfoFormFields } from './constants/general-info-form-fields';
 import type { FormFields } from './form-fields';
 import { rules } from './constants/rules';
+import { observer } from 'mobx-react-lite';
 
-export const GeneralInfo = () => {
-  const form = useForm<FormFields>({
-    defaultValues: {
-      firstName: userStore.user?.firstName,
-      lastName: userStore.user?.lastName,
-      dateOfBirth: userStore.user?.dateOfBirth,
-      email: userStore.user?.email,
-    },
-  });
+export const GeneralInfo = observer(() => {
+  const form = useForm<FormFields>();
+
+  useEffect(() => {
+    const user = userStore.user;
+    if (user) {
+      form.reset({
+        email: user.email || '',
+        firstName: user.firstName || '',
+        lastName: user.lastName || '',
+        dateOfBirth: user.dateOfBirth || '',
+      });
+    }
+  }, [userStore.user]);
 
   const [isEditMode, setIsEditMode] = useState(false);
 
   const onSubmit = (data: FormFields) => {
     console.log(data);
     if (data) setIsEditMode(false);
+    void userStore.updateGeneralInfo(data);
   };
 
   return (
@@ -63,4 +70,4 @@ export const GeneralInfo = () => {
       </FormProvider>
     </div>
   );
-};
+});

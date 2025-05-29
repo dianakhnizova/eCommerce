@@ -10,10 +10,10 @@ export namespace Customer {
     dateOfBirth?: string;
     defaultShippingAddress?: number;
     defaultBillingAddress?: number;
-    defaultShippingAddressId: string;
-    defaultBillingAddressId: string;
-    shippingAddressIds: string[];
-    billingAddressIds: string[];
+    defaultShippingAddressId?: string;
+    defaultBillingAddressId?: string;
+    shippingAddressIds?: string[];
+    billingAddressIds?: string[];
   };
 
   type Address = {
