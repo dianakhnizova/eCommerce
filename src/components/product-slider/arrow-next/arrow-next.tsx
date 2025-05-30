@@ -3,12 +3,12 @@ import styles from '../product-slider.module.css';
 import type { CustomArrowProps } from 'react-slick';
 import classNames from 'classnames';
 
-export const ArrowNext = ({ className, ...rest }: CustomArrowProps) => {
+export const ArrowNext = ({ className, onClick }: CustomArrowProps) => {
   return (
     <button
       type="button"
       className={classNames(className, styles.arrow)}
-      {...rest}
+      onClick={onClick}
     >
       <FaArrowRight className={styles.icon} />
     </button>
