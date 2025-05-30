@@ -55,7 +55,7 @@ export namespace Catalog {
   };
 
   type ProductResponse = {
-    results: ProductProjection[];
+    results: DetailedProductResponse[];
     limit: number;
     offset: number;
     count: number;

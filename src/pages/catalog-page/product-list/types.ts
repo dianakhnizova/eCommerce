@@ -1,7 +1,7 @@
 export type ProductCard = {
   id: string;
   categorySlug: string;
-  subcategorySlug: string;
+  subcategorySlug?: string;
   name: string;
   image: string;
   description: string;

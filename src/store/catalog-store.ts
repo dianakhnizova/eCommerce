@@ -19,7 +19,6 @@ import {
 } from '../pages/catalog-page/catalog-options/components/sorting-selects/enums';
 
 export class CatalogStore {
-  public products: Catalog.ProductProjection[] = [];
   public productList: ProductCard[] = [];
   public categories: Catalog.ProductCategory[] = [];
   public selectedCategoryId: string = '';
@@ -43,6 +42,10 @@ export class CatalogStore {
     this.isLoading = true;
     this.error = null;
     try {
+      if (this.categories.length === 0) {
+        await this.getCategories();
+      }
+
       const data = await catalogService.getProducts(
         this.pagination.offset,
         this.pagination.limit,
@@ -53,7 +56,6 @@ export class CatalogStore {
       );
       runInAction(() => {
         const cards = data.results.map(prepareProductCard);
-        this.products = data.results;
         this.productList = cards;
         this.pagination = preparePagination(data);
       });
@@ -84,7 +86,6 @@ export class CatalogStore {
     this.error = null;
     try {
       const data = await catalogService.getCategories();
-
       runInAction(() => {
         this.categories = data.results || [];
       });

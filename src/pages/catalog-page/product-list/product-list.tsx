@@ -18,10 +18,6 @@ export const ProductList = observer(() => {
     void catalogStore.getProducts();
   }, [selectedCategoryId, sortField, sortOrder]);
 
-  useEffect(() => {
-    void catalogStore.getCategories();
-  }, []);
-
   return (
     <>
       {hasProducts ? (
