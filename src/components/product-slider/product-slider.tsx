@@ -15,6 +15,7 @@ import DEFAULT_IMAGE from '../../../assets/images/placeholder.png';
 
 type Props = {
   images: Catalog.Image[];
+  onClick: (index: number) => void;
 } & Settings;
 
 const defaultSettings = {
@@ -28,21 +29,35 @@ const defaultSettings = {
   prevArrow: <ArrowPrev />,
 };
 
-export const ProductSlider = ({ images, ...rest }: Props) => {
-  const arrows = images.length > 1;
+export const ProductSlider = ({ images, onClick, ...rest }: Props) => {
+  const hasImages = images.length > 0;
+  const arrows = hasImages && images.length > 1;
 
-  return (
-    <Slider {...defaultSettings} arrows={arrows} {...rest}>
-      {images.map(image => (
+  const slides = hasImages
+    ? images.map((image, index) => (
         <img
+          key={index}
           src={image.url}
           alt={messages.imageAltText}
           className={styles.image}
           onError={event => {
             event.currentTarget.src = DEFAULT_IMAGE;
           }}
+          onClick={() => onClick(index)}
         />
-      ))}
+      ))
+    : [
+        <img
+          key="default"
+          src={DEFAULT_IMAGE}
+          alt={messages.imageAltText}
+          className={styles.defaultImage}
+        />,
+      ];
+
+  return (
+    <Slider {...defaultSettings} arrows={arrows} {...rest}>
+      {slides}
     </Slider>
   );
 };

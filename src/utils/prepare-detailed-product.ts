@@ -4,12 +4,15 @@ import { DEFAULT_PRICE } from '../sources/constants/catalog';
 export const prepareDetailedProduct = (
   data: Catalog.DetailedProductResponse
 ) => {
-  const price = data.masterVariant.prices[0].value
-    ? `${(data.masterVariant.prices[0].value.centAmount / 100).toFixed(2)}`
+  const price = data.masterVariant?.prices?.[0]?.value?.centAmount
+    ? (data.masterVariant.prices[0].value.centAmount / 100).toFixed(2)
     : DEFAULT_PRICE;
 
-  const discountPrice = data.masterVariant.prices[0].value
-    ? `${((data.masterVariant.prices[0].value.centAmount / 100) * 0.5).toFixed(2)}`
+  const discountPrice = data.masterVariant?.prices?.[0]?.discounted?.value
+    ?.centAmount
+    ? (data.masterVariant.prices[0].discounted.value.centAmount / 100).toFixed(
+        2
+      )
     : DEFAULT_PRICE;
 
   return {

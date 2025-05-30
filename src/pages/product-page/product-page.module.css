@@ -18,7 +18,6 @@
 
 .sliderWrapper {
   width: 375px;
-  height: 375px;
 }
 
 .sliderArrows {
@@ -29,4 +28,16 @@
   width: 100%;
   object-fit: cover;
   border-radius: 8px;
+}
+
+.defaultImage {
+  width: 100%;
+  object-fit: cover;
+  border-radius: 8px;
+}
+
+@media (hover: hover) {
+  .image:hover {
+    cursor: pointer;
+  }
 }
