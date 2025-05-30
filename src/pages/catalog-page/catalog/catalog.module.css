@@ -1,8 +1,13 @@
 .container {
   display: flex;
+  width: 100%;
+}
+
+.cardsContainer {
+  display: flex;
   flex-wrap: wrap;
   width: 100%;
-  align-items: center;
+  align-items: flex-start;
   justify-content: center;
   gap: 49px;
 }

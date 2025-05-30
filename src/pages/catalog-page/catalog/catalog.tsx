@@ -1,10 +1,14 @@
-import { ProductList } from '../product-card/product-card';
+import { ProductList } from '../product-list/product-list';
 import styles from './catalog.module.css';
+import { SideBar } from './filtering/sidebar';
 
 export const Catalog = () => {
   return (
-    <ul className={styles.container}>
-      <ProductList />
-    </ul>
+    <div className={styles.container}>
+      <SideBar />
+      <ul className={styles.cardsContainer}>
+        <ProductList />
+      </ul>
+    </div>
   );
 };

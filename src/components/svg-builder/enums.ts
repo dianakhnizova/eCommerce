@@ -9,4 +9,5 @@ export enum IconType {
   Search = 'search',
   Cart = 'cart',
   Burger = 'burger',
+  Filter = 'filter',
 }

@@ -22,6 +22,8 @@ export const router = createBrowserRouter([
       { path: PagePath.aboutPage, Component: AboutPage },
       { path: PagePath.cartPage, Component: CartPage },
       { path: PagePath.catalogPage, Component: CatalogPage },
+      { path: PagePath.categoryPage, Component: CatalogPage },
+      { path: PagePath.subCategoryPage, Component: CatalogPage },
       { path: PagePath.productPage, Component: ProductPage },
     ],
   },

@@ -4,24 +4,11 @@ import { leftLinks } from './left-links-list';
 import classNames from 'classnames';
 import { SvgBuilder } from '../../../svg-builder/svg-builder';
 import { IconType } from '../../../svg-builder/enums';
-import { useState } from 'react';
 import { Button } from '../../../button/button';
-import { useEffect } from 'react';
+import { useToggleModal } from '../../../../utils/hooks/use-toggle-modal';
 
 export const LeftNavMenu = () => {
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
-
-  useEffect(() => {
-    document.body.classList.toggle('bodyBlock', isMenuOpen);
-  }, [isMenuOpen]);
-
-  const toggleMenu = () => {
-    setIsMenuOpen(!isMenuOpen);
-  };
-
-  const closeMenu = () => {
-    setIsMenuOpen(false);
-  };
+  const { isMenuOpen, toggleMenu, closeMenu } = useToggleModal();
 
   return (
     <>

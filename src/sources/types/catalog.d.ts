@@ -46,11 +46,6 @@ export namespace Catalog {
     }
   >;
 
-  type ProductCategory = {
-    id: string;
-    typeId: string;
-  };
-
   type ProductVariant = {
     attributes: [];
     id: number;
@@ -60,7 +55,7 @@ export namespace Catalog {
   };
 
   type ProductResponse = {
-    results: ProductProjection[];
+    results: DetailedProductResponse[];
     limit: number;
     offset: number;
     count: number;
@@ -69,6 +64,8 @@ export namespace Catalog {
 
   type ProductProjection = {
     id: string;
+    categorySlug: string;
+    subcategorySlug: string;
     name: { en: string };
     description?: { en: string };
     masterVariant?: {
@@ -136,5 +133,21 @@ export namespace Catalog {
   type Attribute = {
     name: string;
     value: Record<string, string> | string | number | boolean;
+  };
+
+  type CategoriesResponse = {
+    limit: number;
+    offset: number;
+    count: number;
+    total: number;
+    results: ProductCategory[];
+  };
+
+  type ProductCategory = {
+    id: string;
+    typeId: string;
+    name?: Record<string, string>;
+    slug?: Record<string, string>;
+    parent?: { typeId: string; id: string };
   };
 }
