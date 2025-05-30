@@ -17,6 +17,6 @@ export const handleCategoryChange = (
     const category = catalogStore.categories.find(cat => cat.id === selectedId);
 
     const slug = category?.slug?.en || selectedId;
-    void navigate(generatePath(PagePath.categoryPage, { categoryId: slug }));
+    void navigate(generatePath(PagePath.categoryPage, { categorySlug: slug }));
   }
 };

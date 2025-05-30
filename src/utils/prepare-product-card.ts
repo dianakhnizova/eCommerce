@@ -2,13 +2,21 @@ import type { ProductCard } from '../pages/catalog-page/product-list/types';
 import { DEFAULT_PRICE } from '../sources/constants/catalog';
 import { messages } from '../sources/messages';
 import type { Catalog } from '../sources/types/catalog';
+import { catalogStore } from '../store/catalog-store';
 
 export const prepareProductCard = (
   product: Catalog.ProductProjection
 ): ProductCard => {
+  const { selectedCategoryId } = catalogStore;
+
+  const category = catalogStore.categories.find(
+    cat => cat.id === selectedCategoryId
+  );
+  const slug = category?.slug?.en || '';
+
   return {
     id: product.id,
-    categorySlug: product.categorySlug,
+    categorySlug: slug,
     subcategorySlug: product.subcategorySlug,
     name: product.name?.en || messages.noName,
     image: product.masterVariant?.images?.[0]?.url || messages.placeholderJpg,
