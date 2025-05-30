@@ -11,7 +11,7 @@ import { messages } from './messages.ts';
 export const ProductList = observer(() => {
   const { productList, sortField, sortOrder, selectedCategoryId } =
     catalogStore;
-
+  console.log('ProductList rendering with:', productList);
   const hasProducts = productList.length > 0;
 
   useEffect(() => {

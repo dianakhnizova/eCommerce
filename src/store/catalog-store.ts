@@ -19,6 +19,7 @@ import {
 } from '../pages/catalog-page/catalog-options/components/sorting-selects/enums';
 
 export class CatalogStore {
+  public products: Catalog.DetailedProductResponse[] = [];
   public productList: ProductCard[] = [];
   public categories: Catalog.ProductCategory[] = [];
   public selectedCategoryId: string = '';
@@ -39,6 +40,13 @@ export class CatalogStore {
   }
 
   public getProducts = async () => {
+    console.log('[getProducts] Start', {
+      selectedCategoryId: this.selectedCategoryId,
+      sortField: this.sortField,
+      sortOrder: this.sortOrder,
+      pagination: this.pagination,
+    });
+
     this.isLoading = true;
     this.error = null;
     try {
@@ -54,10 +62,18 @@ export class CatalogStore {
         this.sortOrder,
         this.selectedCategoryId
       );
+
+      console.log('[catalogService.getProducts] Response:', data.results);
+
       runInAction(() => {
-        const cards = data.results.map(prepareProductCard);
-        this.productList = cards;
-        this.pagination = preparePagination(data);
+        try {
+          const cards = data.results.map(prepareProductCard);
+          this.productList = cards;
+          console.log('Product list updated:', this.productList);
+          this.pagination = preparePagination(data);
+        } catch (error) {
+          console.error('Error in runInAction:', error);
+        }
       });
     } catch (error) {
       runInAction(() => {
