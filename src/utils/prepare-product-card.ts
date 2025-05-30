@@ -7,25 +7,10 @@ import { catalogStore } from '../store/catalog-store';
 export const prepareProductCard = (
   product: Catalog.DetailedProductResponse
 ): ProductCard => {
-  console.log('[prepareProductCard]', product);
-
-  if (!product || typeof product !== 'object' || !product.id) {
-    console.warn('Invalid product in prepareProductCard:', product);
-    return {
-      id: '',
-      categorySlug: 'default-category',
-      name: messages.noName,
-      image: messages.placeholderJpg,
-      description: messages.noDescription,
-      price: DEFAULT_PRICE,
-      discountPrice: DEFAULT_PRICE,
-    };
-  }
-
   const category = catalogStore.categories.find(
-    cat => cat.id === product.categories?.[0].id
+    cat => cat.id === product.categories?.[0]?.id
   );
-  const slug = category?.slug?.en || 'default-category';
+  const slug = category?.slug?.en || '';
 
   return {
     id: product.id,
