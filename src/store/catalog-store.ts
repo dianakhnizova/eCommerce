@@ -41,6 +41,8 @@ export class CatalogStore {
     this.isLoading = true;
     this.error = null;
     try {
+      await catalogStore.getCategories();
+
       const data = await catalogService.getProducts(
         this.pagination.offset,
         this.pagination.limit,
