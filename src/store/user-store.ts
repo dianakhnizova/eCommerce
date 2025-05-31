@@ -145,21 +145,13 @@ class UserStore {
     }
   }
 
-  public async updateGeneralInfo(
-    customer: Pick<
-      Customer.Profile,
-      'dateOfBirth' | 'email' | 'lastName' | 'firstName'
-    >
-  ) {
+  public async updateGeneralInfo(updateInfo: Customer.Profile) {
     try {
       if (!this.user) return;
-      this.user.firstName = customer.firstName;
-      this.user.lastName = customer.lastName;
-      this.user.dateOfBirth = customer.dateOfBirth;
-      this.user.email = customer.email;
-      const updated = await customerService.updateCustomerGeneralInfo(
-        this.user
-      );
+      const updated = await customerService.updateCustomerGeneralInfo({
+        ...this.user,
+        ...updateInfo,
+      });
       runInAction(() => {
         this.user = updated;
         console.log({ updated });
