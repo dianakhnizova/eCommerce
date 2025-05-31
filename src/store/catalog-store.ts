@@ -41,7 +41,7 @@ export class CatalogStore {
     this.isLoading = true;
     this.error = null;
     try {
-      await catalogStore.getCategories();
+      await this.getCategories();
 
       const data = await catalogService.getProducts(
         this.pagination.offset,
@@ -100,11 +100,23 @@ export class CatalogStore {
   };
 
   public getCategoryList = () => {
-    return this.categories.map(category => ({
-      id: category.id,
-      label: category.name?.en || category.id,
-      checked: this.selectedCategoryId === category.id,
-    }));
+    return this.categories
+      .filter(category => !category.parent)
+      .map(category => ({
+        id: category.id,
+        label: category.name?.en || category.id,
+        checked: this.selectedCategoryId === category.id,
+      }));
+  };
+
+  public getSubCategoryList = (parentId: string) => {
+    return this.categories
+      .filter(subcategory => subcategory.parent?.id === parentId)
+      .map(subcategory => ({
+        id: subcategory.id,
+        label: subcategory.name?.en || subcategory.id,
+        checked: this.selectedCategoryId === subcategory.id,
+      }));
   };
 }
 
