@@ -2,16 +2,20 @@ import { Input } from '../../../../components/input/input';
 import styles from '../../profile-page.module.css';
 import { FormProvider, useForm } from 'react-hook-form';
 import { useEffect, useState } from 'react';
-import { messages } from './constants/messages';
 import { userStore } from '../../../../store/user-store';
 import { Button } from '../../../../components/button/button';
-import { GeneralInfoFormFields } from './constants/general-info-form-fields';
-import type { FormFields } from './form-fields';
-import { rules } from './constants/rules';
 import { observer } from 'mobx-react-lite';
+import type { RegisterFormValues } from '../../../../sources/types/register';
+import {
+  FIELDS,
+  validationRules,
+} from '../../../../sources/constants/register-fields';
+import { messages } from './messages';
+
+const GENERAL_FIELDS = FIELDS.filter(field => field.name !== 'password');
 
 export const GeneralInfo = observer(() => {
-  const form = useForm<FormFields>();
+  const form = useForm<RegisterFormValues>();
 
   useEffect(() => {
     const user = userStore.user;
@@ -20,14 +24,14 @@ export const GeneralInfo = observer(() => {
         email: user.email || '',
         firstName: user.firstName || '',
         lastName: user.lastName || '',
-        dateOfBirth: user.dateOfBirth || '',
+        birth: user.dateOfBirth || '',
       });
     }
   }, [userStore.user]);
 
   const [isEditMode, setIsEditMode] = useState(false);
 
-  const onSubmit = (data: FormFields) => {
+  const onSubmit = (data: RegisterFormValues) => {
     console.log(data);
     if (data) setIsEditMode(false);
     void userStore.updateGeneralInfo(data);
@@ -48,7 +52,7 @@ export const GeneralInfo = observer(() => {
       </div>
       <FormProvider {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)}>
-          {GeneralInfoFormFields.map(field => {
+          {GENERAL_FIELDS.map(field => {
             const error = form.formState.errors[field.name]?.message;
             return (
               <Input
@@ -58,7 +62,7 @@ export const GeneralInfo = observer(() => {
                 label={field.label}
                 className={styles.input}
                 placeholder={field.placeholder}
-                {...form.register(field.name, rules[field.name])}
+                {...form.register(field.name, validationRules[field.name])}
                 error={error}
               />
             );

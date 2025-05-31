@@ -6,7 +6,7 @@ import type {
 import type {
   RegisterFormValues,
   RegisterFieldName,
-} from '../../pages/register-page/types';
+} from '../../sources/types/register';
 import { getCountryOptions } from '../country-select/countries';
 import { Input } from '../input/input';
 import { CountrySelect } from '../country-select/country-select';
