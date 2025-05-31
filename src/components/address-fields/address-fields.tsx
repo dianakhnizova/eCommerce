@@ -5,7 +5,7 @@ import type {
 } from 'react-hook-form';
 import type {
   RegisterFormValues,
-  RegisterFieldName,
+  CustomerFieldName,
 } from '../../sources/types/register';
 import { getCountryOptions } from '../country-select/countries';
 import { Input } from '../input/input';
@@ -21,7 +21,7 @@ type Props = {
   streetField: keyof RegisterFormValues;
   postCodeField: keyof RegisterFormValues;
   validationRules: Record<
-    RegisterFieldName,
+    CustomerFieldName,
     RegisterOptions<RegisterFormValues>
   >;
   isRequired?: boolean;

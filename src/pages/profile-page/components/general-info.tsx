@@ -1,18 +1,20 @@
-import { Input } from '../../../../components/input/input';
-import styles from '../../profile-page.module.css';
+import { Input } from '../../../components/input/input';
+import styles from '../profile-page.module.css';
 import { FormProvider, useForm } from 'react-hook-form';
 import { useEffect, useState } from 'react';
-import { userStore } from '../../../../store/user-store';
-import { Button } from '../../../../components/button/button';
+import { userStore } from '../../../store/user-store';
+import { Button } from '../../../components/button/button';
 import { observer } from 'mobx-react-lite';
-import type { RegisterFormValues } from '../../../../sources/types/register';
+import type { RegisterFormValues } from '../../../sources/types/register';
 import {
   FIELDS,
   validationRules,
-} from '../../../../sources/constants/register-fields';
-import { messages } from './messages';
+} from '../../../sources/constants/register-fields';
+import { messages } from '../messages';
 
-const GENERAL_FIELDS = FIELDS.filter(field => field.name !== 'password');
+const GENERAL_FIELDS = FIELDS.filter(
+  field => !['password', 'newPassword', 'currentPassword'].includes(field.name)
+);
 
 export const GeneralInfo = observer(() => {
   const form = useForm<RegisterFormValues>();
@@ -51,7 +53,7 @@ export const GeneralInfo = observer(() => {
         )}
       </div>
       <FormProvider {...form}>
-        <form onSubmit={form.handleSubmit(onSubmit)}>
+        <form onSubmit={form.handleSubmit(onSubmit)} className={styles.form}>
           {GENERAL_FIELDS.map(field => {
             const error = form.formState.errors[field.name]?.message;
             return (
@@ -68,11 +70,7 @@ export const GeneralInfo = observer(() => {
             );
           })}
 
-          {isEditMode && (
-            <Button type="submit" className={styles.button}>
-              {messages.save}
-            </Button>
-          )}
+          {isEditMode && <Button type="submit">{messages.save}</Button>}
         </form>
       </FormProvider>
     </div>

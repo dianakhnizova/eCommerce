@@ -16,6 +16,8 @@ export const messages = {
   placeholderJpg: 'placeholder.jpg',
   email: 'Email',
   password: 'Password',
+  currentPassword: 'Current Password',
+  newPassword: 'New Password',
   firstName: 'First Name',
   lastName: 'Last Name',
   birth: 'Birth',

@@ -172,6 +172,39 @@ class UserStore {
       });
     }
   }
+  public changePassword = async (
+    currentPassword: string,
+    newPassword: string
+  ) => {
+    this.isPending = true;
+    this.error = '';
+    try {
+      if (!this.user) return;
+      const updated = await customerService.changePassword(
+        this.user,
+        currentPassword,
+        newPassword
+      );
+      runInAction(() => {
+        console.log({ updated });
+        this.user = updated;
+      });
+    } catch (error) {
+      runInAction(() => {
+        console.log(error);
+        if (isApiError(error)) {
+          this.error = error.response?.data?.message || messages.loginError;
+          return;
+        }
+        this.error =
+          error instanceof Error ? error.message : messages.loginError;
+      });
+    } finally {
+      runInAction(() => {
+        this.isPending = false;
+      });
+    }
+  };
   public logout() {
     TokenManager.cleanup();
     localStorage.removeItem(LSKeys.USER_ID);

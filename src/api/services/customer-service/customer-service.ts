@@ -91,4 +91,28 @@ export const customerService = {
     );
     return response.data;
   },
+
+  changePassword: async (
+    customer: Customer.Profile,
+    currentPassword: string,
+    newPassword: string
+  ): Promise<Customer.Profile> => {
+    const parameters = new URLSearchParams({
+      manage_my_profile: PROJECT_KEY,
+      customer_id: customer.id || '',
+    });
+
+    const body = {
+      version: customer.version,
+      currentPassword: currentPassword,
+      newPassword: newPassword,
+    };
+
+    const response = await baseApi.post<Customer.Profile>(
+      `${PROJECT_KEY}${Endpoints.ME}${Endpoints.PASSWORD}`,
+      body,
+      { params: parameters }
+    );
+    return response.data;
+  },
 };

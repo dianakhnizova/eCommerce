@@ -7,7 +7,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { PagePath } from '../../router/enums.ts';
 import { useForm } from 'react-hook-form';
 import type { RegisterFormValues } from '../../sources/types/register.ts';
-import { RegisterFieldName } from '../../sources/types/register.ts';
+import { CustomerFieldName } from '../../sources/types/register.ts';
 import { useState } from 'react';
 import { Checkbox } from '../../components/checkbox/checkbox.tsx';
 import { userStore } from '../../store/user-store.ts';
@@ -85,10 +85,10 @@ export const RegisterPage = observer(() => {
           <AddressFields
             register={register}
             errors={errors}
-            countryField={RegisterFieldName.country}
-            cityField={RegisterFieldName.city}
-            streetField={RegisterFieldName.street}
-            postCodeField={RegisterFieldName.postCode}
+            countryField={CustomerFieldName.country}
+            cityField={CustomerFieldName.city}
+            streetField={CustomerFieldName.street}
+            postCodeField={CustomerFieldName.postCode}
             validationRules={validationRules}
           />
 
@@ -116,10 +116,10 @@ export const RegisterPage = observer(() => {
               <AddressFields
                 register={register}
                 errors={errors}
-                countryField={RegisterFieldName.shippingCountry}
-                cityField={RegisterFieldName.shippingCity}
-                streetField={RegisterFieldName.shippingStreet}
-                postCodeField={RegisterFieldName.shippingPostCode}
+                countryField={CustomerFieldName.shippingCountry}
+                cityField={CustomerFieldName.shippingCity}
+                streetField={CustomerFieldName.shippingStreet}
+                postCodeField={CustomerFieldName.shippingPostCode}
                 validationRules={validationRules}
                 isRequired={!isSameAddress}
               />

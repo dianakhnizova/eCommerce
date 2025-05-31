@@ -10,10 +10,14 @@ type Props = {
   errors: FieldErrors<RegisterFormValues>;
 };
 
+const CUSTOMER_FIELDS = FIELDS.filter(
+  field => field.name !== 'newPassword' && field.name !== 'currentPassword'
+);
+
 export const CustomerFields = ({ register, errors }: Props) => {
   return (
     <>
-      {FIELDS.map(field => {
+      {CUSTOMER_FIELDS.map(field => {
         const error = errors[field.name]?.message;
         const rules = validationRules[field.name];
 
