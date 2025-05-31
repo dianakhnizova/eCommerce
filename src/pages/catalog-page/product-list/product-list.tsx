@@ -7,7 +7,7 @@ import { useEffect } from 'react';
 import DEFAULT_IMAGE from '../../../../assets/images/placeholder.png';
 import { CURRENCY_USD } from '../../../sources/constants/catalog.ts';
 import { messages } from './messages.ts';
-import { DEFAULT_CATEGORY, DEFAULT_SUBCATEGORY } from './constants.ts';
+import { DEFAULT_VALUE } from './enums.ts';
 
 export const ProductList = observer(() => {
   const { productList, sortField, sortOrder, selectedCategoryId } =
@@ -25,8 +25,9 @@ export const ProductList = observer(() => {
           <li key={product.id}>
             <Link
               to={generatePath(PagePath.productPage, {
-                categorySlug: product.categorySlug || DEFAULT_CATEGORY,
-                subcategorySlug: product.subcategorySlug || DEFAULT_SUBCATEGORY,
+                categorySlug: product.categorySlug || DEFAULT_VALUE.CATEGORY,
+                subcategorySlug:
+                  product.subcategorySlug || DEFAULT_VALUE.SUBCATEGORY,
                 id: product.id,
               })}
               className={styles.cardContainer}
