@@ -10,7 +10,6 @@ import type {
   SortField,
   SortOrder,
 } from '../../pages/catalog-page/catalog-options/components/sorting-selects/enums';
-import { catalogStore } from '../../store/catalog-store';
 
 export const catalogService = {
   getProducts: async (
@@ -35,16 +34,7 @@ export const catalogService = {
     if (categoryId && subcategoryId) {
       params.append('filter.query', `categories.id:"${subcategoryId}"`);
     } else if (categoryId) {
-      const allCategories = catalogStore.categories;
-      const subCategories = allCategories.filter(
-        cat => cat.parent?.id === categoryId
-      );
-      const subCategoryIds = subCategories.map(subCat => subCat.id);
-
-      params.append(
-        'filter.query',
-        `categories.id: ${subCategoryIds.join(',')}`
-      );
+      params.append('filter.query', `categories.id: subtree("${categoryId}")`);
     }
 
     const response = await baseApi.get<Catalog.ProductResponse>(
