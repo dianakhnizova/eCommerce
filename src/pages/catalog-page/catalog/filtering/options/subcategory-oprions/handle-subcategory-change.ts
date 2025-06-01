@@ -13,10 +13,10 @@ export const handleSubcategoryChange = (
     catalogStore.setCategories('');
     void navigate(PagePath.catalogPage);
   } else {
-    catalogStore.setCategories(selectedId);
+    catalogStore.setSubcategories(selectedId);
 
     const subCategory = catalogStore.categories.find(
-      cat => cat.id === catalogStore.selectedCategoryId
+      cat => cat.id === catalogStore.selectedSubcategoryId
     );
     const parentCategory = catalogStore.categories.find(
       cat => cat.id === subCategory?.parent?.id

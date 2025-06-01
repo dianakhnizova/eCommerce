@@ -21,7 +21,7 @@ export const SubcategoryOptions = observer(() => {
       <p className={styles.title}>{messages.subcategoryTitle}</p>
       <select
         className={styles.select}
-        value={catalogStore.selectedCategoryId}
+        value={catalogStore.selectedSubcategoryId}
         onChange={event => handleSubcategoryChange(event, navigate)}
       >
         <option value="">{messages.allSubcategoryOptions}</option>

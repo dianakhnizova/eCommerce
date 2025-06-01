@@ -111,6 +111,10 @@ export class CatalogStore {
       }));
   };
 
+  public setSubcategories = (subcategoryId: string) => {
+    this.selectedCategoryId = subcategoryId;
+  };
+
   public getSubCategoryList = (parentId: string) => {
     return this.categories
       .filter(subcategory => subcategory.parent?.id === parentId)
