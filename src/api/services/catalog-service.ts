@@ -32,13 +32,10 @@ export const catalogService = {
       params.append('sort', `${sortField} ${sortOrder}`);
     }
 
-    console.log(subcategoryId);
     if (categoryId && subcategoryId) {
       params.append('filter.query', `categories.id:"${subcategoryId}"`);
     } else if (categoryId) {
-      console.log(categoryId);
       const allCategories = catalogStore.categories;
-      console.log(allCategories);
       const subCategories = allCategories.filter(
         cat => cat.parent?.id === categoryId
       );
@@ -46,7 +43,7 @@ export const catalogService = {
 
       params.append(
         'filter.query',
-        `categories.id:"${subCategoryIds.join(',')}"`
+        `categories.id: ${subCategoryIds.join(',')}`
       );
     }
 
