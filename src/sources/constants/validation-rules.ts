@@ -2,9 +2,9 @@ import {
   postcodeValidator,
   postcodeValidatorExistsForCountry,
 } from 'postcode-validator';
-import { getCountryOptions } from '../../components/country-select/countries';
 import type { RegisterFormValues } from '../types/register';
 import type { RegisterOptions } from 'react-hook-form';
+import { getCountryOptions } from '../../pages/register-page/country-select/countries';
 
 const countryOptions = getCountryOptions();
 
