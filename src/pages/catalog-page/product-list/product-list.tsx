@@ -18,6 +18,7 @@ export const ProductList = observer(() => {
     selectedSubcategoryId,
     getColors,
     getSizes,
+    searchName,
   } = catalogStore;
   const hasProducts = productList.length > 0;
 
@@ -32,6 +33,7 @@ export const ProductList = observer(() => {
     sortOrder,
     getColors,
     getSizes,
+    searchName,
   ]);
 
   return (

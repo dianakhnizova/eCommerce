@@ -106,6 +106,8 @@ export namespace Catalog {
     price: string;
     discountPrice: string;
     images: Image[];
+    color: string;
+    size: string;
   };
 
   type Price = {

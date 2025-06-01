@@ -41,3 +41,14 @@
     cursor: pointer;
   }
 }
+
+@media (width <= 870px) {
+  .wrapper {
+    flex-direction: column;
+    padding: 10px;
+  }
+
+  .sliderWrapper {
+    width: 300px;
+  }
+}

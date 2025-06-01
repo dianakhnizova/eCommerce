@@ -7,7 +7,7 @@ export const ArrowPrev = ({ className, onClick }: CustomArrowProps) => {
   return (
     <button
       type="button"
-      className={classNames(className, styles.arrow)}
+      className={classNames(className, styles.arrowPrev)}
       onClick={onClick}
     >
       <FaArrowLeft className={styles.icon} />
