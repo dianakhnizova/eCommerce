@@ -17,6 +17,7 @@ import {
   SortField,
   SortOrder,
 } from '../pages/catalog-page/catalog-options/components/sorting-selects/enums';
+import { filterProducts } from '../utils/filter-products';
 
 export class CatalogStore {
   public productList: ProductCard[] = [];
@@ -33,6 +34,10 @@ export class CatalogStore {
   public error: string | null = null;
   public sortField: SortField = SortField.Default;
   public sortOrder: SortOrder = SortOrder.Default;
+  public selectedColors: string[] = [];
+  public colorsList: string[] = [];
+  public selectedSizes: string[] = [];
+  public sizeList: string[] = [];
 
   constructor() {
     makeAutoObservable(this);
@@ -55,7 +60,11 @@ export class CatalogStore {
       );
 
       runInAction(() => {
-        const cards = data.results.map(prepareProductCard);
+        const cards = data.results
+          .filter(product =>
+            filterProducts(product, this.selectedColors, this.selectedSizes)
+          )
+          .map(prepareProductCard);
         this.productList = cards;
         this.pagination = preparePagination(data);
       });
@@ -87,6 +96,76 @@ export class CatalogStore {
       const data = await catalogService.getCategories();
       runInAction(() => {
         this.categories = data.results || [];
+      });
+    } catch (error) {
+      runInAction(() => {
+        if (error instanceof AxiosError) {
+          this.error = error.response?.data?.message || messages.catalogError;
+        }
+      });
+    }
+  };
+
+  public setColors = (colors: string[]) => {
+    this.selectedColors = colors;
+  };
+
+  public getColors = async () => {
+    this.error = null;
+    try {
+      const data = await catalogService.getProducts();
+      const uniqueColors: string[] = [];
+
+      data.results.forEach(product => {
+        const colorAttr = product.masterVariant?.attributes?.find(
+          attr => attr.name === 'attribute-color'
+        );
+
+        const color = colorAttr?.value;
+        if (
+          color &&
+          typeof color === 'string' &&
+          !uniqueColors.includes(color)
+        ) {
+          uniqueColors.push(color);
+        }
+      });
+
+      runInAction(() => {
+        this.colorsList = uniqueColors.sort();
+      });
+    } catch (error) {
+      runInAction(() => {
+        if (error instanceof AxiosError) {
+          this.error = error.response?.data?.message || messages.catalogError;
+        }
+      });
+    }
+  };
+
+  public setSizes = (sizes: string[]) => {
+    this.selectedSizes = sizes;
+  };
+
+  public getSizes = async () => {
+    this.error = null;
+    try {
+      const data = await catalogService.getProducts();
+      const uniqueSizes: string[] = [];
+
+      data.results.forEach(product => {
+        const sizeAttr = product.masterVariant?.attributes?.find(
+          attr => attr.name === 'attribute-size'
+        );
+
+        const size = sizeAttr?.value;
+        if (size && typeof size === 'string' && !uniqueSizes.includes(size)) {
+          uniqueSizes.push(size);
+        }
+      });
+
+      runInAction(() => {
+        this.sizeList = uniqueSizes.sort();
       });
     } catch (error) {
       runInAction(() => {
