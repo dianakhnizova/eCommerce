@@ -7,7 +7,7 @@ export const ArrowNext = ({ className, onClick }: CustomArrowProps) => {
   return (
     <button
       type="button"
-      className={classNames(className, styles.arrow)}
+      className={classNames(className, styles.arrowNext)}
       onClick={onClick}
     >
       <FaArrowRight className={styles.icon} />

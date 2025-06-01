@@ -47,7 +47,7 @@ export namespace Catalog {
   >;
 
   type ProductVariant = {
-    attributes: [];
+    attributes: Attribute[];
     id: number;
     images: Image[];
     prices: Price[];
@@ -106,6 +106,8 @@ export namespace Catalog {
     price: string;
     discountPrice: string;
     images: Image[];
+    color: string;
+    size: string;
   };
 
   type Price = {

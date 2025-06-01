@@ -22,6 +22,8 @@ export const ProductInfo = ({ product }: Props) => {
           {product.discountPrice}
         </p>
       </div>
+      <p>{product.color}</p>
+      <p>{product.size}</p>
       <p className={styles.description}>{product.description}</p>
       <Button>{messages.buttons.addToCart}</Button>
     </div>

@@ -10,9 +10,9 @@ import {
   DEFAULT_COUNT,
   DEFAULT_OFFSET,
   DEFAULT_TOTAL,
+  LIMIT_PRODUCTS_ON_PAGE,
 } from '../sources/constants/catalog';
 import { preparePagination } from '../utils/prepare-pagination';
-import { LIMIT_PRODUCTS_ON_PAGE } from '../sources/constants/catalog';
 import {
   SortField,
   SortOrder,
@@ -33,16 +33,21 @@ export class CatalogStore {
   public error: string | null = null;
   public sortField: SortField = SortField.Default;
   public sortOrder: SortOrder = SortOrder.Default;
+  public searchName: string = '';
 
   constructor() {
     makeAutoObservable(this);
   }
 
-  public getProducts = async () => {
+  public getProducts = async (productName?: string) => {
     this.isLoading = true;
     this.error = null;
     try {
       await this.getCategories();
+
+      if (productName) {
+        this.searchName = productName;
+      }
 
       const data = await catalogService.getProducts(
         this.pagination.offset,
@@ -51,12 +56,12 @@ export class CatalogStore {
         this.sortField,
         this.sortOrder,
         this.selectedCategoryId,
-        this.selectedSubcategoryId
+        this.selectedSubcategoryId,
+        this.searchName
       );
 
       runInAction(() => {
-        const cards = data.results.map(prepareProductCard);
-        this.productList = cards;
+        this.productList = data.results.map(prepareProductCard);
         this.pagination = preparePagination(data);
       });
     } catch (error) {
@@ -100,6 +105,10 @@ export class CatalogStore {
   public setCategories = (categoryId: string) => {
     this.selectedCategoryId = categoryId;
     this.selectedSubcategoryId = '';
+  };
+
+  public setSearchName = (name: string) => {
+    this.searchName = name;
   };
 
   public getCategoryList = () => {
