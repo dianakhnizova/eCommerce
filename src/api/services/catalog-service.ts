@@ -18,7 +18,8 @@ export const catalogService = {
     withTotal: boolean = true,
     sortField?: SortField,
     sortOrder?: SortOrder,
-    categoryId?: string
+    categoryId?: string,
+    subcategoryId?: string
   ): Promise<Catalog.ProductResponse> => {
     const params = new URLSearchParams({
       offset: offset.toString(),
@@ -30,8 +31,10 @@ export const catalogService = {
       params.append('sort', `${sortField} ${sortOrder}`);
     }
 
-    if (categoryId) {
-      params.append('filter.query', `categories.id:"${categoryId}"`);
+    if (categoryId && subcategoryId) {
+      params.append('filter.query', `categories.id:"${subcategoryId}"`);
+    } else if (categoryId) {
+      params.append('filter.query', `categories.id: subtree("${categoryId}")`);
     }
 
     const response = await baseApi.get<Catalog.ProductResponse>(
@@ -40,6 +43,7 @@ export const catalogService = {
         params,
       }
     );
+
     return response.data;
   },
 

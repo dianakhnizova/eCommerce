@@ -3,6 +3,7 @@ import { Checkbox } from '../../../../../components/checkbox/checkbox';
 import { getOptionSectionList } from './components/option-section-list';
 import { observer } from 'mobx-react-lite';
 import { CategoryOptions } from './category-options/category-options';
+import { SubcategoryOptions } from './subcategory-oprions/subcategory-options';
 
 export const OptionForm = observer(() => {
   const sectionList = getOptionSectionList();
@@ -10,6 +11,7 @@ export const OptionForm = observer(() => {
   return (
     <div className={styles.categoryContainer}>
       <CategoryOptions />
+      <SubcategoryOptions />
 
       {sectionList.map(section => (
         <div className={styles.optionContainer} key={section.title}>
