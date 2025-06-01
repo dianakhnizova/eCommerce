@@ -6,6 +6,8 @@ export enum PagePath {
   aboutPage = '/about',
   cartPage = '/cart',
   catalogPage = '/catalog',
-  productPage = '/catalog/:id',
   profilePage = '/profile',
+  categoryPage = '/catalog/:categorySlug',
+  subCategoryPage = '/catalog/:categorySlug/:subcategorySlug',
+  productPage = '/catalog/:categorySlug/:subcategorySlug/:id',
 }

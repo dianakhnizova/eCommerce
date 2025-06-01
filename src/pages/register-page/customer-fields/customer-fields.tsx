@@ -1,9 +1,12 @@
 import type { UseFormRegister, FieldErrors } from 'react-hook-form';
-import type { RegisterFormValues } from '../../sources/types/register';
-import { Input } from '../input/input';
-import { FIELDS } from '../../sources/constants/register-fields';
-import { validationRules } from '../../sources/constants/register-fields';
+
 import styles from '../address-fields/address-field.module.css';
+import type { RegisterFormValues } from '../../../sources/types/register';
+import {
+  FIELDS,
+  validationRules,
+} from '../../../sources/constants/register-fields';
+import { Input } from '../../../components/input/input';
 
 type Props = {
   register: UseFormRegister<RegisterFormValues>;

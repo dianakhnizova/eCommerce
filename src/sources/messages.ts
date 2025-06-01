@@ -11,6 +11,7 @@ export const messages = {
   catalogError: 'Catalog failed',
   registerError: 'Sign up failed',
   productError: 'Product loading error',
+  productPageTitle: 'Product details',
   noName: 'No name',
   noDescription: 'No description',
   placeholderJpg: 'placeholder.jpg',
@@ -27,4 +28,8 @@ export const messages = {
   noData: '-',
   noAddresses: 'No addresses added.',
   generalInfo: 'General info',
+  buttons: {
+    addToCart: 'Add To Cart',
+  },
+  emptyValue: '',
 };

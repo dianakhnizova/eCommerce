@@ -46,43 +46,33 @@ export namespace Catalog {
     }
   >;
 
-  type ProductCategory = {
-    id: string;
-    typeId: string;
-  };
-
   type ProductVariant = {
     attributes: [];
     id: number;
-    images: [
-      {
-        dimensions: {
-          h: number;
-          w: number;
-        };
-        url: string;
-      },
-    ];
-    prices: [
-      {
-        value: {
-          type: string;
-          fractionDigits: number;
-          centAmount: number;
-          currencyCode: string;
-        };
-        id: string;
-      },
-    ];
+    images: Image[];
+    prices: Price[];
     sku: string;
   };
 
   type ProductResponse = {
-    results: Product[];
+    results: DetailedProductResponse[];
     limit: number;
     offset: number;
     count: number;
     total: number;
+  };
+
+  type ProductProjection = {
+    id: string;
+    categorySlug: string;
+    subcategorySlug: string;
+    name: { en: string };
+    description?: { en: string };
+    masterVariant?: {
+      prices?: Price[];
+      images?: Image[];
+      attributes?: Attribute[];
+    };
   };
 
   type DetailedProductResponse = {
@@ -99,7 +89,7 @@ export namespace Catalog {
     masterVariant: ProductVariant;
     variants: ProductVariant[];
     searchKeywords: searchKeyword[];
-    attributes: [];
+    attributes: Attribute[];
     hasStagedChanges: boolean;
     published: boolean;
     key: string;
@@ -113,25 +103,51 @@ export namespace Catalog {
     id: string;
     name: string;
     description: string;
-    prices: [
-      {
-        value: {
-          type: string;
-          fractionDigits: number;
-          centAmount: number;
-          currencyCode: string;
-        };
-        id: string;
-      },
-    ];
-    images: [
-      {
-        dimensions: {
-          h: number;
-          w: number;
-        };
-        url: string;
-      },
-    ];
+    price: string;
+    discountPrice: string;
+    images: Image[];
+  };
+
+  type Price = {
+    value: {
+      centAmount: number;
+      currencyCode: string;
+    };
+    discounted?: {
+      value: {
+        centAmount: number;
+        currencyCode: string;
+      };
+    };
+    id?: string;
+  };
+
+  type Image = {
+    url: string;
+    dimensions: {
+      w: number;
+      h: number;
+    };
+  };
+
+  type Attribute = {
+    name: string;
+    value: Record<string, string> | string | number | boolean;
+  };
+
+  type CategoriesResponse = {
+    limit: number;
+    offset: number;
+    count: number;
+    total: number;
+    results: ProductCategory[];
+  };
+
+  type ProductCategory = {
+    id: string;
+    typeId: string;
+    name?: Record<string, string>;
+    slug?: Record<string, string>;
+    parent?: { typeId: string; id: string };
   };
 }

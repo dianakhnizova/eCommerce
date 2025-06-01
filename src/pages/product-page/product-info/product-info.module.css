@@ -1,0 +1,32 @@
+.productInfo {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  text-align: left;
+  padding: 2rem;
+}
+
+.productName {
+  padding-top: 4rem;
+  text-align: left;
+}
+
+.pricesWrapper {
+  display: flex;
+  gap: 10px;
+}
+
+.price {
+  font-size: 16px;
+  text-decoration: line-through;
+}
+
+.discountPrice {
+  color: var(--clr-accent-1);
+}
+
+.description {
+  color: var(--clr-accent-11);
+  font-size: 16px;
+  line-height: 29px;
+}

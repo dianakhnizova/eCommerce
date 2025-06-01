@@ -3,15 +3,16 @@ import type {
   FieldErrors,
   RegisterOptions,
 } from 'react-hook-form';
-import type {
-  RegisterFormValues,
-  CustomerFieldName,
-} from '../../sources/types/register';
+
 import { getCountryOptions } from '../country-select/countries';
-import { Input } from '../input/input';
+import { Input } from '../../../components/input/input';
 import { CountrySelect } from '../country-select/country-select';
 import { messages } from './messages';
 import styles from './address-field.module.css';
+import type {
+  CustomerFieldName,
+  RegisterFormValues,
+} from '../../../sources/types/register';
 
 type Props = {
   register: UseFormRegister<RegisterFormValues>;

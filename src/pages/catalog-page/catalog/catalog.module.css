@@ -1,14 +1,13 @@
 .container {
   display: flex;
-  flex-wrap: wrap;
   width: 100%;
-  align-items: center;
-  justify-content: center;
-  gap: 53px;
 }
 
-@media (width <= 1416px) {
-  .container {
-    gap: 20px;
-  }
+.cardsContainer {
+  display: flex;
+  flex-wrap: wrap;
+  width: 100%;
+  align-items: flex-start;
+  justify-content: center;
+  gap: 49px;
 }

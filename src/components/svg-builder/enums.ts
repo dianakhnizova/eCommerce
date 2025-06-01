@@ -8,4 +8,6 @@ export enum IconType {
   LogoAnimate = 'logoAnimate',
   Search = 'search',
   Cart = 'cart',
+  Burger = 'burger',
+  Filter = 'filter',
 }

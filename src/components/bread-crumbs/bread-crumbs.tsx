@@ -1,6 +1,6 @@
 import styles from './bread-crumbs.module.css';
 import { Wrapper } from '../wrapper/wrapper';
-import { LinksBreadCrumbs } from '../links-bread-crumbs/links-bread-crumbs';
+import { LinksBreadCrumbs } from './links-bread-crumbs/links-bread-crumbs';
 import { usePageInfo } from '../../utils/hooks/use-page-info';
 
 export const BreadCrumbs = () => {

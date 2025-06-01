@@ -11,4 +11,6 @@ export enum Endpoints {
   CART_ACTIVE = '/me/active-cart',
   INTROSPECT = '/introspect',
   PRODUCT_INFORMATION = '/product-projections',
+  PRODUCT_PROJECTIONS_SEARCH = '/product-projections/search',
+  CATEGORIES = '/categories',
 }
