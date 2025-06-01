@@ -10,6 +10,7 @@ import type {
   SortField,
   SortOrder,
 } from '../../pages/catalog-page/catalog-options/components/sorting-selects/enums';
+import { catalogStore } from '../../store/catalog-store';
 
 export const catalogService = {
   getProducts: async (
@@ -18,7 +19,8 @@ export const catalogService = {
     withTotal: boolean = true,
     sortField?: SortField,
     sortOrder?: SortOrder,
-    categoryId?: string
+    categoryId?: string,
+    subcategoryId?: string
   ): Promise<Catalog.ProductResponse> => {
     const params = new URLSearchParams({
       offset: offset.toString(),
@@ -30,8 +32,22 @@ export const catalogService = {
       params.append('sort', `${sortField} ${sortOrder}`);
     }
 
-    if (categoryId) {
-      params.append('filter.query', `categories.id:"${categoryId}"`);
+    console.log(subcategoryId);
+    if (categoryId && subcategoryId) {
+      params.append('filter.query', `categories.id:"${subcategoryId}"`);
+    } else if (categoryId) {
+      console.log(categoryId);
+      const allCategories = catalogStore.categories;
+      console.log(allCategories);
+      const subCategories = allCategories.filter(
+        cat => cat.parent?.id === categoryId
+      );
+      const subCategoryIds = subCategories.map(subCat => subCat.id);
+
+      params.append(
+        'filter.query',
+        `categories.id:"${subCategoryIds.join(',')}"`
+      );
     }
 
     const response = await baseApi.get<Catalog.ProductResponse>(

@@ -50,7 +50,8 @@ export class CatalogStore {
         true,
         this.sortField,
         this.sortOrder,
-        this.selectedCategoryId
+        this.selectedCategoryId,
+        this.selectedSubcategoryId
       );
 
       runInAction(() => {
