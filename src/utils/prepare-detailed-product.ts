@@ -15,17 +15,23 @@ export const prepareDetailedProduct = (
       )
     : DEFAULT_PRICE;
 
-  const fullDescriptionAttribute = data.masterVariant.attributes?.find(
-    attr => attr.name === 'attribute-full-description'
-  );
+  const attributes = data.masterVariant?.attributes || [];
 
-  const description =
-    fullDescriptionAttribute?.value || data.description?.en || '';
+  const getAttributeValue = (
+    attrName: string
+  ): Record<string, string> | string | number | boolean | undefined =>
+    attributes.find(attr => attr.name === attrName)?.value;
+
+  const fullDescription = getAttributeValue('attribute-full-description') || '';
+  const color = getAttributeValue('attribute-color') || '';
+  const size = getAttributeValue('attribute-size') || '';
 
   return {
     id: data.id,
     name: data.name.en,
-    description,
+    description: fullDescription,
+    color,
+    size,
     images: data.masterVariant.images,
     price,
     discountPrice,
