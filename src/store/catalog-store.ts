@@ -47,6 +47,7 @@ export class CatalogStore {
 
       if (productName) {
         this.selectedCategoryId = '';
+        this.selectedSubcategoryId = '';
         this.searchName = productName;
       }
 

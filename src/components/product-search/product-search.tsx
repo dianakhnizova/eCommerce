@@ -12,7 +12,7 @@ import { PagePath } from '../../router/enums.ts';
 
 export const ProductSearch = () => {
   const [searchTerm, setSearchTerm] = useState('');
-  const { setSearchName, setCategories } = catalogStore;
+  const { setSearchName } = catalogStore;
   const router = useNavigate();
   const location = useLocation();
 
@@ -20,7 +20,6 @@ export const ProductSearch = () => {
     (e?: React.FormEvent | React.MouseEvent) => {
       e?.preventDefault();
 
-      setCategories('');
       setSearchName(searchTerm.trim());
 
       if (location.pathname !== PagePath.catalogPage) {
