@@ -112,7 +112,7 @@ export class CatalogStore {
   };
 
   public setSubcategories = (subcategoryId: string) => {
-    this.selectedCategoryId = subcategoryId;
+    this.selectedSubcategoryId = subcategoryId;
   };
 
   public getSubCategoryList = (parentId: string) => {
