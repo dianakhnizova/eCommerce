@@ -10,13 +10,13 @@ import { messages } from './messages.ts';
 import { DEFAULT_CATEGORY, DEFAULT_SUBCATEGORY } from './constants.ts';
 
 export const ProductList = observer(() => {
-  const { productList, sortField, sortOrder, selectedCategoryId } =
+  const { productList, sortField, sortOrder, selectedCategoryId, searchName } =
     catalogStore;
   const hasProducts = productList.length > 0;
 
   useEffect(() => {
     void catalogStore.getProducts();
-  }, [selectedCategoryId, sortField, sortOrder]);
+  }, [selectedCategoryId, sortField, sortOrder, searchName]);
 
   return (
     <>

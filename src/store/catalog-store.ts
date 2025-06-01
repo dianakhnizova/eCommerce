@@ -45,8 +45,6 @@ export class CatalogStore {
       await catalogStore.getCategories();
 
       if (productName) {
-        this.sortField = SortField.Default;
-        this.sortOrder = SortOrder.Default;
         this.selectedCategoryId = '';
         this.searchName = productName;
       }
@@ -105,6 +103,10 @@ export class CatalogStore {
 
   public setCategories = (categoryId: string) => {
     this.selectedCategoryId = categoryId;
+  };
+
+  public setSearchName = (name: string) => {
+    this.searchName = name;
   };
 
   public getCategoryList = () => {

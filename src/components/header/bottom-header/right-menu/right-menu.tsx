@@ -1,10 +1,5 @@
-import { ProductSearch } from '../../../product-search/productSearch.tsx';
-import styles from './right-menu.module.css';
+import { ProductSearch } from '../../../product-search/product-search.tsx';
 
 export const RightNavMenu = () => {
-  return (
-    <div className={styles.bottomNavigationMenu}>
-      <ProductSearch />
-    </div>
-  );
+  return <ProductSearch />;
 };
