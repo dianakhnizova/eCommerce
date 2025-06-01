@@ -19,6 +19,7 @@ export const catalogService = {
     sortField?: SortField,
     sortOrder?: SortOrder,
     categoryId?: string,
+    subcategoryId?: string,
     searchName?: string
   ): Promise<Catalog.ProductResponse> => {
     const params = new URLSearchParams({
@@ -31,8 +32,10 @@ export const catalogService = {
       params.append('sort', `${sortField} ${sortOrder}`);
     }
 
-    if (categoryId) {
-      params.append('filter.query', `categories.id:"${categoryId}"`);
+    if (categoryId && subcategoryId) {
+      params.append('filter.query', `categories.id:"${subcategoryId}"`);
+    } else if (categoryId) {
+      params.append('filter.query', `categories.id: subtree("${categoryId}")`);
     }
 
     if (searchName) {
@@ -44,6 +47,7 @@ export const catalogService = {
         params,
       }
     );
+
     return response.data;
   },
 

@@ -22,6 +22,7 @@ export class CatalogStore {
   public productList: ProductCard[] = [];
   public categories: Catalog.ProductCategory[] = [];
   public selectedCategoryId: string = '';
+  public selectedSubcategoryId: string = '';
   public pagination: Pagination = {
     limit: LIMIT_PRODUCTS_ON_PAGE,
     offset: DEFAULT_OFFSET,
@@ -42,7 +43,7 @@ export class CatalogStore {
     this.isLoading = true;
     this.error = null;
     try {
-      await catalogStore.getCategories();
+      await this.getCategories();
 
       if (productName) {
         this.selectedCategoryId = '';
@@ -56,6 +57,7 @@ export class CatalogStore {
         this.sortField,
         this.sortOrder,
         this.selectedCategoryId,
+        this.selectedSubcategoryId,
         this.searchName
       );
 
@@ -103,6 +105,7 @@ export class CatalogStore {
 
   public setCategories = (categoryId: string) => {
     this.selectedCategoryId = categoryId;
+    this.selectedSubcategoryId = '';
   };
 
   public setSearchName = (name: string) => {
@@ -110,11 +113,27 @@ export class CatalogStore {
   };
 
   public getCategoryList = () => {
-    return this.categories.map(category => ({
-      id: category.id,
-      label: category.name?.en || category.id,
-      checked: this.selectedCategoryId === category.id,
-    }));
+    return this.categories
+      .filter(category => !category.parent)
+      .map(category => ({
+        id: category.id,
+        label: category.name?.en || category.id,
+        checked: this.selectedCategoryId === category.id,
+      }));
+  };
+
+  public setSubcategories = (subcategoryId: string) => {
+    this.selectedSubcategoryId = subcategoryId;
+  };
+
+  public getSubCategoryList = (parentId: string) => {
+    return this.categories
+      .filter(subcategory => subcategory.parent?.id === parentId)
+      .map(subcategory => ({
+        id: subcategory.id,
+        label: subcategory.name?.en || subcategory.id,
+        checked: this.selectedSubcategoryId === subcategory.id,
+      }));
   };
 }
 

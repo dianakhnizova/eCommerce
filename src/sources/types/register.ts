@@ -14,16 +14,18 @@ export type RegisterFormValues = {
   shippingCity: string;
   shippingStreet: string;
   shippingPostCode: string;
+  currentPassword?: string;
+  newPassword?: string;
 };
 
-export type RegisterFormField = {
+export type FormFieldConfig = {
   type: RegisterInputFieldType;
   label: string;
-  name: RegisterFieldName;
+  name: CustomerFieldName;
   placeholder?: string;
 };
 
-export enum RegisterFieldName {
+export enum CustomerFieldName {
   email = 'email',
   password = 'password',
   firstName = 'firstName',
@@ -37,6 +39,8 @@ export enum RegisterFieldName {
   shippingCity = 'shippingCity',
   shippingStreet = 'shippingStreet',
   shippingPostCode = 'shippingPostCode',
+  currentPassword = 'currentPassword',
+  newPassword = 'newPassword',
 }
 
 export type RegisterInputFieldType =

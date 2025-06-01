@@ -18,7 +18,7 @@ export const CategoryOptions = observer(() => {
         value={catalogStore.selectedCategoryId}
         onChange={event => handleCategoryChange(event, navigate)}
       >
-        <option value="">{messages.categoryOptions.allCategories}</option>
+        <option value="">{messages.allCategories}</option>
         {categoryList.map(({ id, label }) => (
           <option key={id} value={id}>
             {label}

@@ -1,0 +1,61 @@
+.profileWrapper {
+  display: flex;
+  gap: 30px;
+  flex-direction: column;
+  margin: 30px;
+}
+
+.addressesContainer {
+  display: 'flex';
+  flex-wrap: 'wrap';
+  gap: '10px';
+}
+
+.title {
+  margin: 0 0 16px;
+}
+
+.section {
+  width: 100%;
+  background-color: var(--clr-bg-2);
+  border-radius: 8px;
+  padding: 24px;
+}
+
+.sectionHeader {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 10px;
+  margin: 10px 0;
+
+  & * {
+    margin: 0;
+  }
+}
+
+.editBtn {
+  font-size: 15px;
+  padding: 5px;
+}
+
+.input {
+  border: 1px solid var(--clr-primary-300);
+  border-radius: 4px;
+  padding: 0.5rem;
+  color: var(--clr-primary-500);
+}
+
+.input::placeholder {
+  color: var(--clr-primary-500);
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.error {
+  color: var(--clr-accent-4);
+}
