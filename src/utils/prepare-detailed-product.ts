@@ -15,10 +15,17 @@ export const prepareDetailedProduct = (
       )
     : DEFAULT_PRICE;
 
+  const fullDescriptionAttribute = data.masterVariant.attributes?.find(
+    attr => attr.name === 'attribute-full-description'
+  );
+
+  const description =
+    fullDescriptionAttribute?.value || data.description?.en || '';
+
   return {
     id: data.id,
     name: data.name.en,
-    description: data.description.en,
+    description,
     images: data.masterVariant.images,
     price,
     discountPrice,
