@@ -3,17 +3,29 @@ import { messages } from '../../../sources/messages';
 import { userStore } from '../../../store/user-store';
 import { AddressCard } from './address-card/address-card';
 import styles from '../profile-page.module.css';
+import { useEffect, useState } from 'react';
 
 export const BillingAddresses = observer(() => {
   const addresses = userStore.billingAddresses;
-
+  const [defaultAddressID, setDefaultAddressID] = useState<string>();
+  useEffect(() => {
+    setDefaultAddressID(userStore.user?.defaultShippingAddressId || '');
+  }, [userStore.user]);
   return (
     <>
       <h2>{messages.billingAddresses}</h2>
       <div className={styles.addressesContainer}>
         {addresses?.length
           ? addresses?.map(address => {
-              return <AddressCard address={address} key={address.id} />;
+              return (
+                <AddressCard
+                  address={address}
+                  key={address.id}
+                  isDefault={address.id === defaultAddressID}
+                  setDefault={setDefaultAddressID}
+                  handleUpdate={userStore.updateBillingAddress}
+                />
+              );
             })
           : messages.noAddresses}
       </div>

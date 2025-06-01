@@ -21,6 +21,7 @@ export const ShippingAddresses = observer(() => {
                 <AddressCard
                   address={address}
                   key={address.id}
+                  handleUpdate={userStore.updateShippingAddress}
                   isDefault={address.id === defaultAddressID}
                   setDefault={setDefaultAddressID}
                 />

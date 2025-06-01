@@ -11,18 +11,22 @@ import { Button } from '../../../../components/button/button';
 import { messages } from '../../../../sources/messages';
 import { validationRules } from '../../../../sources/constants/register-fields';
 import { AddressFields } from '../../../register-page/address-fields/address-fields';
-import { userStore } from '../../../../store/user-store';
 
 interface AddressCardProps {
   address: Customer.Address;
   isDefault: boolean;
   setDefault: (id: string) => void;
+  handleUpdate: (
+    address: Customer.Address,
+    isDefault: boolean
+  ) => Promise<void>;
 }
 
 export const AddressCard: React.FC<AddressCardProps> = ({
   address,
   setDefault,
   isDefault = false,
+  handleUpdate,
 }) => {
   const form = useForm<RegisterFormValues>();
 
@@ -40,7 +44,7 @@ export const AddressCard: React.FC<AddressCardProps> = ({
   const onSubmit = async (data: RegisterFormValues) => {
     console.log(data);
     if (data) {
-      await userStore.updateShippingAddress(
+      await handleUpdate(
         {
           id: address.id,
           city: data.city,
