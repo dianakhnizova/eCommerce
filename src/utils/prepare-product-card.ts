@@ -1,4 +1,4 @@
-import { DEFAULT_VALUE } from '../pages/catalog-page/catalog/filtering/options/category-options/enums';
+import { DEFAULT_VALUE } from '../pages/catalog-page/product-list/enums';
 import type { ProductCard } from '../pages/catalog-page/product-list/types';
 import { DEFAULT_PRICE } from '../sources/constants/catalog';
 import { messages } from '../sources/messages';
@@ -8,15 +8,16 @@ import { catalogStore } from '../store/catalog-store';
 export const prepareProductCard = (
   product: Catalog.DetailedProductResponse
 ): ProductCard => {
+  const subCategoryId = product.categories?.[0].id || '';
   const subCategory = catalogStore.categories.find(
-    cat => cat.id === catalogStore.selectedCategoryId
+    cat => cat.id === subCategoryId
   );
+  const subcategorySlug = subCategory?.slug?.en || DEFAULT_VALUE.SUBCATEGORY;
+
   const parentCategory = catalogStore.categories.find(
     cat => cat.id === subCategory?.parent?.id
   );
-
   const categorySlug = parentCategory?.slug?.en || DEFAULT_VALUE.CATEGORY;
-  const subcategorySlug = subCategory?.slug?.en || DEFAULT_VALUE.SUBCATEGORY;
 
   return {
     id: product.id,

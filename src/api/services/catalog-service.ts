@@ -41,8 +41,6 @@ export const catalogService = {
       }
     );
 
-    console.log('API params:', params.toString());
-    console.log('API response:', response.data);
     return response.data;
   },
 

@@ -22,6 +22,7 @@ export class CatalogStore {
   public productList: ProductCard[] = [];
   public categories: Catalog.ProductCategory[] = [];
   public selectedCategoryId: string = '';
+  public selectedSubcategoryId: string = '';
   public pagination: Pagination = {
     limit: LIMIT_PRODUCTS_ON_PAGE,
     offset: DEFAULT_OFFSET,
@@ -97,6 +98,7 @@ export class CatalogStore {
 
   public setCategories = (categoryId: string) => {
     this.selectedCategoryId = categoryId;
+    this.selectedSubcategoryId = '';
   };
 
   public getCategoryList = () => {
@@ -115,7 +117,7 @@ export class CatalogStore {
       .map(subcategory => ({
         id: subcategory.id,
         label: subcategory.name?.en || subcategory.id,
-        checked: this.selectedCategoryId === subcategory.id,
+        checked: this.selectedSubcategoryId === subcategory.id,
       }));
   };
 }
