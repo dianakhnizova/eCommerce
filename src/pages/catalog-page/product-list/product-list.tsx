@@ -10,13 +10,18 @@ import { messages } from './messages.ts';
 import { DEFAULT_VALUE } from './enums.ts';
 
 export const ProductList = observer(() => {
-  const { productList, sortField, sortOrder, selectedCategoryId } =
-    catalogStore;
+  const {
+    productList,
+    sortField,
+    sortOrder,
+    selectedCategoryId,
+    selectedSubcategoryId,
+  } = catalogStore;
   const hasProducts = productList.length > 0;
 
   useEffect(() => {
     void catalogStore.getProducts();
-  }, [selectedCategoryId, sortField, sortOrder]);
+  }, [selectedCategoryId, selectedSubcategoryId, sortField, sortOrder]);
 
   return (
     <>
