@@ -18,10 +18,13 @@ export const LeftNavMenu = observer(() => {
       </NavLink>
       {userStore.isAuth && (
         <div className={leftMenuStyles.loginContainer}>
-          <span>{messages.userText}</span>
-          <span className={leftMenuStyles.userName}>
+          <NavLink
+            to={PagePath.profilePage}
+            className={leftMenuStyles.userName}
+          >
+            {messages.userText}
             {userStore.user?.firstName}
-          </span>
+          </NavLink>
         </div>
       )}
     </nav>
