@@ -46,8 +46,6 @@ export class CatalogStore {
       await this.getCategories();
 
       if (productName) {
-        this.selectedCategoryId = '';
-        this.selectedSubcategoryId = '';
         this.searchName = productName;
       }
 
