@@ -10,14 +10,16 @@ export const handleSubcategoryChange = (
 ) => {
   const selectedId = event.target.value;
   if (!selectedId) {
-    catalogStore.setCategories('');
-    void navigate(PagePath.catalogPage);
+    catalogStore.setSubcategories('');
+    const categorySlug = catalogStore.selectedCategoryId;
+    void navigate(generatePath(PagePath.catalogPage, { categorySlug }));
   } else {
     catalogStore.setSubcategories(selectedId);
 
     const subCategory = catalogStore.categories.find(
       cat => cat.id === catalogStore.selectedSubcategoryId
     );
+
     const parentCategory = catalogStore.categories.find(
       cat => cat.id === subCategory?.parent?.id
     );
