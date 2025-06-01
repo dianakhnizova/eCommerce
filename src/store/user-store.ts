@@ -21,36 +21,14 @@ class UserStore {
     return !!this.user?.id;
   }
 
-  public get billingAddresses(): (Customer.Address & { isDefault: boolean })[] {
-    const {
-      addresses = [],
-      billingAddressIds = [],
-      defaultBillingAddressId,
-    } = this.user || {};
-
-    return addresses
-      .filter(({ id }) => id && billingAddressIds.includes(id))
-      .map(address => ({
-        ...address,
-        isDefault: address.id === defaultBillingAddressId,
-      }));
+  public get billingAddresses(): Customer.Address[] {
+    const { addresses = [], billingAddressIds = [] } = this.user || {};
+    return addresses.filter(({ id }) => id && billingAddressIds.includes(id));
   }
 
-  public get shippingAddresses(): (Customer.Address & {
-    isDefault: boolean;
-  })[] {
-    const {
-      addresses = [],
-      shippingAddressIds = [],
-      defaultShippingAddressId,
-    } = this.user || {};
-
-    return addresses
-      .filter(({ id }) => id && shippingAddressIds.includes(id))
-      .map(address => ({
-        ...address,
-        isDefault: address.id === defaultShippingAddressId,
-      }));
+  public get shippingAddresses(): Customer.Address[] {
+    const { addresses = [], shippingAddressIds = [] } = this.user || {};
+    return addresses.filter(({ id }) => id && shippingAddressIds.includes(id));
   }
 
   public resetError() {
@@ -88,6 +66,41 @@ class UserStore {
     } finally {
       runInAction(() => {
         this.isInitLoading = false;
+      });
+    }
+  };
+
+  public updateShippingAddress = async (
+    address: Customer.Address,
+    isDefault: boolean
+  ): Promise<void> => {
+    this.isPending = true;
+    this.error = '';
+    try {
+      if (!this.user) return;
+      if (!address.id) return;
+      if (isDefault) {
+        await customerService.setDefaultShippingAddress(this.user, address.id);
+      }
+      const updated = await customerService.updateAddress(this.user, address);
+
+      runInAction(() => {
+        this.user = updated;
+        console.log({ updated });
+      });
+    } catch (error) {
+      runInAction(() => {
+        console.log(error);
+        if (isApiError(error)) {
+          this.error = error.response?.data?.message || messages.loginError;
+          return;
+        }
+        this.error =
+          error instanceof Error ? error.message : messages.loginError;
+      });
+    } finally {
+      runInAction(() => {
+        this.isPending = false;
       });
     }
   };

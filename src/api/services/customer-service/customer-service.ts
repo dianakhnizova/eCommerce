@@ -1,8 +1,9 @@
 import { PROJECT_KEY } from '../../../sources/constants/api';
+
 import type { Customer } from '../../../sources/types/customer';
 import { baseApi } from '../../axios';
 import { Endpoints } from '../../endpoints';
-import { GeneralInfoActions } from './enums/general-info-actions';
+import { UpdateActions } from './enums/update-actions';
 import type { GeneralInfoUpdateBody } from './types/general-info-update-body';
 
 export const customerService = {
@@ -52,35 +53,35 @@ export const customerService = {
   ): Promise<Customer.Profile> => {
     const parameters = new URLSearchParams({
       manage_my_profile: PROJECT_KEY,
-      customer_id: customer.id || '',
+      customer_id: customer.id || '1',
     });
 
     const newCustomer: GeneralInfoUpdateBody = {
-      version: customer.version ?? 0,
+      version: customer.version || 1,
       actions: [],
     };
 
     if (customer.email) {
       newCustomer.actions.push({
-        action: GeneralInfoActions.email,
+        action: UpdateActions.email,
         email: customer.email,
       });
     }
     if (customer.firstName) {
       newCustomer.actions.push({
-        action: GeneralInfoActions.firstName,
+        action: UpdateActions.firstName,
         firstName: customer.firstName,
       });
     }
     if (customer.lastName) {
       newCustomer.actions.push({
-        action: GeneralInfoActions.lastName,
+        action: UpdateActions.lastName,
         lastName: customer.lastName,
       });
     }
     if (customer.dateOfBirth) {
       newCustomer.actions.push({
-        action: GeneralInfoActions.dateOfBirth,
+        action: UpdateActions.dateOfBirth,
         dateOfBirth: customer.dateOfBirth,
       });
     }
@@ -110,6 +111,163 @@ export const customerService = {
 
     const response = await baseApi.post<Customer.Profile>(
       `${PROJECT_KEY}${Endpoints.ME}${Endpoints.PASSWORD}`,
+      body,
+      { params: parameters }
+    );
+    return response.data;
+  },
+
+  updateAddress: async (
+    customer: Customer.Profile,
+    address: Customer.Address
+  ): Promise<Customer.Profile> => {
+    const parameters = new URLSearchParams({
+      manage_my_profile: PROJECT_KEY,
+      customer_id: customer.id || '',
+    });
+
+    const body = {
+      version: customer.version,
+      actions: [
+        {
+          action: UpdateActions.changeAddress,
+          addressId: address.id,
+          address,
+        },
+      ],
+    };
+
+    const response = await baseApi.post<Customer.Profile>(
+      `${PROJECT_KEY}${Endpoints.ME}`,
+      body,
+      { params: parameters }
+    );
+    return response.data;
+  },
+
+  addNewAddress: async (
+    customer: Customer.Profile,
+    address: Customer.Address
+  ): Promise<Customer.Profile> => {
+    const parameters = new URLSearchParams({
+      manage_my_profile: PROJECT_KEY,
+      customer_id: customer.id || '',
+    });
+    const body = {
+      version: customer.version,
+      actions: [
+        {
+          action: UpdateActions.addAddress,
+          address,
+        },
+      ],
+    };
+    const response = await baseApi.post<Customer.Profile>(
+      `${PROJECT_KEY}${Endpoints.ME}`,
+      body,
+      { params: parameters }
+    );
+    return response.data;
+  },
+
+  setDefaultShippingAddress: async (
+    customer: Customer.Profile,
+    addressId: string
+  ): Promise<Customer.Profile> => {
+    const parameters = new URLSearchParams({
+      manage_my_profile: PROJECT_KEY,
+      customer_id: customer.id || '',
+    });
+
+    const body = {
+      version: customer.version,
+      actions: [
+        {
+          action: UpdateActions.setDefaultShippingAddress,
+          addressId,
+        },
+      ],
+    };
+
+    const response = await baseApi.post<Customer.Profile>(
+      `${PROJECT_KEY}${Endpoints.ME}`,
+      body,
+      { params: parameters }
+    );
+    return response.data;
+  },
+
+  setDefaultBillingAddress: async (
+    customer: Customer.Profile,
+    addressId: string
+  ): Promise<Customer.Profile> => {
+    const parameters = new URLSearchParams({
+      manage_my_profile: PROJECT_KEY,
+      customer_id: customer.id || '',
+    });
+
+    const body = {
+      version: customer.version,
+      actions: [
+        {
+          action: UpdateActions.setDefaultBillingAddress,
+          addressId,
+        },
+      ],
+    };
+
+    const response = await baseApi.post<Customer.Profile>(
+      `${PROJECT_KEY}${Endpoints.ME}`,
+      body,
+      { params: parameters }
+    );
+    return response.data;
+  },
+
+  addShippingAddressId: async (
+    customer: Customer.Profile,
+    addressId: string
+  ): Promise<Customer.Profile> => {
+    const parameters = new URLSearchParams({
+      manage_my_profile: PROJECT_KEY,
+      customer_id: customer.id || '',
+    });
+    const body = {
+      version: customer.version,
+      actions: [
+        {
+          action: UpdateActions.addShippingAddressId,
+          addressId,
+        },
+      ],
+    };
+    const response = await baseApi.post<Customer.Profile>(
+      `${PROJECT_KEY}${Endpoints.ME}`,
+      body,
+      { params: parameters }
+    );
+    return response.data;
+  },
+
+  addBillingAddressId: async (
+    customer: Customer.Profile,
+    addressId: string
+  ): Promise<Customer.Profile> => {
+    const parameters = new URLSearchParams({
+      manage_my_profile: PROJECT_KEY,
+      customer_id: customer.id || '',
+    });
+    const body = {
+      version: customer.version,
+      actions: [
+        {
+          action: UpdateActions.addBillingAddressId,
+          addressId,
+        },
+      ],
+    };
+    const response = await baseApi.post<Customer.Profile>(
+      `${PROJECT_KEY}${Endpoints.ME}`,
       body,
       { params: parameters }
     );

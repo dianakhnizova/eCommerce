@@ -1,8 +1,8 @@
 import type { Customer } from '../../../../sources/types/customer';
-import type { GeneralInfoActions } from '../enums/general-info-actions';
+import type { UpdateActions } from '../enums/update-actions';
 
 type GeneralInfoAction = {
-  action: GeneralInfoActions;
+  action: UpdateActions;
 } & Partial<Customer.Profile>;
 
 export type GeneralInfoUpdateBody = {

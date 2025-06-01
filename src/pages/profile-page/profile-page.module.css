@@ -46,6 +46,10 @@
   color: var(--clr-primary-500);
 }
 
+.input:disabled {
+  background-color: transparent;
+}
+
 .input::placeholder {
   color: var(--clr-primary-500);
 }
@@ -58,4 +62,43 @@
 
 .error {
   color: var(--clr-accent-4);
+}
+
+.card {
+  width: 100%;
+  max-width: 400px;
+  border-radius: 8px;
+  padding: 16px;
+  background-color: var(--clr-bg-2);
+}
+
+.badge {
+  background: var(--clr-accent-2);
+  width: fit-content;
+  color: var(--clr-bg-1);
+  padding: 4px 8px;
+  border-radius: 12px;
+  font-size: 0.75rem;
+  margin-bottom: 10px;
+}
+
+.list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  gap: 8px 16px;
+}
+
+.item {
+  display: contents;
+}
+
+.label {
+  color: var(--clr-secondary-300);
+}
+
+.value {
+  font-weight: 500;
 }

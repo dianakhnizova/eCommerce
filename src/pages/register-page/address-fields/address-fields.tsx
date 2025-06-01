@@ -26,6 +26,7 @@ type Props = {
     RegisterOptions<RegisterFormValues>
   >;
   isRequired?: boolean;
+  isEditMode?: boolean;
 };
 
 export const AddressFields = ({
@@ -37,6 +38,7 @@ export const AddressFields = ({
   postCodeField,
   validationRules,
   isRequired = true,
+  isEditMode = true,
 }: Props) => {
   const countryOptions = getCountryOptions();
 
@@ -51,6 +53,7 @@ export const AddressFields = ({
           required: isRequired && messages.errorCountry,
         })}
         error={errors[countryField]?.message}
+        disabled={!isEditMode}
       />
       <Input
         label={messages.city}
@@ -60,6 +63,7 @@ export const AddressFields = ({
           required: isRequired && messages.errorCity,
         })}
         error={errors[cityField]?.message}
+        disabled={!isEditMode}
       />
       <Input
         label={messages.street}
@@ -69,6 +73,7 @@ export const AddressFields = ({
           required: isRequired && messages.errorStreet,
         })}
         error={errors[streetField]?.message}
+        disabled={!isEditMode}
       />
       <Input
         label={messages.postCode}
@@ -78,6 +83,7 @@ export const AddressFields = ({
           required: isRequired && messages.errorPostCode,
         })}
         error={errors[postCodeField]?.message}
+        disabled={!isEditMode}
       />
     </>
   );

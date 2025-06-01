@@ -30,6 +30,18 @@ export const messages = {
   generalInfo: 'General info',
   buttons: {
     addToCart: 'Add To Cart',
+    addAddress: 'Add Address',
+    save: 'Save',
+    edit: 'Edit',
+    delete: 'Delete',
   },
+  id: 'Id',
+  city: 'City',
+  country: 'Country',
+  postalCode: 'Postal code',
+  streetName: 'Street name',
+  checkboxDefaultAddress: 'Default address',
+  checkboxBillingAddress: 'Billing address',
+  checkboxShippingAddress: 'Billing address',
   emptyValue: '',
 };
