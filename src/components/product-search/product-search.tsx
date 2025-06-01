@@ -31,7 +31,7 @@ export const ProductSearch = () => {
   );
 
   return (
-    <form className={styles.wrapper} onClick={handleSearch}>
+    <form className={styles.wrapper} onSubmit={handleSearch}>
       <Input
         type="text"
         placeholder={messages.placeholderSearch}
