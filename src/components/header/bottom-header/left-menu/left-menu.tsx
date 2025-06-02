@@ -1,14 +1,24 @@
 import styles from './left-menu.module.css';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useLocation } from 'react-router-dom';
 import { leftLinks } from './left-links-list';
 import classNames from 'classnames';
 import { SvgBuilder } from '../../../svg-builder/svg-builder';
 import { IconType } from '../../../svg-builder/enums';
 import { Button } from '../../../button/button';
 import { useToggleModal } from '../../../../utils/hooks/use-toggle-modal';
+import { PagePath } from '../../../../router/enums.ts';
 
 export const LeftNavMenu = () => {
   const { isMenuOpen, toggleMenu, closeMenu } = useToggleModal();
+  const location = useLocation();
+
+  const handleLinkClick = (to: string) => () => {
+    closeMenu();
+
+    if (location.pathname === to && to === PagePath.catalogPage) {
+      globalThis.location.reload();
+    }
+  };
 
   return (
     <>
@@ -27,7 +37,7 @@ export const LeftNavMenu = () => {
               key={link.label}
               to={link.to}
               className={classNames(styles.link, styles.bottomLink)}
-              onClick={closeMenu}
+              onClick={handleLinkClick(link.to)}
             >
               {link.label}
             </NavLink>
