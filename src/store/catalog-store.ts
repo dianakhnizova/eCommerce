@@ -153,7 +153,10 @@ export class CatalogStore {
   };
 
   public getColorsAndSizes = async () => {
-    this.isLoading = true;
+    if (this.colorsList.length > 0) {
+      return;
+    }
+
     this.error = null;
     try {
       const data = await catalogService.getProducts(0, MAX_PRODUCT_LIMIT, true);
@@ -189,10 +192,6 @@ export class CatalogStore {
         if (error instanceof AxiosError) {
           this.error = error.response?.data?.message || messages.catalogError;
         }
-      });
-    } finally {
-      runInAction(() => {
-        this.isLoading = false;
       });
     }
   };

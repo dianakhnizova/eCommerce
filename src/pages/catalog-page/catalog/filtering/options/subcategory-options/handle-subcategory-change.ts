@@ -13,13 +13,13 @@ export const handleSubcategoryChange = (
     catalogStore.setSubcategories('');
 
     const categorySlug = catalogStore.selectedCategoryId
-      ? catalogStore.categories.find(
+      ? (catalogStore.categories.find(
           cat => cat.id === catalogStore.selectedCategoryId
-        )?.slug?.en
+        )?.slug?.en ?? DEFAULT_VALUE.CATEGORY)
       : DEFAULT_VALUE.CATEGORY;
 
     void navigate(
-      generatePath(PagePath.catalogPage, { categorySlug: categorySlug })
+      generatePath(PagePath.categoryPage, { categorySlug: categorySlug })
     );
   } else {
     catalogStore.setSubcategories(selectedId);
