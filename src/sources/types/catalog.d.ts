@@ -134,7 +134,7 @@ export namespace Catalog {
 
   type Attribute = {
     name: string;
-    value: Record<string, string> | string | number | boolean;
+    value: string;
   };
 
   type CategoriesResponse = {

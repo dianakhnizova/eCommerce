@@ -17,7 +17,7 @@ export const ProductPage = observer(() => {
   const [isOpen, setIsOpen] = useState(false);
   const [selectedImageIndex, setSelectedImageIndex] = useState<number>(0);
 
-  const { product, getProduct, isLoading, error } = productStore;
+  const { product, isLoading, error, getProduct } = productStore;
 
   useEffect(() => {
     if (id) {

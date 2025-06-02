@@ -12,10 +12,6 @@ export const SubcategoryOptions = observer(() => {
     catalogStore.selectedCategoryId
   );
 
-  console.log('Selected Category ID:', catalogStore.selectedCategoryId);
-  console.log('Selected Subcategory ID:', catalogStore.selectedSubcategoryId);
-  console.log('Subcategory List:', subcategoryList);
-
   if (!catalogStore.selectedCategoryId) {
     return null;
   }
