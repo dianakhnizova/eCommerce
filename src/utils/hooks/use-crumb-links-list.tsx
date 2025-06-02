@@ -12,7 +12,7 @@ export const useCrumbLinksList = () => {
   const location = useLocation();
   const currentPath = location.pathname;
 
-  const { categorySlug, subcategorySlug } = useParams();
+  const { categorySlug, subcategorySlug, id } = useParams();
   const { title } = usePageInfo();
 
   crumbs.push({ to: PagePath.root, label: messages.homePageTitle });
@@ -39,6 +39,15 @@ export const useCrumbLinksList = () => {
       crumbs.push({
         to: `${PagePath.catalogPage}/${categorySlug}/${subcategorySlug}`,
         label: subcategoryName,
+      });
+    }
+
+    if (id) {
+      const product = catalogStore.productList.find(prod => prod.id === id);
+      const productName = product?.name || id || messages.notFoundPageTitle;
+      crumbs.push({
+        to: `${PagePath.catalogPage}/${categorySlug}/${subcategorySlug}/${id}`,
+        label: productName,
       });
     }
   } else {
