@@ -22,8 +22,7 @@ export const messages = {
   firstName: 'First Name',
   lastName: 'Last Name',
   birth: 'Birth',
-  billingAddresses: 'Billing addresses',
-  shippingAddresses: 'Shipping addresses',
+  addresses: 'Addresses',
   badges: {
     defaultBilling: '📋Default Billing',
     defaultShipping: '📦Default Shipping',

@@ -71,13 +71,19 @@ export const AddressCard: React.FC<AddressCardProps> = ({ address }) => {
 
   const isDefaultShipping =
     address.id === userStore.user?.defaultShippingAddressId;
+
   const isDefaultBilling =
     address.id === userStore.user?.defaultBillingAddressId;
 
   const isBilling =
-    userStore.user?.billingAddressIds?.includes(address.id || '') || false;
+    userStore.user?.billingAddressIds?.includes(
+      address.id || messages.emptyValue
+    ) || false;
+
   const isShipping =
-    userStore.user?.shippingAddressIds?.includes(address.id || '') || false;
+    userStore.user?.shippingAddressIds?.includes(
+      address.id || messages.emptyValue
+    ) || false;
 
   const [checkboxes, setCheckboxes] = useState({
     billing: isBilling,
@@ -121,50 +127,50 @@ export const AddressCard: React.FC<AddressCardProps> = ({ address }) => {
             validationRules={validationRules}
             isEditMode={isEditMode}
           />
-          <Checkbox
-            disabled={!isEditMode}
-            label={messages.badges.billing}
-            checked={checkboxes.billing}
-            onChange={event => {
-              setCheckboxes(prev => ({
-                ...prev,
-                billing: event.target.checked,
-              }));
-            }}
-          />
-          <Checkbox
-            disabled={!isEditMode}
-            label={messages.badges.shipping}
-            checked={checkboxes.shipping}
-            onChange={event => {
-              setCheckboxes(prev => ({
-                ...prev,
-                shipping: event.target.checked,
-              }));
-            }}
-          />
-          <Checkbox
-            disabled={!isEditMode}
-            label={messages.badges.defaultBilling}
-            checked={checkboxes.defaultBilling}
-            onChange={event => {
-              setCheckboxes(prev => ({
-                ...prev,
-                defaultBilling: event.target.checked,
-              }));
-            }}
-          />
-          <Checkbox
-            disabled={!isEditMode}
-            label={messages.badges.defaultShipping}
-            checked={checkboxes.defaultShipping}
-            onChange={event => {
-              setCheckboxes(prev => ({
-                ...prev,
-                defaultShipping: event.target.checked,
-              }));
-            }}
-          />
+          {isEditMode && (
+            <>
+              <Checkbox
+                label={messages.badges.billing}
+                checked={checkboxes.billing}
+                onChange={event => {
+                  setCheckboxes(prev => ({
+                    ...prev,
+                    billing: event.target.checked,
+                  }));
+                }}
+              />
+              <Checkbox
+                label={messages.badges.shipping}
+                checked={checkboxes.shipping}
+                onChange={event => {
+                  setCheckboxes(prev => ({
+                    ...prev,
+                    shipping: event.target.checked,
+                  }));
+                }}
+              />
+              <Checkbox
+                label={messages.badges.defaultBilling}
+                checked={checkboxes.defaultBilling}
+                onChange={event => {
+                  setCheckboxes(prev => ({
+                    ...prev,
+                    defaultBilling: event.target.checked,
+                  }));
+                }}
+              />
+              <Checkbox
+                label={messages.badges.defaultShipping}
+                checked={checkboxes.defaultShipping}
+                onChange={event => {
+                  setCheckboxes(prev => ({
+                    ...prev,
+                    defaultShipping: event.target.checked,
+                  }));
+                }}
+              />
+            </>
+          )}
           {isEditMode && (
             <Button type="submit" disabled={userStore.isPending}>
               {messages.buttons.save}

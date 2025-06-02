@@ -23,7 +23,6 @@ export const ChangePassword = observer(() => {
 
   const onSubmit = async (data: RegisterFormValues) => {
     if (!data.currentPassword || !data.newPassword) return;
-    console.log(data);
 
     await userStore.changePassword(data.currentPassword, data.newPassword);
     if (!userStore.error) setIsEditMode(false);

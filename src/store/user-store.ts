@@ -84,7 +84,6 @@ class UserStore {
       const updated = await customerService.addNewAddress(this.user, address);
       runInAction(() => {
         this.user = updated;
-        console.log({ updated });
       });
     } catch (error) {
       runInAction(() => {
@@ -121,7 +120,6 @@ class UserStore {
 
       runInAction(() => {
         this.user = updated;
-        console.log({ updated });
       });
     } catch (error) {
       runInAction(() => {
@@ -202,7 +200,6 @@ class UserStore {
       });
       runInAction(() => {
         this.user = updated;
-        console.log({ updated });
       });
     } catch (error) {
       runInAction(() => {
@@ -234,7 +231,6 @@ class UserStore {
         newPassword
       );
       runInAction(() => {
-        console.log({ updated });
         this.user = updated;
       });
     } catch (error) {

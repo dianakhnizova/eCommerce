@@ -10,16 +10,16 @@ export const Addresses: React.FC = observer(() => {
 
   const handleNewAddress = async () => {
     await userStore.addNewAddress({
-      city: '',
+      city: messages.emptyValue,
       country: 'UNDEFINED',
-      streetName: '',
-      postalCode: '',
+      streetName: messages.emptyValue,
+      postalCode: messages.emptyValue,
     });
   };
 
   return (
     <>
-      <h2>Addresses</h2>
+      <h2>{messages.addresses}</h2>
       <div className={styles.addressesContainer}>
         <Button
           onClick={handleNewAddress}
