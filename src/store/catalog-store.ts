@@ -11,7 +11,9 @@ import {
   DEFAULT_OFFSET,
   DEFAULT_TOTAL,
   LIMIT_PRODUCTS_ON_PAGE,
+  MAX_PRICE,
   MAX_PRODUCT_LIMIT,
+  MIN_PRICE,
 } from '../sources/constants/catalog';
 import { preparePagination } from '../utils/prepare-pagination';
 import {
@@ -41,6 +43,8 @@ export class CatalogStore {
   public colorsList: string[] = [];
   public selectedSizes: string[] = [];
   public sizeList: string[] = [];
+  public priceFrom?: number;
+  public priceTo?: number;
 
   constructor() {
     makeAutoObservable(this);
@@ -66,7 +70,9 @@ export class CatalogStore {
         this.selectedSubcategoryId,
         this.searchName,
         this.selectedColors,
-        this.selectedSizes
+        this.selectedSizes,
+        this.priceFrom,
+        this.priceTo
       );
 
       runInAction(() => {
@@ -91,6 +97,32 @@ export class CatalogStore {
     this.sortOrder = order;
   };
 
+  public setColors = (colors: string[]) => {
+    this.selectedColors = colors;
+  };
+
+  public setSizes = (sizes: string[]) => {
+    this.selectedSizes = sizes;
+  };
+
+  public setSearchName = (name: string) => {
+    this.searchName = name;
+  };
+
+  public setCategories = (categoryId: string) => {
+    this.selectedCategoryId = categoryId;
+    this.selectedSubcategoryId = '';
+  };
+
+  public setSubcategories = (subcategoryId: string) => {
+    this.selectedSubcategoryId = subcategoryId;
+  };
+
+  public setPrice = (from?: number, to?: number) => {
+    this.priceFrom = from;
+    this.priceTo = to;
+  };
+
   public getCategories = async () => {
     if (this.categories.length > 0) {
       return;
@@ -111,23 +143,6 @@ export class CatalogStore {
     }
   };
 
-  public setColors = (colors: string[]) => {
-    this.selectedColors = colors;
-  };
-
-  public setSizes = (sizes: string[]) => {
-    this.selectedSizes = sizes;
-  };
-
-  public setSearchName = (name: string) => {
-    this.searchName = name;
-  };
-
-  public setCategories = (categoryId: string) => {
-    this.selectedCategoryId = categoryId;
-    this.selectedSubcategoryId = '';
-  };
-
   public getCategoryList = () => {
     return this.categories
       .filter(category => !category.parent)
@@ -136,10 +151,6 @@ export class CatalogStore {
         label: category.name?.en || category.id,
         checked: this.selectedCategoryId === category.id,
       }));
-  };
-
-  public setSubcategories = (subcategoryId: string) => {
-    this.selectedSubcategoryId = subcategoryId;
   };
 
   public getSubCategoryList = (parentId: string) => {
@@ -186,6 +197,34 @@ export class CatalogStore {
         });
         this.colorsList = colors.sort();
         this.sizeList = sizes.sort();
+      });
+    } catch (error) {
+      runInAction(() => {
+        if (error instanceof AxiosError) {
+          this.error = error.response?.data?.message || messages.catalogError;
+        }
+      });
+    }
+  };
+
+  public getPrice = async () => {
+    this.error = null;
+    try {
+      const data = await catalogService.getProducts(0, MAX_PRODUCT_LIMIT, true);
+      runInAction(() => {
+        let minPrice = MIN_PRICE;
+        let maxPrice = MAX_PRICE;
+
+        data.results.forEach(product => {
+          if (product.masterVariant?.prices?.[0]?.value?.centAmount) {
+            const price = product.masterVariant.prices[0].value.centAmount;
+            minPrice = Math.min(minPrice, price);
+            maxPrice = Math.max(maxPrice, price);
+          }
+        });
+
+        this.priceFrom = minPrice;
+        this.priceTo = maxPrice;
       });
     } catch (error) {
       runInAction(() => {
