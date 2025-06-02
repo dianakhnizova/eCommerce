@@ -9,7 +9,7 @@ export const handleSizeChange = async (
 
   const newSizes = isChecked
     ? [...catalogStore.selectedSizes, selectedSize]
-    : catalogStore.selectedColors.filter(size => size !== selectedSize);
+    : catalogStore.selectedSizes.filter(size => size !== selectedSize);
 
   catalogStore.setSizes(newSizes);
   await catalogStore.getProducts();

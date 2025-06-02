@@ -11,13 +11,14 @@ import {
   DEFAULT_OFFSET,
   DEFAULT_TOTAL,
   LIMIT_PRODUCTS_ON_PAGE,
+  MAX_PRODUCT_LIMIT,
 } from '../sources/constants/catalog';
 import { preparePagination } from '../utils/prepare-pagination';
 import {
   SortField,
   SortOrder,
 } from '../pages/catalog-page/catalog-options/components/sorting-selects/enums';
-import { filterProducts } from '../utils/filter-products';
+import { getAttributeValue } from '../utils/get-attribute-value';
 
 export class CatalogStore {
   public productList: ProductCard[] = [];
@@ -62,17 +63,13 @@ export class CatalogStore {
         this.sortOrder,
         this.selectedCategoryId,
         this.selectedSubcategoryId,
-        this.searchName
+        this.searchName,
+        this.selectedColors,
+        this.selectedSizes
       );
 
       runInAction(() => {
         this.productList = data.results.map(prepareProductCard);
-        const cards = data.results
-          .filter(product =>
-            filterProducts(product, this.selectedColors, this.selectedSizes)
-          )
-          .map(prepareProductCard);
-        this.productList = cards;
         this.pagination = preparePagination(data);
       });
     } catch (error) {
@@ -117,79 +114,17 @@ export class CatalogStore {
     this.selectedColors = colors;
   };
 
-  public getColors = async () => {
-    this.error = null;
-    try {
-      const data = await catalogService.getProducts();
-      const uniqueColors: string[] = [];
-
-      data.results.forEach(product => {
-        const colorAttr = product.masterVariant?.attributes?.find(
-          attr => attr.name === 'attribute-color'
-        );
-
-        const color = colorAttr?.value;
-        if (
-          color &&
-          typeof color === 'string' &&
-          !uniqueColors.includes(color)
-        ) {
-          uniqueColors.push(color);
-        }
-      });
-
-      runInAction(() => {
-        this.colorsList = uniqueColors.sort();
-      });
-    } catch (error) {
-      runInAction(() => {
-        if (error instanceof AxiosError) {
-          this.error = error.response?.data?.message || messages.catalogError;
-        }
-      });
-    }
-  };
-
   public setSizes = (sizes: string[]) => {
     this.selectedSizes = sizes;
   };
 
-  public getSizes = async () => {
-    this.error = null;
-    try {
-      const data = await catalogService.getProducts();
-      const uniqueSizes: string[] = [];
-
-      data.results.forEach(product => {
-        const sizeAttr = product.masterVariant?.attributes?.find(
-          attr => attr.name === 'attribute-size'
-        );
-
-        const size = sizeAttr?.value;
-        if (size && typeof size === 'string' && !uniqueSizes.includes(size)) {
-          uniqueSizes.push(size);
-        }
-      });
-
-      runInAction(() => {
-        this.sizeList = uniqueSizes.sort();
-      });
-    } catch (error) {
-      runInAction(() => {
-        if (error instanceof AxiosError) {
-          this.error = error.response?.data?.message || messages.catalogError;
-        }
-      });
-    }
+  public setSearchName = (name: string) => {
+    this.searchName = name;
   };
 
   public setCategories = (categoryId: string) => {
     this.selectedCategoryId = categoryId;
     this.selectedSubcategoryId = '';
-  };
-
-  public setSearchName = (name: string) => {
-    this.searchName = name;
   };
 
   public getCategoryList = () => {
@@ -214,6 +149,65 @@ export class CatalogStore {
         label: subcategory.name?.en || subcategory.id,
         checked: this.selectedSubcategoryId === subcategory.id,
       }));
+  };
+
+  public getColorsAndSizes = async () => {
+    this.isLoading = true;
+    this.error = null;
+    try {
+      const data = await catalogService.getProducts(
+        0,
+        MAX_PRODUCT_LIMIT,
+        true,
+        this.sortField,
+        this.sortOrder,
+        this.selectedCategoryId,
+        this.selectedSubcategoryId,
+        this.searchName,
+        this.selectedColors,
+        this.selectedSizes
+      );
+
+      runInAction(() => {
+        const colors: string[] = [];
+        const sizes: string[] = [];
+
+        data.results.forEach(product => {
+          if (product.masterVariant?.attributes) {
+            const color = getAttributeValue(
+              product.masterVariant.attributes,
+              'attribute-color'
+            );
+            const size = getAttributeValue(
+              product.masterVariant.attributes,
+              'attribute-size'
+            );
+
+            if (typeof color === 'string' && !colors.includes(color)) {
+              colors.push(color);
+            }
+            if (typeof size === 'string' && !sizes.includes(size)) {
+              sizes.push(size);
+            }
+          }
+        });
+        this.colorsList = colors.sort();
+        this.sizeList = sizes.sort();
+
+        this.productList = data.results.map(prepareProductCard);
+        this.pagination = preparePagination(data);
+      });
+    } catch (error) {
+      runInAction(() => {
+        if (error instanceof AxiosError) {
+          this.error = error.response?.data?.message || messages.catalogError;
+        }
+      });
+    } finally {
+      runInAction(() => {
+        this.isLoading = false;
+      });
+    }
   };
 }
 

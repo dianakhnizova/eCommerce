@@ -1,6 +1,7 @@
 import type { Catalog } from '../sources/types/catalog';
 import { DEFAULT_PRICE } from '../sources/constants/catalog';
 import { AttributeType } from '../sources/enums/attributes.ts';
+import { getAttributeValue } from './get-attribute-value.ts';
 
 export const prepareDetailedProduct = (
   data: Catalog.DetailedProductResponse
@@ -18,14 +19,12 @@ export const prepareDetailedProduct = (
 
   const attributes = data.masterVariant?.attributes || [];
 
-  const getAttributeValue = (
-    attrName: string
-  ): Record<string, string> | string | number | boolean | undefined =>
-    attributes.find(attr => attr.name === attrName)?.value || '';
-
-  const fullDescription = getAttributeValue(AttributeType.FULL_DESCRIPTION);
-  const color = getAttributeValue(AttributeType.COLOR);
-  const size = getAttributeValue(AttributeType.SIZE);
+  const fullDescription = getAttributeValue(
+    attributes,
+    AttributeType.FULL_DESCRIPTION
+  );
+  const color = getAttributeValue(attributes, AttributeType.COLOR);
+  const size = getAttributeValue(attributes, AttributeType.SIZE);
 
   return {
     id: data.id,

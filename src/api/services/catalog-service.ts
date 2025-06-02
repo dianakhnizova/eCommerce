@@ -20,7 +20,9 @@ export const catalogService = {
     sortOrder?: SortOrder,
     categoryId?: string,
     subcategoryId?: string,
-    searchName?: string
+    searchName?: string,
+    selectedColors: string[] = [],
+    selectedSizes: string[] = []
   ): Promise<Catalog.ProductResponse> => {
     const params = new URLSearchParams({
       offset: offset.toString(),
@@ -41,6 +43,25 @@ export const catalogService = {
     if (searchName) {
       params.append('text.en', searchName);
     }
+
+    if (selectedColors.length > 0) {
+      selectedColors.forEach(color => {
+        params.append(
+          'filter.query',
+          `variants.attributes.attribute-color:"${color}"`
+        );
+      });
+    }
+
+    if (selectedSizes.length > 0) {
+      selectedSizes.forEach(size => {
+        params.append(
+          'filter.query',
+          `variants.attributes.attribute-size:"${size}"`
+        );
+      });
+    }
+
     const response = await baseApi.get<Catalog.ProductResponse>(
       `${PROJECT_KEY}${Endpoints.PRODUCT_PROJECTIONS_SEARCH}`,
       {

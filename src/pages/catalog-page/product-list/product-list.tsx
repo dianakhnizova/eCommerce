@@ -16,25 +16,27 @@ export const ProductList = observer(() => {
     sortOrder,
     selectedCategoryId,
     selectedSubcategoryId,
-    getColors,
-    getSizes,
     searchName,
+    selectedColors,
+    selectedSizes,
   } = catalogStore;
   const hasProducts = productList.length > 0;
 
   useEffect(() => {
     void catalogStore.getProducts();
-    void getColors();
-    void getSizes();
   }, [
     selectedCategoryId,
     selectedSubcategoryId,
     sortField,
     sortOrder,
-    getColors,
-    getSizes,
     searchName,
+    selectedColors,
+    selectedSizes,
   ]);
+
+  useEffect(() => {
+    void catalogStore.getColorsAndSizes();
+  }, []);
 
   return (
     <>
