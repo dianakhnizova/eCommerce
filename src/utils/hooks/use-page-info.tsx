@@ -12,7 +12,10 @@ export const usePageInfo = () => {
   let title = pageTitle[currentPath] || pageTitle[PagePath.notFound];
 
   if (currentPath.startsWith(PagePath.catalogPage)) {
-    if (subcategorySlug) {
+    if (id) {
+      const product = catalogStore.productList.find(prod => prod.id === id);
+      title = product?.name || id || messages.notFoundPageTitle;
+    } else if (subcategorySlug) {
       const subCategory = catalogStore.categories.find(
         cat => cat.slug?.en === subcategorySlug
       );
@@ -23,9 +26,6 @@ export const usePageInfo = () => {
         cat => cat.slug?.en === categorySlug
       );
       title = category?.name?.en || categorySlug || messages.notFoundPageTitle;
-    } else if (id) {
-      const product = catalogStore.productList.find(prod => prod.id === id);
-      title = product?.name || id || messages.notFoundPageTitle;
     } else {
       title = messages.catalogPageTitle;
     }
