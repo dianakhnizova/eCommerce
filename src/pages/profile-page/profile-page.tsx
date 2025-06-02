@@ -15,7 +15,7 @@ export const ProfilePage = () => {
   const navigate = useNavigate();
   useEffect(() => {
     if (!userStore.isAuth) {
-      void navigate(PagePath.root);
+      void navigate(PagePath.loginPage);
     }
   }, [userStore.isAuth, navigate]);
   return (
