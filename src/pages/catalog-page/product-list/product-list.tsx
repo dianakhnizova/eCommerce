@@ -19,6 +19,8 @@ export const ProductList = observer(() => {
     searchName,
     selectedColors,
     selectedSizes,
+    priceFrom,
+    priceTo,
   } = catalogStore;
   const hasProducts = productList.length > 0;
 
@@ -32,6 +34,8 @@ export const ProductList = observer(() => {
     searchName,
     selectedColors,
     selectedSizes,
+    priceFrom,
+    priceTo,
   ]);
 
   useEffect(() => {

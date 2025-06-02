@@ -10,11 +10,8 @@ export const handleCategoryChange = (
 ) => {
   const selectedId = event.target.value;
   if (!selectedId) {
-    catalogStore.setCategories('');
     void navigate(PagePath.catalogPage);
   } else {
-    catalogStore.setCategories(selectedId);
-
     const category = catalogStore.categories.find(cat => cat.id === selectedId);
 
     const slug = category?.slug?.en || DEFAULT_VALUE.CATEGORY;

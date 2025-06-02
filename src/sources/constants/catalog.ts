@@ -6,6 +6,8 @@ const DEFAULT_TOTAL = 0;
 const DEFAULT_PRICE = '0.00';
 const CURRENCY_USD = '$';
 const MAX_PRODUCT_LIMIT = 500;
+const MIN_PRICE = 0;
+const MAX_PRICE = 200;
 
 export {
   LIMIT_PRODUCTS_ON_PAGE,
@@ -16,4 +18,6 @@ export {
   DEFAULT_TOTAL,
   CURRENCY_USD,
   MAX_PRODUCT_LIMIT,
+  MIN_PRICE,
+  MAX_PRICE,
 };

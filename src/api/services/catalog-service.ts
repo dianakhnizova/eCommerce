@@ -22,7 +22,9 @@ export const catalogService = {
     subcategoryId?: string,
     searchName?: string,
     selectedColors: string[] = [],
-    selectedSizes: string[] = []
+    selectedSizes: string[] = [],
+    priceFrom?: number,
+    priceTo?: number
   ): Promise<Catalog.ProductResponse> => {
     const params = new URLSearchParams({
       offset: offset.toString(),
@@ -56,6 +58,11 @@ export const catalogService = {
         .map(size => `"${size}"`)
         .join(',')}`;
       params.append('filter.query', sizeFilter);
+    }
+
+    if (priceFrom !== undefined && priceTo !== undefined) {
+      const priceFilter = `variants.price.centAmount:range (${priceFrom} to ${priceTo})`;
+      params.append('filter.query', priceFilter);
     }
 
     const response = await baseApi.get<Catalog.ProductResponse>(
