@@ -205,7 +205,7 @@ class UserStore {
   public changePassword = async (
     currentPassword: string,
     newPassword: string
-  ) => {
+  ): Promise<Customer.Profile | undefined> => {
     this.isPending = true;
     this.error = '';
     try {
@@ -217,6 +217,7 @@ class UserStore {
       );
       runInAction(() => {
         this.user = updated;
+        return updated;
       });
     } catch (error) {
       runInAction(() => {

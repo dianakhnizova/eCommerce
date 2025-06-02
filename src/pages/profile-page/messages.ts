@@ -4,4 +4,5 @@ export const messages = {
   save: 'Save',
   password: 'My password',
   change: 'Change',
+  successPasswordChange: 'Password successfully changed',
 };

@@ -46,6 +46,7 @@ export const GeneralInfo = observer(() => {
         <h2 className={styles.title}>{messages.generalInfo}</h2>
         {!isEditMode && (
           <Button
+            disabled={userStore.isPending}
             onClick={() => setIsEditMode(true)}
             className={styles.editBtn}
           >
@@ -72,7 +73,11 @@ export const GeneralInfo = observer(() => {
             );
           })}
 
-          {isEditMode && <Button type="submit">{messages.save}</Button>}
+          {isEditMode && (
+            <Button type="submit" disabled={userStore.isPending}>
+              {messages.save}
+            </Button>
+          )}
         </form>
       </FormProvider>
     </div>
