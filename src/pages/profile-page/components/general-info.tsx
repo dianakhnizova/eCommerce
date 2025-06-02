@@ -11,6 +11,7 @@ import {
   validationRules,
 } from '../../../sources/constants/register-fields';
 import { messages } from '../messages';
+import { RiEdit2Fill } from 'react-icons/ri';
 
 const GENERAL_FIELDS = FIELDS.filter(
   field => !['password', 'newPassword', 'currentPassword'].includes(field.name)
@@ -48,6 +49,7 @@ export const GeneralInfo = observer(() => {
             onClick={() => setIsEditMode(true)}
             className={styles.editBtn}
           >
+            <RiEdit2Fill size={20} />
             {messages.edit}
           </Button>
         )}

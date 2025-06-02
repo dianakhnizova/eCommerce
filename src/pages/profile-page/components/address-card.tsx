@@ -13,6 +13,8 @@ import { messages } from '../../../sources/messages';
 import { validationRules } from '../../../sources/constants/register-fields';
 import { AddressFields } from '../../register-page/address-fields/address-fields';
 import { userStore } from '../../../store/user-store';
+import classNames from 'classnames';
+import { RiDeleteBin5Fill, RiEditFill } from 'react-icons/ri';
 
 interface AddressCardProps {
   address: Customer.Address;
@@ -102,21 +104,49 @@ export const AddressCard: React.FC<AddressCardProps> = ({ address }) => {
   }, [isBilling, isShipping, isDefaultBilling, isDefaultShipping]);
 
   return (
-    <div className={styles.section}>
-      {isDefaultShipping && (
-        <div className={styles.badge}>{messages.badges.defaultShipping}</div>
+    <div className={styles.addressCard}>
+      <div className={styles.addressCardHeader}>
+        #{address.id}
+        <div className={styles.addressCardMenu}>
+          {!isEditMode && (
+            <Button onClick={onEdit} className={styles.editBtn}>
+              <RiEditFill size={20} />
+              {messages.buttons.edit}
+            </Button>
+          )}
+          <Button
+            onClick={onDelete}
+            disabled={userStore.isPending}
+            className={styles.editBtn}
+          >
+            <RiDeleteBin5Fill size={20} />
+            {messages.buttons.delete}
+          </Button>
+        </div>
+      </div>
+      {!isEditMode && (
+        <div className={styles.addressBadges}>
+          {isDefaultShipping && (
+            <div className={classNames(styles.badge, styles.badgeDefault)}>
+              {messages.badges.defaultShipping}
+            </div>
+          )}
+          {isDefaultBilling && (
+            <div className={classNames(styles.badge, styles.badgeDefault)}>
+              {messages.badges.defaultBilling}
+            </div>
+          )}
+          {isShipping && (
+            <div className={styles.badge}>{messages.badges.shipping}</div>
+          )}
+          {isBilling && (
+            <div className={styles.badge}>{messages.badges.billing}</div>
+          )}
+        </div>
       )}
-      {isDefaultBilling && (
-        <div className={styles.badge}>{messages.badges.defaultBilling}</div>
-      )}
-      {isShipping && (
-        <div className={styles.badge}>{messages.badges.shipping}</div>
-      )}
-      {isBilling && (
-        <div className={styles.badge}>{messages.badges.billing}</div>
-      )}
+
       <FormProvider {...form}>
-        <form onSubmit={form.handleSubmit(onSubmit)}>
+        <form onSubmit={form.handleSubmit(onSubmit)} className={styles.form}>
           <AddressFields
             cityField={CustomerFieldName.city}
             countryField={CustomerFieldName.country}
@@ -178,19 +208,6 @@ export const AddressCard: React.FC<AddressCardProps> = ({ address }) => {
           )}
         </form>
       </FormProvider>
-
-      {!isEditMode && (
-        <Button onClick={onEdit} className={styles.editBtn}>
-          {messages.buttons.edit}
-        </Button>
-      )}
-      <Button
-        onClick={onDelete}
-        disabled={userStore.isPending}
-        className={styles.editBtn}
-      >
-        {messages.buttons.delete}
-      </Button>
     </div>
   );
 };

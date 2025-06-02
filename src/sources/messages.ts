@@ -34,7 +34,7 @@ export const messages = {
   generalInfo: 'General info',
   buttons: {
     addToCart: 'Add To Cart',
-    addAddress: 'Add Address',
+    addAddress: 'New Address',
     save: 'Save',
     edit: 'Edit',
     delete: 'Delete',
