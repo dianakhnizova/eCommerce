@@ -18,4 +18,5 @@
 .input {
   border: 2px solid var(--clr-primary-300);
   padding: 8px 20px;
+  color: var(--clr-secondary-800);
 }
