@@ -25,7 +25,6 @@ export const prepareDetailedProduct = (
   );
   const color = getAttributeValue(attributes, AttributeType.COLOR);
   const size = getAttributeValue(attributes, AttributeType.SIZE);
-  console.log(color);
   return {
     id: data.id,
     name: data.name.en,
