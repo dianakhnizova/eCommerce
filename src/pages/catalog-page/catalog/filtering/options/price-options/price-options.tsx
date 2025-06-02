@@ -30,7 +30,7 @@ export const PriceOptions = observer(() => {
       <Slider
         range
         min={MIN_PRICE}
-        max={catalogStore.priceTo ? catalogStore.priceTo / 100 : MAX_PRICE}
+        max={MAX_PRICE}
         value={priceRange}
         onChange={onSliderChange}
         step={10}
