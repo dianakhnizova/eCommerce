@@ -1,6 +1,6 @@
 import { catalogStore } from '../../../../../../store/catalog-store';
 
-export const handleSizeChange = async (
+export const handleSizeChange = (
   event: React.ChangeEvent<HTMLInputElement>
 ) => {
   const selectedSize = event.target.value;
@@ -12,5 +12,4 @@ export const handleSizeChange = async (
     : catalogStore.selectedSizes.filter(size => size !== selectedSize);
 
   catalogStore.setSizes(newSizes);
-  await catalogStore.getProducts();
 };
