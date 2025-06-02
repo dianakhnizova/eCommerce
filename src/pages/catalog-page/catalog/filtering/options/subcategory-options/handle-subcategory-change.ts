@@ -10,8 +10,6 @@ export const handleSubcategoryChange = (
 ) => {
   const selectedId = event.target.value;
   if (!selectedId) {
-    catalogStore.setSubcategories('');
-
     const categorySlug = catalogStore.selectedCategoryId
       ? (catalogStore.categories.find(
           cat => cat.id === catalogStore.selectedCategoryId

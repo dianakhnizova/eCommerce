@@ -1,10 +1,9 @@
 import type { Crumb } from '../../components/bread-crumbs/links-bread-crumbs/types';
 import { catalogStore } from '../../store/catalog-store';
-import { useParams } from 'react-router-dom';
+import { useParams, useLocation } from 'react-router-dom';
 import { PagePath } from '../../router/enums';
 import { messages } from '../../sources/messages';
 import { usePageInfo } from './use-page-info';
-import { useLocation } from 'react-router-dom';
 import { pageTitle } from '../../router/page-title/page-title';
 
 export const useCrumbLinksList = () => {

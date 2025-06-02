@@ -50,6 +50,44 @@ export class CatalogStore {
     makeAutoObservable(this);
   }
 
+  public setSort = (field: SortField, order: SortOrder) => {
+    this.sortField = field;
+    this.sortOrder = order;
+  };
+
+  public setColors = (colors: string[]) => {
+    this.selectedColors = colors;
+  };
+
+  public setSizes = (sizes: string[]) => {
+    this.selectedSizes = sizes;
+  };
+
+  public setSearchName = (name: string) => {
+    this.searchName = name;
+  };
+
+  public setCategories = (categoryId: string) => {
+    this.selectedCategoryId = categoryId;
+    this.selectedSubcategoryId = '';
+    this.selectedColors = [];
+    this.selectedSizes = [];
+    this.searchName = '';
+    this.priceFrom = undefined;
+    this.priceTo = undefined;
+    this.sortField = SortField.Default;
+    this.sortOrder = SortOrder.Default;
+  };
+
+  public setSubcategories = (subcategoryId: string) => {
+    this.selectedSubcategoryId = subcategoryId;
+  };
+
+  public setPrice = (from?: number, to?: number) => {
+    this.priceFrom = from;
+    this.priceTo = to;
+  };
+
   public getProducts = async (productName?: string) => {
     this.isLoading = true;
     this.error = null;
@@ -90,37 +128,6 @@ export class CatalogStore {
         this.isLoading = false;
       });
     }
-  };
-
-  public setSort = (field: SortField, order: SortOrder) => {
-    this.sortField = field;
-    this.sortOrder = order;
-  };
-
-  public setColors = (colors: string[]) => {
-    this.selectedColors = colors;
-  };
-
-  public setSizes = (sizes: string[]) => {
-    this.selectedSizes = sizes;
-  };
-
-  public setSearchName = (name: string) => {
-    this.searchName = name;
-  };
-
-  public setCategories = (categoryId: string) => {
-    this.selectedCategoryId = categoryId;
-    this.selectedSubcategoryId = '';
-  };
-
-  public setSubcategories = (subcategoryId: string) => {
-    this.selectedSubcategoryId = subcategoryId;
-  };
-
-  public setPrice = (from?: number, to?: number) => {
-    this.priceFrom = from;
-    this.priceTo = to;
   };
 
   public getCategories = async () => {
@@ -234,6 +241,55 @@ export class CatalogStore {
       });
     }
   };
+
+  public async setCategoryFromUrl(
+    categorySlug?: string,
+    subcategorySlug?: string
+  ) {
+    this.isLoading = true;
+    this.error = null;
+
+    try {
+      await this.getCategories();
+
+      runInAction(() => {
+        this.selectedCategoryId = '';
+        this.selectedSubcategoryId = '';
+
+        if (categorySlug) {
+          const category = this.categories.find(
+            cat => cat.slug?.en === categorySlug && !cat.parent
+          );
+          if (category) {
+            this.selectedCategoryId = category.id;
+
+            if (subcategorySlug) {
+              const subcategory = this.categories.find(
+                sub =>
+                  sub.slug?.en === subcategorySlug &&
+                  sub.parent?.id === category.id
+              );
+              if (subcategory) {
+                this.selectedSubcategoryId = subcategory.id;
+              }
+            }
+          }
+        }
+      });
+
+      await this.getProducts();
+    } catch (error) {
+      runInAction(() => {
+        if (error instanceof AxiosError) {
+          this.error = error.response?.data?.message || messages.catalogError;
+        }
+      });
+    } finally {
+      runInAction(() => {
+        this.isLoading = false;
+      });
+    }
+  }
 }
 
 export const catalogStore = new CatalogStore();
