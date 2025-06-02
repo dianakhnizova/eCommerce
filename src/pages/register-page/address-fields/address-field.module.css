@@ -9,3 +9,7 @@
 .formInput::placeholder {
   color: var(--clr-primary-500);
 }
+
+.formInput:disabled {
+  background-color: transparent;
+}

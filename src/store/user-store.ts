@@ -1,4 +1,5 @@
 import { makeAutoObservable, runInAction } from 'mobx';
+
 import type { Customer } from '../sources/types/customer';
 import { customerService } from '../api/services/customer-service/customer-service';
 import { messages } from '../sources/messages';
@@ -6,6 +7,7 @@ import { TokenManager } from '../api/token-manager';
 import { LSKeys } from '../sources/enums/ls-keys';
 import { AxiosError } from 'axios';
 import { isApiError } from '../utils/is-api-error';
+import type { AddressUpdateActions } from '../api/services/customer-service/enums/update-actions';
 
 class UserStore {
   public isInitLoading = false;
@@ -19,38 +21,6 @@ class UserStore {
 
   public get isAuth() {
     return !!this.user?.id;
-  }
-
-  public get billingAddresses(): (Customer.Address & { isDefault: boolean })[] {
-    const {
-      addresses = [],
-      billingAddressIds = [],
-      defaultBillingAddressId,
-    } = this.user || {};
-
-    return addresses
-      .filter(({ id }) => id && billingAddressIds.includes(id))
-      .map(address => ({
-        ...address,
-        isDefault: address.id === defaultBillingAddressId,
-      }));
-  }
-
-  public get shippingAddresses(): (Customer.Address & {
-    isDefault: boolean;
-  })[] {
-    const {
-      addresses = [],
-      shippingAddressIds = [],
-      defaultShippingAddressId,
-    } = this.user || {};
-
-    return addresses
-      .filter(({ id }) => id && shippingAddressIds.includes(id))
-      .map(address => ({
-        ...address,
-        isDefault: address.id === defaultShippingAddressId,
-      }));
   }
 
   public resetError() {
@@ -71,7 +41,6 @@ class UserStore {
       if (userID) {
         const response = await customerService.getCustomerByID(userID);
         runInAction(() => {
-          console.log(response);
           this.user = response;
         });
       }
@@ -88,6 +57,68 @@ class UserStore {
     } finally {
       runInAction(() => {
         this.isInitLoading = false;
+      });
+    }
+  };
+
+  public addNewAddress = async (address: Customer.Address): Promise<void> => {
+    this.isPending = true;
+    this.error = '';
+    try {
+      if (!this.user) return;
+      const updated = await customerService.addNewAddress(this.user, address);
+      runInAction(() => {
+        this.user = updated;
+      });
+    } catch (error) {
+      runInAction(() => {
+        console.log(error);
+        if (isApiError(error)) {
+          this.error = error.response?.data?.message || messages.loginError;
+          return;
+        }
+        this.error =
+          error instanceof Error ? error.message : messages.loginError;
+      });
+    } finally {
+      runInAction(() => {
+        this.isPending = false;
+      });
+    }
+  };
+
+  public updateAddress = async (
+    address: Customer.Address,
+    actions: Partial<Record<AddressUpdateActions, boolean>>
+  ): Promise<void> => {
+    this.isPending = true;
+    this.error = '';
+    try {
+      if (!this.user) return;
+      if (!address.id) return;
+
+      const updated = await customerService.updateAddress(
+        this.user,
+        address,
+        actions
+      );
+
+      runInAction(() => {
+        this.user = updated;
+      });
+    } catch (error) {
+      runInAction(() => {
+        console.log(error);
+        if (isApiError(error)) {
+          this.error = error.response?.data?.message || messages.loginError;
+          return;
+        }
+        this.error =
+          error instanceof Error ? error.message : messages.loginError;
+      });
+    } finally {
+      runInAction(() => {
+        this.isPending = false;
       });
     }
   };
@@ -154,7 +185,6 @@ class UserStore {
       });
       runInAction(() => {
         this.user = updated;
-        console.log({ updated });
       });
     } catch (error) {
       runInAction(() => {
@@ -175,7 +205,7 @@ class UserStore {
   public changePassword = async (
     currentPassword: string,
     newPassword: string
-  ) => {
+  ): Promise<Customer.Profile | undefined> => {
     this.isPending = true;
     this.error = '';
     try {
@@ -186,8 +216,8 @@ class UserStore {
         newPassword
       );
       runInAction(() => {
-        console.log({ updated });
         this.user = updated;
+        return updated;
       });
     } catch (error) {
       runInAction(() => {

@@ -11,6 +11,7 @@ import {
   validationRules,
 } from '../../../sources/constants/register-fields';
 import { messages } from '../messages';
+import { RiEdit2Fill } from 'react-icons/ri';
 
 const CHANGE_PASS_FIELDS = FIELDS.filter(
   field => field.name === 'currentPassword' || field.name === 'newPassword'
@@ -20,12 +21,25 @@ export const ChangePassword = observer(() => {
   const form = useForm<RegisterFormValues>();
 
   const [isEditMode, setIsEditMode] = useState(false);
+  const [isSuccess, setIsSuccess] = useState(false);
 
   const onSubmit = async (data: RegisterFormValues) => {
+    setIsSuccess(false);
     if (!data.currentPassword || !data.newPassword) return;
-    console.log(data);
 
     await userStore.changePassword(data.currentPassword, data.newPassword);
+
+    if (userStore.user && !userStore.isPending) {
+      await userStore.login({
+        email: userStore.user.email,
+        password: data.newPassword,
+      });
+      setIsSuccess(true);
+    }
+    setTimeout(() => {
+      setIsSuccess(false);
+    }, 3000);
+
     if (!userStore.error) setIsEditMode(false);
     form.reset();
   };
@@ -39,6 +53,7 @@ export const ChangePassword = observer(() => {
             onClick={() => setIsEditMode(true)}
             className={styles.editBtn}
           >
+            <RiEdit2Fill size={20} />
             {messages.change}
           </Button>
         )}
@@ -63,11 +78,18 @@ export const ChangePassword = observer(() => {
             {userStore.error && (
               <div className={styles.error}>{userStore.error}</div>
             )}
-            <Button type="submit" className={styles.button}>
+            <Button
+              type="submit"
+              disabled={userStore.isPending}
+              className={styles.button}
+            >
               {messages.save}
             </Button>
           </form>
         </FormProvider>
+      )}
+      {isSuccess && (
+        <p className={styles.success}>{messages.successPasswordChange}</p>
       )}
     </div>
   );
