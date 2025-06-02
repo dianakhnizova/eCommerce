@@ -1,5 +1,7 @@
 .linkContainer {
   display: flex;
+  flex-wrap: wrap;
+  width: 100%;
   align-items: center;
   gap: 18px;
 }
