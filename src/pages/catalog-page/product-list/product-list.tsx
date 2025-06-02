@@ -7,7 +7,7 @@ import { useEffect } from 'react';
 import DEFAULT_IMAGE from '../../../../assets/images/placeholder.png';
 import { CURRENCY_USD } from '../../../sources/constants/catalog.ts';
 import { messages } from './messages.ts';
-import { DEFAULT_VALUE } from './enums.ts';
+import { DEFAULT_VALUE } from '../../../sources/enums/default-values.ts';
 
 export const ProductList = observer(() => {
   const {
@@ -17,6 +17,8 @@ export const ProductList = observer(() => {
     selectedCategoryId,
     selectedSubcategoryId,
     searchName,
+    selectedColors,
+    selectedSizes,
   } = catalogStore;
   const hasProducts = productList.length > 0;
 
@@ -28,7 +30,13 @@ export const ProductList = observer(() => {
     sortField,
     sortOrder,
     searchName,
+    selectedColors,
+    selectedSizes,
   ]);
+
+  useEffect(() => {
+    void catalogStore.getColorsAndSizes();
+  }, []);
 
   return (
     <>

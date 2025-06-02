@@ -11,12 +11,15 @@ import {
   DEFAULT_OFFSET,
   DEFAULT_TOTAL,
   LIMIT_PRODUCTS_ON_PAGE,
+  MAX_PRODUCT_LIMIT,
 } from '../sources/constants/catalog';
 import { preparePagination } from '../utils/prepare-pagination';
 import {
   SortField,
   SortOrder,
 } from '../pages/catalog-page/catalog-options/components/sorting-selects/enums';
+import { getAttributeValue } from '../utils/get-attribute-value';
+import { AttributeType } from '../sources/enums/attributes';
 
 export class CatalogStore {
   public productList: ProductCard[] = [];
@@ -34,6 +37,10 @@ export class CatalogStore {
   public sortField: SortField = SortField.Default;
   public sortOrder: SortOrder = SortOrder.Default;
   public searchName: string = '';
+  public selectedColors: string[] = [];
+  public colorsList: string[] = [];
+  public selectedSizes: string[] = [];
+  public sizeList: string[] = [];
 
   constructor() {
     makeAutoObservable(this);
@@ -57,7 +64,9 @@ export class CatalogStore {
         this.sortOrder,
         this.selectedCategoryId,
         this.selectedSubcategoryId,
-        this.searchName
+        this.searchName,
+        this.selectedColors,
+        this.selectedSizes
       );
 
       runInAction(() => {
@@ -102,13 +111,21 @@ export class CatalogStore {
     }
   };
 
-  public setCategories = (categoryId: string) => {
-    this.selectedCategoryId = categoryId;
-    this.selectedSubcategoryId = '';
+  public setColors = (colors: string[]) => {
+    this.selectedColors = colors;
+  };
+
+  public setSizes = (sizes: string[]) => {
+    this.selectedSizes = sizes;
   };
 
   public setSearchName = (name: string) => {
     this.searchName = name;
+  };
+
+  public setCategories = (categoryId: string) => {
+    this.selectedCategoryId = categoryId;
+    this.selectedSubcategoryId = '';
   };
 
   public getCategoryList = () => {
@@ -133,6 +150,50 @@ export class CatalogStore {
         label: subcategory.name?.en || subcategory.id,
         checked: this.selectedSubcategoryId === subcategory.id,
       }));
+  };
+
+  public getColorsAndSizes = async () => {
+    if (this.colorsList.length > 0) {
+      return;
+    }
+
+    this.error = null;
+    try {
+      const data = await catalogService.getProducts(0, MAX_PRODUCT_LIMIT, true);
+
+      runInAction(() => {
+        const colors: string[] = [];
+        const sizes: string[] = [];
+
+        data.results.forEach(product => {
+          if (product.masterVariant?.attributes) {
+            const color = getAttributeValue(
+              product.masterVariant.attributes,
+              AttributeType.COLOR
+            );
+            const size = getAttributeValue(
+              product.masterVariant.attributes,
+              AttributeType.SIZE
+            );
+
+            if (typeof color === 'string' && !colors.includes(color)) {
+              colors.push(color);
+            }
+            if (typeof size === 'string' && !sizes.includes(size)) {
+              sizes.push(size);
+            }
+          }
+        });
+        this.colorsList = colors.sort();
+        this.sizeList = sizes.sort();
+      });
+    } catch (error) {
+      runInAction(() => {
+        if (error instanceof AxiosError) {
+          this.error = error.response?.data?.message || messages.catalogError;
+        }
+      });
+    }
   };
 }
 
