@@ -1,5 +1,5 @@
 export const messages = {
-  mainPageTitle: 'Main Page',
+  homePageTitle: 'Home',
   profilePageTitle: 'My profile',
   aboutPageTitle: 'About Us',
   notFoundPageTitle: '404 Not Found',
@@ -11,7 +11,6 @@ export const messages = {
   catalogError: 'Catalog failed',
   registerError: 'Sign up failed',
   productError: 'Product loading error',
-  productPageTitle: 'Product details',
   noName: 'No name',
   noDescription: 'No description',
   placeholderJpg: 'placeholder.jpg',

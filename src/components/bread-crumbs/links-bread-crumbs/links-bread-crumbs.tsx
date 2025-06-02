@@ -1,17 +1,28 @@
 import styles from './links-bread-crumbs.module.css';
 import { NavLink } from 'react-router-dom';
-import { messages } from './messages';
-import { PagePath } from '../../../router/enums';
-import { usePageInfo } from '../../../utils/hooks/use-page-info';
+import { useCrumbLinksList } from '../../../utils/hooks/use-crumb-links-list';
 
 export const LinksBreadCrumbs = () => {
-  const { title } = usePageInfo();
+  const crumbs = useCrumbLinksList();
   return (
     <div className={styles.linkContainer}>
-      <NavLink to={PagePath.root} className={styles.link}>
-        {messages.homeLink}
-      </NavLink>
-      <span className={styles.activeLink}>{title}</span>
+      {crumbs.map((crumb, index) => {
+        const isLast = index === crumbs.length - 1;
+        return (
+          <span
+            key={crumb.to}
+            className={isLast ? styles.activeLink : styles.link}
+          >
+            {isLast ? (
+              crumb.label
+            ) : (
+              <NavLink to={crumb.to} className={styles.link}>
+                {crumb.label}
+              </NavLink>
+            )}
+          </span>
+        );
+      })}
     </div>
   );
 };
