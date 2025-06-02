@@ -7,8 +7,17 @@ import styles from './profile-page.module.css';
 import { GeneralInfo } from './components/general-info';
 import { ChangePassword } from './components/change-password';
 import { Addresses } from './components/addresses';
+import { PagePath } from '../../router/enums';
+import { useEffect } from 'react';
+import { useNavigate } from 'react-router';
 
 export const ProfilePage = () => {
+  const navigate = useNavigate();
+  useEffect(() => {
+    if (!userStore.isAuth) {
+      void navigate(PagePath.root);
+    }
+  }, [userStore.isAuth, navigate]);
   return (
     <>
       <Spinner isLoading={userStore.isPending} />;
