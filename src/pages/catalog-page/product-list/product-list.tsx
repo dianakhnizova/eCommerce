@@ -7,7 +7,7 @@ import { useEffect } from 'react';
 import DEFAULT_IMAGE from '../../../../assets/images/placeholder.png';
 import { CURRENCY_USD } from '../../../sources/constants/catalog.ts';
 import { messages } from './messages.ts';
-import { DEFAULT_VALUE } from './enums.ts';
+import { DEFAULT_VALUE } from '../../../sources/enums/default-values.ts';
 
 export const ProductList = observer(() => {
   const {

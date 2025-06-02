@@ -45,21 +45,17 @@ export const catalogService = {
     }
 
     if (selectedColors.length > 0) {
-      selectedColors.forEach(color => {
-        params.append(
-          'filter.query',
-          `variants.attributes.attribute-color:"${color}"`
-        );
-      });
+      const colorFilter = `variants.attributes.attribute-color:${selectedColors
+        .map(color => `"${color}"`)
+        .join(',')}`;
+      params.append('filter.query', colorFilter);
     }
 
     if (selectedSizes.length > 0) {
-      selectedSizes.forEach(size => {
-        params.append(
-          'filter.query',
-          `variants.attributes.attribute-size:"${size}"`
-        );
-      });
+      const sizeFilter = `variants.attributes.attribute-size:${selectedSizes
+        .map(size => `"${size}"`)
+        .join(',')}`;
+      params.append('filter.query', sizeFilter);
     }
 
     const response = await baseApi.get<Catalog.ProductResponse>(

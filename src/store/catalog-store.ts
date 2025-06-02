@@ -19,6 +19,7 @@ import {
   SortOrder,
 } from '../pages/catalog-page/catalog-options/components/sorting-selects/enums';
 import { getAttributeValue } from '../utils/get-attribute-value';
+import { AttributeType } from '../sources/enums/attributes';
 
 export class CatalogStore {
   public productList: ProductCard[] = [];
@@ -155,18 +156,7 @@ export class CatalogStore {
     this.isLoading = true;
     this.error = null;
     try {
-      const data = await catalogService.getProducts(
-        0,
-        MAX_PRODUCT_LIMIT,
-        true,
-        this.sortField,
-        this.sortOrder,
-        this.selectedCategoryId,
-        this.selectedSubcategoryId,
-        this.searchName,
-        this.selectedColors,
-        this.selectedSizes
-      );
+      const data = await catalogService.getProducts(0, MAX_PRODUCT_LIMIT, true);
 
       runInAction(() => {
         const colors: string[] = [];
@@ -176,11 +166,11 @@ export class CatalogStore {
           if (product.masterVariant?.attributes) {
             const color = getAttributeValue(
               product.masterVariant.attributes,
-              'attribute-color'
+              AttributeType.COLOR
             );
             const size = getAttributeValue(
               product.masterVariant.attributes,
-              'attribute-size'
+              AttributeType.SIZE
             );
 
             if (typeof color === 'string' && !colors.includes(color)) {
@@ -193,9 +183,6 @@ export class CatalogStore {
         });
         this.colorsList = colors.sort();
         this.sizeList = sizes.sort();
-
-        this.productList = data.results.map(prepareProductCard);
-        this.pagination = preparePagination(data);
       });
     } catch (error) {
       runInAction(() => {

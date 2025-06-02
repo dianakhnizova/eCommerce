@@ -1,6 +1,6 @@
-import { DEFAULT_VALUE } from '../pages/catalog-page/product-list/enums';
 import type { ProductCard } from '../pages/catalog-page/product-list/types';
 import { DEFAULT_PRICE } from '../sources/constants/catalog';
+import { DEFAULT_VALUE } from '../sources/enums/default-values';
 import { messages } from '../sources/messages';
 import type { Catalog } from '../sources/types/catalog';
 import { catalogStore } from '../store/catalog-store';

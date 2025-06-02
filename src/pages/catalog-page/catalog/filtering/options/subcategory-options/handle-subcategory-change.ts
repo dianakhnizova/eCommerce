@@ -2,7 +2,7 @@ import type { NavigateFunction } from 'react-router-dom';
 import { catalogStore } from '../../../../../../store/catalog-store';
 import { PagePath } from '../../../../../../router/enums';
 import { generatePath } from 'react-router-dom';
-import { DEFAULT_VALUE } from './enums';
+import { DEFAULT_VALUE } from '../../../../../../sources/enums/default-values';
 
 export const handleSubcategoryChange = (
   event: React.ChangeEvent<HTMLSelectElement>,
@@ -11,8 +11,16 @@ export const handleSubcategoryChange = (
   const selectedId = event.target.value;
   if (!selectedId) {
     catalogStore.setSubcategories('');
-    const categorySlug = catalogStore.selectedCategoryId;
-    void navigate(generatePath(PagePath.catalogPage, { categorySlug }));
+
+    const categorySlug = catalogStore.selectedCategoryId
+      ? catalogStore.categories.find(
+          cat => cat.id === catalogStore.selectedCategoryId
+        )?.slug?.en
+      : DEFAULT_VALUE.CATEGORY;
+
+    void navigate(
+      generatePath(PagePath.catalogPage, { categorySlug: categorySlug })
+    );
   } else {
     catalogStore.setSubcategories(selectedId);
 
