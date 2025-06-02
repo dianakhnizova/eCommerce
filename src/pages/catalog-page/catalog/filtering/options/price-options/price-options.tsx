@@ -11,6 +11,12 @@ import {
   MIN_PRICE,
 } from '../../../../../../sources/constants/catalog';
 
+const onSliderChangeComplete = (value: number | number[]) => {
+  if (Array.isArray(value)) {
+    handlePriceChange(value);
+  }
+};
+
 export const PriceOptions = observer(() => {
   const [priceRange, setPrice] = useState<[number, number]>([
     catalogStore.priceFrom ? catalogStore.priceFrom / 100 : MIN_PRICE,
@@ -20,7 +26,6 @@ export const PriceOptions = observer(() => {
   const onSliderChange = (value: number | number[]) => {
     if (Array.isArray(value)) {
       setPrice([value[0], value[1]]);
-      handlePriceChange(value);
     }
   };
 
@@ -30,9 +35,10 @@ export const PriceOptions = observer(() => {
       <Slider
         range
         min={MIN_PRICE}
-        max={catalogStore.priceTo ? catalogStore.priceTo / 100 : MAX_PRICE}
+        max={MAX_PRICE}
         value={priceRange}
         onChange={onSliderChange}
+        onChangeComplete={onSliderChangeComplete}
         step={10}
       />
       <div className={styles.priceLabels}>
