@@ -1,12 +1,30 @@
 import { OptionForm } from './options/option-form';
 import { messages } from './messages';
 import styles from './sidebar.module.css';
+import { useToggleModal } from '../../../../utils/hooks/use-toggle-modal';
+import classNames from 'classnames';
+import { Button } from '../../../../components/button/button';
+import { SvgBuilder } from '../../../../components/svg-builder/svg-builder';
+import { IconType } from '../../../../components/svg-builder/enums';
 
 export const SideBar = () => {
+  const { isMenuOpen, toggleMenu, closeMenu } = useToggleModal();
+
   return (
-    <div className={styles.container}>
-      <h2 className={styles.mainTitle}>{messages.titleSideBar}</h2>
-      <OptionForm />
-    </div>
+    <>
+      {isMenuOpen && <div className={styles.overlay} onClick={closeMenu} />}
+      <Button className={styles.burgerMenu} onClick={toggleMenu}>
+        <SvgBuilder iconType={IconType.Filter} className={styles.burger} />
+      </Button>
+
+      <div
+        className={classNames(styles.container, {
+          [styles.active]: isMenuOpen,
+        })}
+      >
+        <h2 className={styles.mainTitle}>{messages.titleSideBar}</h2>
+        <OptionForm />
+      </div>
+    </>
   );
 };
