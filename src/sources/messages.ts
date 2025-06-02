@@ -24,7 +24,12 @@ export const messages = {
   birth: 'Birth',
   billingAddresses: 'Billing addresses',
   shippingAddresses: 'Shipping addresses',
-  default: 'Default',
+  badges: {
+    defaultBilling: 'Default Billing',
+    defaultShipping: 'Default Shipping',
+    billing: 'Billing',
+    shipping: 'Shipping',
+  },
   noData: '-',
   noAddresses: 'No addresses added.',
   generalInfo: 'General info',
@@ -42,6 +47,6 @@ export const messages = {
   streetName: 'Street name',
   checkboxDefaultAddress: 'Default address',
   checkboxBillingAddress: 'Billing address',
-  checkboxShippingAddress: 'Billing address',
+  checkboxShippingAddress: 'Shipping address',
   emptyValue: '',
 };

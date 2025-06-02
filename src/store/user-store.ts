@@ -1,4 +1,5 @@
 import { makeAutoObservable, runInAction } from 'mobx';
+
 import type { Customer } from '../sources/types/customer';
 import { customerService } from '../api/services/customer-service/customer-service';
 import { messages } from '../sources/messages';
@@ -6,6 +7,7 @@ import { TokenManager } from '../api/token-manager';
 import { LSKeys } from '../sources/enums/ls-keys';
 import { AxiosError } from 'axios';
 import { isApiError } from '../utils/is-api-error';
+import type { AddressUpdateActions } from '../api/services/customer-service/enums/update-actions';
 
 class UserStore {
   public isInitLoading = false;
@@ -23,12 +25,16 @@ class UserStore {
 
   public get billingAddresses(): Customer.Address[] {
     const { addresses = [], billingAddressIds = [] } = this.user || {};
-    return addresses.filter(({ id }) => id && billingAddressIds.includes(id));
+    return (
+      addresses.filter(({ id }) => id && billingAddressIds.includes(id)) || []
+    );
   }
 
   public get shippingAddresses(): Customer.Address[] {
     const { addresses = [], shippingAddressIds = [] } = this.user || {};
-    return addresses.filter(({ id }) => id && shippingAddressIds.includes(id));
+    return (
+      addresses.filter(({ id }) => id && shippingAddressIds.includes(id)) || []
+    );
   }
 
   public resetError() {
@@ -70,20 +76,12 @@ class UserStore {
     }
   };
 
-  public updateShippingAddress = async (
-    address: Customer.Address,
-    isDefault: boolean
-  ): Promise<void> => {
+  public addNewAddress = async (address: Customer.Address): Promise<void> => {
     this.isPending = true;
     this.error = '';
     try {
       if (!this.user) return;
-      if (!address.id) return;
-      if (isDefault) {
-        await customerService.setDefaultShippingAddress(this.user, address.id);
-      }
-      const updated = await customerService.updateAddress(this.user, address);
-
+      const updated = await customerService.addNewAddress(this.user, address);
       runInAction(() => {
         this.user = updated;
         console.log({ updated });
@@ -105,19 +103,21 @@ class UserStore {
     }
   };
 
-  public updateBillingAddress = async (
+  public updateAddress = async (
     address: Customer.Address,
-    isDefault: boolean
+    actions: Record<AddressUpdateActions, boolean>
   ): Promise<void> => {
     this.isPending = true;
     this.error = '';
     try {
       if (!this.user) return;
       if (!address.id) return;
-      if (isDefault) {
-        await customerService.setDefaultBillingAddress(this.user, address.id);
-      }
-      const updated = await customerService.updateAddress(this.user, address);
+
+      const updated = await customerService.updateAddress(
+        this.user,
+        address,
+        actions
+      );
 
       runInAction(() => {
         this.user = updated;
