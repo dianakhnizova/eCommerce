@@ -23,20 +23,6 @@ class UserStore {
     return !!this.user?.id;
   }
 
-  public get billingAddresses(): Customer.Address[] {
-    const { addresses = [], billingAddressIds = [] } = this.user || {};
-    return (
-      addresses.filter(({ id }) => id && billingAddressIds.includes(id)) || []
-    );
-  }
-
-  public get shippingAddresses(): Customer.Address[] {
-    const { addresses = [], shippingAddressIds = [] } = this.user || {};
-    return (
-      addresses.filter(({ id }) => id && shippingAddressIds.includes(id)) || []
-    );
-  }
-
   public resetError() {
     this.error = '';
   }
@@ -55,7 +41,6 @@ class UserStore {
       if (userID) {
         const response = await customerService.getCustomerByID(userID);
         runInAction(() => {
-          console.log(response);
           this.user = response;
         });
       }

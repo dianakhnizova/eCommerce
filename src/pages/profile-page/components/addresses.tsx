@@ -1,17 +1,20 @@
 import { observer } from 'mobx-react-lite';
 import { messages } from '../../../sources/messages';
 import { userStore } from '../../../store/user-store';
-import { AddressCard } from './address-card/address-card';
+import { AddressCard } from './address-card';
 import styles from '../profile-page.module.css';
 import { Button } from '../../../components/button/button';
+
+const UNDEFINED_COUNTRY = 'UNDEFINED';
 
 export const Addresses: React.FC = observer(() => {
   const allAddresses = userStore.user?.addresses || [];
 
   const handleNewAddress = async () => {
+    const firstCountry = userStore.user?.addresses?.[0]?.country;
     await userStore.addNewAddress({
       city: messages.emptyValue,
-      country: 'UNDEFINED',
+      country: firstCountry || UNDEFINED_COUNTRY,
       streetName: messages.emptyValue,
       postalCode: messages.emptyValue,
     });
@@ -20,15 +23,14 @@ export const Addresses: React.FC = observer(() => {
   return (
     <>
       <h2>{messages.addresses}</h2>
+      <Button
+        onClick={handleNewAddress}
+        disabled={userStore.isPending}
+        className={styles.editBtn}
+      >
+        {messages.buttons.addAddress}
+      </Button>
       <div className={styles.addressesContainer}>
-        <Button
-          onClick={handleNewAddress}
-          disabled={userStore.isPending}
-          className={styles.editBtn}
-        >
-          {messages.buttons.addAddress}
-        </Button>
-
         {allAddresses.length > 0 ? (
           allAddresses.map(address => {
             return <AddressCard key={address.id} address={address} />;

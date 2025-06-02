@@ -1,18 +1,18 @@
 import { FormProvider, useForm } from 'react-hook-form';
 
-import { Checkbox } from '../../../../components/checkbox/checkbox';
-import type { Customer } from '../../../../sources/types/customer';
-import styles from '../../profile-page.module.css';
+import { Checkbox } from '../../../components/checkbox/checkbox';
+import type { Customer } from '../../../sources/types/customer';
+import styles from '../profile-page.module.css';
 import {
   CustomerFieldName,
   type RegisterFormValues,
-} from '../../../../sources/types/register';
+} from '../../../sources/types/register';
 import { useEffect, useState } from 'react';
-import { Button } from '../../../../components/button/button';
-import { messages } from '../../../../sources/messages';
-import { validationRules } from '../../../../sources/constants/register-fields';
-import { AddressFields } from '../../../register-page/address-fields/address-fields';
-import { userStore } from '../../../../store/user-store';
+import { Button } from '../../../components/button/button';
+import { messages } from '../../../sources/messages';
+import { validationRules } from '../../../sources/constants/register-fields';
+import { AddressFields } from '../../register-page/address-fields/address-fields';
+import { userStore } from '../../../store/user-store';
 
 interface AddressCardProps {
   address: Customer.Address;
