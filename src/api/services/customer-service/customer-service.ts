@@ -124,7 +124,7 @@ export const customerService = {
   updateAddress: async (
     customer: Customer.Profile,
     address: Customer.Address,
-    actions: Record<AddressUpdateActions, boolean>
+    actions: Partial<Record<AddressUpdateActions, boolean>>
   ): Promise<Customer.Profile> => {
     if (!address.id) {
       throw new Error('Address ID is required for updating address');

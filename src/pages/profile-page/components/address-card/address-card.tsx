@@ -43,7 +43,6 @@ export const AddressCard: React.FC<AddressCardProps> = ({ address }) => {
 
     await userStore.updateAddress(draft, {
       changeAddress: true,
-      addAddress: false,
       addBillingAddressId: checkboxes.billing,
       addShippingAddressId: checkboxes.shipping,
 
@@ -56,14 +55,18 @@ export const AddressCard: React.FC<AddressCardProps> = ({ address }) => {
 
       removeShippingAddressId: !checkboxes.shipping && isShipping,
       removeBillingAddressId: !checkboxes.billing && isBilling,
-
-      removeAddress: false,
     });
     setIsEditMode(false);
   };
 
   const onEdit = () => {
     setIsEditMode(true);
+  };
+
+  const onDelete = async () => {
+    await userStore.updateAddress(address, {
+      removeAddress: true,
+    });
   };
 
   const isDefaultShipping =
@@ -162,7 +165,11 @@ export const AddressCard: React.FC<AddressCardProps> = ({ address }) => {
               }));
             }}
           />
-          {isEditMode && <Button type="submit">{messages.buttons.save}</Button>}
+          {isEditMode && (
+            <Button type="submit" disabled={userStore.isPending}>
+              {messages.buttons.save}
+            </Button>
+          )}
         </form>
       </FormProvider>
 
@@ -171,6 +178,13 @@ export const AddressCard: React.FC<AddressCardProps> = ({ address }) => {
           {messages.buttons.edit}
         </Button>
       )}
+      <Button
+        onClick={onDelete}
+        disabled={userStore.isPending}
+        className={styles.editBtn}
+      >
+        {messages.buttons.delete}
+      </Button>
     </div>
   );
 };

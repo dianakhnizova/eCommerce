@@ -105,7 +105,7 @@ class UserStore {
 
   public updateAddress = async (
     address: Customer.Address,
-    actions: Record<AddressUpdateActions, boolean>
+    actions: Partial<Record<AddressUpdateActions, boolean>>
   ): Promise<void> => {
     this.isPending = true;
     this.error = '';

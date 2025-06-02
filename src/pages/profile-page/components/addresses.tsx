@@ -21,7 +21,11 @@ export const Addresses: React.FC = observer(() => {
     <>
       <h2>Addresses</h2>
       <div className={styles.addressesContainer}>
-        <Button onClick={handleNewAddress} className={styles.editBtn}>
+        <Button
+          onClick={handleNewAddress}
+          disabled={userStore.isPending}
+          className={styles.editBtn}
+        >
           {messages.buttons.addAddress}
         </Button>
 
