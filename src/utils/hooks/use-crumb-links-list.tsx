@@ -5,6 +5,7 @@ import { PagePath } from '../../router/enums';
 import { messages } from '../../sources/messages';
 import { usePageInfo } from './use-page-info';
 import { pageTitle } from '../../router/page-title/page-title';
+import { productStore } from '../../store/product-store';
 
 export const useCrumbLinksList = () => {
   const crumbs: Crumb[] = [];
@@ -42,8 +43,8 @@ export const useCrumbLinksList = () => {
     }
 
     if (id) {
-      const product = catalogStore.productList.find(prod => prod.id === id);
-      const productName = product?.name || id || messages.notFoundPageTitle;
+      const productName =
+        productStore.product?.name || id || messages.notFoundPageTitle;
       crumbs.push({
         to: `${PagePath.catalogPage}/${categorySlug}/${subcategorySlug}/${id}`,
         label: productName,

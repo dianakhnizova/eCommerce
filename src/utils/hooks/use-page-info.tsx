@@ -4,6 +4,7 @@ import { PagePath } from '../../router/enums';
 import { useParams } from 'react-router-dom';
 import { catalogStore } from '../../store/catalog-store';
 import { messages } from '../../sources/messages';
+import { productStore } from '../../store/product-store';
 
 export const usePageInfo = () => {
   const { categorySlug, subcategorySlug, id } = useParams();
@@ -13,8 +14,8 @@ export const usePageInfo = () => {
 
   if (currentPath.startsWith(PagePath.catalogPage)) {
     if (id) {
-      const product = catalogStore.productList.find(prod => prod.id === id);
-      title = product?.name || id || messages.notFoundPageTitle;
+      const productName = productStore.product?.name;
+      title = productName || id || messages.notFoundPageTitle;
     } else if (subcategorySlug) {
       const subCategory = catalogStore.categories.find(
         cat => cat.slug?.en === subcategorySlug
