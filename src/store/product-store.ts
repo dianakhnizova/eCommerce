@@ -4,6 +4,7 @@ import { AxiosError } from 'axios';
 import { productService } from '../api/services/product-service.ts';
 import { prepareDetailedProduct } from '../utils/prepare-detailed-product.ts';
 import type { Catalog } from '../sources/types/catalog';
+import { catalogStore } from './catalog-store.ts';
 
 export class ProductStore {
   public product: Catalog.DetailedProduct | null;
@@ -20,6 +21,8 @@ export class ProductStore {
     this.error = null;
     this.product = null;
     try {
+      await catalogStore.getCategories();
+
       const data = await productService.getProductByID(id);
       runInAction(() => {
         this.product = prepareDetailedProduct(data);

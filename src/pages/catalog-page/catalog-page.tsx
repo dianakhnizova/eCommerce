@@ -10,15 +10,17 @@ import { useParams } from 'react-router-dom';
 import { useEffect } from 'react';
 
 export const CatalogPage = observer(() => {
-  const { isLoading } = catalogStore;
+  const { isLoading, categories } = catalogStore;
   const { categorySlug, subcategorySlug } = useParams<{
     categorySlug?: string;
     subcategorySlug?: string;
   }>();
 
   useEffect(() => {
-    void catalogStore.setCategoryFromUrl(categorySlug, subcategorySlug);
-  }, [categorySlug, subcategorySlug]);
+    if (categories.length > 0) {
+      void catalogStore.setCategoryFromUrl(categorySlug, subcategorySlug);
+    }
+  }, [categorySlug, subcategorySlug, categories]);
 
   return (
     <>

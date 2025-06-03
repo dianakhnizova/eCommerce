@@ -242,52 +242,27 @@ export class CatalogStore {
     }
   };
 
-  public async setCategoryFromUrl(
-    categorySlug?: string,
-    subcategorySlug?: string
-  ) {
-    this.isLoading = true;
-    this.error = null;
+  public setCategoryFromUrl(categorySlug?: string, subcategorySlug?: string) {
+    this.selectedCategoryId = '';
+    this.selectedSubcategoryId = '';
 
-    try {
-      await this.getCategories();
+    if (categorySlug) {
+      const category = this.categories.find(
+        cat => cat.slug?.en === categorySlug && !cat.parent
+      );
+      if (category) {
+        this.selectedCategoryId = category.id;
 
-      runInAction(() => {
-        this.selectedCategoryId = '';
-        this.selectedSubcategoryId = '';
-
-        if (categorySlug) {
-          const category = this.categories.find(
-            cat => cat.slug?.en === categorySlug && !cat.parent
+        if (subcategorySlug) {
+          const subcategory = this.categories.find(
+            sub =>
+              sub.slug?.en === subcategorySlug && sub.parent?.id === category.id
           );
-          if (category) {
-            this.selectedCategoryId = category.id;
-
-            if (subcategorySlug) {
-              const subcategory = this.categories.find(
-                sub =>
-                  sub.slug?.en === subcategorySlug &&
-                  sub.parent?.id === category.id
-              );
-              if (subcategory) {
-                this.selectedSubcategoryId = subcategory.id;
-              }
-            }
+          if (subcategory) {
+            this.selectedSubcategoryId = subcategory.id;
           }
         }
-      });
-
-      await this.getProducts();
-    } catch (error) {
-      runInAction(() => {
-        if (error instanceof AxiosError) {
-          this.error = error.response?.data?.message || messages.catalogError;
-        }
-      });
-    } finally {
-      runInAction(() => {
-        this.isLoading = false;
-      });
+      }
     }
   }
 }
