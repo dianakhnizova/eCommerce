@@ -20,10 +20,8 @@ export const handleSubcategoryChange = (
       generatePath(PagePath.categoryPage, { categorySlug: categorySlug })
     );
   } else {
-    catalogStore.setSubcategories(selectedId);
-
     const subCategory = catalogStore.categories.find(
-      cat => cat.id === catalogStore.selectedSubcategoryId
+      cat => cat.id === selectedId
     );
 
     const parentCategory = catalogStore.categories.find(

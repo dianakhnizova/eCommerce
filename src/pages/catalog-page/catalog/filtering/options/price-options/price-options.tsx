@@ -39,7 +39,7 @@ export const PriceOptions = observer(() => {
         value={priceRange}
         onChange={onSliderChange}
         onChangeComplete={onSliderChangeComplete}
-        step={10}
+        step={5}
       />
       <div className={styles.priceLabels}>
         <span>${priceRange[0]}</span>
