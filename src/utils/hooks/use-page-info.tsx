@@ -20,8 +20,18 @@ export const usePageInfo = () => {
       const subCategory = catalogStore.categories.find(
         cat => cat.slug?.en === subcategorySlug
       );
-      title =
-        subCategory?.name?.en || subcategorySlug || messages.notFoundPageTitle;
+      if (subCategory) {
+        title =
+          subCategory?.name?.en ||
+          subcategorySlug ||
+          messages.notFoundPageTitle;
+      } else {
+        const category = catalogStore.categories.find(
+          cat => cat.slug?.en === categorySlug
+        );
+        title =
+          category?.name?.en || categorySlug || messages.notFoundPageTitle;
+      }
     } else if (categorySlug) {
       const category = catalogStore.categories.find(
         cat => cat.slug?.en === categorySlug

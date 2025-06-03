@@ -35,11 +35,13 @@ export const useCrumbLinksList = () => {
       const subCategory = catalogStore.categories.find(
         cat => cat.slug?.en === subcategorySlug
       );
-      const subcategoryName = subCategory?.name?.en || subcategorySlug;
-      crumbs.push({
-        to: `${PagePath.catalogPage}/${categorySlug}/${subcategorySlug}`,
-        label: subcategoryName,
-      });
+      if (subCategory) {
+        const subcategoryName = subCategory?.name?.en || subcategorySlug;
+        crumbs.push({
+          to: `${PagePath.catalogPage}/${categorySlug}/${subcategorySlug}`,
+          label: subcategoryName,
+        });
+      }
     }
 
     if (id) {
