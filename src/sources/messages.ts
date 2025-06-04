@@ -8,6 +8,8 @@ export const messages = {
   cartPageTitle: 'Cart',
   catalogPageTitle: 'Catalog',
   loginError: 'Login failed',
+  updateAddressError: 'Update address failed',
+  updateProfileError: 'Update profile failed',
   catalogError: 'Catalog failed',
   registerError: 'Sign up failed',
   productError: 'Product loading error',
