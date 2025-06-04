@@ -27,15 +27,6 @@ export const AddressCard: React.FC<AddressCardProps> = ({
 }) => {
   const form = useForm<RegisterFormValues>();
 
-  useEffect(() => {
-    form.reset({
-      [CustomerFieldName.country]: address.country,
-      [CustomerFieldName.city]: address.city,
-      [CustomerFieldName.street]: address.streetName,
-      [CustomerFieldName.postCode]: address.postalCode,
-    });
-  }, [address, form]);
-
   const [isEditMode, setIsEditMode] = useState<boolean>(isEdit || false);
 
   const onSubmit = async (data: RegisterFormValues) => {
