@@ -18,21 +18,16 @@ import { RiDeleteBin5Fill, RiEditFill } from 'react-icons/ri';
 
 interface AddressCardProps {
   address: Customer.Address;
+  isEdit?: boolean;
 }
 
-export const AddressCard: React.FC<AddressCardProps> = ({ address }) => {
+export const AddressCard: React.FC<AddressCardProps> = ({
+  address,
+  isEdit = false,
+}) => {
   const form = useForm<RegisterFormValues>();
 
-  useEffect(() => {
-    form.reset({
-      [CustomerFieldName.country]: address.country,
-      [CustomerFieldName.city]: address.city,
-      [CustomerFieldName.street]: address.streetName,
-      [CustomerFieldName.postCode]: address.postalCode,
-    });
-  }, [address, form]);
-
-  const [isEditMode, setIsEditMode] = useState<boolean>(false);
+  const [isEditMode, setIsEditMode] = useState<boolean>(isEdit || false);
 
   const onSubmit = async (data: RegisterFormValues) => {
     const draft = {
@@ -109,19 +104,25 @@ export const AddressCard: React.FC<AddressCardProps> = ({ address }) => {
         #{address.id}
         <div className={styles.addressCardMenu}>
           {!isEditMode && (
-            <Button onClick={onEdit} className={styles.editBtn}>
+            <Button
+              onClick={onEdit}
+              className={styles.editBtn}
+              disabled={userStore.isPending}
+            >
               <RiEditFill size={20} />
               {messages.buttons.edit}
             </Button>
           )}
-          <Button
-            onClick={onDelete}
-            disabled={userStore.isPending}
-            className={styles.editBtn}
-          >
-            <RiDeleteBin5Fill size={20} />
-            {messages.buttons.delete}
-          </Button>
+          {!isEditMode && (
+            <Button
+              onClick={onDelete}
+              disabled={userStore.isPending}
+              className={styles.editBtn}
+            >
+              <RiDeleteBin5Fill size={20} />
+              {messages.buttons.delete}
+            </Button>
+          )}
         </div>
       </div>
       {!isEditMode && (
