@@ -5,4 +5,7 @@ export const messages = {
   password: 'My password',
   change: 'Change',
   successPasswordChange: 'Password successfully changed',
+  successAddressAdded: 'Address successfully added',
+  successGeneralInfoUpdate: 'General information successfully changed',
+  emptyValue: '',
 };
