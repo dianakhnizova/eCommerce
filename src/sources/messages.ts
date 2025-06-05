@@ -6,6 +6,7 @@ export const messages = {
   loginPageTitle: 'Sign In',
   registerPageTitle: 'Sign Up',
   cartPageTitle: 'Cart',
+  successfulAddressUpdate: 'Address updated successfully',
   catalogPageTitle: 'Catalog',
   loginError: 'Login failed',
   updateAddressError: 'Update address failed',

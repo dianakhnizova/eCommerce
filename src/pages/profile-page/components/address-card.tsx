@@ -25,6 +25,7 @@ export const AddressCard: React.FC<AddressCardProps> = ({
   address,
   isEdit = false,
 }) => {
+  const [isSuccess, setIsSuccess] = useState(false);
   const form = useForm<RegisterFormValues>({
     defaultValues: {
       city: address.city || messages.emptyValue,
@@ -45,21 +46,29 @@ export const AddressCard: React.FC<AddressCardProps> = ({
       streetName: data.street,
     };
 
-    await userStore.updateAddress(draft, {
-      changeAddress: true,
-      addBillingAddressId: checkboxes.billing,
-      addShippingAddressId: checkboxes.shipping,
+    await userStore
+      .updateAddress(draft, {
+        changeAddress: true,
+        addBillingAddressId: checkboxes.billing,
+        addShippingAddressId: checkboxes.shipping,
 
-      setDefaultBillingAddress: checkboxes.defaultBilling,
-      setDefaultShippingAddress: checkboxes.defaultShipping,
-      unsetDefaultBillingAddress:
-        !checkboxes.defaultBilling && isDefaultBilling,
-      unsetDefaultShippingAddress:
-        !checkboxes.defaultShipping && isDefaultShipping,
+        setDefaultBillingAddress: checkboxes.defaultBilling,
+        setDefaultShippingAddress: checkboxes.defaultShipping,
+        unsetDefaultBillingAddress:
+          !checkboxes.defaultBilling && isDefaultBilling,
+        unsetDefaultShippingAddress:
+          !checkboxes.defaultShipping && isDefaultShipping,
 
-      removeShippingAddressId: !checkboxes.shipping && isShipping,
-      removeBillingAddressId: !checkboxes.billing && isBilling,
-    });
+        removeShippingAddressId: !checkboxes.shipping && isShipping,
+        removeBillingAddressId: !checkboxes.billing && isBilling,
+      })
+      .then(() => {
+        setIsSuccess(true);
+        setTimeout(() => {
+          setIsSuccess(false);
+          setIsEditMode(false);
+        }, 3000);
+      });
     setIsEditMode(false);
   };
 
@@ -216,6 +225,9 @@ export const AddressCard: React.FC<AddressCardProps> = ({
           )}
         </form>
       </FormProvider>
+      {isSuccess && (
+        <p className={styles.success}>{messages.successfulAddressUpdate}</p>
+      )}
     </div>
   );
 };
