@@ -1,0 +1,44 @@
+.productInfo {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  text-align: left;
+  align-items: center;
+  padding-left: 16px;
+}
+
+.productName {
+  text-align: left;
+}
+
+.pricesWrapper {
+  display: flex;
+  gap: 10px;
+}
+
+.price {
+  font-size: 16px;
+  text-decoration: line-through;
+}
+
+.discountPrice {
+  color: var(--clr-accent-1);
+}
+
+.description {
+  color: var(--clr-accent-11);
+  font-size: 12px;
+  line-height: 16px;
+  width: 300px;
+}
+
+@media (width <= 870px) {
+  .productInfo {
+    padding: 0;
+    align-items: center;
+  }
+
+  .productName {
+    padding-top: 0;
+  }
+}

@@ -1,0 +1,27 @@
+.arrowNext {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+}
+
+.arrowPrev {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+}
+
+.icon {
+  color: var(--clr-secondary-500);
+  font-size: 16px;
+}
+
+@media (width <= 870px) {
+  .arrowNext {
+    padding-right: 40px;
+  }
+
+  .arrowPrev {
+    padding-left: 20px;
+    z-index: 1111;
+  }
+}

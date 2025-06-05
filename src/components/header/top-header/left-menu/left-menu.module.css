@@ -13,6 +13,17 @@
   &.bottomLink {
     color: var(--clr-black);
   }
+
+  > a {
+    text-decoration: none;
+    color: inherit;
+    transition: color 0.2s ease-in-out;
+
+    &:hover {
+      color: var(--clr-link-hover);
+      text-decoration: underline;
+    }
+  }
 }
 
 .userName {

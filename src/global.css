@@ -38,6 +38,11 @@ a:active {
   --clr-accent-6: #ffcd38;
   --clr-accent-7: #08d15f;
   --clr-accent-8: #f872ac;
+  --clr-accent-9: #e7e6ef;
+  --clr-accent-10: #8a8fb9;
+  --clr-accent-11: #a9acc6;
+  --clr-accent-13: #7e81a2;
+  --clr-accent-12: #ffdbf1;
   --clr-disabled-100: #cacaca;
   --clr-disabled-300: #a0a0a0;
   --clr-disabled-600: #5f5f5f;
@@ -45,6 +50,8 @@ a:active {
   --clr-bg-2: #f6f5ff;
   --clr-line: #000;
   --shadow-1: 0 10px 40px rgb(0 0 0 / 5%), 0 -10px 40px rgb(0 0 0 / 5%);
+  --shadow-2: 0px 5px 15.2px 0px #00000021;
+  --shadow-3: 0 12px 24px rgb(0 0 0 / 20%);
 }
 
 html,
@@ -58,6 +65,10 @@ body {
 .heading {
   font-size: 2.5rem;
   font-weight: 700;
+}
+
+.bodyBlock {
+  overflow: hidden;
 }
 
 @media (hover: hover) {

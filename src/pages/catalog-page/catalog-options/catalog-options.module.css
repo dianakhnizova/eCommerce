@@ -1,0 +1,74 @@
+.container {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  padding: 124px 20px 144px;
+}
+
+.title {
+  font-size: 22px;
+}
+
+.optionsContainer {
+  display: flex;
+  justify-content: flex-start;
+  gap: 27px;
+}
+
+.option {
+  display: flex;
+  justify-content: flex-start;
+  gap: 8px;
+}
+
+.optionsTitle {
+  font-size: 16px;
+  font-weight: 400;
+  color: var(--clr-secondary-500);
+  padding: 4px;
+}
+
+.input {
+  width: 55px;
+  height: 25px;
+  border: 1px solid var(--clr-accent-9);
+}
+
+.filterMenu.filterMenu {
+  width: 20px;
+  height: 20px;
+  background-color: transparent;
+  z-index: 900;
+  transition: transform 0.3s ease;
+  cursor: pointer;
+  padding: 4px 0 0;
+}
+
+.filter {
+  width: 20px;
+  height: 20px;
+}
+
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgb(0 0 0 / 40%);
+  z-index: 900;
+}
+
+@media (width <=1268px) {
+  .container {
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 30px;
+    padding: 40px 0 60px;
+  }
+
+  .optionsContainer {
+    flex-direction: column;
+  }
+}

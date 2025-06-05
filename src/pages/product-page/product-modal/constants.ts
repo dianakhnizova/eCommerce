@@ -1,0 +1,6 @@
+const SHOW_THUMBNAILS = false;
+const SHOW_FULL_SCREEN_BUTTON = false;
+const SHOW_PLAY_BUTTON = false;
+const SHOW_NAV = true;
+
+export { SHOW_THUMBNAILS, SHOW_FULL_SCREEN_BUTTON, SHOW_PLAY_BUTTON, SHOW_NAV };

@@ -1,0 +1,54 @@
+.header {
+  padding-top: 4rem;
+  padding-bottom: 4rem;
+  padding-left: 20px;
+  background: var(--clr-bg-2);
+  width: 100vw;
+}
+
+.wrapper {
+  display: flex;
+  gap: 24px;
+  padding: 24px 54px;
+  border-radius: 12px;
+  box-shadow: var(--shadow-1);
+  margin-top: 4rem;
+  margin-bottom: 1.5rem;
+}
+
+.sliderWrapper {
+  width: 375px;
+}
+
+.sliderArrows {
+  color: var(--clr-secondary-800);
+}
+
+.image {
+  width: 100%;
+  object-fit: cover;
+  border-radius: 8px;
+}
+
+.defaultImage {
+  width: 100%;
+  object-fit: cover;
+  border-radius: 8px;
+}
+
+@media (hover: hover) {
+  .image:hover {
+    cursor: pointer;
+  }
+}
+
+@media (width <= 870px) {
+  .wrapper {
+    flex-direction: column;
+    padding: 10px;
+  }
+
+  .sliderWrapper {
+    width: 300px;
+  }
+}

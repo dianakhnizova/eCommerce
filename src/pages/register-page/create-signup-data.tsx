@@ -1,4 +1,4 @@
-import type { RegisterFormValues } from './types';
+import type { RegisterFormValues } from '../../sources/types/register';
 
 export const createSignUpData = (
   data: RegisterFormValues,

@@ -69,7 +69,7 @@ export default tseslint
         '@typescript-eslint/member-ordering': 'error',
         '@typescript-eslint/no-misused-promises': 'off',
         '@typescript-eslint/no-unsafe-enum-comparison': 'off',
-        'class-methods-use-this': 'error',
+        'class-methods-use-this': 'off',
         'unicorn/max-func-body-length': 'off',
         'unicorn/no-empty-file': 'off',
         'unicorn/prefer-query-selector': 'off',
@@ -77,6 +77,10 @@ export default tseslint
         'unicorn/prevent-abbreviations': 'off',
         'unicorn/no-useless-undefined': 'off',
         'unicorn/no-null': 'off',
+        'unicorn/no-array-for-each': 'off',
+        'unicorn/no-array-callback-reference': 'off',
+        'unicorn/no-negated-condition': 'off',
+        'unicorn/no-lonely-if': 'off',
       },
     }
   )

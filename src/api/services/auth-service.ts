@@ -15,7 +15,6 @@ export const authService = {
       grant_type: 'client_credentials',
       scope: SCOPE,
     });
-    console.log('get new anonymous token');
     const response = await authApi.post<Auth.Token>(
       `${PROJECT_KEY}${Endpoints.TOKEN_ANONYMOUS}`,
       parameters,
@@ -38,7 +37,6 @@ export const authService = {
       password: customer.password,
     });
 
-    console.log('get new user token');
     const response = await authApi.post<Auth.Token>(
       `${PROJECT_KEY}${Endpoints.CUSTOMERS}${Endpoints.TOKEN}`,
       parameters,
@@ -58,7 +56,6 @@ export const authService = {
       grant_type: 'refresh_token',
       refresh_token: refreshToken,
     });
-    console.log('refreshing token');
     const response = await authApi.post<Auth.Token>(
       `${Endpoints.TOKEN}`,
       parameters,
