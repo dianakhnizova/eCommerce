@@ -265,6 +265,22 @@ export class CatalogStore {
       }
     }
   }
+
+  public resetAllFilters = () => {
+    runInAction(() => {
+      this.selectedCategoryId = '';
+      this.selectedSubcategoryId = '';
+      this.selectedColors = [];
+      this.selectedSizes = [];
+      this.searchName = '';
+      this.priceFrom = undefined;
+      this.priceTo = undefined;
+      this.sortField = SortField.Default;
+      this.sortOrder = SortOrder.Default;
+      this.pagination.offset = DEFAULT_OFFSET;
+    });
+    void this.getProducts();
+  };
 }
 
 export const catalogStore = new CatalogStore();
