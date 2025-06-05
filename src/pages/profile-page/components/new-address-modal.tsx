@@ -51,12 +51,14 @@ export const NewAddressModal: React.FC<NewAddressModalProps> = observer(
               <Button onClick={closeMenu} className={styles.editBtn}>
                 <RiCloseFill size={20} />
               </Button>
-              <AddressCard address={draft} isEdit={true} />
+              {!isSuccess && <AddressCard address={draft} isEdit={true} />}
               {userStore.error && (
                 <p className={styles.error}>{userStore.error}</p>
               )}
               {isSuccess && (
-                <p className={styles.success}>{messages.successAddressAdded}</p>
+                <p className={styles.successModal}>
+                  {messages.successAddressAdded}
+                </p>
               )}
             </div>
           </div>
