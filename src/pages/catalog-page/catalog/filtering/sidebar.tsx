@@ -6,6 +6,7 @@ import classNames from 'classnames';
 import { Button } from '../../../../components/button/button';
 import { SvgBuilder } from '../../../../components/svg-builder/svg-builder';
 import { IconType } from '../../../../components/svg-builder/enums';
+import { ResetFilters } from './reset-filters/reset-filters';
 
 export const SideBar = () => {
   const { isMenuOpen, toggleMenu, closeMenu } = useToggleModal();
@@ -23,6 +24,7 @@ export const SideBar = () => {
         })}
       >
         <h2 className={styles.mainTitle}>{messages.titleSideBar}</h2>
+        <ResetFilters />
         <OptionForm />
       </div>
     </>

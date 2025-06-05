@@ -1,8 +1,8 @@
 import { observer } from 'mobx-react-lite';
-import { messages } from '../../../sources/messages';
+import { messages } from '../messages';
 import { userStore } from '../../../store/user-store';
 import { AddressCard } from './address-card';
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import styles from '../profile-page.module.css';
 import { Button } from '../../../components/button/button';
 import { RiCloseFill } from 'react-icons/ri';
@@ -17,6 +17,7 @@ interface NewAddressModalProps {
 export const NewAddressModal: React.FC<NewAddressModalProps> = observer(
   ({ isOpen, closeMenu }) => {
     const allAddresses = userStore.user?.addresses || [];
+    const [isSuccess, setIsSuccess] = useState(false);
 
     const draft = {
       city: messages.emptyValue,
@@ -32,11 +33,15 @@ export const NewAddressModal: React.FC<NewAddressModalProps> = observer(
       const currCount = allAddresses.length;
 
       if (isOpen && !userStore.error && currCount > prevCount) {
-        closeMenu();
+        setIsSuccess(true);
+        setTimeout(() => {
+          setIsSuccess(false);
+          closeMenu();
+        }, 3000);
       }
 
       prevAddressesRef.current = currCount;
-    }, [allAddresses.length, isOpen]);
+    }, [allAddresses.length, isOpen, closeMenu]);
 
     return (
       <>
@@ -46,9 +51,14 @@ export const NewAddressModal: React.FC<NewAddressModalProps> = observer(
               <Button onClick={closeMenu} className={styles.editBtn}>
                 <RiCloseFill size={20} />
               </Button>
-              <AddressCard address={draft} isEdit={true} />
+              {!isSuccess && <AddressCard address={draft} isEdit={true} />}
               {userStore.error && (
                 <p className={styles.error}>{userStore.error}</p>
+              )}
+              {isSuccess && (
+                <p className={styles.successModal}>
+                  {messages.successAddressAdded}
+                </p>
               )}
             </div>
           </div>

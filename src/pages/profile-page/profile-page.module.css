@@ -148,3 +148,11 @@
   padding: 20px;
   border-radius: 8px;
 }
+
+.successModal {
+  padding: 30px;
+  width: 100%;
+  text-align: center;
+  font-size: 1.5em;
+  color: var(--clr-accent-7);
+}

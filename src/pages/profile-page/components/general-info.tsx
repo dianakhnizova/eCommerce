@@ -19,6 +19,8 @@ const GENERAL_FIELDS = FIELDS.filter(
 
 export const GeneralInfo = observer(() => {
   const form = useForm<RegisterFormValues>();
+  const [isEditMode, setIsEditMode] = useState(false);
+  const [isSuccess, setIsSuccess] = useState(false);
 
   useEffect(() => {
     const user = userStore.user;
@@ -32,14 +34,18 @@ export const GeneralInfo = observer(() => {
     }
   }, [userStore.user]);
 
-  const [isEditMode, setIsEditMode] = useState(false);
+  const onSubmit = async (data: RegisterFormValues) => {
+    setIsSuccess(false);
+    await userStore.updateGeneralInfo(data);
 
-  const onSubmit = (data: RegisterFormValues) => {
-    console.log(data);
-    if (data) setIsEditMode(false);
-    void userStore.updateGeneralInfo(data);
+    if (!userStore.error && !userStore.isPending) {
+      setIsSuccess(true);
+      setTimeout(() => {
+        setIsSuccess(false);
+      }, 3000);
+      setIsEditMode(false);
+    }
   };
-
   return (
     <div className={styles.section}>
       <div className={styles.sectionHeader}>
@@ -80,6 +86,9 @@ export const GeneralInfo = observer(() => {
           )}
         </form>
       </FormProvider>
+      {isSuccess && (
+        <p className={styles.success}>{messages.successGeneralInfoUpdate}</p>
+      )}
     </div>
   );
 });
