@@ -25,7 +25,14 @@ export const AddressCard: React.FC<AddressCardProps> = ({
   address,
   isEdit = false,
 }) => {
-  const form = useForm<RegisterFormValues>();
+  const form = useForm<RegisterFormValues>({
+    defaultValues: {
+      city: address.city || messages.emptyValue,
+      country: address.country || messages.emptyValue,
+      postCode: address.postalCode || messages.emptyValue,
+      street: address.streetName || messages.emptyValue,
+    },
+  });
 
   const [isEditMode, setIsEditMode] = useState<boolean>(isEdit || false);
 
