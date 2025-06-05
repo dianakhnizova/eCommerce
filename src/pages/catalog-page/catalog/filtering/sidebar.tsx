@@ -6,7 +6,7 @@ import classNames from 'classnames';
 import { Button } from '../../../../components/button/button';
 import { SvgBuilder } from '../../../../components/svg-builder/svg-builder';
 import { IconType } from '../../../../components/svg-builder/enums';
-import { ResetFilters } from '../../catalog-options/components/reset-filters/reset-filters';
+import { ResetFilters } from './reset-filters/reset-filters';
 
 export const SideBar = () => {
   const { isMenuOpen, toggleMenu, closeMenu } = useToggleModal();
