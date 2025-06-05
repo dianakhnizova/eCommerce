@@ -61,32 +61,6 @@ class UserStore {
     }
   };
 
-  public addNewAddress = async (address: Customer.Address): Promise<void> => {
-    this.isPending = true;
-    this.error = '';
-    try {
-      if (!this.user) return;
-      const updated = await customerService.addNewAddress(this.user, address);
-      runInAction(() => {
-        this.user = updated;
-      });
-    } catch (error) {
-      runInAction(() => {
-        console.log(error);
-        if (isApiError(error)) {
-          this.error = error.response?.data?.message || messages.loginError;
-          return;
-        }
-        this.error =
-          error instanceof Error ? error.message : messages.loginError;
-      });
-    } finally {
-      runInAction(() => {
-        this.isPending = false;
-      });
-    }
-  };
-
   public updateAddress = async (
     address: Customer.Address,
     actions: Partial<Record<AddressUpdateActions, boolean>>
@@ -95,13 +69,20 @@ class UserStore {
     this.error = '';
     try {
       if (!this.user) return;
-      if (!address.id) return;
+      let updated: Customer.Profile;
 
-      const updated = await customerService.updateAddress(
-        this.user,
-        address,
-        actions
-      );
+      if (!address.id) {
+        updated = await customerService.addNewAddress(this.user, address);
+        runInAction(() => {
+          this.user = updated;
+        });
+      } else {
+        updated = await customerService.updateAddress(
+          this.user,
+          address,
+          actions
+        );
+      }
 
       runInAction(() => {
         this.user = updated;
@@ -110,11 +91,12 @@ class UserStore {
       runInAction(() => {
         console.log(error);
         if (isApiError(error)) {
-          this.error = error.response?.data?.message || messages.loginError;
+          this.error =
+            error.response?.data?.message || messages.updateAddressError;
           return;
         }
         this.error =
-          error instanceof Error ? error.message : messages.loginError;
+          error instanceof Error ? error.message : messages.updateAddressError;
       });
     } finally {
       runInAction(() => {
@@ -190,11 +172,12 @@ class UserStore {
       runInAction(() => {
         console.log(error);
         if (isApiError(error)) {
-          this.error = error.response?.data?.message || messages.loginError;
+          this.error =
+            error.response?.data?.message || messages.updateProfileError;
           return;
         }
         this.error =
-          error instanceof Error ? error.message : messages.loginError;
+          error instanceof Error ? error.message : messages.updateProfileError;
       });
     } finally {
       runInAction(() => {
@@ -223,11 +206,12 @@ class UserStore {
       runInAction(() => {
         console.log(error);
         if (isApiError(error)) {
-          this.error = error.response?.data?.message || messages.loginError;
+          this.error =
+            error.response?.data?.message || messages.updateProfileError;
           return;
         }
         this.error =
-          error instanceof Error ? error.message : messages.loginError;
+          error instanceof Error ? error.message : messages.updateProfileError;
       });
     } finally {
       runInAction(() => {

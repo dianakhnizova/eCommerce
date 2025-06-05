@@ -5,29 +5,19 @@ import { AddressCard } from './address-card';
 import styles from '../profile-page.module.css';
 import { Button } from '../../../components/button/button';
 import { RiAddLine } from 'react-icons/ri';
-
-const UNDEFINED_COUNTRY = 'UNDEFINED';
+import { useToggleModal } from '../../../utils/hooks/use-toggle-modal';
+import { NewAddressModal } from './new-address-modal';
 
 export const Addresses: React.FC = observer(() => {
   const allAddresses = userStore.user?.addresses || [];
-
-  const handleNewAddress = async () => {
-    const firstCountry = userStore.user?.addresses?.[0]?.country;
-
-    await userStore.addNewAddress({
-      city: messages.emptyValue,
-      country: firstCountry || UNDEFINED_COUNTRY,
-      streetName: messages.emptyValue,
-      postalCode: messages.emptyValue,
-    });
-  };
+  const { isMenuOpen, toggleMenu, closeMenu } = useToggleModal();
 
   return (
     <div className={styles.section}>
       <div className={styles.sectionHeader}>
         <h2>{messages.addresses}</h2>
         <Button
-          onClick={handleNewAddress}
+          onClick={toggleMenu}
           disabled={userStore.isPending}
           className={styles.editBtn}
         >
@@ -45,6 +35,8 @@ export const Addresses: React.FC = observer(() => {
           <p>{messages.noAddresses}</p>
         )}
       </div>
+
+      <NewAddressModal closeMenu={closeMenu} isOpen={isMenuOpen} />
     </div>
   );
 });
