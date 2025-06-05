@@ -279,7 +279,6 @@ export class CatalogStore {
       this.sortOrder = SortOrder.Default;
       this.pagination.offset = DEFAULT_OFFSET;
     });
-    void this.getProducts();
   };
 }
 
