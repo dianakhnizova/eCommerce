@@ -226,7 +226,9 @@ export const AddressCard: React.FC<AddressCardProps> = ({
         </form>
       </FormProvider>
       {isSuccess && (
-        <p className={styles.success}>{messages.successfulAddressUpdate}</p>
+        <p className={styles.success}>
+          {messages.success.successfulAddressUpdate}
+        </p>
       )}
     </div>
   );
