@@ -7,7 +7,7 @@ import type { Cart } from '../sources/types/cart';
 
 export class CartStore {
   public cart: Cart.GeneralInfo | null = null;
-  public isPending = false;
+  public isLoading = false;
   public error: string | null = null;
 
   constructor() {
@@ -15,7 +15,7 @@ export class CartStore {
   }
 
   public async init() {
-    this.isPending = true;
+    this.isLoading = true;
     this.error = null;
 
     try {
@@ -45,7 +45,7 @@ export class CartStore {
       });
     } finally {
       runInAction(() => {
-        this.isPending = false;
+        this.isLoading = false;
         this.error = null;
       });
     }
@@ -54,7 +54,7 @@ export class CartStore {
   public async addItem(product: { productId: string; quantity: number }) {
     if (!this.cart) return;
 
-    this.isPending = true;
+    this.isLoading = true;
     this.error = null;
 
     try {
@@ -75,7 +75,7 @@ export class CartStore {
       });
     } finally {
       runInAction(() => {
-        this.isPending = false;
+        this.isLoading = false;
         this.error = null;
       });
     }
