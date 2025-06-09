@@ -48,11 +48,12 @@ class UserStore {
       runInAction(() => {
         console.log(error);
         if (error instanceof AxiosError) {
-          this.error = error.response?.data?.message || messages.loginError;
+          this.error =
+            error.response?.data?.message || messages.errors.loginError;
           return;
         }
         this.error =
-          error instanceof Error ? error.message : messages.loginError;
+          error instanceof Error ? error.message : messages.errors.loginError;
       });
     } finally {
       runInAction(() => {
@@ -92,11 +93,13 @@ class UserStore {
         console.log(error);
         if (isApiError(error)) {
           this.error =
-            error.response?.data?.message || messages.updateAddressError;
+            error.response?.data?.message || messages.errors.updateAddressError;
           return;
         }
         this.error =
-          error instanceof Error ? error.message : messages.updateAddressError;
+          error instanceof Error
+            ? error.message
+            : messages.errors.updateAddressError;
       });
     } finally {
       runInAction(() => {
@@ -119,11 +122,12 @@ class UserStore {
     } catch (error) {
       runInAction(() => {
         if (error instanceof AxiosError) {
-          this.error = error.response?.data?.message || messages.loginError;
+          this.error =
+            error.response?.data?.message || messages.errors.loginError;
           return;
         }
         this.error =
-          error instanceof Error ? error.message : messages.loginError;
+          error instanceof Error ? error.message : messages.errors.loginError;
       });
     } finally {
       runInAction(() => {
@@ -145,11 +149,12 @@ class UserStore {
     } catch (error) {
       runInAction(() => {
         if (error instanceof AxiosError) {
-          this.error = error.response?.data?.message || messages.loginError;
+          this.error =
+            error.response?.data?.message || messages.errors.loginError;
           return;
         }
         this.error =
-          error instanceof Error ? error.message : messages.loginError;
+          error instanceof Error ? error.message : messages.errors.loginError;
       });
     } finally {
       runInAction(() => {
@@ -173,11 +178,13 @@ class UserStore {
         console.log(error);
         if (isApiError(error)) {
           this.error =
-            error.response?.data?.message || messages.updateProfileError;
+            error.response?.data?.message || messages.errors.updateProfileError;
           return;
         }
         this.error =
-          error instanceof Error ? error.message : messages.updateProfileError;
+          error instanceof Error
+            ? error.message
+            : messages.errors.updateProfileError;
       });
     } finally {
       runInAction(() => {
@@ -207,11 +214,13 @@ class UserStore {
         console.log(error);
         if (isApiError(error)) {
           this.error =
-            error.response?.data?.message || messages.updateProfileError;
+            error.response?.data?.message || messages.errors.updateProfileError;
           return;
         }
         this.error =
-          error instanceof Error ? error.message : messages.updateProfileError;
+          error instanceof Error
+            ? error.message
+            : messages.errors.updateProfileError;
       });
     } finally {
       runInAction(() => {

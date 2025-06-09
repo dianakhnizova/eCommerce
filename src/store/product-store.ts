@@ -31,8 +31,8 @@ export class ProductStore {
       runInAction(() => {
         this.error =
           error instanceof AxiosError
-            ? error.response?.data?.message || messages.productError
-            : messages.productError;
+            ? error.response?.data?.message || messages.errors.productError
+            : messages.errors.productError;
       });
     } finally {
       runInAction(() => {

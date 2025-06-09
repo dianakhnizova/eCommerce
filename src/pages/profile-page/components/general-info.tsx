@@ -10,8 +10,8 @@ import {
   FIELDS,
   validationRules,
 } from '../../../sources/constants/register-fields';
-import { messages } from '../messages';
 import { RiEdit2Fill } from 'react-icons/ri';
+import { messages } from '../../../sources/messages';
 
 const GENERAL_FIELDS = FIELDS.filter(
   field => !['password', 'newPassword', 'currentPassword'].includes(field.name)
@@ -49,7 +49,7 @@ export const GeneralInfo = observer(() => {
   return (
     <div className={styles.section}>
       <div className={styles.sectionHeader}>
-        <h2 className={styles.title}>{messages.generalInfo}</h2>
+        <h2 className={styles.title}>{messages.titles.generalInfoTitle}</h2>
         {!isEditMode && (
           <Button
             disabled={userStore.isPending}
@@ -57,7 +57,7 @@ export const GeneralInfo = observer(() => {
             className={styles.editBtn}
           >
             <RiEdit2Fill size={20} />
-            {messages.edit}
+            {messages.buttons.edit}
           </Button>
         )}
       </div>
@@ -81,13 +81,15 @@ export const GeneralInfo = observer(() => {
 
           {isEditMode && (
             <Button type="submit" disabled={userStore.isPending}>
-              {messages.save}
+              {messages.buttons.save}
             </Button>
           )}
         </form>
       </FormProvider>
       {isSuccess && (
-        <p className={styles.success}>{messages.successGeneralInfoUpdate}</p>
+        <p className={styles.success}>
+          {messages.success.successGeneralInfoUpdate}
+        </p>
       )}
     </div>
   );

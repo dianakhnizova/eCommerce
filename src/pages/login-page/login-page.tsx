@@ -3,7 +3,6 @@ import styles from './login-page.module.css';
 import { Input } from '../../components/input/input.tsx';
 import { Button } from '../../components/button/button.tsx';
 import { ButtonVariants } from '../../components/button/enums.ts';
-import { messages } from './messages.ts';
 import { useForm } from 'react-hook-form';
 import { PagePath } from '../../router/enums.ts';
 import { Link, useNavigate } from 'react-router-dom';
@@ -14,6 +13,7 @@ import {
   validationRules,
 } from '../../sources/constants/register-fields.ts';
 import type { RegisterFormValues } from '../../sources/types/register.ts';
+import { messages } from '../../sources/messages.ts';
 
 const LOGIN_FIELDS = FIELDS.filter(
   field => field.name === 'password' || field.name === 'email'
@@ -56,8 +56,7 @@ export const LoginPage = observer(() => {
   return (
     <div className={styles.container}>
       <div>
-        <h2 className={styles.header}>{messages.header}</h2>
-        <p className={styles.hint}>{messages.hintText}</p>
+        <h2 className={styles.header}>{messages.titles.loginPageTitle}</h2>
       </div>
       <fieldset disabled={userStore.isPending}>
         <form
@@ -91,9 +90,9 @@ export const LoginPage = observer(() => {
         </form>
       </fieldset>
       <p>
-        {messages.dontHaveAccountText}
+        {messages.dontHaveAccount}
         <Link to={PagePath.registerPage} className={styles.hint}>
-          {messages.createAccountText}
+          {messages.createAccount}
         </Link>
       </p>
     </div>

@@ -28,10 +28,10 @@ export const AddressCard: React.FC<AddressCardProps> = ({
   const [isSuccess, setIsSuccess] = useState(false);
   const form = useForm<RegisterFormValues>({
     defaultValues: {
-      city: address.city || messages.emptyValue,
-      country: address.country || messages.emptyValue,
-      postCode: address.postalCode || messages.emptyValue,
-      street: address.streetName || messages.emptyValue,
+      city: address.city || '',
+      country: address.country || '',
+      postCode: address.postalCode || '',
+      street: address.streetName || '',
     },
   });
 
@@ -89,14 +89,10 @@ export const AddressCard: React.FC<AddressCardProps> = ({
     address.id === userStore.user?.defaultBillingAddressId;
 
   const isBilling =
-    userStore.user?.billingAddressIds?.includes(
-      address.id || messages.emptyValue
-    ) || false;
+    userStore.user?.billingAddressIds?.includes(address.id || '') || false;
 
   const isShipping =
-    userStore.user?.shippingAddressIds?.includes(
-      address.id || messages.emptyValue
-    ) || false;
+    userStore.user?.shippingAddressIds?.includes(address.id || '') || false;
 
   const [checkboxes, setCheckboxes] = useState({
     billing: isBilling,
@@ -226,7 +222,9 @@ export const AddressCard: React.FC<AddressCardProps> = ({
         </form>
       </FormProvider>
       {isSuccess && (
-        <p className={styles.success}>{messages.successfulAddressUpdate}</p>
+        <p className={styles.success}>
+          {messages.success.successfulAddressUpdate}
+        </p>
       )}
     </div>
   );

@@ -10,8 +10,8 @@ import {
   FIELDS,
   validationRules,
 } from '../../../sources/constants/register-fields';
-import { messages } from '../messages';
 import { RiEdit2Fill } from 'react-icons/ri';
+import { messages } from '../../../sources/messages';
 
 const CHANGE_PASS_FIELDS = FIELDS.filter(
   field => field.name === 'currentPassword' || field.name === 'newPassword'
@@ -54,7 +54,7 @@ export const ChangePassword = observer(() => {
             className={styles.editBtn}
           >
             <RiEdit2Fill size={20} />
-            {messages.change}
+            {messages.buttons.change}
           </Button>
         )}
       </div>
@@ -83,13 +83,15 @@ export const ChangePassword = observer(() => {
               disabled={userStore.isPending}
               className={styles.button}
             >
-              {messages.save}
+              {messages.buttons.save}
             </Button>
           </form>
         </FormProvider>
       )}
       {isSuccess && (
-        <p className={styles.success}>{messages.successPasswordChange}</p>
+        <p className={styles.success}>
+          {messages.success.successPasswordChange}
+        </p>
       )}
     </div>
   );

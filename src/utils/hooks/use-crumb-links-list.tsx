@@ -15,10 +15,13 @@ export const useCrumbLinksList = () => {
   const { categorySlug, subcategorySlug, id } = useParams();
   const { title } = usePageInfo();
 
-  crumbs.push({ to: PagePath.root, label: messages.homePageTitle });
+  crumbs.push({ to: PagePath.root, label: messages.titles.homePageTitle });
 
   if (currentPath.startsWith(PagePath.catalogPage)) {
-    crumbs.push({ to: PagePath.catalogPage, label: messages.catalogPageTitle });
+    crumbs.push({
+      to: PagePath.catalogPage,
+      label: messages.titles.catalogPageTitle,
+    });
 
     if (categorySlug) {
       const category = catalogStore.categories.find(
@@ -46,7 +49,7 @@ export const useCrumbLinksList = () => {
 
     if (id) {
       const productName =
-        productStore.product?.name || id || messages.notFoundPageTitle;
+        productStore.product?.name || id || messages.titles.notFoundPageTitle;
       crumbs.push({
         to: `${PagePath.catalogPage}/${categorySlug}/${subcategorySlug}/${id}`,
         label: productName,
@@ -54,7 +57,7 @@ export const useCrumbLinksList = () => {
     }
   } else {
     const pageLabel =
-      pageTitle[currentPath] || title || messages.notFoundPageTitle;
+      pageTitle[currentPath] || title || messages.titles.notFoundPageTitle;
     crumbs.push({
       to: currentPath,
       label: pageLabel,

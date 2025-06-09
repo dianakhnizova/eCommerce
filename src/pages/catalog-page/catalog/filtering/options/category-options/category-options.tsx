@@ -1,10 +1,10 @@
 import { catalogStore } from '../../../../../../store/catalog-store';
 import styles from './category-options.module.css';
 import { handleCategoryChange } from './handle-category-change';
-import { messages } from './messages';
 import { useNavigate } from 'react-router-dom';
 import { observer } from 'mobx-react-lite';
 import type { CategoryOption } from './types';
+import { messages } from '../../../../../../sources/messages';
 
 export const CategoryOptions = observer(() => {
   const navigate = useNavigate();
@@ -12,7 +12,7 @@ export const CategoryOptions = observer(() => {
 
   return (
     <div className={styles.optionContainer}>
-      <p className={styles.title}>{messages.categoryTitle}</p>
+      <p className={styles.title}>{messages.titles.categoryTitle}</p>
       <select
         className={styles.select}
         value={catalogStore.selectedCategoryId}

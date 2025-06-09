@@ -23,16 +23,4 @@ export namespace Customer {
     streetName: string;
     postalCode: string;
   };
-
-  type Cart = {
-    id: string;
-    lineItems: [];
-    customLineItems: [];
-    totalPrice: {
-      centAmount: number;
-      currencyCode: string;
-      type: string;
-      fractionDigits: number;
-    };
-  };
 }

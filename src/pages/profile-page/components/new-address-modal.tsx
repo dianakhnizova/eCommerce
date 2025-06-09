@@ -1,11 +1,11 @@
 import { observer } from 'mobx-react-lite';
-import { messages } from '../messages';
 import { userStore } from '../../../store/user-store';
 import { AddressCard } from './address-card';
 import { useEffect, useRef, useState } from 'react';
 import styles from '../profile-page.module.css';
 import { Button } from '../../../components/button/button';
 import { RiCloseFill } from 'react-icons/ri';
+import { messages } from '../../../sources/messages';
 
 const UNDEFINED_COUNTRY = 'UNDEFINED';
 
@@ -20,10 +20,10 @@ export const NewAddressModal: React.FC<NewAddressModalProps> = observer(
     const [isSuccess, setIsSuccess] = useState(false);
 
     const draft = {
-      city: messages.emptyValue,
+      city: '',
       country: allAddresses[0]?.country || UNDEFINED_COUNTRY,
-      streetName: messages.emptyValue,
-      postalCode: messages.emptyValue,
+      streetName: '',
+      postalCode: '',
     };
 
     const prevAddressesRef = useRef<number>(allAddresses.length);
@@ -57,7 +57,7 @@ export const NewAddressModal: React.FC<NewAddressModalProps> = observer(
               )}
               {isSuccess && (
                 <p className={styles.successModal}>
-                  {messages.successAddressAdded}
+                  {messages.success.successAddressAdded}
                 </p>
               )}
             </div>

@@ -120,7 +120,8 @@ export class CatalogStore {
     } catch (error) {
       runInAction(() => {
         if (error instanceof AxiosError) {
-          this.error = error.response?.data?.message || messages.catalogError;
+          this.error =
+            error.response?.data?.message || messages.errors.catalogError;
         }
       });
     } finally {
@@ -144,7 +145,8 @@ export class CatalogStore {
     } catch (error) {
       runInAction(() => {
         if (error instanceof AxiosError) {
-          this.error = error.response?.data?.message || messages.catalogError;
+          this.error =
+            error.response?.data?.message || messages.errors.catalogError;
         }
       });
     }
@@ -208,7 +210,8 @@ export class CatalogStore {
     } catch (error) {
       runInAction(() => {
         if (error instanceof AxiosError) {
-          this.error = error.response?.data?.message || messages.catalogError;
+          this.error =
+            error.response?.data?.message || messages.errors.catalogError;
         }
       });
     }
@@ -236,7 +239,8 @@ export class CatalogStore {
     } catch (error) {
       runInAction(() => {
         if (error instanceof AxiosError) {
-          this.error = error.response?.data?.message || messages.catalogError;
+          this.error =
+            error.response?.data?.message || messages.errors.catalogError;
         }
       });
     }

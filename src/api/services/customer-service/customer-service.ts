@@ -45,13 +45,6 @@ export const customerService = {
     return response.data;
   },
 
-  getActiveCart: async (): Promise<Customer.Cart> => {
-    const response = await baseApi.get<Customer.Cart>(
-      `${PROJECT_KEY}${Endpoints.CART_ACTIVE}`
-    );
-    return response.data;
-  },
-
   updateCustomerGeneralInfo: async (
     customer: Customer.Profile
   ): Promise<Customer.Profile> => {

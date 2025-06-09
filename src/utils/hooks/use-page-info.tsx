@@ -15,7 +15,7 @@ export const usePageInfo = () => {
   if (currentPath.startsWith(PagePath.catalogPage)) {
     if (id) {
       const productName = productStore.product?.name;
-      title = productName || id || messages.notFoundPageTitle;
+      title = productName || id || messages.titles.notFoundPageTitle;
     } else if (subcategorySlug) {
       const subCategory = catalogStore.categories.find(
         cat => cat.slug?.en === subcategorySlug
@@ -24,21 +24,24 @@ export const usePageInfo = () => {
         title =
           subCategory?.name?.en ||
           subcategorySlug ||
-          messages.notFoundPageTitle;
+          messages.titles.notFoundPageTitle;
       } else {
         const category = catalogStore.categories.find(
           cat => cat.slug?.en === categorySlug
         );
         title =
-          category?.name?.en || categorySlug || messages.notFoundPageTitle;
+          category?.name?.en ||
+          categorySlug ||
+          messages.titles.notFoundPageTitle;
       }
     } else if (categorySlug) {
       const category = catalogStore.categories.find(
         cat => cat.slug?.en === categorySlug
       );
-      title = category?.name?.en || categorySlug || messages.notFoundPageTitle;
+      title =
+        category?.name?.en || categorySlug || messages.titles.notFoundPageTitle;
     } else {
-      title = messages.catalogPageTitle;
+      title = messages.titles.catalogPageTitle;
     }
   }
   return {

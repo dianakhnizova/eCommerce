@@ -1,0 +1,11 @@
+.cartPageWrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.emptyCartTitle {
+  font-size: 20px;
+}
