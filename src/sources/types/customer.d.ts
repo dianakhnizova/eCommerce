@@ -1,5 +1,3 @@
-import type { Catalog } from './catalog';
-
 export namespace Customer {
   type Profile = {
     version?: number;
@@ -24,34 +22,5 @@ export namespace Customer {
     city: string;
     streetName: string;
     postalCode: string;
-  };
-
-  type Cart = {
-    id: string;
-    version: number;
-    lineItems: LineItem[];
-    shipping: [];
-    discountCodes: [];
-    customLineItems: [];
-    totalPrice: {
-      centAmount: number;
-      currencyCode: string;
-      type: string;
-      fractionDigits: number;
-    };
-  };
-
-  type LineItem = {
-    id: string;
-    productId: string;
-    name: Record<string, string>;
-    productType: Catalog.ProductType;
-    variant: Catalog.ProductVariant;
-    totalPrice: {
-      centAmount: number;
-      currencyCode: string;
-      type: string;
-      fractionDigits: number;
-    };
   };
 }

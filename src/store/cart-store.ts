@@ -1,12 +1,12 @@
 import { makeAutoObservable, runInAction } from 'mobx';
-import type { Customer } from '../sources/types/customer';
 import { LSKeys } from '../sources/enums/ls-keys';
-import { cartService } from '../api/services/cart-service';
+import { cartService } from '../api/services/cart-service/cart-service';
 import { isApiError } from '../utils/is-api-error';
 import { messages } from '../sources/messages';
+import type { Cart } from '../sources/types/cart';
 
 export class CartStore {
-  public cart: Customer.Cart | null = null;
+  public cart: Cart.GeneralInfo | null = null;
   public isPending = false;
   public error: string | null = null;
 

@@ -1,30 +1,30 @@
-import { PROJECT_KEY } from '../../sources/constants/api';
-
-import { Endpoints } from '../endpoints';
-import type { Customer } from '../../sources/types/customer';
-import { baseApi } from '../axios';
+import { PROJECT_KEY } from '../../../sources/constants/api';
+import { Endpoints } from '../../endpoints';
+import { baseApi } from '../../axios';
+import { CartUpdateActions } from './update-actions';
+import type { Cart } from '../../../sources/types/cart';
 
 export const cartService = {
-  getCart: async (cartId: string): Promise<Customer.Cart> => {
+  getCart: async (cartId: string): Promise<Cart.GeneralInfo> => {
     const params = new URLSearchParams({
       view_orders: PROJECT_KEY,
     });
-    const response = await baseApi.get<Customer.Cart>(
+    const response = await baseApi.get<Cart.GeneralInfo>(
       `${PROJECT_KEY}${Endpoints.CARTS}/${cartId}`,
       { params }
     );
     return response.data;
   },
 
-  createCart: async (): Promise<Customer.Cart> => {
-    const draftCart = { currency: 'USD' };
+  createCart: async (): Promise<Cart.GeneralInfo> => {
+    const defaultCurrency = 'USD';
 
     const params = new URLSearchParams({
       manage_orders: PROJECT_KEY,
     });
-    const response = await baseApi.post<Customer.Cart>(
+    const response = await baseApi.post<Cart.GeneralInfo>(
       `${PROJECT_KEY}${Endpoints.CARTS}`,
-      draftCart,
+      { currency: defaultCurrency },
       { params }
     );
     return response.data;
@@ -35,13 +35,13 @@ export const cartService = {
       productId: string;
       quantity: number;
     },
-    cart: Customer.Cart
-  ): Promise<Customer.Cart> => {
+    cart: Cart.GeneralInfo
+  ): Promise<Cart.GeneralInfo> => {
     const body = {
       version: cart.version,
       actions: [
         {
-          action: 'addLineItem',
+          action: CartUpdateActions.addItem,
           productId: product.productId,
           quantity: product.quantity,
         },
@@ -51,7 +51,7 @@ export const cartService = {
     const params = new URLSearchParams({
       manage_orders: PROJECT_KEY,
     });
-    const response = await baseApi.post<Customer.Cart>(
+    const response = await baseApi.post<Cart.GeneralInfo>(
       `${PROJECT_KEY}${Endpoints.CARTS}/${cart.id}`,
       body,
       { params }

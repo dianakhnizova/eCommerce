@@ -1,3 +1,4 @@
 export const messages = {
-  emptyCart: 'Cart is empty',
+  emptyCart: 'It looks like your cart is empty.',
+  toCatalog: 'To catalog',
 };
