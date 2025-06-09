@@ -1,6 +1,6 @@
+import { messages } from '../../sources/messages';
 import { IconType } from '../svg-builder/enums';
 import { SvgBuilder } from '../svg-builder/svg-builder';
-import { messages } from './messages';
 import styles from './spinner.module.css';
 
 type Props = {
@@ -17,7 +17,7 @@ export const Spinner = ({ isLoading }: Props) => {
           <SvgBuilder iconType={IconType.LogoAnimate} className={styles.icon} />
         </div>
       </div>
-      <h2 className={styles.loadingTitle}>{messages.loadingTitle}</h2>
+      <h2 className={styles.loadingTitle}>{messages.titles.loadingTitle}</h2>
     </div>
   );
 };

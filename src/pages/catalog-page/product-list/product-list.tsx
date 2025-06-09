@@ -6,8 +6,8 @@ import { PagePath } from '../../../router/enums.ts';
 import { useEffect } from 'react';
 import DEFAULT_IMAGE from '../../../../assets/images/placeholder.png';
 import { CURRENCY_USD } from '../../../sources/constants/catalog.ts';
-import { messages } from './messages.ts';
 import { DEFAULT_VALUE } from '../../../sources/enums/default-values.ts';
+import { messages } from '../../../sources/messages.ts';
 
 export const ProductList = observer(() => {
   const {
@@ -81,7 +81,7 @@ export const ProductList = observer(() => {
           </li>
         ))
       ) : (
-        <p className={styles.emptyMessage}>{messages.notProductsTitle}</p>
+        <p className={styles.emptyMessage}>{messages.noProducts}</p>
       )}
     </>
   );

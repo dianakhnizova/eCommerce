@@ -1,4 +1,3 @@
-import { messages } from './messages';
 import styles from './price-options.module.css';
 import { observer } from 'mobx-react-lite';
 import Slider from 'rc-slider';
@@ -10,6 +9,7 @@ import {
   MAX_PRICE,
   MIN_PRICE,
 } from '../../../../../../sources/constants/catalog';
+import { messages } from '../../../../../../sources/messages';
 
 const onSliderChangeComplete = (value: number | number[]) => {
   if (Array.isArray(value)) {
@@ -31,7 +31,7 @@ export const PriceOptions = observer(() => {
 
   return (
     <div className={styles.optionContainer}>
-      <p className={styles.title}>{messages.priceTitle}</p>
+      <p className={styles.title}>{messages.titles.priceTitle}</p>
       <Slider
         range
         min={MIN_PRICE}

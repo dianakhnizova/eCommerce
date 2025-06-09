@@ -1,8 +1,8 @@
 import styles from './promo-banner.module.css';
-import { messages } from './messages';
 import { Button } from '../../../components/button/button';
 import { useNavigate } from 'react-router-dom';
 import { PagePath } from '../../../router/enums';
+import { messages } from '../../../sources/messages';
 
 export const PromoBanner = () => {
   const navigate = useNavigate();
@@ -14,10 +14,10 @@ export const PromoBanner = () => {
   return (
     <div className={styles.mainContainer}>
       <div className={styles.titleContainer}>
-        <h1 className={styles.mainTitle}>{messages.mainTitle}</h1>
-        <span className={styles.mainText}>{messages.mainText}</span>
+        <h1 className={styles.mainTitle}>{messages.titles.mainBannerTitle}</h1>
+        <span className={styles.mainText}>{messages.mainBannerText}</span>
         <Button className={styles.shopButton} onClick={toCatalogPage}>
-          {messages.shopButton}
+          {messages.buttons.shopNow}
         </Button>
       </div>
     </div>

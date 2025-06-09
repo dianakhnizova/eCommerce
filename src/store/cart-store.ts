@@ -40,11 +40,12 @@ export class CartStore {
       runInAction(() => {
         console.log(error);
         if (isApiError(error)) {
-          this.error = error.response?.data?.message || messages.cartError;
+          this.error =
+            error.response?.data?.message || messages.errors.cartError;
           return;
         }
         this.error =
-          error instanceof Error ? error.message : messages.cartError;
+          error instanceof Error ? error.message : messages.errors.cartError;
       });
     } finally {
       runInAction(() => {
@@ -71,11 +72,12 @@ export class CartStore {
       runInAction(() => {
         console.log(error);
         if (isApiError(error)) {
-          this.error = error.response?.data?.message || messages.cartError;
+          this.error =
+            error.response?.data?.message || messages.errors.cartError;
           return;
         }
         this.error =
-          error instanceof Error ? error.message : messages.cartError;
+          error instanceof Error ? error.message : messages.errors.cartError;
       });
     } finally {
       runInAction(() => {
