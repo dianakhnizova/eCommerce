@@ -81,9 +81,57 @@ export class CartStore {
     }
   }
 
-  public removeItem() {}
+  public async removeItem(productId: string) {
+    if (!this.cart) return;
+
+    const lineItem = this.cart.lineItems.find(
+      item => item.productId === productId
+    );
+
+    if (!lineItem) {
+      this.error = messages.errors.productError;
+      return;
+    }
+
+    const lineItemId = lineItem.id;
+
+    this.isLoading = true;
+    this.error = null;
+
+    try {
+      const response = await cartService.removeItemFromCart(
+        lineItemId,
+        this.cart
+      );
+      runInAction(() => {
+        this.cart = response;
+      });
+    } catch (error) {
+      runInAction(() => {
+        console.log(error);
+        if (isApiError(error)) {
+          this.error =
+            error.response?.data?.message || messages.errors.cartError;
+          return;
+        }
+        this.error =
+          error instanceof Error ? error.message : messages.errors.cartError;
+      });
+    } finally {
+      runInAction(() => {
+        this.isLoading = false;
+      });
+    }
+  }
 
   public clear() {}
+
+  public isInCart(productId: string): boolean {
+    if (!this.cart) return false;
+    return (
+      this.cart.lineItems?.some(item => item.productId === productId) ?? false
+    );
+  }
 }
 
 export const cartStore = new CartStore();

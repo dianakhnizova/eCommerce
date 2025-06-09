@@ -36,12 +36,14 @@ export const messages = {
     registerError: 'Sign up failed',
     productError: 'Product loading error',
     cartError: 'Cart loading error',
+    productNotFound: 'Product not found in the cart.',
   },
   success: {
     successPasswordChange: 'Password successfully changed',
     successAddressAdded: 'Address successfully added',
     successGeneralInfoUpdate: 'General information successfully changed',
     successfulAddressUpdate: 'Address updated successfully',
+    successItemRemoval: 'Item removed successfully',
   },
 
   noName: 'No name',
@@ -67,6 +69,7 @@ export const messages = {
   emptyCart: 'It looks like your cart is empty.',
   buttons: {
     addToCart: 'Add To Cart',
+    removeFromCart: 'Remove from Cart',
     addAddress: 'New Address',
     contactButton: 'Contact us',
     save: 'Save',
