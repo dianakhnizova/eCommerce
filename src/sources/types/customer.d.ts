@@ -1,3 +1,5 @@
+import type { Catalog } from './catalog';
+
 export namespace Customer {
   type Profile = {
     version?: number;
