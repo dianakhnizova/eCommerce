@@ -44,7 +44,7 @@ export namespace Customer {
   type LineItem = {
     id: string;
     productId: string;
-    name: string;
+    name: Record<string, string>;
     productType: Catalog.ProductType;
     variant: Catalog.ProductVariant;
     totalPrice: {

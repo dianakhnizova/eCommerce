@@ -29,4 +29,33 @@ export const cartService = {
     );
     return response.data;
   },
+
+  addItemToCart: async (
+    product: {
+      productId: string;
+      quantity: number;
+    },
+    cart: Customer.Cart
+  ): Promise<Customer.Cart> => {
+    const body = {
+      version: cart.version,
+      actions: [
+        {
+          action: 'addLineItem',
+          productId: product.productId,
+          quantity: product.quantity,
+        },
+      ],
+    };
+
+    const params = new URLSearchParams({
+      manage_orders: PROJECT_KEY,
+    });
+    const response = await baseApi.post<Customer.Cart>(
+      `${PROJECT_KEY}${Endpoints.CARTS}/${cart.id}`,
+      body,
+      { params }
+    );
+    return response.data;
+  },
 };

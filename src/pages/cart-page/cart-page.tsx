@@ -7,15 +7,15 @@ export const CartPage = () => {
   return (
     <>
       <BreadCrumbs />
-      {items.length === 0 ? (
-        <p>{messages.emptyCart}</p>
-      ) : (
+      {items.length > 0 ? (
         items.map(item => (
           <div key={item.id}>
-            <p>{item.name}</p>
+            <p>{item.name.en}</p>
             <p>{item.productId}</p>
           </div>
         ))
+      ) : (
+        <p>{messages.emptyCart}</p>
       )}
     </>
   );

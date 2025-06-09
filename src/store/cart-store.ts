@@ -54,7 +54,37 @@ export class CartStore {
     }
   }
 
-  public addItem() {}
+  public async addItem(product: { productId: string; quantity: number }) {
+    if (!this.cart) return;
+
+    this.isPending = true;
+    this.error = null;
+
+    try {
+      const response = await cartService.addItemToCart(product, this.cart);
+      runInAction(() => {
+        console.log('add to cart ');
+        console.log(response);
+        this.cart = response;
+      });
+    } catch (error) {
+      runInAction(() => {
+        console.log(error);
+        if (isApiError(error)) {
+          this.error = error.response?.data?.message || messages.cartError;
+          return;
+        }
+        this.error =
+          error instanceof Error ? error.message : messages.cartError;
+      });
+    } finally {
+      runInAction(() => {
+        this.isPending = false;
+        this.error = null;
+      });
+    }
+  }
+
   public removeItem() {}
 
   public clear() {}
