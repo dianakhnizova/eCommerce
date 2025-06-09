@@ -95,5 +95,4 @@ export const messages = {
   checkboxDefaultAddress: 'Default address',
   checkboxBillingAddress: 'Billing address',
   checkboxShippingAddress: 'Shipping address',
-  emptyValue: '',
 };

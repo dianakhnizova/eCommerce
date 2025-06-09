@@ -20,10 +20,10 @@ export const NewAddressModal: React.FC<NewAddressModalProps> = observer(
     const [isSuccess, setIsSuccess] = useState(false);
 
     const draft = {
-      city: messages.emptyValue,
+      city: '',
       country: allAddresses[0]?.country || UNDEFINED_COUNTRY,
-      streetName: messages.emptyValue,
-      postalCode: messages.emptyValue,
+      streetName: '',
+      postalCode: '',
     };
 
     const prevAddressesRef = useRef<number>(allAddresses.length);

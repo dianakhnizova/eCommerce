@@ -24,9 +24,7 @@ export const SubcategoryOptions = observer(() => {
         value={catalogStore.selectedSubcategoryId}
         onChange={event => handleSubcategoryChange(event, navigate)}
       >
-        <option value={messages.emptyValue}>
-          {messages.allSubcategoryOptions}
-        </option>
+        <option value="">{messages.allSubcategoryOptions}</option>
         {subcategoryList.map(({ id, label }) => (
           <option key={id} value={id}>
             {label}
