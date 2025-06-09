@@ -8,12 +8,15 @@ export const messages = {
   cartPageTitle: 'Cart',
   successfulAddressUpdate: 'Address updated successfully',
   catalogPageTitle: 'Catalog',
+
   loginError: 'Login failed',
   updateAddressError: 'Update address failed',
   updateProfileError: 'Update profile failed',
   catalogError: 'Catalog failed',
   registerError: 'Sign up failed',
   productError: 'Product loading error',
+  cartError: 'Cart loading error',
+
   noName: 'No name',
   noDescription: 'No description',
   placeholderJpg: 'placeholder.jpg',
@@ -24,6 +27,7 @@ export const messages = {
   firstName: 'First Name',
   lastName: 'Last Name',
   birth: 'Birth',
+
   addresses: 'Addresses',
   badges: {
     defaultBilling: '📋Default Billing',

@@ -26,8 +26,25 @@ export namespace Customer {
 
   type Cart = {
     id: string;
-    lineItems: [];
+    version: number;
+    lineItems: LineItem[];
+    shipping: [];
+    discountCodes: [];
     customLineItems: [];
+    totalPrice: {
+      centAmount: number;
+      currencyCode: string;
+      type: string;
+      fractionDigits: number;
+    };
+  };
+
+  type LineItem = {
+    id: string;
+    productId: string;
+    name: string;
+    productType: Catalog.ProductType;
+    variant: Catalog.ProductVariant;
     totalPrice: {
       centAmount: number;
       currencyCode: string;
