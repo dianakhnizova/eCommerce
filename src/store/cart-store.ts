@@ -23,16 +23,12 @@ export class CartStore {
       if (cartID) {
         const response = await cartService.getCart(cartID);
         runInAction(() => {
-          console.log('fetch cart by ID');
-          console.log(response);
           this.cart = response;
         });
       } else {
         const response = await cartService.createCart();
         runInAction(() => {
           this.cart = response;
-          console.log('create new cart');
-          console.log(response);
           localStorage.setItem(LSKeys.CART_ID, response.id);
         });
       }
@@ -64,8 +60,6 @@ export class CartStore {
     try {
       const response = await cartService.addItemToCart(product, this.cart);
       runInAction(() => {
-        console.log('add to cart ');
-        console.log(response);
         this.cart = response;
       });
     } catch (error) {
