@@ -1,5 +1,6 @@
 export enum Endpoints {
   TOKEN = '/token',
+  PASSWORD = '/password',
   TOKEN_ANONYMOUS = '/anonymous/token',
   PRODUCTS = '/products',
   CUSTOMERS = '/customers',
@@ -7,6 +8,9 @@ export enum Endpoints {
   SIGN_UP_CUSTOMER = '/me/signup',
   LOGIN = '/me/login',
   OAUTH = '/oauth',
-  CART_ACTIVE = '/me/active-cart',
+  CARTS = '/carts',
   INTROSPECT = '/introspect',
+  PRODUCT_INFORMATION = '/product-projections',
+  PRODUCT_PROJECTIONS_SEARCH = '/product-projections/search',
+  CATEGORIES = '/categories',
 }

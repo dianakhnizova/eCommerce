@@ -1,0 +1,16 @@
+.optionContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.title {
+  font-size: 20px;
+  font-weight: 700;
+  text-decoration: underline;
+}
+
+.priceLabels {
+  display: flex;
+  justify-content: space-between;
+}

@@ -1,0 +1,27 @@
+.linkContainer {
+  display: flex;
+  flex-wrap: wrap;
+  width: 100%;
+  align-items: center;
+  gap: 18px;
+}
+
+.link {
+  text-decoration: none;
+  color: var(--clr-line);
+  position: relative;
+}
+
+.link:not(:last-child)::after {
+  content: '•';
+  position: absolute;
+  right: -12px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--clr-secondary-800);
+  font-size: 14px;
+}
+
+.activeLink {
+  color: var(--clr-accent-1);
+}

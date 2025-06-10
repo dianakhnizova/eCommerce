@@ -1,0 +1,15 @@
+.cardsContainer {
+  display: flex;
+  flex-wrap: wrap;
+  width: 100%;
+  align-items: flex-start;
+  gap: 49px;
+  padding: 0 0 0 180px;
+}
+
+@media (width <=600px) {
+  .cardsContainer {
+    padding: 0;
+    justify-content: center;
+  }
+}

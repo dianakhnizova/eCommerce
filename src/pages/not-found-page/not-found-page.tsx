@@ -1,10 +1,10 @@
 import { Button } from '../../components/button/button';
-import { messages } from './messages';
 import styles from './not-found.module.css';
 import { useNavigate } from 'react-router-dom';
 import { PagePath } from '../../router/enums';
 import { BreadCrumbs } from '../../components/bread-crumbs/bread-crumbs';
 import NotFoundImage from '../../../assets/images/not-found.png';
+import { messages } from '../../sources/messages';
 
 export const NotFoundPage = () => {
   const navigate = useNavigate();
@@ -20,10 +20,10 @@ export const NotFoundPage = () => {
         <img
           className={styles.imgNotFound}
           src={NotFoundImage}
-          alt={messages.errorMessage}
+          alt={messages.errorPageImage}
         />
-        <p className={styles.textImage}>{messages.textImageOops}</p>
-        <Button onClick={backToPage}>{messages.backButton}</Button>
+        <p className={styles.textImage}>{messages.errorPageDescription}</p>
+        <Button onClick={backToPage}>{messages.buttons.backToHome}</Button>
       </div>
     </>
   );
