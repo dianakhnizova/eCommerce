@@ -13,17 +13,12 @@ type Props = {
 export const ProductInfo = observer(({ product }: Props) => {
   const isInCart = cartStore.isInCart(product.id);
 
-  const handleAddToCart = () => {
+  const handleAddToCart = () =>
     void cartStore.addItem({
       productId: product.id,
     });
-  };
 
-  const handleRemove = () => {
-    void cartStore.removeItem(product.id);
-  };
-
-  const isLoading = cartStore.isLoading;
+  const handleRemove = () => void cartStore.removeItem(product.id);
 
   return (
     <div className={styles.productInfo}>
@@ -44,7 +39,7 @@ export const ProductInfo = observer(({ product }: Props) => {
 
       <Button
         onClick={isInCart ? handleRemove : handleAddToCart}
-        disabled={isLoading}
+        disabled={cartStore.isLoading}
       >
         {isInCart
           ? messages.buttons.removeFromCart

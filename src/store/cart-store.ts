@@ -69,18 +69,17 @@ export class CartStore {
 
   public async removeItem(productId: string) {
     if (!this.cart) return;
-
-    const item = this.cart.lineItems.find(item => item.productId === productId);
-
-    if (!item) {
-      this.error = messages.errors.productError;
-      return;
-    }
-
     this.isLoading = true;
     this.error = null;
-
     try {
+      const item = this.cart.lineItems.find(
+        item => item.productId === productId
+      );
+
+      if (!item) {
+        throw new Error(messages.errors.productError);
+      }
+
       const response = await cartService.removeItemFromCart(item.id, this.cart);
       runInAction(() => {
         this.cart = response;
