@@ -33,7 +33,7 @@ export const cartService = {
   addItemToCart: async (
     product: {
       productId: string;
-      quantity: number;
+      quantity?: number;
     },
     cart: Cart.GeneralInfo
   ): Promise<Cart.GeneralInfo> => {
@@ -43,7 +43,7 @@ export const cartService = {
         {
           action: CartUpdateActions.addItem,
           productId: product.productId,
-          quantity: product.quantity,
+          quantity: product.quantity ?? 1,
         },
       ],
     };

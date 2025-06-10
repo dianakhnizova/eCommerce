@@ -1,9 +1,10 @@
 import { makeAutoObservable, runInAction } from 'mobx';
 import { LSKeys } from '../sources/enums/ls-keys';
 import { cartService } from '../api/services/cart-service/cart-service';
-import { isApiError } from '../utils/is-api-error';
 import { messages } from '../sources/messages';
 import type { Cart } from '../sources/types/cart';
+import { toast } from 'react-toastify';
+import { getErrorMessage } from './get-error-message';
 
 export class CartStore {
   public cart: Cart.GeneralInfo | null = null;
@@ -33,16 +34,8 @@ export class CartStore {
         });
       }
     } catch (error) {
-      runInAction(() => {
-        console.log(error);
-        if (isApiError(error)) {
-          this.error =
-            error.response?.data?.message || messages.errors.cartError;
-          return;
-        }
-        this.error =
-          error instanceof Error ? error.message : messages.errors.cartError;
-      });
+      this.error = getErrorMessage(error);
+      toast.error(this.error);
     } finally {
       runInAction(() => {
         this.isLoading = false;
@@ -51,7 +44,7 @@ export class CartStore {
     }
   }
 
-  public async addItem(product: { productId: string; quantity: number }) {
+  public async addItem(product: { productId: string; quantity?: number }) {
     if (!this.cart) return;
 
     this.isLoading = true;
@@ -61,18 +54,11 @@ export class CartStore {
       const response = await cartService.addItemToCart(product, this.cart);
       runInAction(() => {
         this.cart = response;
+        toast.success(messages.success.addToCart);
       });
     } catch (error) {
-      runInAction(() => {
-        console.log(error);
-        if (isApiError(error)) {
-          this.error =
-            error.response?.data?.message || messages.errors.cartError;
-          return;
-        }
-        this.error =
-          error instanceof Error ? error.message : messages.errors.cartError;
-      });
+      this.error = getErrorMessage(error);
+      toast.error(this.error);
     } finally {
       runInAction(() => {
         this.isLoading = false;
@@ -84,43 +70,27 @@ export class CartStore {
   public async removeItem(productId: string) {
     if (!this.cart) return;
 
-    const lineItem = this.cart.lineItems.find(
-      item => item.productId === productId
-    );
+    const item = this.cart.lineItems.find(item => item.productId === productId);
 
-    if (!lineItem) {
+    if (!item) {
       this.error = messages.errors.productError;
       return;
     }
-
-    const lineItemId = lineItem.id;
 
     this.isLoading = true;
     this.error = null;
 
     try {
-      const response = await cartService.removeItemFromCart(
-        lineItemId,
-        this.cart
-      );
+      const response = await cartService.removeItemFromCart(item.id, this.cart);
       runInAction(() => {
         this.cart = response;
+        toast.success(messages.success.removeFromCart);
       });
     } catch (error) {
-      runInAction(() => {
-        console.log(error);
-        if (isApiError(error)) {
-          this.error =
-            error.response?.data?.message || messages.errors.cartError;
-          return;
-        }
-        this.error =
-          error instanceof Error ? error.message : messages.errors.cartError;
-      });
+      this.error = getErrorMessage(error);
+      toast.error(this.error);
     } finally {
-      runInAction(() => {
-        this.isLoading = false;
-      });
+      this.isLoading = false;
     }
   }
 

@@ -29,21 +29,24 @@ export const messages = {
   noProducts: 'No products in the selected category',
 
   errors: {
+    default: 'Something went wrong',
     loginError: 'Login failed',
     updateAddressError: 'Update address failed',
     updateProfileError: 'Update profile failed',
     catalogError: 'Catalog failed',
     registerError: 'Sign up failed',
     productError: 'Product loading error',
+
     cartError: 'Cart loading error',
     productNotFound: 'Product not found in the cart.',
   },
   success: {
+    addToCart: 'Item added to cart!',
     successPasswordChange: 'Password successfully changed',
     successAddressAdded: 'Address successfully added',
     successGeneralInfoUpdate: 'General information successfully changed',
     successfulAddressUpdate: 'Address updated successfully',
-    successItemRemoval: 'Item removed successfully',
+    removeFromCart: 'Item removed from cart',
   },
 
   noName: 'No name',
