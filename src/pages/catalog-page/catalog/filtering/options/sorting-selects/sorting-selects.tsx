@@ -1,6 +1,6 @@
 import { messages } from './messages';
 import styles from './sorting-selects.module.css';
-import { catalogStore } from '../../../../../store/catalog-store';
+import { catalogStore } from '../../../../../../store/catalog-store';
 import { observer } from 'mobx-react-lite';
 import { SortField, SortOrder } from './enums';
 
@@ -26,6 +26,7 @@ export const SortingSelects = observer(() => {
 
   return (
     <div className={styles.optionsContainer}>
+      <p className={styles.title}>{messages.sortBy}</p>
       <select
         className={styles.select}
         onChange={handleFieldChange}

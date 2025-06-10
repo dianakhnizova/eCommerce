@@ -3,7 +3,7 @@ import { catalogService } from '../api/services/catalog-service';
 import { messages } from '../sources/messages';
 import { AxiosError } from 'axios';
 import type { Catalog } from '../sources/types/catalog';
-import type { ProductCard } from '../pages/catalog-page/product-list/types';
+import type { ProductCard } from '../pages/catalog-page/catalog/product-list/types';
 import { prepareProductCard } from '../utils/prepare-product-card';
 import type { Pagination } from '../sources/types/pagination';
 import {
@@ -19,7 +19,7 @@ import { preparePagination } from '../utils/prepare-pagination';
 import {
   SortField,
   SortOrder,
-} from '../pages/catalog-page/catalog-options/components/sorting-selects/enums';
+} from '../pages/catalog-page/catalog/filtering/options/sorting-selects/enums';
 import { getAttributeValue } from '../utils/get-attribute-value';
 import { AttributeType } from '../sources/enums/attributes';
 
@@ -53,18 +53,22 @@ export class CatalogStore {
   public setSort = (field: SortField, order: SortOrder) => {
     this.sortField = field;
     this.sortOrder = order;
+    this.pagination.offset = DEFAULT_OFFSET;
   };
 
   public setColors = (colors: string[]) => {
     this.selectedColors = colors;
+    this.pagination.offset = DEFAULT_OFFSET;
   };
 
   public setSizes = (sizes: string[]) => {
     this.selectedSizes = sizes;
+    this.pagination.offset = DEFAULT_OFFSET;
   };
 
   public setSearchName = (name: string) => {
     this.searchName = name;
+    this.pagination.offset = DEFAULT_OFFSET;
   };
 
   public setCategories = (categoryId: string) => {
@@ -77,15 +81,47 @@ export class CatalogStore {
     this.priceTo = undefined;
     this.sortField = SortField.Default;
     this.sortOrder = SortOrder.Default;
+    this.pagination.offset = DEFAULT_OFFSET;
   };
 
   public setSubcategories = (subcategoryId: string) => {
     this.selectedSubcategoryId = subcategoryId;
+    this.pagination.offset = DEFAULT_OFFSET;
   };
 
   public setPrice = (from?: number, to?: number) => {
     this.priceFrom = from;
     this.priceTo = to;
+    this.pagination.offset = DEFAULT_OFFSET;
+  };
+
+  public setCategoryFromUrl(categorySlug?: string, subcategorySlug?: string) {
+    this.selectedCategoryId = '';
+    this.selectedSubcategoryId = '';
+    this.pagination.offset = DEFAULT_OFFSET;
+
+    if (categorySlug) {
+      const category = this.categories.find(
+        cat => cat.slug?.en === categorySlug && !cat.parent
+      );
+      if (category) {
+        this.selectedCategoryId = category.id;
+
+        if (subcategorySlug) {
+          const subcategory = this.categories.find(
+            sub =>
+              sub.slug?.en === subcategorySlug && sub.parent?.id === category.id
+          );
+          if (subcategory) {
+            this.selectedSubcategoryId = subcategory.id;
+          }
+        }
+      }
+    }
+  }
+
+  public setPagination = (offset: number) => {
+    this.pagination.offset = offset;
   };
 
   public getProducts = async (productName?: string) => {
@@ -245,30 +281,6 @@ export class CatalogStore {
       });
     }
   };
-
-  public setCategoryFromUrl(categorySlug?: string, subcategorySlug?: string) {
-    this.selectedCategoryId = '';
-    this.selectedSubcategoryId = '';
-
-    if (categorySlug) {
-      const category = this.categories.find(
-        cat => cat.slug?.en === categorySlug && !cat.parent
-      );
-      if (category) {
-        this.selectedCategoryId = category.id;
-
-        if (subcategorySlug) {
-          const subcategory = this.categories.find(
-            sub =>
-              sub.slug?.en === subcategorySlug && sub.parent?.id === category.id
-          );
-          if (subcategory) {
-            this.selectedSubcategoryId = subcategory.id;
-          }
-        }
-      }
-    }
-  }
 
   public resetAllFilters = () => {
     runInAction(() => {
