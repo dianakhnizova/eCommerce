@@ -8,6 +8,8 @@ import DEFAULT_IMAGE from '../../../../assets/images/placeholder.png';
 import { CURRENCY_USD } from '../../../sources/constants/catalog.ts';
 import { DEFAULT_VALUE } from '../../../sources/enums/default-values.ts';
 import { messages } from '../../../sources/messages.ts';
+import { Button } from '../../../components/button/button.tsx';
+import { cartStore } from '../../../store/cart-store.ts';
 
 export const ProductList = observer(() => {
   const {
@@ -22,6 +24,7 @@ export const ProductList = observer(() => {
     priceFrom,
     priceTo,
   } = catalogStore;
+
   const hasProducts = productList.length > 0;
 
   useEffect(() => {
@@ -45,41 +48,65 @@ export const ProductList = observer(() => {
   return (
     <>
       {hasProducts ? (
-        productList.map(product => (
-          <li key={product.id}>
-            <Link
-              to={generatePath(PagePath.productPage, {
-                categorySlug: product.categorySlug || DEFAULT_VALUE.CATEGORY,
-                subcategorySlug:
-                  product.subcategorySlug || DEFAULT_VALUE.SUBCATEGORY,
-                id: product.id,
-              })}
-              className={styles.cardContainer}
-            >
-              <img
-                className={styles.image}
-                src={product.image}
-                alt={product.name}
-                onError={event => {
-                  event.currentTarget.src = DEFAULT_IMAGE;
-                }}
-              />
-              <p className={styles.name}>{product.name}</p>
+        productList.map(product => {
+          const isInCart = cartStore.isInCart(product.id);
 
-              <p className={styles.description}>{product.description}</p>
-              <div className={styles.priceContainer}>
-                <p className={styles.price}>
-                  {CURRENCY_USD}
-                  {product.price}
-                </p>
-                <p className={styles.discountPrice}>
-                  {CURRENCY_USD}
-                  {product.discountPrice}
-                </p>
-              </div>
-            </Link>
-          </li>
-        ))
+          const handleAddToCart = (
+            event: React.MouseEvent<HTMLButtonElement>
+          ) => {
+            event.preventDefault();
+            event.stopPropagation();
+            void cartStore.addItem({ productId: product.id, quantity: 1 });
+          };
+
+          return (
+            <li key={product.id}>
+              <Link
+                to={generatePath(PagePath.productPage, {
+                  categorySlug: product.categorySlug || DEFAULT_VALUE.CATEGORY,
+                  subcategorySlug:
+                    product.subcategorySlug || DEFAULT_VALUE.SUBCATEGORY,
+                  id: product.id,
+                })}
+                className={styles.cardContainer}
+              >
+                <img
+                  className={styles.image}
+                  src={product.image}
+                  alt={product.name}
+                  onError={event => {
+                    event.currentTarget.src = DEFAULT_IMAGE;
+                  }}
+                />
+                <p className={styles.name}>{product.name}</p>
+
+                <p className={styles.description}>{product.description}</p>
+                <div className={styles.priceContainer}>
+                  <p className={styles.price}>
+                    {CURRENCY_USD}
+                    {product.price}
+                  </p>
+                  <p className={styles.discountPrice}>
+                    {CURRENCY_USD}
+                    {product.discountPrice}
+                  </p>
+                </div>
+                {!isInCart ? (
+                  <Button onClick={handleAddToCart}>
+                    {messages.buttons.addToCart}
+                  </Button>
+                ) : (
+                  <>
+                    <p className={styles.inCartMessage}>
+                      {messages.productInCart}
+                    </p>
+                    <Button>{messages.buttons.removeFromCart}</Button>
+                  </>
+                )}
+              </Link>
+            </li>
+          );
+        })
       ) : (
         <p className={styles.emptyMessage}>{messages.noProducts}</p>
       )}

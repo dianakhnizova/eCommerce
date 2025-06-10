@@ -65,8 +65,10 @@ export const messages = {
   noData: '-',
   noAddresses: 'No addresses added.',
   emptyCart: 'It looks like your cart is empty.',
+  productInCart: 'Product is already in the cart',
   buttons: {
     addToCart: 'Add To Cart',
+    removeFromCart: 'Remove From Cart',
     addAddress: 'New Address',
     contactButton: 'Contact us',
     save: 'Save',
