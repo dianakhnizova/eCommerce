@@ -52,15 +52,12 @@ export const ProductCard = observer(
               {product.discountPrice}
             </p>
           </div>
-          {!isInCart ? (
-            <Button onClick={handleAddToCart}>
-              {messages.buttons.addToCart}
-            </Button>
-          ) : (
-            <>
-              <Button>{messages.buttons.removeFromCart}</Button>
-            </>
-          )}
+
+          <Button onClick={handleAddToCart}>
+            {isInCart
+              ? messages.buttons.removeFromCart
+              : messages.buttons.addToCart}
+          </Button>
         </Link>
       </li>
     );
