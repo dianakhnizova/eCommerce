@@ -83,6 +83,13 @@ export class CartStore {
 
   public removeItem() {}
 
+  public isInCart(productId: string): boolean {
+    if (!this.cart) return false;
+    return (
+      this.cart.lineItems?.some(item => item.productId === productId) ?? false
+    );
+  }
+
   public clear() {}
 }
 
