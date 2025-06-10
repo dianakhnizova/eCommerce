@@ -92,7 +92,7 @@ export const messages = {
   allCategories: 'Select categories',
 
   textAboutUs:
-    'Our development team is a close-knit group of professionals united by a common goal: creating high-quality digital products. We bring together a wide range of expertise — from architectural design and writing clean code to ensuring the security, stability, and scalability of our solutions.',
+    "We're a team of passionate, driven, and slightly sleep-deprived developers who joined forces to build something amazing. Working together as Lazer Sharks, we turned code into a collaborative masterpiece! We stayed connected and productive with Trello, Figma, Discord, Telegram, and GitHub. These tools helped us plan, design, communicate, and collaborate—wherever we were. Each sprint, we divided tasks smartly. When someone finished early, they jumped in to help others—true team spirit! Diana introduced daily reports, helping us track our progress, and we held weekly video calls to discuss blockers, share wins, and stay motivated. Every pull request was reviewed thoroughly to keep our code sharp and clean. This project wasn’t just about coding—it taught us how real teamwork works. We learned how to communicate effectively, conduct meaningful code reviews, manage branches in GitHub, and most importantly—how to build an app together in React. ",
   id: 'Id',
   city: 'City',
   country: 'Country',
