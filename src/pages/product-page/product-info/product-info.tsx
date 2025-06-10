@@ -4,18 +4,22 @@ import styles from './product-info.module.css';
 import { CURRENCY_USD } from '../../../sources/constants/catalog.ts';
 import { messages } from '../../../sources/messages.ts';
 import { cartStore } from '../../../store/cart-store.ts';
+import { observer } from 'mobx-react-lite';
 
 type Props = {
   product: Catalog.DetailedProduct;
 };
 
-export const ProductInfo = ({ product }: Props) => {
-  const handleAddToCart = () => {
+export const ProductInfo = observer(({ product }: Props) => {
+  const isInCart = cartStore.isInCart(product.id);
+
+  const handleAddToCart = () =>
     void cartStore.addItem({
       productId: product.id,
-      quantity: 1,
     });
-  };
+
+  const handleRemove = () => void cartStore.removeItem(product.id);
+
   return (
     <div className={styles.productInfo}>
       <h2 className={styles.productName}>{product.name}</h2>
@@ -32,7 +36,15 @@ export const ProductInfo = ({ product }: Props) => {
       <p>{product.color}</p>
       <p>{product.size}</p>
       <p className={styles.description}>{product.description}</p>
-      <Button onClick={handleAddToCart}>{messages.buttons.addToCart}</Button>
+
+      <Button
+        onClick={isInCart ? handleRemove : handleAddToCart}
+        disabled={cartStore.isLoading}
+      >
+        {isInCart
+          ? messages.buttons.removeFromCart
+          : messages.buttons.addToCart}
+      </Button>
     </div>
   );
-};
+});

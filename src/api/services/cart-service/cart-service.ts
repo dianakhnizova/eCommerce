@@ -1,7 +1,7 @@
 import { PROJECT_KEY } from '../../../sources/constants/api';
 import { Endpoints } from '../../endpoints';
 import { baseApi } from '../../axios';
-import { CartUpdateActions } from './update-actions';
+import { CartUpdateActions } from './enums/update-actions.ts';
 import type { Cart } from '../../../sources/types/cart';
 
 export const cartService = {
@@ -33,7 +33,7 @@ export const cartService = {
   addItemToCart: async (
     product: {
       productId: string;
-      quantity: number;
+      quantity?: number;
     },
     cart: Cart.GeneralInfo
   ): Promise<Cart.GeneralInfo> => {
@@ -43,7 +43,7 @@ export const cartService = {
         {
           action: CartUpdateActions.addItem,
           productId: product.productId,
-          quantity: product.quantity,
+          quantity: product.quantity ?? 1,
         },
       ],
     };
@@ -56,6 +56,33 @@ export const cartService = {
       body,
       { params }
     );
+    return response.data;
+  },
+
+  removeItemFromCart: async (
+    lineItemId: string,
+    cart: Cart.GeneralInfo
+  ): Promise<Cart.GeneralInfo> => {
+    const body = {
+      version: cart.version,
+      actions: [
+        {
+          action: CartUpdateActions.removeItem,
+          lineItemId,
+        },
+      ],
+    };
+
+    const params = new URLSearchParams({
+      manage_orders: PROJECT_KEY,
+    });
+
+    const response = await baseApi.post<Cart.GeneralInfo>(
+      `${PROJECT_KEY}${Endpoints.CARTS}/${cart.id}`,
+      body,
+      { params }
+    );
+
     return response.data;
   },
 };
