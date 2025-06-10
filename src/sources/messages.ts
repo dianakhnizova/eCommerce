@@ -72,7 +72,7 @@ export const messages = {
   emptyCart: 'It looks like your cart is empty.',
   buttons: {
     addToCart: 'Add To Cart',
-    removeFromCart: 'Remove from Cart',
+    removeFromCart: 'Remove From Cart',
     addAddress: 'New Address',
     contactButton: 'Contact us',
     save: 'Save',
