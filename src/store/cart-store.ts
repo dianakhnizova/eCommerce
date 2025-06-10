@@ -101,13 +101,6 @@ export class CartStore {
   }
 
   public clear() {}
-
-  public isInCart(productId: string): boolean {
-    if (!this.cart) return false;
-    return (
-      this.cart.lineItems?.some(item => item.productId === productId) ?? false
-    );
-  }
 }
 
 export const cartStore = new CartStore();
