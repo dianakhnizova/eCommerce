@@ -16,7 +16,7 @@ export const App: React.FC = () => {
     <StrictMode>
       <RouterProvider router={router} />
       <ToastContainer
-        position="top-right"
+        position="bottom-right"
         autoClose={3000}
         hideProgressBar={false}
         closeOnClick
