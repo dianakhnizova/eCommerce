@@ -33,6 +33,7 @@ export const CartPage = observer(() => {
             {items.map(item => (
               <ProductCard
                 key={item.id}
+                isShowInCart={true}
                 product={{
                   id: item.productId,
                   categorySlug: item.productSlug.en,
