@@ -9,16 +9,14 @@ import styles from './product-card.module.css';
 import { CURRENCY_USD } from '../../sources/constants/catalog.ts';
 import { messages } from '../../sources/messages.ts';
 import { Button } from '../button/button.tsx';
+import {
+  handleAddToCart,
+  handleRemoveFromCart,
+} from '../../utils/cart-handlers.ts';
 
 export const ProductCard = observer(
   ({ product }: { product: ProductCardType }) => {
     const isInCart = cartStore.isInCart(product.id);
-
-    const handleAddToCart = (event: React.MouseEvent<HTMLButtonElement>) => {
-      event.preventDefault();
-      event.stopPropagation();
-      void cartStore.addItem({ productId: product.id, quantity: 1 });
-    };
 
     return (
       <li key={product.id}>
@@ -53,7 +51,13 @@ export const ProductCard = observer(
             </p>
           </div>
 
-          <Button onClick={handleAddToCart}>
+          <Button
+            onClick={
+              isInCart
+                ? handleRemoveFromCart(product.id)
+                : handleAddToCart(product.id)
+            }
+          >
             {isInCart
               ? messages.buttons.removeFromCart
               : messages.buttons.addToCart}
