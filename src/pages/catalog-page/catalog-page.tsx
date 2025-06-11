@@ -7,7 +7,6 @@ import { Wrapper } from '../../components/wrapper/wrapper';
 import { Catalog } from './catalog/catalog';
 import { useParams } from 'react-router-dom';
 import { useEffect } from 'react';
-import { Pagination } from './pagination/pagination';
 
 export const CatalogPage = observer(() => {
   const { isLoading, categories } = catalogStore;
@@ -28,7 +27,6 @@ export const CatalogPage = observer(() => {
       <Spinner isLoading={isLoading} />
       <Wrapper className={styles.catalogWrapper}>
         <Catalog />
-        <Pagination />
       </Wrapper>
     </>
   );

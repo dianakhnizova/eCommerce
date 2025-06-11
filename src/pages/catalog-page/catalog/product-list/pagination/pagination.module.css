@@ -12,8 +12,14 @@
   }
 }
 
-.input {
+.panel {
   align-items: center;
   border: 1px solid var(--clr-accent-9);
   padding: 10px 20px;
+  font-size: 20px;
+}
+
+.arrow {
+  width: 40px;
+  height: 40px;
 }

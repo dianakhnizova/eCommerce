@@ -4,6 +4,7 @@ import { observer } from 'mobx-react-lite';
 import { useEffect } from 'react';
 import { messages } from '../../../../sources/messages.ts';
 import { ProductCard } from './product-card/product-card.tsx';
+import { Pagination } from './pagination/pagination.tsx';
 
 export const ProductList = observer(() => {
   const {
@@ -44,14 +45,17 @@ export const ProductList = observer(() => {
   }, []);
 
   return (
-    <ul className={styles.cardsContainer}>
-      {hasProducts ? (
-        productList.map(product => (
-          <ProductCard key={product.id} product={product} />
-        ))
-      ) : (
-        <p className={styles.emptyMessage}>{messages.noProducts}</p>
-      )}
-    </ul>
+    <div className={styles.productContainer}>
+      <ul className={styles.cardsContainer}>
+        {hasProducts ? (
+          productList.map(product => (
+            <ProductCard key={product.id} product={product} />
+          ))
+        ) : (
+          <p className={styles.emptyMessage}>{messages.noProducts}</p>
+        )}
+      </ul>
+      <Pagination />
+    </div>
   );
 });

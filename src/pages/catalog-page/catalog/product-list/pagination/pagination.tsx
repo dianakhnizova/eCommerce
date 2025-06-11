@@ -1,9 +1,10 @@
 import styles from './pagination.module.css';
 import { RiArrowRightSLine, RiArrowLeftSLine } from 'react-icons/ri';
 import { observer } from 'mobx-react-lite';
-import { catalogStore } from '../../../store/catalog-store';
-import { Button } from '../../../components/button/button';
-import { BASED_PAGE } from './constants';
+import { catalogStore } from '../../../../../store/catalog-store';
+import { Button } from '../../../../../components/button/button';
+import { DEFAULT_OFFSET, START_PAGE } from './constants';
+import { messages } from './messages';
 
 export const Pagination = observer(() => {
   const {
@@ -11,7 +12,7 @@ export const Pagination = observer(() => {
     setPagination,
   } = catalogStore;
 
-  const currentPage = Math.floor(offset / limit) + BASED_PAGE;
+  const currentPage = Math.floor(offset / limit) + START_PAGE;
   const totalPages = Math.ceil(total / limit);
 
   const handlePreviousButton = () => {
@@ -31,19 +32,19 @@ export const Pagination = observer(() => {
       <Button
         className={styles.paginationButton}
         onClick={handlePreviousButton}
-        disabled={offset === 0}
+        disabled={offset === DEFAULT_OFFSET}
       >
-        <RiArrowLeftSLine />
+        <RiArrowLeftSLine className={styles.arrow} />
       </Button>
-      <div className={styles.input}>
-        Page {currentPage} of {totalPages}
+      <div className={styles.panel}>
+        {messages.pageTitle} {currentPage} {messages.ofTitle} {totalPages}
       </div>
       <Button
         className={styles.paginationButton}
         onClick={handleNextButton}
         disabled={offset + limit >= total}
       >
-        <RiArrowRightSLine />
+        <RiArrowRightSLine className={styles.arrow} />
       </Button>
     </div>
   );
