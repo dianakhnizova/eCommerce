@@ -23,24 +23,26 @@ export const CartPage = observer(() => {
       <BreadCrumbs />
       <Wrapper className={styles.cartPageWrapper}>
         {items.length > 0 ? (
-          items.map(item => (
-            <ProductCard
-              key={item.id}
-              product={{
-                id: item.productId,
-                categorySlug: item.productSlug.en,
-                description: '',
-                image: item.variant.images[0].url,
-                name: item.name.en,
-                price: (item.price.value.centAmount / 100).toString(),
-                color: item.variant.attributes[0].value,
-                discountPrice: item.price.discounted
-                  ? (item.price.discounted.value.centAmount / 100).toString()
-                  : '',
-                cartItemId: item.id,
-              }}
-            />
-          ))
+          <ul className={styles.cartPageProductList}>
+            {items.map(item => (
+              <ProductCard
+                key={item.id}
+                product={{
+                  id: item.productId,
+                  categorySlug: item.productSlug.en,
+                  description: '',
+                  image: item.variant.images[0].url,
+                  name: item.name.en,
+                  price: (item.price.value.centAmount / 100).toString(),
+                  color: item.variant.attributes[0].value,
+                  discountPrice: item.price.discounted
+                    ? (item.price.discounted.value.centAmount / 100).toString()
+                    : '',
+                  cartItemId: item.id,
+                }}
+              />
+            ))}
+          </ul>
         ) : (
           <>
             <p className={styles.emptyCartTitle}>{messages.emptyCart}</p>
