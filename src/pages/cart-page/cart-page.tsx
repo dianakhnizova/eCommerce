@@ -11,6 +11,7 @@ import { messages } from '../../sources/messages';
 import { ProductCard } from '../../components/product-card/product-card';
 import { useEffect } from 'react';
 import { toJS } from 'mobx';
+import { CURRENCY_USD } from '../../sources/constants/catalog';
 
 export const CartPage = observer(() => {
   const items = cartStore.cart?.lineItems || [];
@@ -20,9 +21,9 @@ export const CartPage = observer(() => {
     void navigate(PagePath.catalogPage);
   };
   useEffect(() => {
-    const itemsJs = toJS(items);
+    const itemsJs = toJS(cartStore.cart);
     console.log('items', itemsJs);
-  }, [items]);
+  }, [cartStore.cart]);
 
   return (
     <>
@@ -58,6 +59,10 @@ export const CartPage = observer(() => {
             </Button>
           </>
         )}
+        <h3>
+          Total coast {CURRENCY_USD}
+          {(cartStore.cart?.totalPrice.centAmount ?? 0) / 100}
+        </h3>
       </Wrapper>
     </>
   );
