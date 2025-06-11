@@ -5,10 +5,7 @@ import { cartStore } from '../../../../../store/cart-store.ts';
 import { generatePath, Link } from 'react-router-dom';
 import { PagePath } from '../../../../../router/enums.ts';
 import styles from './product-card.module.css';
-import {
-  handleAddToCart,
-  handleRemoveFromCart,
-} from '../../../../../utils/cart-handlers.ts';
+import { useCartHandlers } from '../../../../../utils/hooks/use-cart-handlers.tsx';
 import { messages } from '../../../../../sources/messages.ts';
 import { Button } from '../../../../../components/button/button.tsx';
 import { DEFAULT_VALUE } from '../../../../../sources/enums/default-values.ts';
@@ -17,6 +14,9 @@ import { CURRENCY_USD } from '../../../../../sources/constants/catalog.ts';
 export const ProductCard = observer(
   ({ product }: { product: ProductCardType }) => {
     const isInCart = cartStore.isInCart(product.id);
+    const { handleAddToCart, handleRemoveFromCart } = useCartHandlers(
+      product.id
+    );
 
     return (
       <li key={product.id}>
@@ -51,13 +51,7 @@ export const ProductCard = observer(
             </p>
           </div>
 
-          <Button
-            onClick={
-              isInCart
-                ? handleRemoveFromCart(product.id)
-                : handleAddToCart(product.id)
-            }
-          >
+          <Button onClick={isInCart ? handleRemoveFromCart : handleAddToCart}>
             {isInCart
               ? messages.buttons.removeFromCart
               : messages.buttons.addToCart}

@@ -5,10 +5,7 @@ import { CURRENCY_USD } from '../../../sources/constants/catalog.ts';
 import { messages } from '../../../sources/messages.ts';
 import { cartStore } from '../../../store/cart-store.ts';
 import { observer } from 'mobx-react-lite';
-import {
-  handleAddToCart,
-  handleRemoveFromCart,
-} from '../../../utils/cart-handlers.ts';
+import { useCartHandlers } from '../../../utils/hooks/use-cart-handlers.tsx';
 
 type Props = {
   product: Catalog.DetailedProduct;
@@ -16,6 +13,7 @@ type Props = {
 
 export const ProductInfo = observer(({ product }: Props) => {
   const isInCart = cartStore.isInCart(product.id);
+  const { handleAddToCart, handleRemoveFromCart } = useCartHandlers(product.id);
 
   return (
     <div className={styles.productInfo}>
@@ -35,11 +33,7 @@ export const ProductInfo = observer(({ product }: Props) => {
       <p className={styles.description}>{product.description}</p>
 
       <Button
-        onClick={
-          isInCart
-            ? handleRemoveFromCart(product.id)
-            : handleAddToCart(product.id)
-        }
+        onClick={isInCart ? handleRemoveFromCart : handleAddToCart}
         disabled={cartStore.isLoading}
       >
         {isInCart
