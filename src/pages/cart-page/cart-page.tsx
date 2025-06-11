@@ -8,6 +8,8 @@ import { Button } from '../../components/button/button';
 import emptyCartIllustration from '../../../assets/images/empty-cart.png';
 import { Wrapper } from '../../components/wrapper/wrapper';
 import { messages } from '../../sources/messages';
+import { ProductCard } from '../../components/product-card/product-card';
+
 export const CartPage = observer(() => {
   const items = cartStore.cart?.lineItems || [];
   const navigate = useNavigate();
@@ -22,11 +24,22 @@ export const CartPage = observer(() => {
       <Wrapper className={styles.cartPageWrapper}>
         {items.length > 0 ? (
           items.map(item => (
-            <div key={item.id}>
-              <p>{item.name.en}</p>
-              <p>{item.productId}</p>
-              <img src={item.variant.images[0].url}></img>
-            </div>
+            <ProductCard
+              key={item.id}
+              product={{
+                id: item.productId,
+                categorySlug: item.productSlug.en,
+                description: '',
+                image: item.variant.images[0].url,
+                name: item.name.en,
+                price: (item.price.value.centAmount / 100).toString(),
+                color: item.variant.attributes[0].value,
+                discountPrice: item.price.discounted
+                  ? (item.price.discounted.value.centAmount / 100).toString()
+                  : '',
+                cartItemId: item.id,
+              }}
+            />
           ))
         ) : (
           <>

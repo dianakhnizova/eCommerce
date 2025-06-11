@@ -9,4 +9,5 @@ export type ProductCard = {
   discountPrice?: string;
   color?: string;
   size?: string;
+  cartItemId?: string;
 };

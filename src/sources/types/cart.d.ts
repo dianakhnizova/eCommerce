@@ -15,6 +15,7 @@ export namespace Cart {
     id: string;
     productId: string;
     name: Record<string, string>;
+    productSlug: Record<string, string>;
     productType: Catalog.ProductType;
     variant: Catalog.ProductVariant;
     totalPrice: Price;

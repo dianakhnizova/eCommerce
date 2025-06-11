@@ -1,14 +1,14 @@
 import { observer } from 'mobx-react-lite';
-import type { ProductCard as ProductCardType } from '../types';
-import DEFAULT_IMAGE from '../../../../../assets/images/placeholder.png';
-import { cartStore } from '../../../../store/cart-store';
+import type { ProductCard as ProductCardType } from '../../pages/catalog-page/product-list/types.ts';
+import DEFAULT_IMAGE from '../../../assets/images/placeholder.png';
+import { cartStore } from '../../store/cart-store.ts';
 import { generatePath, Link } from 'react-router-dom';
-import { PagePath } from '../../../../router/enums';
-import { DEFAULT_VALUE } from '../../../../sources/enums/default-values';
+import { PagePath } from '../../router/enums.ts';
+import { DEFAULT_VALUE } from '../../sources/enums/default-values.ts';
 import styles from './product-card.module.css';
-import { CURRENCY_USD } from '../../../../sources/constants/catalog';
-import { messages } from '../../../../sources/messages.ts';
-import { Button } from '../../../../components/button/button.tsx';
+import { CURRENCY_USD } from '../../sources/constants/catalog.ts';
+import { messages } from '../../sources/messages.ts';
+import { Button } from '../button/button.tsx';
 
 export const ProductCard = observer(
   ({ product }: { product: ProductCardType }) => {
