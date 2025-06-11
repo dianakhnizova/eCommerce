@@ -1,19 +1,10 @@
-import { Button } from '../../../components/button/button';
 import { SvgBuilder } from '../../../components/svg-builder/svg-builder';
-import { useNavigate } from 'react-router-dom';
-import { PagePath } from '../../../router/enums';
 import { IconType } from '../../../components/svg-builder/enums';
 import styles from './about-title.module.css';
 import svgStyles from '../../../components/svg-builder/svg.module.css';
 import { messages } from '../../../sources/messages';
 
 export const AboutTitle = () => {
-  const navigate = useNavigate();
-
-  const navigateToContacts = () => {
-    void navigate(PagePath.aboutPage);
-  };
-
   return (
     <>
       <div className={styles.aboutTopContainer}>
@@ -26,9 +17,6 @@ export const AboutTitle = () => {
         <div className={styles.aboutTitleContainer}>
           <p className={styles.paragraph}>{messages.titles.aboutUsPageTitle}</p>
           <span>{messages.textAboutUs}</span>
-          <Button className={styles.contactButton} onClick={navigateToContacts}>
-            {messages.buttons.contactButton}
-          </Button>
         </div>
       </div>
     </>
