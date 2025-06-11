@@ -9,14 +9,16 @@ import styles from './product-card.module.css';
 import { CURRENCY_USD } from '../../sources/constants/catalog.ts';
 import { messages } from '../../sources/messages.ts';
 import { Button } from '../button/button.tsx';
-import {
-  handleAddToCart,
-  handleRemoveFromCart,
-} from '../../utils/cart-handlers.ts';
+
+import { RiAddFill, RiDeleteBinLine, RiSubtractFill } from 'react-icons/ri';
+import { useCartHandlers } from '../../utils/hooks/cart-handlers.ts';
 
 export const ProductCard = observer(
   ({ product }: { product: ProductCardType }) => {
     const isInCart = cartStore.isInCart(product.id);
+    const quantity = cartStore.getItemQuantity(product.id);
+    const { handleAddToCart, handleRemoveFromCart, handleUpdateQuantity } =
+      useCartHandlers();
 
     return (
       <li key={product.id}>
@@ -43,25 +45,45 @@ export const ProductCard = observer(
           <div className={styles.priceContainer}>
             <p className={styles.price}>
               {CURRENCY_USD}
-              {product.price}
+              {quantity ? `${Number(product.price) * quantity}` : product.price}
             </p>
             <p className={styles.discountPrice}>
               {CURRENCY_USD}
-              {product.discountPrice}
+              {quantity
+                ? `${Number(product.discountPrice) * quantity}`
+                : product.discountPrice}
             </p>
           </div>
-
-          <Button
-            onClick={
-              isInCart
-                ? handleRemoveFromCart(product.id)
-                : handleAddToCart(product.id)
-            }
-          >
-            {isInCart
-              ? messages.buttons.removeFromCart
-              : messages.buttons.addToCart}
-          </Button>
+          {isInCart ? (
+            <>
+              <div className={styles.itemMenu}>
+                <Button
+                  onClick={event => handleRemoveFromCart(product.id, event)}
+                >
+                  <RiDeleteBinLine />
+                </Button>
+                <Button
+                  onClick={event =>
+                    handleUpdateQuantity(product.id, quantity - 1, event)
+                  }
+                >
+                  <RiSubtractFill />
+                </Button>
+                <span>{quantity}</span>
+                <Button
+                  onClick={event =>
+                    handleUpdateQuantity(product.id, quantity + 1, event)
+                  }
+                >
+                  <RiAddFill />
+                </Button>
+              </div>
+            </>
+          ) : (
+            <Button onClick={event => handleAddToCart(product.id, event)}>
+              {messages.buttons.addToCart}
+            </Button>
+          )}
         </Link>
       </li>
     );

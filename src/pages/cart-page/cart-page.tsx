@@ -9,6 +9,8 @@ import emptyCartIllustration from '../../../assets/images/empty-cart.png';
 import { Wrapper } from '../../components/wrapper/wrapper';
 import { messages } from '../../sources/messages';
 import { ProductCard } from '../../components/product-card/product-card';
+import { useEffect } from 'react';
+import { toJS } from 'mobx';
 
 export const CartPage = observer(() => {
   const items = cartStore.cart?.lineItems || [];
@@ -17,6 +19,10 @@ export const CartPage = observer(() => {
   const toCatalogPage = () => {
     void navigate(PagePath.catalogPage);
   };
+  useEffect(() => {
+    const itemsJs = toJS(items);
+    console.log('items', itemsJs);
+  }, [items]);
 
   return (
     <>
@@ -38,7 +44,6 @@ export const CartPage = observer(() => {
                   discountPrice: item.price.discounted
                     ? (item.price.discounted.value.centAmount / 100).toString()
                     : '',
-                  cartItemId: item.id,
                 }}
               />
             ))}

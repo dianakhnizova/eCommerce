@@ -19,6 +19,7 @@ export namespace Cart {
     productType: Catalog.ProductType;
     variant: Catalog.ProductVariant;
     totalPrice: Price;
+    quantity: number;
     price: {
       id: string;
       value: Price;
