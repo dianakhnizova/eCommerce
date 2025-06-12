@@ -4,9 +4,13 @@ import { messages } from './messages';
 import { IconType } from '../../../svg-builder/enums';
 import { userStore } from '../../../../store/user-store';
 import { computed } from 'mobx';
+import { cartStore } from '../../../../store/cart-store';
+import { CURRENCY_USD } from '../../../../sources/constants/catalog';
 
-export const navigationLinks = computed<LinkItems[]>(() =>
-  userStore.isAuth
+export const navigationLinks = computed<LinkItems[]>(() => {
+  const totalCoast = `${CURRENCY_USD}${(cartStore.cart?.totalPrice.centAmount ?? 0) / 100}`;
+
+  return userStore.isAuth
     ? [
         {
           to: PagePath.root,
@@ -17,8 +21,9 @@ export const navigationLinks = computed<LinkItems[]>(() =>
         {
           to: PagePath.cartPage,
           label: messages.cartLink,
+          data: totalCoast,
           iconType: IconType.Cart,
-          onClick: () => console.log('Cart'),
+          onClick: () => PagePath.catalogPage,
         },
       ]
     : [
@@ -32,5 +37,5 @@ export const navigationLinks = computed<LinkItems[]>(() =>
           label: messages.registerLink,
           iconType: IconType.Registration,
         },
-      ]
-);
+      ];
+});
