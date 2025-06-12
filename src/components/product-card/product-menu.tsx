@@ -4,12 +4,14 @@ import { cartStore } from '../../store/cart-store';
 import { useCartHandlers } from '../../utils/hooks/use-cart-handlers';
 import { Button } from '../button/button';
 import styles from './product-card.module.css';
+import { observer } from 'mobx-react-lite';
 
-export const ProductMenu: React.FC<{ productId: string }> = ({ productId }) => {
+export const ProductMenu = observer(({ productId }: { productId: string }) => {
   const isInCart = cartStore.isInCart(productId);
   const quantity = cartStore.getItemQuantity(productId);
   const { handleAddToCart, handleRemoveFromCart, handleUpdateQuantity } =
     useCartHandlers(productId);
+
   return (
     <>
       {isInCart ? (
@@ -30,4 +32,4 @@ export const ProductMenu: React.FC<{ productId: string }> = ({ productId }) => {
       )}
     </>
   );
-};
+});

@@ -1,5 +1,5 @@
 import { observer } from 'mobx-react-lite';
-import type { ProductCard as ProductCardType } from '../../pages/catalog-page/product-list/types.ts';
+import type { ProductCard as ProductCardType } from '../../pages/catalog-page/catalog/product-list/types.ts';
 import DEFAULT_IMAGE from '../../../assets/images/placeholder.png';
 import { cartStore } from '../../store/cart-store.ts';
 import { generatePath, Link } from 'react-router-dom';
