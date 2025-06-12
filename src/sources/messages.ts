@@ -61,6 +61,7 @@ export const messages = {
   lastName: 'Last Name',
   birth: 'Birth',
   addresses: 'Addresses',
+  totalCoast: 'Total coast',
 
   badges: {
     defaultBilling: '📋Default Billing',

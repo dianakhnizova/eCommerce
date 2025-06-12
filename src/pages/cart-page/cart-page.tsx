@@ -9,8 +9,6 @@ import emptyCartIllustration from '../../../assets/images/empty-cart.png';
 import { Wrapper } from '../../components/wrapper/wrapper';
 import { messages } from '../../sources/messages';
 import { ProductCard } from '../../components/product-card/product-card';
-import { useEffect } from 'react';
-import { toJS } from 'mobx';
 import { CURRENCY_USD } from '../../sources/constants/catalog';
 
 export const CartPage = observer(() => {
@@ -20,10 +18,6 @@ export const CartPage = observer(() => {
   const toCatalogPage = () => {
     void navigate(PagePath.catalogPage);
   };
-  useEffect(() => {
-    const itemsJs = toJS(cartStore.cart);
-    console.log('items', itemsJs);
-  }, [cartStore.cart]);
 
   return (
     <>
@@ -60,7 +54,7 @@ export const CartPage = observer(() => {
           </>
         )}
         <h3>
-          Total coast {CURRENCY_USD}
+          {messages.totalCoast} {CURRENCY_USD}
           {(cartStore.cart?.totalPrice.centAmount ?? 0) / 100}
         </h3>
       </Wrapper>
