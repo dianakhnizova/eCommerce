@@ -9,7 +9,7 @@ import { Endpoints } from '../endpoints';
 import type {
   SortField,
   SortOrder,
-} from '../../pages/catalog-page/catalog-options/components/sorting-selects/enums';
+} from '../../pages/catalog-page/catalog/filtering/options/sorting-selects/enums';
 
 export const catalogService = {
   getProducts: async (

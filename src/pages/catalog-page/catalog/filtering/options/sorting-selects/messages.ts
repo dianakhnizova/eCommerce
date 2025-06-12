@@ -4,4 +4,5 @@ export const messages = {
   sortByAsc: 'Ascending',
   sortByDesc: 'Descending',
   sortByDefault: 'Select',
+  sortBy: 'Sort by',
 };
