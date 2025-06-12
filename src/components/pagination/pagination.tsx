@@ -1,8 +1,8 @@
 import styles from './pagination.module.css';
 import { RiArrowRightSLine, RiArrowLeftSLine } from 'react-icons/ri';
 import { observer } from 'mobx-react-lite';
-import { catalogStore } from '../../../../../store/catalog-store';
-import { Button } from '../../../../../components/button/button';
+import { catalogStore } from '../../store/catalog-store';
+import { Button } from '../button/button';
 import { DEFAULT_OFFSET, START_PAGE } from './constants';
 import { messages } from './messages';
 

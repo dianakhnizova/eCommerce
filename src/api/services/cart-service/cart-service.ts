@@ -85,4 +85,32 @@ export const cartService = {
 
     return response.data;
   },
+
+  updateItemQuantity: async (
+    lineItemId: string,
+    quantity: number,
+    cart: Cart.GeneralInfo
+  ): Promise<Cart.GeneralInfo> => {
+    const body = {
+      version: cart.version,
+      actions: [
+        {
+          action: CartUpdateActions.changeQuantity,
+          lineItemId,
+          quantity,
+        },
+      ],
+    };
+    const params = new URLSearchParams({
+      manage_orders: PROJECT_KEY,
+    });
+
+    const response = await baseApi.post<Cart.GeneralInfo>(
+      `${PROJECT_KEY}${Endpoints.CARTS}/${cart.id}`,
+      body,
+      { params }
+    );
+
+    return response.data;
+  },
 };

@@ -14,8 +14,22 @@ export const useCartHandlers = (productId: string) => {
     void cartStore.removeItem(productId);
   };
 
+  const handleUpdateQuantity = (
+    productQuantity: number,
+    event: MouseEvent<HTMLButtonElement>
+  ) => {
+    event.preventDefault();
+    event.stopPropagation();
+    if (productQuantity <= 0) {
+      void cartStore.removeItem(productId);
+      return;
+    }
+    void cartStore.updateItemQuantity(productId, productQuantity);
+  };
+
   return {
     handleAddToCart,
     handleRemoveFromCart,
+    handleUpdateQuantity,
   };
 };
