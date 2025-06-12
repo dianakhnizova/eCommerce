@@ -20,6 +20,9 @@ export const RightNavMenu = observer(() => {
           >
             <SvgBuilder iconType={link.iconType} className={svgStyles.small} />
             {link.label}
+            {link.data !== undefined && (
+              <span className={styles.data}>&nbsp;({link.data})</span>
+            )}
           </NavLink>
         );
       })}
