@@ -28,6 +28,13 @@ export const navigationLinks = computed<LinkItems[]>(() => {
       ]
     : [
         {
+          to: PagePath.cartPage,
+          label: messages.cartLink,
+          data: totalCoast,
+          iconType: IconType.Cart,
+          onClick: () => PagePath.catalogPage,
+        },
+        {
           to: PagePath.loginPage,
           label: messages.loginLink,
           iconType: IconType.Login,
