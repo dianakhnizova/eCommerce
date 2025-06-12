@@ -4,6 +4,14 @@
   align-items: center;
   flex-direction: column;
   gap: 20px;
+  padding: 40px 20px;
+}
+
+.cartPageProductList {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 20px;
 }
 
 .emptyCartTitle {

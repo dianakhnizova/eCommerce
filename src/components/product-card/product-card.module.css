@@ -16,7 +16,7 @@
 }
 
 .card:hover {
-  transform: scale(1.1);
+  transform: scale(1.02);
 }
 
 li {
@@ -52,4 +52,16 @@ li {
 .discountPrice {
   color: var(--clr-accent-1);
   font-size: 20px;
+}
+
+.itemMenu {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.itemMenu button {
+  padding: 7px;
+  display: flex;
+  align-items: center;
 }

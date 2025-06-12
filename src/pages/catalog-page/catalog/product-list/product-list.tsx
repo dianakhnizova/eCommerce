@@ -3,8 +3,8 @@ import { catalogStore } from '../../../../store/catalog-store.ts';
 import { observer } from 'mobx-react-lite';
 import { useEffect } from 'react';
 import { messages } from '../../../../sources/messages.ts';
-import { ProductCard } from './product-card/product-card.tsx';
-import { Pagination } from './pagination/pagination.tsx';
+import { ProductCard } from './components/product-card/product-card.tsx';
+import { Pagination } from './components/product-card/pagination/pagination.tsx';
 
 export const ProductList = observer(() => {
   const {

@@ -1,0 +1,67 @@
+.card {
+  text-decoration: none;
+  color: inherit;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  box-shadow: var(--shadow-2);
+  transition:
+    transform 0.3s ease,
+    box-shadow 0.3s ease;
+  cursor: pointer;
+  width: 255px;
+  gap: 21px;
+  padding: 15px;
+}
+
+.card:hover {
+  transform: scale(1.02);
+}
+
+li {
+  list-style: none;
+}
+
+.name {
+  font-size: 24px;
+  font-weight: 700;
+}
+
+.image {
+  width: 100%;
+  height: 220px;
+}
+
+.description {
+  font-size: 20px;
+  font-weight: 400;
+}
+
+.priceContainer {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.price {
+  text-decoration: line-through;
+  font-size: 20px;
+}
+
+.discountPrice {
+  color: var(--clr-accent-1);
+  font-size: 20px;
+}
+
+.itemMenu {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.itemMenu button {
+  padding: 7px;
+  display: flex;
+  align-items: center;
+}

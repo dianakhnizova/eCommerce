@@ -47,6 +47,7 @@ export const messages = {
     successGeneralInfoUpdate: 'General information successfully changed',
     successfulAddressUpdate: 'Address updated successfully',
     removeFromCart: 'Item removed from cart',
+    updateItemQuantity: 'Item quantity updated',
   },
 
   noName: 'No name',
@@ -60,6 +61,7 @@ export const messages = {
   lastName: 'Last Name',
   birth: 'Birth',
   addresses: 'Addresses',
+  totalCoast: 'Total coast',
 
   badges: {
     defaultBilling: '📋Default Billing',

@@ -100,6 +100,47 @@ export class CartStore {
     );
   }
 
+  public async updateItemQuantity(productId: string, quantity: number) {
+    if (!this.cart) return;
+    const item = this.cart.lineItems.find(item => item.productId === productId);
+    if (!item) {
+      throw new Error(messages.errors.productError);
+    }
+    try {
+      const item = this.cart.lineItems.find(
+        item => item.productId === productId
+      );
+
+      if (!item) {
+        throw new Error(messages.errors.productError);
+      }
+
+      const response = await cartService.updateItemQuantity(
+        item.id,
+        quantity,
+        this.cart
+      );
+      runInAction(() => {
+        this.cart = response;
+        toast.success(messages.success.updateItemQuantity);
+      });
+    } catch (error) {
+      this.error = getErrorMessage(error);
+      toast.error(this.error);
+    } finally {
+      this.isLoading = false;
+    }
+  }
+
+  public getItemQuantity(productId: string): number {
+    if (!this.cart) return 0;
+    const item = this.cart.lineItems.find(item => item.productId === productId);
+    if (!item) {
+      return 0;
+    }
+    return item.quantity;
+  }
+
   public clear() {}
 }
 
