@@ -48,6 +48,7 @@ export const messages = {
     successfulAddressUpdate: 'Address updated successfully',
     removeFromCart: 'Item removed from cart',
     updateItemQuantity: 'Item quantity updated',
+    clearCart: 'Shopping cart has been cleared',
   },
 
   noName: 'No name',
@@ -61,7 +62,7 @@ export const messages = {
   lastName: 'Last Name',
   birth: 'Birth',
   addresses: 'Addresses',
-  totalCoast: 'Total coast',
+  totalCost: 'Total cost',
 
   badges: {
     defaultBilling: '📋Default Billing',
@@ -75,6 +76,7 @@ export const messages = {
   buttons: {
     addToCart: 'Add To Cart',
     removeFromCart: 'Remove From Cart',
+    clearCart: 'Clear Cart',
     addAddress: 'New Address',
     contactButton: 'Contact us',
     save: 'Save',
@@ -103,4 +105,7 @@ export const messages = {
   checkboxDefaultAddress: 'Default address',
   checkboxBillingAddress: 'Billing address',
   checkboxShippingAddress: 'Shipping address',
+  info: {
+    cartAlreadyEmpty: 'The cart is already empty',
+  },
 };
