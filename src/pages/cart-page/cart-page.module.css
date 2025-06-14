@@ -17,3 +17,9 @@
 .emptyCartTitle {
   font-size: 20px;
 }
+
+.clearCartButton {
+  margin-top: 20px;
+  align-self: flex-end;
+  margin-right: 20px;
+}

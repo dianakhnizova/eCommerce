@@ -7,8 +7,6 @@ import { LSKeys } from '../sources/enums/ls-keys';
 import { AxiosError } from 'axios';
 import { isApiError } from '../utils/is-api-error';
 import type { AddressUpdateActions } from '../api/services/customer-service/enums/update-actions';
-import { cartStore } from './cart-store';
-
 class UserStore {
   public isInitLoading = false;
   public isPending = false;
@@ -119,8 +117,6 @@ class UserStore {
         this.user = response.customer;
         localStorage.setItem(LSKeys.USER_ID, response.customer.id);
       });
-
-      await cartStore.clearAnonymousCart();
     } catch (error) {
       runInAction(() => {
         if (error instanceof AxiosError) {

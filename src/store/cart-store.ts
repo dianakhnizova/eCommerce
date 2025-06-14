@@ -25,9 +25,11 @@ export class CartStore {
         const response = await cartService.getCart(cartID);
         runInAction(() => {
           this.cart = response;
+          localStorage.setItem(LSKeys.CART_ID, response.id);
         });
       } else {
         const response = await cartService.createCart();
+
         runInAction(() => {
           this.cart = response;
           localStorage.setItem(LSKeys.CART_ID, response.id);
@@ -141,17 +143,21 @@ export class CartStore {
     return item.quantity;
   }
 
-  public async clearAnonymousCart() {
+  public async clear() {
+    if (!this.cart || this.cart.lineItems.length === 0) {
+      toast.info(messages.info.cartAlreadyEmpty);
+      return;
+    }
+
     this.isLoading = true;
     this.error = null;
 
     try {
-      this.clear();
-
-      const response = await cartService.createCart();
+      const response = await cartService.clearCart(this.cart);
       runInAction(() => {
         this.cart = response;
-        localStorage.setItem(LSKeys.CART_ID, response.id);
+        localStorage.removeItem(LSKeys.CART_ID);
+        toast.success(messages.success.clearCart);
       });
     } catch (error) {
       this.error = getErrorMessage(error);
@@ -159,16 +165,8 @@ export class CartStore {
     } finally {
       runInAction(() => {
         this.isLoading = false;
-        this.error = null;
       });
     }
-  }
-
-  public clear() {
-    runInAction(() => {
-      this.cart = null;
-      localStorage.removeItem(LSKeys.CART_ID);
-    });
   }
 }
 

@@ -8,8 +8,9 @@ import { Button } from '../../components/button/button';
 import emptyCartIllustration from '../../../assets/images/empty-cart.png';
 import { Wrapper } from '../../components/wrapper/wrapper';
 import { messages } from '../../sources/messages';
-import { ProductCard } from '../../components/product-card/product-card';
 import { CURRENCY_USD } from '../../sources/constants/catalog';
+import { ProductCard } from '../../components/product-card/product-card';
+import { prepareCartItemForProductCard } from '../../utils/prepare-product-card-for-cart';
 
 export const CartPage = observer(() => {
   const items = cartStore.cart?.lineItems || [];
@@ -19,28 +20,24 @@ export const CartPage = observer(() => {
     void navigate(PagePath.catalogPage);
   };
 
+  const handleClearCart = () => {
+    void cartStore.clear();
+  };
+
   return (
     <>
       <BreadCrumbs />
       <Wrapper className={styles.cartPageWrapper}>
+        <Button onClick={handleClearCart} className={styles.clearCartButton}>
+          {messages.buttons.clearCart}
+        </Button>
         {items.length > 0 ? (
           <ul className={styles.cartPageProductList}>
             {items.map(item => (
               <ProductCard
                 key={item.id}
+                product={prepareCartItemForProductCard(item)}
                 isShowInCart={true}
-                product={{
-                  id: item.productId,
-                  categorySlug: item.productSlug.en,
-                  description: '',
-                  image: item.variant.images[0].url,
-                  name: item.name.en,
-                  price: (item.price.value.centAmount / 100).toString(),
-                  color: item.variant.attributes[0].value,
-                  discountPrice: item.price.discounted
-                    ? (item.price.discounted.value.centAmount / 100).toString()
-                    : '',
-                }}
               />
             ))}
           </ul>
@@ -54,7 +51,7 @@ export const CartPage = observer(() => {
           </>
         )}
         <h3>
-          {messages.totalCoast} {CURRENCY_USD}
+          {messages.totalCost} {CURRENCY_USD}
           {(cartStore.cart?.totalPrice.centAmount ?? 0) / 100}
         </h3>
       </Wrapper>
