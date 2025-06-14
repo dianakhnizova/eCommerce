@@ -25,9 +25,11 @@ export class CartStore {
         const response = await cartService.getCart(cartID);
         runInAction(() => {
           this.cart = response;
+          localStorage.setItem(LSKeys.CART_ID, response.id);
         });
       } else {
         const response = await cartService.createCart();
+
         runInAction(() => {
           this.cart = response;
           localStorage.setItem(LSKeys.CART_ID, response.id);
@@ -154,6 +156,7 @@ export class CartStore {
       const response = await cartService.clearCart(this.cart);
       runInAction(() => {
         this.cart = response;
+        localStorage.removeItem(LSKeys.CART_ID);
         toast.success(messages.success.clearCart);
       });
     } catch (error) {
