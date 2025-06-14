@@ -141,7 +141,30 @@ export class CartStore {
     return item.quantity;
   }
 
-  public clear() {}
+  public async clear() {
+    if (!this.cart || this.cart.lineItems.length === 0) {
+      toast.info(messages.info.cartAlreadyEmpty);
+      return;
+    }
+
+    this.isLoading = true;
+    this.error = null;
+
+    try {
+      const response = await cartService.clearCart(this.cart);
+      runInAction(() => {
+        this.cart = response;
+        toast.success(messages.success.clearCart);
+      });
+    } catch (error) {
+      this.error = getErrorMessage(error);
+      toast.error(this.error);
+    } finally {
+      runInAction(() => {
+        this.isLoading = false;
+      });
+    }
+  }
 }
 
 export const cartStore = new CartStore();

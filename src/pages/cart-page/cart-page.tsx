@@ -19,9 +19,16 @@ export const CartPage = observer(() => {
     void navigate(PagePath.catalogPage);
   };
 
+  const handleClearCart = () => {
+    void cartStore.clear();
+  };
+
   return (
     <>
       <BreadCrumbs />
+      <Button onClick={handleClearCart} className={styles.clearCartButton}>
+        {messages.buttons.clearCart}
+      </Button>
       <Wrapper className={styles.cartPageWrapper}>
         {items.length > 0 ? (
           <ul className={styles.cartPageProductList}>
@@ -54,7 +61,7 @@ export const CartPage = observer(() => {
           </>
         )}
         <h3>
-          {messages.totalCoast} {CURRENCY_USD}
+          {messages.totalCost} {CURRENCY_USD}
           {(cartStore.cart?.totalPrice.centAmount ?? 0) / 100}
         </h3>
       </Wrapper>

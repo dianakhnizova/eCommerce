@@ -113,4 +113,30 @@ export const cartService = {
 
     return response.data;
   },
+
+  clearCart: async (cart: Cart.GeneralInfo): Promise<Cart.GeneralInfo> => {
+    if (cart.lineItems.length === 0) return cart;
+
+    const actions = cart.lineItems.map(item => ({
+      action: CartUpdateActions.removeItem,
+      lineItemId: item.id,
+    }));
+
+    const body = {
+      version: cart.version,
+      actions,
+    };
+
+    const params = new URLSearchParams({
+      manage_orders: PROJECT_KEY,
+    });
+
+    const response = await baseApi.post<Cart.GeneralInfo>(
+      `${PROJECT_KEY}${Endpoints.CARTS}/${cart.id}`,
+      body,
+      { params }
+    );
+
+    return response.data;
+  },
 };

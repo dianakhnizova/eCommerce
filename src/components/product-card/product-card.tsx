@@ -40,13 +40,13 @@ export const ProductCard: React.FC<{
           <p className={styles.price}>
             {CURRENCY_USD}
             {isShowInCart
-              ? `${Number(product.price) * quantity}`
+              ? `${(Number(product.price) * quantity).toFixed(2)}`
               : product.price}
           </p>
           <p className={styles.discountPrice}>
             {CURRENCY_USD}
             {isShowInCart
-              ? `${Number(product.discountPrice) * quantity}`
+              ? `${(Number(product.discountPrice) * quantity).toFixed(2)}`
               : product.discountPrice}
           </p>
         </div>
