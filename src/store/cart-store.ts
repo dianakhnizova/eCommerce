@@ -5,11 +5,17 @@ import { messages } from '../sources/messages';
 import type { Cart } from '../sources/types/cart';
 import { toast } from 'react-toastify';
 import { getErrorMessage } from './get-error-message';
+import { catalogStore } from './catalog-store';
+import type { ProductCard } from '../pages/catalog-page/catalog/product-list/types';
+import { prepareCartItemForProductCard } from '../utils/prepare-product-card-for-cart';
+import { AxiosError } from 'axios';
+import type { Catalog } from '../sources/types/catalog';
 
 export class CartStore {
   public cart: Cart.GeneralInfo | null = null;
   public isLoading = false;
   public error: string | null = null;
+  public product: ProductCard[] = [];
 
   constructor() {
     makeAutoObservable(this);
@@ -35,6 +41,8 @@ export class CartStore {
           localStorage.setItem(LSKeys.CART_ID, response.id);
         });
       }
+
+      await this.getProduct();
     } catch (error) {
       this.error = getErrorMessage(error);
       toast.error(this.error);
@@ -45,6 +53,64 @@ export class CartStore {
       });
     }
   }
+
+  public getProduct = async () => {
+    this.isLoading = true;
+    this.error = null;
+    try {
+      await catalogStore.getCategories();
+
+      if (!this.cart) {
+        runInAction(() => {
+          this.product = [];
+        });
+        return;
+      }
+
+      const products = await Promise.all(
+        this.cart.lineItems.map(item => prepareCartItemForProductCard(item))
+      );
+
+      runInAction(() => {
+        this.product = products;
+      });
+    } catch (error) {
+      runInAction(() => {
+        if (error instanceof AxiosError) {
+          this.error =
+            error.response?.data?.message || messages.errors.catalogError;
+        }
+      });
+    } finally {
+      runInAction(() => {
+        this.isLoading = false;
+      });
+    }
+  };
+
+  public getProductCategories = async (
+    productId: string
+  ): Promise<Catalog.ProductCategory[]> => {
+    this.isLoading = true;
+    this.error = null;
+    try {
+      const response = await cartService.getProductById(productId);
+      const categories = response.masterData?.current?.categories || [];
+      return categories;
+    } catch (error) {
+      runInAction(() => {
+        if (error instanceof AxiosError) {
+          this.error =
+            error.response?.data?.message || messages.errors.catalogError;
+        }
+      });
+      return [];
+    } finally {
+      runInAction(() => {
+        this.isLoading = false;
+      });
+    }
+  };
 
   public async addItem(product: { productId: string; quantity?: number }) {
     if (!this.cart) return;
@@ -58,6 +124,8 @@ export class CartStore {
         this.cart = response;
         toast.success(messages.success.addToCart);
       });
+
+      await this.getProduct();
     } catch (error) {
       this.error = getErrorMessage(error);
       toast.error(this.error);
@@ -87,6 +155,8 @@ export class CartStore {
         this.cart = response;
         toast.success(messages.success.removeFromCart);
       });
+
+      await this.getProduct();
     } catch (error) {
       this.error = getErrorMessage(error);
       toast.error(this.error);
@@ -126,6 +196,8 @@ export class CartStore {
         this.cart = response;
         toast.success(messages.success.updateItemQuantity);
       });
+
+      await this.getProduct();
     } catch (error) {
       this.error = getErrorMessage(error);
       toast.error(this.error);

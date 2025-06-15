@@ -17,10 +17,7 @@ export const useCrumbLinksList = () => {
 
   crumbs.push({ to: PagePath.root, label: messages.titles.homePageTitle });
 
-  if (
-    currentPath.startsWith(PagePath.catalogPage) ||
-    currentPath.startsWith(PagePath.cartPage)
-  ) {
+  if (currentPath.startsWith(PagePath.catalogPage)) {
     crumbs.push({
       to: PagePath.catalogPage,
       label: messages.titles.catalogPageTitle,

@@ -10,7 +10,6 @@ import { Wrapper } from '../../components/wrapper/wrapper';
 import { messages } from '../../sources/messages';
 import { CURRENCY_USD } from '../../sources/constants/catalog';
 import { ProductCard } from '../../components/product-card/product-card';
-import { prepareCartItemForProductCard } from '../../utils/prepare-product-card-for-cart';
 
 export const CartPage = observer(() => {
   const items = cartStore.cart?.lineItems || [];
@@ -33,12 +32,8 @@ export const CartPage = observer(() => {
         </Button>
         {items.length > 0 ? (
           <ul className={styles.cartPageProductList}>
-            {items.map(item => (
-              <ProductCard
-                key={item.id}
-                product={prepareCartItemForProductCard(item)}
-                isShowInCart={true}
-              />
+            {cartStore.product.map(product => (
+              <ProductCard key={product.id} product={product} />
             ))}
           </ul>
         ) : (
