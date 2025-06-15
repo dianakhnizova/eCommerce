@@ -6,6 +6,7 @@ import { useNavigate } from 'react-router-dom';
 import { PagePath } from '../../../router/enums';
 import { messages } from '../../../sources/messages';
 import styles from './promo-banner.module.css';
+import { PromoCode } from '../../../components/promocode/promo-code.tsx';
 
 export const PromoBanner = observer(() => {
   const navigate = useNavigate();
@@ -26,21 +27,7 @@ export const PromoBanner = observer(() => {
         <Button className={styles.shopButton} onClick={toCatalogPage}>
           {messages.buttons.shopNow}
         </Button>
-        {cartStore.promoCodes.length > 0 && (
-          <div className={styles.promoCodeListWrapper}>
-            <p className={styles.promoTitle}>
-              {messages.promoCode.actualPromocodesText}
-            </p>
-            <ul className={styles.promoCodeList}>
-              {cartStore.promoCodes.map(code => (
-                <li key={code.id} className={styles.promoItem}>
-                  <b>{code.code}</b> —{' '}
-                  {code.name.en || messages.promoCode.noDescriptionText}
-                </li>
-              ))}
-            </ul>
-          </div>
-        )}
+        {cartStore.promoCodes.length > 0 && <PromoCode />}
       </div>
     </div>
   );

@@ -36,6 +36,10 @@
   padding-left: 6px;
 }
 
+.promoCodeInput::placeholder {
+  font-family: var(--ff-base);
+}
+
 .priceContainer {
   display: flex;
   align-items: center;
