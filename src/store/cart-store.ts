@@ -19,8 +19,19 @@ export class CartStore {
     makeAutoObservable(this);
   }
 
-  public get totalPriceWithoutDiscount() {
-    return this.originalPriceBeforeDiscount;
+  public get totalPriceBeforePromoCode() {
+    if (!this.cart) return null;
+
+    const total = this.cart.lineItems.reduce((sum, item) => {
+      const basePrice =
+        item.price.discounted?.value.centAmount ?? item.price.value.centAmount;
+      return sum + basePrice * item.quantity;
+    }, 0);
+
+    return {
+      ...this.cart.totalPrice,
+      centAmount: total,
+    };
   }
 
   public async init() {
@@ -181,7 +192,6 @@ export class CartStore {
     this.error = null;
 
     try {
-      console.log(this.cart?.totalPrice);
       this.originalPriceBeforeDiscount = this.cart?.totalPrice;
       const updatedCart = await cartService.addPromoCode(code, this.cart);
       runInAction(() => {

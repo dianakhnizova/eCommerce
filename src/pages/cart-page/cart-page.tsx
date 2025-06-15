@@ -91,7 +91,7 @@ export const CartPage = observer(() => {
             <>
               <span className={styles.priceWithoutDiscount}>
                 {CURRENCY_USD}
-                {(cartStore.totalPriceWithoutDiscount?.centAmount ??
+                {(cartStore.totalPriceBeforePromoCode?.centAmount ??
                   cartStore.cart.totalPrice.centAmount ??
                   0) / 100}
               </span>

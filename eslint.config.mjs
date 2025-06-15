@@ -81,6 +81,7 @@ export default tseslint
         'unicorn/no-array-callback-reference': 'off',
         'unicorn/no-negated-condition': 'off',
         'unicorn/no-lonely-if': 'off',
+        'unicorn/no-array-reduce': 'off',
       },
     }
   )
