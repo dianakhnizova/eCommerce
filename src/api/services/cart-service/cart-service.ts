@@ -30,6 +30,24 @@ export const cartService = {
     return response.data;
   },
 
+  getCustomerCarts: async (
+    customerId: string
+  ): Promise<{ results: Cart.GeneralInfo[] }> => {
+    const params = new URLSearchParams({
+      manage_orders: PROJECT_KEY,
+      customer_id: customerId,
+      limit: '1',
+      sort: 'lastModifiedAt desc',
+    });
+
+    const response = await baseApi.get<{ results: Cart.GeneralInfo[] }>(
+      `${PROJECT_KEY}${Endpoints.CARTS}`,
+      { params }
+    );
+
+    return response.data;
+  },
+
   addItemToCart: async (
     product: {
       productId: string;
