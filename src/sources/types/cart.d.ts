@@ -1,4 +1,8 @@
 import type { Catalog } from './catalog';
+import type {
+  DiscountedTotalPricePortion,
+  DiscountedPrice,
+} from '@commercetools/platform-sdk';
 
 export namespace Cart {
   type GeneralInfo = {
@@ -9,6 +13,10 @@ export namespace Cart {
     discountCodes: [];
     customLineItems: [];
     totalPrice: Price;
+    discountOnTotalPrice: {
+      discountedAmount: DiscountedPrice;
+      includedDiscounts: DiscountedTotalPricePortion;
+    };
   };
 
   type Item = {

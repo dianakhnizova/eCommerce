@@ -22,11 +22,9 @@ export class CartStore {
   public get totalPriceBeforePromoCode() {
     if (!this.cart) return null;
 
-    const total = this.cart.lineItems.reduce((sum, item) => {
-      const basePrice =
-        item.price.discounted?.value.centAmount ?? item.price.value.centAmount;
-      return sum + basePrice * item.quantity;
-    }, 0);
+    const total =
+      this.cart.totalPrice.centAmount +
+      this.cart.discountOnTotalPrice.discountedAmount.centAmount;
 
     return {
       ...this.cart.totalPrice,
