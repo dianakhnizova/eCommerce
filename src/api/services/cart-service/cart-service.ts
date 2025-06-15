@@ -3,6 +3,7 @@ import { Endpoints } from '../../endpoints';
 import { baseApi } from '../../axios';
 import { CartUpdateActions } from './enums/update-actions.ts';
 import type { Cart } from '../../../sources/types/cart';
+import type { Catalog } from '../../../sources/types/catalog';
 
 export const cartService = {
   getCart: async (cartId: string): Promise<Cart.GeneralInfo> => {
@@ -22,6 +23,7 @@ export const cartService = {
     const params = new URLSearchParams({
       manage_orders: PROJECT_KEY,
     });
+
     const response = await baseApi.post<Cart.GeneralInfo>(
       `${PROJECT_KEY}${Endpoints.CARTS}`,
       { currency: defaultCurrency },
@@ -137,6 +139,13 @@ export const cartService = {
       { params }
     );
 
+    return response.data;
+  },
+
+  getProductById: async (productId: string): Promise<Catalog.Product> => {
+    const response = await baseApi.get<Catalog.Product>(
+      `${PROJECT_KEY}${Endpoints.PRODUCTS}/${productId}`
+    );
     return response.data;
   },
 };
