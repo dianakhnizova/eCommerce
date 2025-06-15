@@ -5,14 +5,22 @@ import { messages } from '../sources/messages';
 import type { Cart } from '../sources/types/cart';
 import { toast } from 'react-toastify';
 import { getErrorMessage } from './get-error-message';
+import { preparePromoCode } from '../utils/prepare-promo-code.ts';
 
 export class CartStore {
   public cart: Cart.GeneralInfo | null = null;
   public isLoading = false;
   public error: string | null = null;
+  public promoCodes: Cart.PromoCode[] = [];
+  public originalPriceBeforeDiscount: Cart.GeneralInfo['totalPrice'] | null =
+    null;
 
   constructor() {
     makeAutoObservable(this);
+  }
+
+  public get totalPriceWithoutDiscount() {
+    return this.originalPriceBeforeDiscount;
   }
 
   public async init() {
@@ -155,6 +163,49 @@ export class CartStore {
       runInAction(() => {
         this.cart = response;
         toast.success(messages.success.clearCart);
+      });
+    } catch (error) {
+      this.error = getErrorMessage(error);
+      toast.error(this.error);
+    } finally {
+      runInAction(() => {
+        this.isLoading = false;
+      });
+    }
+  }
+
+  public async addPromoCode(code: string) {
+    if (!this.cart) return;
+
+    this.isLoading = true;
+    this.error = null;
+
+    try {
+      console.log(this.cart?.totalPrice);
+      this.originalPriceBeforeDiscount = this.cart?.totalPrice;
+      const updatedCart = await cartService.addPromoCode(code, this.cart);
+      runInAction(() => {
+        this.cart = updatedCart;
+        toast.success(messages.promoCode.success);
+      });
+    } catch (error) {
+      this.error = getErrorMessage(error);
+      toast.error(this.error);
+    } finally {
+      runInAction(() => {
+        this.isLoading = false;
+      });
+    }
+  }
+
+  public async getActivePromoCodes() {
+    this.isLoading = true;
+    this.error = null;
+
+    try {
+      const data = await cartService.getActivePromoCodes();
+      runInAction(() => {
+        this.promoCodes = preparePromoCode(data);
       });
     } catch (error) {
       this.error = getErrorMessage(error);

@@ -10,10 +10,13 @@ import { Wrapper } from '../../components/wrapper/wrapper';
 import { messages } from '../../sources/messages';
 import { ProductCard } from '../../components/product-card/product-card';
 import { CURRENCY_USD } from '../../sources/constants/catalog';
+import { Input } from '../../components/input/input.tsx';
+import { useState } from 'react';
 
 export const CartPage = observer(() => {
   const items = cartStore.cart?.lineItems || [];
   const navigate = useNavigate();
+  const [promoCode, setPromoCode] = useState('');
 
   const toCatalogPage = () => {
     void navigate(PagePath.catalogPage);
@@ -21,6 +24,12 @@ export const CartPage = observer(() => {
 
   const handleClearCart = () => {
     void cartStore.clear();
+  };
+
+  const handleApplyPromoCode = () => {
+    if (!promoCode.trim()) return;
+
+    void cartStore.addPromoCode(promoCode.trim());
   };
 
   return (
@@ -31,26 +40,42 @@ export const CartPage = observer(() => {
       </Button>
       <Wrapper className={styles.cartPageWrapper}>
         {items.length > 0 ? (
-          <ul className={styles.cartPageProductList}>
-            {items.map(item => (
-              <ProductCard
-                key={item.id}
-                isShowInCart={true}
-                product={{
-                  id: item.productId,
-                  categorySlug: item.productSlug.en,
-                  description: '',
-                  image: item.variant.images[0].url,
-                  name: item.name.en,
-                  price: (item.price.value.centAmount / 100).toString(),
-                  color: item.variant.attributes[0].value,
-                  discountPrice: item.price.discounted
-                    ? (item.price.discounted.value.centAmount / 100).toString()
-                    : '',
-                }}
+          <>
+            <ul className={styles.cartPageProductList}>
+              {items.map(item => (
+                <ProductCard
+                  key={item.id}
+                  isShowInCart={true}
+                  product={{
+                    id: item.productId,
+                    categorySlug: item.productSlug.en,
+                    description: '',
+                    image: item.variant.images[0].url,
+                    name: item.name.en,
+                    price: (item.price.value.centAmount / 100).toString(),
+                    color: item.variant.attributes[0].value,
+                    discountPrice: item.price.discounted
+                      ? (
+                          item.price.discounted.value.centAmount / 100
+                        ).toString()
+                      : '',
+                  }}
+                />
+              ))}
+            </ul>
+            <div className={styles.promoCodeSection}>
+              <Input
+                type="text"
+                value={promoCode}
+                onChange={e => setPromoCode(e.target.value)}
+                placeholder={messages.promoCode.placeholder}
+                className={styles.promoCodeInput}
               />
-            ))}
-          </ul>
+              <Button onClick={handleApplyPromoCode}>
+                {messages.promoCode.button}
+              </Button>
+            </div>
+          </>
         ) : (
           <>
             <p className={styles.emptyCartTitle}>{messages.emptyCart}</p>
@@ -60,10 +85,28 @@ export const CartPage = observer(() => {
             </Button>
           </>
         )}
-        <h3>
-          {messages.totalCost} {CURRENCY_USD}
-          {(cartStore.cart?.totalPrice.centAmount ?? 0) / 100}
-        </h3>
+        <div className={styles.priceContainer}>
+          <span>{messages.totalCost}</span>
+          {cartStore.cart?.discountCodes?.length ? (
+            <>
+              <span className={styles.priceWithoutDiscount}>
+                {CURRENCY_USD}
+                {(cartStore.totalPriceWithoutDiscount?.centAmount ??
+                  cartStore.cart.totalPrice.centAmount ??
+                  0) / 100}
+              </span>
+              <span className={styles.discountPrice}>
+                {CURRENCY_USD}
+                {(cartStore.cart.totalPrice.centAmount ?? 0) / 100}
+              </span>
+            </>
+          ) : (
+            <span>
+              {CURRENCY_USD}
+              {(cartStore.cart?.totalPrice.centAmount ?? 0) / 100}
+            </span>
+          )}
+        </div>
       </Wrapper>
     </>
   );

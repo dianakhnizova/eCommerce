@@ -48,4 +48,54 @@ export namespace Cart {
     amount: Price;
     includedInPrice: boolean;
   };
+
+  type Reference = {
+    typeId:
+      | 'cart-discount'
+      | 'product'
+      | 'category'
+      | 'customer'
+      | 'order'
+      | 'discount-code'
+      | 'shipping-method'
+      | 'channel'
+      | 'store';
+    id: string;
+  };
+
+  type PromoCodeResponse = {
+    id: string;
+    version: number;
+    versionModifiedAt: string;
+    lastMessageSequenceNumber: number;
+    createdAt: string;
+    lastModifiedAt: string;
+    lastModifiedBy?: {
+      isPlatformClient: boolean;
+      user?: {
+        typeId: 'user';
+        id: string;
+      };
+    };
+    createdBy?: {
+      isPlatformClient: boolean;
+    };
+    code: string;
+    name: Partial<Record<string, string>>;
+    description?: Partial<Record<string, string>>;
+    cartDiscounts: {
+      typeId: 'cart-discount';
+      id: string;
+    }[];
+    isActive: boolean;
+    maxApplicationsPerCustomer?: number;
+    references: Reference[];
+    groups: string[];
+  };
+
+  type PromoCode = {
+    id: string;
+    code: string;
+    name: Partial<Record<string, string>>;
+  };
 }

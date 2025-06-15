@@ -139,4 +139,44 @@ export const cartService = {
 
     return response.data;
   },
+
+  addPromoCode: async (
+    code: string,
+    cart: Cart.GeneralInfo
+  ): Promise<Cart.GeneralInfo> => {
+    const body = {
+      version: cart.version,
+      actions: [
+        {
+          action: CartUpdateActions.addDiscountCode,
+          code,
+        },
+      ],
+    };
+
+    const params = new URLSearchParams({
+      manage_orders: PROJECT_KEY,
+    });
+
+    const response = await baseApi.post<Cart.GeneralInfo>(
+      `${PROJECT_KEY}${Endpoints.CARTS}/${cart.id}`,
+      body,
+      { params }
+    );
+
+    return response.data;
+  },
+
+  getActivePromoCodes: async (): Promise<Cart.PromoCodeResponse[]> => {
+    const response = await baseApi.get<{ results: Cart.PromoCodeResponse[] }>(
+      `${PROJECT_KEY}${Endpoints.DISCOUNT_CODES}`,
+      {
+        params: {
+          where: 'isActive=true',
+          limit: 10,
+        },
+      }
+    );
+    return response.data.results;
+  },
 };

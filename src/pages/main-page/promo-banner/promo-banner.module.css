@@ -41,6 +41,23 @@
   background: var(--clr-accent-8);
 }
 
+.promoCodeListWrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  color: var(--clr-bg-1);
+}
+
+.promoTitle {
+  font-size: 18px;
+}
+
+.promoCodeList {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
 @media (width <=940px) {
   .mainContainer {
     height: 460px;
@@ -68,6 +85,7 @@
 
   .titleContainer {
     padding: 10px 22px;
+    gap: 10px;
   }
 
   .mainTitle {
@@ -76,5 +94,18 @@
 
   .mainText {
     font-size: 14px;
+  }
+
+  .promoCodeListWrapper {
+    gap: 5px;
+  }
+
+  .promoTitle {
+    font-size: 14px;
+  }
+
+  .promoCodeList {
+    gap: 5px;
+    font-size: 8px;
   }
 }
