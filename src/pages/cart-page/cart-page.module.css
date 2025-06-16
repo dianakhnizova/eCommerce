@@ -23,3 +23,35 @@
   align-self: flex-end;
   margin-right: 20px;
 }
+
+.promoCodeSection {
+  display: flex;
+  align-items: center;
+  border: 1px solid var(--clr-accent-11);
+  border-radius: 5px;
+}
+
+.promoCodeInput {
+  font-size: 16px;
+  padding-left: 6px;
+}
+
+.promoCodeInput::placeholder {
+  font-family: var(--ff-base);
+}
+
+.priceContainer {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.priceWithoutDiscount {
+  text-decoration: line-through;
+  font-size: 20px;
+}
+
+.discountPrice {
+  color: var(--clr-accent-1);
+  font-size: 20px;
+}

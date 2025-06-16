@@ -1,0 +1,31 @@
+.promoCodeListWrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  color: var(--clr-bg-1);
+}
+
+.promoTitle {
+  font-size: 18px;
+}
+
+.promoCodeList {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+@media (width <= 500px) {
+  .promoCodeListWrapper {
+    gap: 5px;
+  }
+
+  .promoTitle {
+    font-size: 14px;
+  }
+
+  .promoCodeList {
+    gap: 5px;
+    font-size: 8px;
+  }
+}
