@@ -16,7 +16,6 @@
     "lint:css:fix": "stylelint \"src/**/*.{css,module.css}\" --fix"
   },
   "dependencies": {
-    "@testing-library/react": "^16.3.0",
     "axios": "^1.9.0",
     "classnames": "^2.5.1",
     "i18n-iso-countries": "^7.14.0",
@@ -41,6 +40,8 @@
     "@commitlint/config-conventional": "^19.8.0",
     "@eslint/js": "^9.25.1",
     "@testing-library/jest-dom": "^6.6.3",
+    "@testing-library/react": "^16.3.0",
+    "@testing-library/user-event": "^14.6.1",
     "@types/jest": "^29.5.14",
     "@types/react": "^19.0.10",
     "@types/react-dom": "^19.0.4",
@@ -69,7 +70,7 @@
     "typescript-eslint": "^8.31.1",
     "vite": "^6.3.1",
     "vite-plugin-svgr": "^4.3.0",
-    "vitest": "^3.1.2"
+    "vitest": "^3.2.3"
   },
   "lint-staged": {
     "*.ts": [
