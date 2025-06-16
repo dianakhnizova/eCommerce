@@ -4,16 +4,15 @@ import type { Cart } from '../sources/types/cart';
 import { messages } from '../sources/messages';
 import { DEFAULT_PRICE } from '../sources/constants/catalog';
 import { catalogStore } from '../store/catalog-store';
-import { cartService } from '../api/services/cart-service/cart-service';
+import { productService } from '../api/services/product-service';
 
 export const prepareCartItemForProductCard = async (
   item: Cart.Item
 ): Promise<ProductCard> => {
-  const product = await cartService.getProductById(item.productId);
+  const product = await productService.getProductByID(item.productId);
 
-  const categories = product.masterData.current.categories || [];
-  const description =
-    product.masterData.current.description?.en || messages.noDescription;
+  const categories = product.categories || [];
+  const description = product.description?.en || messages.noDescription;
 
   const subCategoryId = categories?.[0]?.id || '';
   const subCategory = catalogStore.categories.find(

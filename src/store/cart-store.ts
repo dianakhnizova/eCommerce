@@ -9,7 +9,6 @@ import { catalogStore } from './catalog-store';
 import type { ProductCard } from '../pages/catalog-page/catalog/product-list/types';
 import { prepareCartItemForProductCard } from '../utils/prepare-product-card-for-cart';
 import { AxiosError } from 'axios';
-import type { Catalog } from '../sources/types/catalog';
 
 export class CartStore {
   public cart: Cart.GeneralInfo | null = null;
@@ -81,30 +80,6 @@ export class CartStore {
             error.response?.data?.message || messages.errors.catalogError;
         }
       });
-    } finally {
-      runInAction(() => {
-        this.isLoading = false;
-      });
-    }
-  };
-
-  public getProductCategories = async (
-    productId: string
-  ): Promise<Catalog.ProductCategory[]> => {
-    this.isLoading = true;
-    this.error = null;
-    try {
-      const response = await cartService.getProductById(productId);
-      const categories = response.masterData?.current?.categories || [];
-      return categories;
-    } catch (error) {
-      runInAction(() => {
-        if (error instanceof AxiosError) {
-          this.error =
-            error.response?.data?.message || messages.errors.catalogError;
-        }
-      });
-      return [];
     } finally {
       runInAction(() => {
         this.isLoading = false;
