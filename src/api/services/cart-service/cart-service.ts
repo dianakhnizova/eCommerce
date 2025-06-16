@@ -31,6 +31,25 @@ export const cartService = {
     return response.data;
   },
 
+  getCustomerCart: async (
+    customerId: string
+  ): Promise<Cart.GeneralInfo | null> => {
+    const params = new URLSearchParams({
+      manage_orders: PROJECT_KEY,
+      customer_id: customerId,
+      limit: '10',
+      sort: 'lastModifiedAt desc',
+    });
+
+    const response = await baseApi.get<{ results: Cart.GeneralInfo[] }>(
+      `${PROJECT_KEY}${Endpoints.CARTS}`,
+      { params }
+    );
+
+    const carts = response.data.results;
+    return carts.length > 0 ? carts[0] : null;
+  },
+
   addItemToCart: async (
     product: {
       productId: string;
@@ -115,32 +134,6 @@ export const cartService = {
     return response.data;
   },
 
-  clearCart: async (cart: Cart.GeneralInfo): Promise<Cart.GeneralInfo> => {
-    if (cart.lineItems.length === 0) return cart;
-
-    const actions = cart.lineItems.map(item => ({
-      action: CartUpdateActions.removeItem,
-      lineItemId: item.id,
-    }));
-
-    const body = {
-      version: cart.version,
-      actions,
-    };
-
-    const params = new URLSearchParams({
-      manage_orders: PROJECT_KEY,
-    });
-
-    const response = await baseApi.post<Cart.GeneralInfo>(
-      `${PROJECT_KEY}${Endpoints.CARTS}/${cart.id}`,
-      body,
-      { params }
-    );
-
-    return response.data;
-  },
-
   addPromoCode: async (
     code: string,
     cart: Cart.GeneralInfo
@@ -179,5 +172,44 @@ export const cartService = {
       }
     );
     return response.data.results;
+  },
+
+  clearCart: async (cart: Cart.GeneralInfo): Promise<Cart.GeneralInfo> => {
+    if (cart.lineItems.length === 0) return cart;
+
+    const actions = cart.lineItems.map(item => ({
+      action: CartUpdateActions.removeItem,
+      lineItemId: item.id,
+    }));
+
+    const body = {
+      version: cart.version,
+      actions,
+    };
+
+    const params = new URLSearchParams({
+      manage_orders: PROJECT_KEY,
+    });
+
+    const response = await baseApi.post<Cart.GeneralInfo>(
+      `${PROJECT_KEY}${Endpoints.CARTS}/${cart.id}`,
+      body,
+      { params }
+    );
+
+    return response.data;
+  },
+
+  deleteCart: async (cart: Cart.GeneralInfo) => {
+    const params = new URLSearchParams({
+      version: cart.version.toString(),
+    });
+
+    const response = await baseApi.delete<Cart.GeneralInfo>(
+      `${PROJECT_KEY}${Endpoints.CARTS}/${cart.id}`,
+      { params }
+    );
+
+    return response.data;
   },
 };

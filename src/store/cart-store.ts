@@ -5,6 +5,7 @@ import { messages } from '../sources/messages';
 import type { Cart } from '../sources/types/cart';
 import { toast } from 'react-toastify';
 import { getErrorMessage } from './get-error-message';
+import { userStore } from './user-store';
 import { preparePromoCode } from '../utils/prepare-promo-code.ts';
 import { catalogStore } from './catalog-store';
 import type { ProductCard } from '../pages/catalog-page/catalog/product-list/types';
@@ -38,6 +39,7 @@ export class CartStore {
   }
 
   public async init() {
+    await (userStore.isAuth ? this.getCustomerCart() : this.getAnonCart());
     this.isLoading = true;
     this.error = null;
 
@@ -222,6 +224,70 @@ export class CartStore {
         this.cart = response;
         localStorage.removeItem(LSKeys.CART_ID);
         toast.success(messages.success.clearCart);
+      });
+    } catch (error) {
+      this.error = getErrorMessage(error);
+      toast.error(this.error);
+    } finally {
+      runInAction(() => {
+        this.isLoading = false;
+      });
+    }
+  }
+
+  public async delete() {
+    this.isLoading = true;
+    this.error = null;
+    try {
+      if (this.cart) await cartService.deleteCart(this.cart);
+    } catch (error) {
+      this.error = getErrorMessage(error);
+      toast.error(this.error);
+    } finally {
+      this.isLoading = false;
+      this.error = null;
+    }
+  }
+
+  public async getCustomerCart() {
+    try {
+      localStorage.removeItem(LSKeys.CART_ID);
+
+      const userId = userStore.user?.id;
+      if (!userId) return;
+
+      const cart =
+        (await cartService.getCustomerCart(userId)) ||
+        (await cartService.createCart());
+
+      runInAction(() => {
+        this.cart = cart;
+      });
+    } catch (error) {
+      this.error = getErrorMessage(error);
+      toast.error(this.error);
+    } finally {
+      runInAction(() => {
+        this.isLoading = false;
+      });
+    }
+  }
+
+  public async getAnonCart() {
+    try {
+      const cartID = localStorage.getItem(LSKeys.CART_ID);
+
+      let response: Cart.GeneralInfo;
+
+      if (cartID) {
+        response = await cartService.getCart(cartID);
+      } else {
+        response = await cartService.createCart();
+        localStorage.setItem(LSKeys.CART_ID, response.id);
+      }
+
+      runInAction(() => {
+        this.cart = response;
       });
     } catch (error) {
       this.error = getErrorMessage(error);
