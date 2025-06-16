@@ -1,4 +1,8 @@
 import type { Catalog } from './catalog';
+import type {
+  DiscountedTotalPricePortion,
+  DiscountedPrice,
+} from '@commercetools/platform-sdk';
 
 export namespace Cart {
   type GeneralInfo = {
@@ -10,6 +14,10 @@ export namespace Cart {
     discountCodes: [];
     customLineItems: [];
     totalPrice: Price;
+    discountOnTotalPrice: {
+      discountedAmount: DiscountedPrice;
+      includedDiscounts: DiscountedTotalPricePortion;
+    };
   };
 
   type Item = {
@@ -50,5 +58,55 @@ export namespace Cart {
     rate: number;
     amount: Price;
     includedInPrice: boolean;
+  };
+
+  type Reference = {
+    typeId:
+      | 'cart-discount'
+      | 'product'
+      | 'category'
+      | 'customer'
+      | 'order'
+      | 'discount-code'
+      | 'shipping-method'
+      | 'channel'
+      | 'store';
+    id: string;
+  };
+
+  type PromoCodeResponse = {
+    id: string;
+    version: number;
+    versionModifiedAt: string;
+    lastMessageSequenceNumber: number;
+    createdAt: string;
+    lastModifiedAt: string;
+    lastModifiedBy?: {
+      isPlatformClient: boolean;
+      user?: {
+        typeId: 'user';
+        id: string;
+      };
+    };
+    createdBy?: {
+      isPlatformClient: boolean;
+    };
+    code: string;
+    name: Partial<Record<string, string>>;
+    description?: Partial<Record<string, string>>;
+    cartDiscounts: {
+      typeId: 'cart-discount';
+      id: string;
+    }[];
+    isActive: boolean;
+    maxApplicationsPerCustomer?: number;
+    references: Reference[];
+    groups: string[];
+  };
+
+  type PromoCode = {
+    id: string;
+    code: string;
+    name: Partial<Record<string, string>>;
   };
 }

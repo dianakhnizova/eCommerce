@@ -63,7 +63,7 @@ export const messages = {
   lastName: 'Last Name',
   birth: 'Birth',
   addresses: 'Addresses',
-  totalCost: 'Total cost',
+  totalCost: 'Total cost ',
 
   badges: {
     defaultBilling: '📋Default Billing',
@@ -108,5 +108,13 @@ export const messages = {
   checkboxShippingAddress: 'Shipping address',
   info: {
     cartAlreadyEmpty: 'The cart is already empty',
+  },
+  promoCode: {
+    placeholder: 'Promo code',
+    button: 'Apply',
+    errorText: 'Promo code is invalid or cannot be applied.',
+    success: 'Promo code has been applied',
+    actualPromocodesText: 'Actual promo codes',
+    noDescriptionText: 'No description',
   },
 };
