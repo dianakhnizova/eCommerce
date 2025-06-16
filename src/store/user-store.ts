@@ -8,6 +8,7 @@ import { LSKeys } from '../sources/enums/ls-keys';
 import { AxiosError } from 'axios';
 import { isApiError } from '../utils/is-api-error';
 import type { AddressUpdateActions } from '../api/services/customer-service/enums/update-actions';
+import { cartStore } from './cart-store';
 
 class UserStore {
   public isInitLoading = false;
@@ -42,6 +43,7 @@ class UserStore {
         const response = await customerService.getCustomerByID(userID);
         runInAction(() => {
           this.user = response;
+          void cartStore.init();
         });
       }
     } catch (error) {
@@ -58,6 +60,7 @@ class UserStore {
     } finally {
       runInAction(() => {
         this.isInitLoading = false;
+        void cartStore.init();
       });
     }
   };
@@ -113,11 +116,13 @@ class UserStore {
     this.error = '';
 
     try {
+      await cartStore.delete();
       await TokenManager.fetchUserToken(customer);
       const response = await customerService.loginCustomer(customer);
       runInAction(() => {
         this.user = response.customer;
         localStorage.setItem(LSKeys.USER_ID, response.customer.id);
+        void cartStore.getCustomerCart();
       });
     } catch (error) {
       runInAction(() => {
@@ -228,8 +233,10 @@ class UserStore {
       });
     }
   };
+
   public logout() {
     TokenManager.cleanup();
+    void cartStore.getAnonCart();
     localStorage.removeItem(LSKeys.USER_ID);
     this.user = null;
     this.error = '';

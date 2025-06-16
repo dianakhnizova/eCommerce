@@ -5,6 +5,7 @@ import { messages } from '../sources/messages';
 import type { Cart } from '../sources/types/cart';
 import { toast } from 'react-toastify';
 import { getErrorMessage } from './get-error-message';
+import { userStore } from './user-store';
 
 export class CartStore {
   public cart: Cart.GeneralInfo | null = null;
@@ -16,32 +17,7 @@ export class CartStore {
   }
 
   public async init() {
-    this.isLoading = true;
-    this.error = null;
-
-    try {
-      const cartID = localStorage.getItem(LSKeys.CART_ID);
-      if (cartID) {
-        const response = await cartService.getCart(cartID);
-        runInAction(() => {
-          this.cart = response;
-        });
-      } else {
-        const response = await cartService.createCart();
-        runInAction(() => {
-          this.cart = response;
-          localStorage.setItem(LSKeys.CART_ID, response.id);
-        });
-      }
-    } catch (error) {
-      this.error = getErrorMessage(error);
-      toast.error(this.error);
-    } finally {
-      runInAction(() => {
-        this.isLoading = false;
-        this.error = null;
-      });
-    }
+    await (userStore.isAuth ? this.getCustomerCart() : this.getAnonCart());
   }
 
   public async addItem(product: { productId: string; quantity?: number }) {
@@ -155,6 +131,70 @@ export class CartStore {
       runInAction(() => {
         this.cart = response;
         toast.success(messages.success.clearCart);
+      });
+    } catch (error) {
+      this.error = getErrorMessage(error);
+      toast.error(this.error);
+    } finally {
+      runInAction(() => {
+        this.isLoading = false;
+      });
+    }
+  }
+
+  public async delete() {
+    this.isLoading = true;
+    this.error = null;
+    try {
+      if (this.cart) await cartService.deleteCart(this.cart);
+    } catch (error) {
+      this.error = getErrorMessage(error);
+      toast.error(this.error);
+    } finally {
+      this.isLoading = false;
+      this.error = null;
+    }
+  }
+
+  public async getCustomerCart() {
+    try {
+      localStorage.removeItem(LSKeys.CART_ID);
+
+      const userId = userStore.user?.id;
+      if (!userId) return;
+
+      const cart =
+        (await cartService.getCustomerCart(userId)) ||
+        (await cartService.createCart());
+
+      runInAction(() => {
+        this.cart = cart;
+      });
+    } catch (error) {
+      this.error = getErrorMessage(error);
+      toast.error(this.error);
+    } finally {
+      runInAction(() => {
+        this.isLoading = false;
+      });
+    }
+  }
+
+  public async getAnonCart() {
+    try {
+      const cartID = localStorage.getItem(LSKeys.CART_ID);
+
+      let response: Cart.GeneralInfo;
+
+      if (cartID) {
+        response = await cartService.getCart(cartID);
+      } else {
+        response = await cartService.createCart();
+        localStorage.setItem(LSKeys.CART_ID, response.id);
+      }
+
+      runInAction(() => {
+        this.cart = response;
       });
     } catch (error) {
       this.error = getErrorMessage(error);

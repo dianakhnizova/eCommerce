@@ -30,13 +30,13 @@ export const cartService = {
     return response.data;
   },
 
-  getCustomerCarts: async (
+  getCustomerCart: async (
     customerId: string
-  ): Promise<{ results: Cart.GeneralInfo[] }> => {
+  ): Promise<Cart.GeneralInfo | null> => {
     const params = new URLSearchParams({
       manage_orders: PROJECT_KEY,
       customer_id: customerId,
-      limit: '1',
+      limit: '10',
       sort: 'lastModifiedAt desc',
     });
 
@@ -45,7 +45,9 @@ export const cartService = {
       { params }
     );
 
-    return response.data;
+    const carts = response.data.results;
+    console.log('carts', carts);
+    return carts.length > 0 ? carts[0] : null;
   },
 
   addItemToCart: async (
@@ -152,6 +154,19 @@ export const cartService = {
     const response = await baseApi.post<Cart.GeneralInfo>(
       `${PROJECT_KEY}${Endpoints.CARTS}/${cart.id}`,
       body,
+      { params }
+    );
+
+    return response.data;
+  },
+
+  deleteCart: async (cart: Cart.GeneralInfo) => {
+    const params = new URLSearchParams({
+      version: cart.version.toString(),
+    });
+
+    const response = await baseApi.delete<Cart.GeneralInfo>(
+      `${PROJECT_KEY}${Endpoints.CARTS}/${cart.id}`,
       { params }
     );
 
