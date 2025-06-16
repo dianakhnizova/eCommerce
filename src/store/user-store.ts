@@ -1,5 +1,4 @@
 import { makeAutoObservable, runInAction } from 'mobx';
-
 import type { Customer } from '../sources/types/customer';
 import { customerService } from '../api/services/customer-service/customer-service';
 import { messages } from '../sources/messages';
@@ -8,7 +7,6 @@ import { LSKeys } from '../sources/enums/ls-keys';
 import { AxiosError } from 'axios';
 import { isApiError } from '../utils/is-api-error';
 import type { AddressUpdateActions } from '../api/services/customer-service/enums/update-actions';
-
 class UserStore {
   public isInitLoading = false;
   public isPending = false;

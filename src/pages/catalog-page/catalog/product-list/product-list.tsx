@@ -55,7 +55,7 @@ export const ProductList = observer(() => {
           <p className={styles.emptyMessage}>{messages.noProducts}</p>
         )}
       </ul>
-      <Pagination />
+      {hasProducts && <Pagination />}
     </div>
   );
 });

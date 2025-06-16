@@ -49,6 +49,7 @@ export const messages = {
     removeFromCart: 'Item removed from cart',
     updateItemQuantity: 'Item quantity updated',
     clearCart: 'Shopping cart has been cleared',
+    mergeCart: 'Success merged cart',
   },
 
   noName: 'No name',

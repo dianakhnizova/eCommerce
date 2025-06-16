@@ -22,6 +22,7 @@ export const cartService = {
     const params = new URLSearchParams({
       manage_orders: PROJECT_KEY,
     });
+
     const response = await baseApi.post<Cart.GeneralInfo>(
       `${PROJECT_KEY}${Endpoints.CARTS}`,
       { currency: defaultCurrency },

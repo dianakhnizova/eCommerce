@@ -7,6 +7,7 @@ import type {
 export namespace Cart {
   type GeneralInfo = {
     id: string;
+    anonymousId?: string;
     version: number;
     lineItems: Item[];
     shipping: [];
@@ -23,7 +24,9 @@ export namespace Cart {
     id: string;
     productId: string;
     name: Record<string, string>;
-    productSlug: Record<string, string>;
+    description: Record<string, string>;
+    categories: ProductCategory[];
+    slug: Record<string, string>;
     productType: Catalog.ProductType;
     variant: Catalog.ProductVariant;
     totalPrice: Price;
