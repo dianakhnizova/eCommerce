@@ -94,7 +94,6 @@ class UserStore {
     this.error = '';
 
     try {
-      localStorage.removeItem(LSKeys.CART_ID);
       await cartStore.delete();
       await TokenManager.fetchUserToken(customer);
       const response = await customerService.loginCustomer(customer);

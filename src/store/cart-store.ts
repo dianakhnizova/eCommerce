@@ -1,4 +1,5 @@
 import { makeAutoObservable, runInAction } from 'mobx';
+
 import { LSKeys } from '../sources/enums/ls-keys';
 import { cartService } from '../api/services/cart-service/cart-service';
 import { messages } from '../sources/messages';
@@ -110,6 +111,7 @@ export class CartStore {
         this.cart = response;
         void toast.success(messages.success.removeFromCart);
       });
+      await this.getProduct();
     } catch (error) {
       this.error = getErrorMessage(error);
       toast.error(this.error);
@@ -198,7 +200,10 @@ export class CartStore {
     this.isLoading = true;
     this.error = null;
     try {
-      if (this.cart) await cartService.deleteCart(this.cart);
+      if (this.cart) {
+        await cartService.deleteCart(this.cart);
+        localStorage.removeItem(LSKeys.CART_ID);
+      }
     } catch (error) {
       this.error = getErrorMessage(error);
       toast.error(this.error);
@@ -210,16 +215,13 @@ export class CartStore {
 
   public async getCustomerCart() {
     try {
-      const userId = userStore.user?.id;
-      if (!userId) return;
+      if (!userStore.user?.id) return;
 
-      const cart =
-        (await cartService.getCustomerCart(userId)) ||
-        (await cartService.createCart());
+      let cart = await cartService.getCustomerCart(userStore.user.id);
+      if (!cart) cart = await cartService.createCart();
 
       runInAction(() => {
         this.cart = cart;
-        void this.getProduct();
       });
     } catch (error) {
       this.error = getErrorMessage(error);
