@@ -11,7 +11,7 @@ export namespace Cart {
     version: number;
     lineItems: Item[];
     shipping: [];
-    discountCodes: [];
+    discountCodes: DiscountCodeInfo[];
     customLineItems: [];
     totalPrice: Price;
     discountOnTotalPrice: {
@@ -108,5 +108,13 @@ export namespace Cart {
     id: string;
     code: string;
     name: Partial<Record<string, string>>;
+  };
+
+  type DiscountCodeInfo = {
+    discountCode: {
+      typeId: 'discount-code';
+      id: string;
+      obj?: Cart.PromoCode;
+    };
   };
 }

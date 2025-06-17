@@ -9,8 +9,8 @@ import emptyCartIllustration from '../../../assets/images/empty-cart.png';
 import { Wrapper } from '../../components/wrapper/wrapper';
 import { messages } from '../../sources/messages';
 import { ProductCard } from '../../components/product-card/product-card';
-import { PriceIndicator } from '../../components/promocode/price-indicator/price-indicator.tsx';
-import { PromoCodeInputPanel } from '../../components/promocode/promo-code-input-panel/promo-code-input-panel.tsx';
+import { PriceIndicator } from './components/price-indicator/price-indicator.tsx';
+import { PromoCodeInputPanel } from './components/promo-code-input-panel/promo-code-input-panel.tsx';
 
 export const CartPage = observer(() => {
   const items = cartStore.cart?.lineItems || [];
@@ -28,9 +28,6 @@ export const CartPage = observer(() => {
     <>
       <BreadCrumbs />
       <Wrapper className={styles.cartPageWrapper}>
-        <Button onClick={handleClearCart} className={styles.clearCartButton}>
-          {messages.buttons.clearCart}
-        </Button>
         {items.length > 0 ? (
           <>
             <ul className={styles.cartPageProductList}>
@@ -51,6 +48,9 @@ export const CartPage = observer(() => {
             </Button>
           </>
         )}
+        <Button onClick={handleClearCart} className={styles.clearCartButton}>
+          {messages.buttons.clearCart}
+        </Button>
       </Wrapper>
     </>
   );

@@ -5,6 +5,7 @@
   flex-direction: column;
   gap: 20px;
   padding: 40px 20px;
+  width: 100%;
 }
 
 .cartPageProductList {
@@ -19,7 +20,5 @@
 }
 
 .clearCartButton {
-  margin-top: 20px;
-  align-self: flex-end;
-  margin-right: 20px;
+  margin-top: 40px;
 }
