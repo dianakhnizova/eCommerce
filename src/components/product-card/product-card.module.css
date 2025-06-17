@@ -10,7 +10,7 @@
     transform 0.3s ease,
     box-shadow 0.3s ease;
   cursor: pointer;
-  width: 255px;
+  width: 280px;
   gap: 21px;
   padding: 15px;
 }
@@ -30,7 +30,7 @@ li {
 
 .image {
   width: 100%;
-  height: 220px;
+  height: 277px;
 }
 
 .description {
