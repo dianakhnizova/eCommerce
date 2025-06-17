@@ -8,8 +8,8 @@ import { Button } from '../../components/button/button';
 import emptyCartIllustration from '../../../assets/images/empty-cart.png';
 import { Wrapper } from '../../components/wrapper/wrapper';
 import { messages } from '../../sources/messages';
-import { ProductCard } from '../../components/product-card/product-card';
 import { CURRENCY_USD } from '../../sources/constants/catalog';
+import { ProductCard } from '../../components/product-card/product-card';
 import { Input } from '../../components/input/input.tsx';
 import { useState } from 'react';
 
@@ -32,37 +32,23 @@ export const CartPage = observer(() => {
     void cartStore.addPromoCode(promoCode.trim());
   };
 
+  console.log(cartStore.cart);
+
   return (
     <>
       <BreadCrumbs />
-      <Button onClick={handleClearCart} className={styles.clearCartButton}>
-        {messages.buttons.clearCart}
-      </Button>
       <Wrapper className={styles.cartPageWrapper}>
+        <Button onClick={handleClearCart} className={styles.clearCartButton}>
+          {messages.buttons.clearCart}
+        </Button>
         {items.length > 0 ? (
           <>
             <ul className={styles.cartPageProductList}>
-              {items.map(item => (
-                <ProductCard
-                  key={item.id}
-                  isShowInCart={true}
-                  product={{
-                    id: item.productId,
-                    categorySlug: item.productSlug.en,
-                    description: '',
-                    image: item.variant.images[0].url,
-                    name: item.name.en,
-                    price: (item.price.value.centAmount / 100).toString(),
-                    color: item.variant.attributes[0].value,
-                    discountPrice: item.price.discounted
-                      ? (
-                          item.price.discounted.value.centAmount / 100
-                        ).toString()
-                      : '',
-                  }}
-                />
+              {cartStore.product.map(product => (
+                <ProductCard key={product.id} product={product} />
               ))}
             </ul>
+
             <div className={styles.promoCodeSection}>
               <Input
                 type="text"
