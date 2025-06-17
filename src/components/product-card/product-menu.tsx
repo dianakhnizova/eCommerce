@@ -6,7 +6,12 @@ import { Button } from '../button/button';
 import styles from './product-card.module.css';
 import { observer } from 'mobx-react-lite';
 
-export const ProductMenu = observer(({ productId }: { productId: string }) => {
+type Props = {
+  productId: string;
+  isDisabled?: boolean;
+};
+
+export const ProductMenu = observer(({ productId, isDisabled }: Props) => {
   const isInCart = cartStore.isInCart(productId);
   const quantity = cartStore.getItemQuantity(productId);
   const { handleAddToCart, handleRemoveFromCart, handleUpdateQuantity } =
@@ -16,19 +21,27 @@ export const ProductMenu = observer(({ productId }: { productId: string }) => {
     <>
       {isInCart ? (
         <div className={styles.itemMenu}>
-          <Button onClick={handleRemoveFromCart}>
+          <Button onClick={handleRemoveFromCart} disabled={isDisabled}>
             <RiDeleteBinLine />
           </Button>
-          <Button onClick={event => handleUpdateQuantity(quantity - 1, event)}>
+          <Button
+            onClick={event => handleUpdateQuantity(quantity - 1, event)}
+            disabled={isDisabled}
+          >
             <RiSubtractFill />
           </Button>
           <span>{quantity}</span>
-          <Button onClick={event => handleUpdateQuantity(quantity + 1, event)}>
+          <Button
+            onClick={event => handleUpdateQuantity(quantity + 1, event)}
+            disabled={isDisabled}
+          >
             <RiAddFill />
           </Button>
         </div>
       ) : (
-        <Button onClick={handleAddToCart}>{messages.buttons.addToCart}</Button>
+        <Button onClick={handleAddToCart} disabled={isDisabled}>
+          {messages.buttons.addToCart}
+        </Button>
       )}
     </>
   );

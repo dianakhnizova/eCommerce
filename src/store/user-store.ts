@@ -42,13 +42,14 @@ class UserStore {
         runInAction(() => {
           this.user = response;
         });
-      }
-      await cartStore.init();
+        await cartStore.getCustomerCart();
+      } else await cartStore.getAnonCart();
     } catch (error) {
       this.error = getErrorMessage(error);
       toast.error(this.error);
     } finally {
       this.isInitLoading = false;
+      void cartStore.getAnonCart();
     }
   };
 

@@ -50,7 +50,7 @@ export const ProductCard: React.FC<{
               : product.discountPrice}
           </p>
         </div>
-        <ProductMenu productId={product.id} />
+        <ProductMenu productId={product.id} isDisabled={cartStore.isLoading} />
       </Link>
     </li>
   );

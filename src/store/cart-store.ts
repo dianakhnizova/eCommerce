@@ -27,18 +27,15 @@ export class CartStore {
   public get totalPriceBeforePromoCode() {
     if (!this.cart) return null;
 
-    const total =
-      this.cart.totalPrice.centAmount +
-      this.cart.discountOnTotalPrice.discountedAmount.centAmount;
+    const discount =
+      this.cart.discountOnTotalPrice?.discountedAmount?.centAmount ?? 0;
+
+    const total = this.cart.totalPrice.centAmount + discount;
 
     return {
       ...this.cart.totalPrice,
       centAmount: total,
     };
-  }
-
-  public async init() {
-    await (userStore.isAuth ? this.getCustomerCart() : this.getAnonCart());
   }
 
   public getProduct = async () => {
@@ -273,6 +270,32 @@ export class CartStore {
       runInAction(() => {
         this.cart = updatedCart;
         toast.success(messages.promoCode.success);
+      });
+    } catch (error) {
+      this.error = getErrorMessage(error);
+      toast.error(this.error);
+    } finally {
+      runInAction(() => {
+        this.isLoading = false;
+      });
+    }
+  }
+
+  public async removePromoCode(discountCodeId: string) {
+    if (!this.cart) return;
+
+    this.isLoading = true;
+    this.error = null;
+
+    try {
+      const updatedCart = await cartService.removePromoCode(
+        discountCodeId,
+        this.cart
+      );
+
+      runInAction(() => {
+        this.cart = updatedCart;
+        toast.success(messages.promoCode.removed);
       });
     } catch (error) {
       this.error = getErrorMessage(error);

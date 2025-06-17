@@ -1,0 +1,32 @@
+.priceContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.priceLine {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.priceWithoutDiscount {
+  text-decoration: line-through;
+  font-size: 20px;
+}
+
+.discountPrice {
+  color: var(--clr-accent-1);
+  font-size: 20px;
+}
+
+.mainPrice {
+  font-size: 20px;
+}
+
+.totalCost {
+  font-size: 20px;
+  font-weight: 700;
+}

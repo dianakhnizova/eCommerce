@@ -1,0 +1,289 @@
+src
+|-- api
+|   |-- axios.ts
+|   |-- endpoints.ts
+|   |-- services
+|   |   |-- auth-service.ts
+|   |   |-- cart-service
+|   |   |   |-- cart-service.ts
+|   |   |   `-- enums
+|   |   |       `-- update-actions.ts
+|   |   |-- catalog-service.ts
+|   |   |-- customer-service
+|   |   |   |-- customer-service.ts
+|   |   |   |-- enums
+|   |   |   |   `-- update-actions.ts
+|   |   |   `-- types
+|   |   |       |-- address-update-body.ts
+|   |   |       `-- general-info-update-body.ts
+|   |   `-- product-service.ts
+|   `-- token-manager.ts
+|-- app.tsx
+|-- components
+|   |-- bread-crumbs
+|   |   |-- bread-crumbs.module.css
+|   |   |-- bread-crumbs.tsx
+|   |   `-- links-bread-crumbs
+|   |       |-- links-bread-crumbs.module.css
+|   |       |-- links-bread-crumbs.tsx
+|   |       |-- messages.ts
+|   |       `-- types.ts
+|   |-- button
+|   |   |-- button.module.css
+|   |   |-- button.tsx
+|   |   `-- enums.ts
+|   |-- checkbox
+|   |   |-- checkbox.module.css
+|   |   `-- checkbox.tsx
+|   |-- footer
+|   |   |-- footer.module.css
+|   |   `-- footer.tsx
+|   |-- header
+|   |   |-- bottom-header
+|   |   |   |-- bottom-header.module.css
+|   |   |   |-- bottom-header.tsx
+|   |   |   |-- left-menu
+|   |   |   |   |-- left-links-list.ts
+|   |   |   |   |-- left-menu.module.css
+|   |   |   |   `-- left-menu.tsx
+|   |   |   |-- messages.ts
+|   |   |   `-- right-menu
+|   |   |       `-- right-menu.tsx
+|   |   |-- header.module.css
+|   |   |-- header.tsx
+|   |   `-- top-header
+|   |       |-- left-menu
+|   |       |   |-- enums.ts
+|   |       |   |-- left-menu.module.css
+|   |       |   |-- left-nav-menu.tsx
+|   |       |   `-- messages.ts
+|   |       |-- right-menu
+|   |       |   |-- messages.ts
+|   |       |   |-- navigation-links.tsx
+|   |       |   `-- right-nav-menu.tsx
+|   |       |-- top-header.module.css
+|   |       `-- top-header.tsx
+|   |-- input
+|   |   |-- input.module.css
+|   |   |-- input.tsx
+|   |   `-- messages.ts
+|   |-- main-section
+|   |   |-- main-section.module.css
+|   |   `-- main-section.tsx
+|   |-- pagination
+|   |   |-- constants.ts
+|   |   |-- messages.ts
+|   |   |-- pagination.module.css
+|   |   `-- pagination.tsx
+|   |-- product-card
+|   |   |-- product-card.module.css
+|   |   |-- product-card.tsx
+|   |   `-- product-menu.tsx
+|   |-- product-search
+|   |   |-- product-search.module.css
+|   |   `-- product-search.tsx
+|   |-- product-slider
+|   |   |-- arrow-next
+|   |   |   `-- arrow-next.tsx
+|   |   |-- arrow-prev
+|   |   |   `-- arrow-prev.tsx
+|   |   |-- constants.ts
+|   |   |-- product-slider.module.css
+|   |   `-- product-slider.tsx
+|   |-- promocode
+|   |   |-- messages.ts
+|   |   |-- price-indicator
+|   |   |   |-- price-indicator.module.css
+|   |   |   `-- price-indicator.tsx
+|   |   |-- promo-code-input-panel
+|   |   |   |-- promo-code-input-panel.tsx
+|   |   |   `-- promo-code-input.module.css
+|   |   |-- promo-code.module.css
+|   |   `-- promo-code.tsx
+|   |-- spinner
+|   |   |-- spinner.module.css
+|   |   `-- spinner.tsx
+|   |-- svg-builder
+|   |   |-- enums.ts
+|   |   |-- svg-builder.tsx
+|   |   |-- svg.module.css
+|   |   `-- types.ts
+|   `-- wrapper
+|       |-- wrapper.module.css
+|       `-- wrapper.tsx
+|-- global.css
+|-- global.d.ts
+|-- main.tsx
+|-- pages
+|   |-- about-page
+|   |   |-- about-developers
+|   |   |   |-- about-dev.module.css
+|   |   |   |-- about-developers.tsx
+|   |   |   |-- developers-list.ts
+|   |   |   |-- messages.ts
+|   |   |   `-- types.ts
+|   |   |-- about-page.module.css
+|   |   |-- about-page.tsx
+|   |   |-- about-rsshool
+|   |   |   |-- about-rss.module.css
+|   |   |   |-- about-rss.tsx
+|   |   |   `-- messages.ts
+|   |   `-- about-title
+|   |       |-- about-title.module.css
+|   |       `-- about-title.tsx
+|   |-- cart-page
+|   |   |-- cart-page.module.css
+|   |   `-- cart-page.tsx
+|   |-- catalog-page
+|   |   |-- catalog
+|   |   |   |-- catalog.module.css
+|   |   |   |-- catalog.tsx
+|   |   |   |-- filtering
+|   |   |   |   |-- options
+|   |   |   |   |   |-- category-options
+|   |   |   |   |   |   |-- category-options.module.css
+|   |   |   |   |   |   |-- category-options.tsx
+|   |   |   |   |   |   |-- handle-category-change.ts
+|   |   |   |   |   |   `-- types.ts
+|   |   |   |   |   |-- color-options
+|   |   |   |   |   |   |-- color-options.module.css
+|   |   |   |   |   |   |-- color-options.tsx
+|   |   |   |   |   |   `-- handle-color-change.ts
+|   |   |   |   |   |-- messages.ts
+|   |   |   |   |   |-- option-form.tsx
+|   |   |   |   |   |-- option.module.css
+|   |   |   |   |   |-- price-options
+|   |   |   |   |   |   |-- handle-price-change.ts
+|   |   |   |   |   |   |-- price-options.module.css
+|   |   |   |   |   |   `-- price-options.tsx
+|   |   |   |   |   |-- size-options
+|   |   |   |   |   |   |-- handle-size-change.ts
+|   |   |   |   |   |   |-- size-options.module.css
+|   |   |   |   |   |   `-- size-options.tsx
+|   |   |   |   |   |-- sorting-selects
+|   |   |   |   |   |   |-- enums.ts
+|   |   |   |   |   |   |-- messages.ts
+|   |   |   |   |   |   |-- sorting-selects.module.css
+|   |   |   |   |   |   `-- sorting-selects.tsx
+|   |   |   |   |   `-- subcategory-options
+|   |   |   |   |       |-- handle-subcategory-change.ts
+|   |   |   |   |       |-- subcategory-options.module.css
+|   |   |   |   |       `-- subcategory-options.tsx
+|   |   |   |   |-- reset-filters
+|   |   |   |   |   |-- reset-filters.module.css
+|   |   |   |   |   `-- reset-filters.tsx
+|   |   |   |   |-- sidebar.module.css
+|   |   |   |   `-- sidebar.tsx
+|   |   |   `-- product-list
+|   |   |       |-- product-list.module.css
+|   |   |       |-- product-list.tsx
+|   |   |       `-- types.ts
+|   |   |-- catalog-page.module.css
+|   |   `-- catalog-page.tsx
+|   |-- login-page
+|   |   |-- login-page.module.css
+|   |   `-- login-page.tsx
+|   |-- main-page
+|   |   |-- main-page.module.css
+|   |   |-- main-page.tsx
+|   |   `-- promo-banner
+|   |       |-- promo-banner.module.css
+|   |       `-- promo-banner.tsx
+|   |-- not-found-page
+|   |   |-- not-found-page.tsx
+|   |   `-- not-found.module.css
+|   |-- product-page
+|   |   |-- messages.ts
+|   |   |-- product-info
+|   |   |   |-- product-info.module.css
+|   |   |   `-- product-info.tsx
+|   |   |-- product-modal
+|   |   |   |-- constants.ts
+|   |   |   |-- product-modal.module.css
+|   |   |   `-- product-modal.tsx
+|   |   |-- product-page.module.css
+|   |   |-- product-page.tsx
+|   |   `-- types.ts
+|   |-- profile-page
+|   |   |-- components
+|   |   |   |-- address-card.tsx
+|   |   |   |-- addresses.tsx
+|   |   |   |-- change-password.tsx
+|   |   |   |-- general-info.tsx
+|   |   |   `-- new-address-modal.tsx
+|   |   |-- profile-page.module.css
+|   |   `-- profile-page.tsx
+|   `-- register-page
+|       |-- address-fields
+|       |   |-- address-field.module.css
+|       |   |-- address-fields.tsx
+|       |   `-- messages.ts
+|       |-- country-select
+|       |   |-- constants.ts
+|       |   |-- countries.ts
+|       |   |-- country-select.module.css
+|       |   |-- country-select.tsx
+|       |   |-- messages.ts
+|       |   `-- types.ts
+|       |-- create-signup-data.tsx
+|       |-- customer-fields
+|       |   `-- customer-fields.tsx
+|       |-- messages.ts
+|       |-- register-page.module.css
+|       `-- register-page.tsx
+|-- router
+|   |-- enums.ts
+|   |-- page-title
+|   |   `-- page-title.tsx
+|   |-- root.module.css
+|   |-- root.tsx
+|   `-- router.tsx
+|-- sources
+|   |-- constants
+|   |   |-- api.ts
+|   |   |-- catalog.ts
+|   |   |-- common.ts
+|   |   |-- register-fields.ts
+|   |   `-- validation-rules.ts
+|   |-- enums
+|   |   |-- attributes.ts
+|   |   |-- default-values.ts
+|   |   `-- ls-keys.ts
+|   |-- interfaces.ts
+|   |-- messages.ts
+|   `-- types
+|       |-- api-error.ts
+|       |-- auth.d.ts
+|       |-- cart.d.ts
+|       |-- catalog.d.ts
+|       |-- css.d.ts
+|       |-- customer.d.ts
+|       |-- pagination.ts
+|       |-- register.ts
+|       `-- types.ts
+|-- store
+|   |-- cart-store.ts
+|   |-- catalog-store.ts
+|   |-- get-error-message.ts
+|   |-- product-store.ts
+|   `-- user-store.ts
+|-- utils
+|   |-- extend-token.ts
+|   |-- get-attribute-value.ts
+|   |-- hooks
+|   |   |-- use-cart-handlers.tsx
+|   |   |-- use-crumb-links-list.tsx
+|   |   |-- use-page-info.tsx
+|   |   `-- use-toggle-modal.tsx
+|   |-- is-api-error.ts
+|   |-- is-token-fresh.ts
+|   |-- is-token.ts
+|   |-- load-token-from-ls.ts
+|   |-- prepare-detailed-product.ts
+|   |-- prepare-pagination.ts
+|   |-- prepare-product-card-for-cart.ts
+|   |-- prepare-product-card.ts
+|   `-- prepare-promo-code.ts
+`-- vite-environment.d.ts
+
+74 directories, 212 files

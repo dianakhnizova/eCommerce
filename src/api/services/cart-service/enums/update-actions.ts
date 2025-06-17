@@ -3,4 +3,5 @@ export enum CartUpdateActions {
   removeItem = 'removeLineItem',
   changeQuantity = 'changeLineItemQuantity',
   addDiscountCode = 'addDiscountCode',
+  removeDiscountCode = 'removeDiscountCode',
 }

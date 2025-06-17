@@ -8,15 +8,13 @@ import { Button } from '../../components/button/button';
 import emptyCartIllustration from '../../../assets/images/empty-cart.png';
 import { Wrapper } from '../../components/wrapper/wrapper';
 import { messages } from '../../sources/messages';
-import { CURRENCY_USD } from '../../sources/constants/catalog';
 import { ProductCard } from '../../components/product-card/product-card';
-import { Input } from '../../components/input/input.tsx';
-import { useState } from 'react';
+import { PriceIndicator } from './components/price-indicator/price-indicator.tsx';
+import { PromoCodeInputPanel } from './components/promo-code-input-panel/promo-code-input-panel.tsx';
 
 export const CartPage = observer(() => {
   const items = cartStore.cart?.lineItems || [];
   const navigate = useNavigate();
-  const [promoCode, setPromoCode] = useState('');
 
   const toCatalogPage = () => {
     void navigate(PagePath.catalogPage);
@@ -26,19 +24,10 @@ export const CartPage = observer(() => {
     void cartStore.clear();
   };
 
-  const handleApplyPromoCode = () => {
-    if (!promoCode.trim()) return;
-
-    void cartStore.addPromoCode(promoCode.trim());
-  };
-
   return (
     <>
       <BreadCrumbs />
       <Wrapper className={styles.cartPageWrapper}>
-        <Button onClick={handleClearCart} className={styles.clearCartButton}>
-          {messages.buttons.clearCart}
-        </Button>
         {items.length > 0 ? (
           <>
             <ul className={styles.cartPageProductList}>
@@ -47,18 +36,8 @@ export const CartPage = observer(() => {
               ))}
             </ul>
 
-            <div className={styles.promoCodeSection}>
-              <Input
-                type="text"
-                value={promoCode}
-                onChange={e => setPromoCode(e.target.value)}
-                placeholder={messages.promoCode.placeholder}
-                className={styles.promoCodeInput}
-              />
-              <Button onClick={handleApplyPromoCode}>
-                {messages.promoCode.button}
-              </Button>
-            </div>
+            <PromoCodeInputPanel />
+            <PriceIndicator />
           </>
         ) : (
           <>
@@ -69,28 +48,9 @@ export const CartPage = observer(() => {
             </Button>
           </>
         )}
-        <div className={styles.priceContainer}>
-          <span>{messages.totalCost}</span>
-          {cartStore.cart?.discountCodes?.length ? (
-            <>
-              <span className={styles.priceWithoutDiscount}>
-                {CURRENCY_USD}
-                {(cartStore.totalPriceBeforePromoCode?.centAmount ??
-                  cartStore.cart.totalPrice.centAmount ??
-                  0) / 100}
-              </span>
-              <span className={styles.discountPrice}>
-                {CURRENCY_USD}
-                {(cartStore.cart.totalPrice.centAmount ?? 0) / 100}
-              </span>
-            </>
-          ) : (
-            <span>
-              {CURRENCY_USD}
-              {(cartStore.cart?.totalPrice.centAmount ?? 0) / 100}
-            </span>
-          )}
-        </div>
+        <Button onClick={handleClearCart} className={styles.clearCartButton}>
+          {messages.buttons.clearCart}
+        </Button>
       </Wrapper>
     </>
   );
