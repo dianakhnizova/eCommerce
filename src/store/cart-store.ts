@@ -40,36 +40,7 @@ export class CartStore {
 
   public async init() {
     await (userStore.isAuth ? this.getCustomerCart() : this.getAnonCart());
-    this.isLoading = true;
-    this.error = null;
-
-    try {
-      const cartID = localStorage.getItem(LSKeys.CART_ID);
-      if (cartID) {
-        const response = await cartService.getCart(cartID);
-        runInAction(() => {
-          this.cart = response;
-          localStorage.setItem(LSKeys.CART_ID, response.id);
-        });
-      } else {
-        const response = await cartService.createCart();
-
-        runInAction(() => {
-          this.cart = response;
-          localStorage.setItem(LSKeys.CART_ID, response.id);
-        });
-      }
-
-      await this.getProduct();
-    } catch (error) {
-      this.error = getErrorMessage(error);
-      toast.error(this.error);
-    } finally {
-      runInAction(() => {
-        this.isLoading = false;
-        this.error = null;
-      });
-    }
+    await this.getProduct();
   }
 
   public getProduct = async () => {
