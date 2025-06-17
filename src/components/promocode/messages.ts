@@ -3,6 +3,6 @@ export const messages = {
   saleTitle: '20% promo',
   totalCost: 'Total cost: ',
   sale: 'Promo-code 20% sale: ',
-  item: '1 Item: ',
+  item: 'Total price without Promo-code: ',
   removeButton: 'Remove Promo-code',
 };
