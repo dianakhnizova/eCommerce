@@ -1,0 +1,15 @@
+.priceContainer {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.priceWithoutDiscount {
+  text-decoration: line-through;
+  font-size: 20px;
+}
+
+.discountPrice {
+  color: var(--clr-accent-1);
+  font-size: 20px;
+}
