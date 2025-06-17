@@ -213,8 +213,6 @@ export class CartStore {
 
   public async getCustomerCart() {
     try {
-      localStorage.removeItem(LSKeys.CART_ID);
-
       const userId = userStore.user?.id;
       if (!userId) return;
 

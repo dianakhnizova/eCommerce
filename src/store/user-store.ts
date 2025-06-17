@@ -37,12 +37,13 @@ class UserStore {
 
     try {
       const userID = localStorage.getItem(LSKeys.USER_ID);
-      if (!userID) return;
-      const response = await customerService.getCustomerByID(userID);
-      runInAction(() => {
-        this.user = response;
-        void cartStore.init();
-      });
+      if (userID) {
+        const response = await customerService.getCustomerByID(userID);
+        runInAction(() => {
+          this.user = response;
+        });
+      }
+      await cartStore.init();
     } catch (error) {
       this.error = getErrorMessage(error);
       toast.error(this.error);
@@ -92,6 +93,7 @@ class UserStore {
     this.error = '';
 
     try {
+      localStorage.removeItem(LSKeys.CART_ID);
       await cartStore.delete();
       await TokenManager.fetchUserToken(customer);
       const response = await customerService.loginCustomer(customer);
