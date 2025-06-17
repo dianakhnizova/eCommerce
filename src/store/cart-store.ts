@@ -10,7 +10,6 @@ import { preparePromoCode } from '../utils/prepare-promo-code.ts';
 import { catalogStore } from './catalog-store';
 import type { ProductCard } from '../pages/catalog-page/catalog/product-list/types';
 import { prepareCartItemForProductCard } from '../utils/prepare-product-card-for-cart';
-import { AxiosError } from 'axios';
 
 export class CartStore {
   public cart: Cart.GeneralInfo | null = null;
@@ -40,7 +39,6 @@ export class CartStore {
 
   public async init() {
     await (userStore.isAuth ? this.getCustomerCart() : this.getAnonCart());
-    await this.getProduct();
   }
 
   public getProduct = async () => {
@@ -64,12 +62,8 @@ export class CartStore {
         this.product = products;
       });
     } catch (error) {
-      runInAction(() => {
-        if (error instanceof AxiosError) {
-          this.error =
-            error.response?.data?.message || messages.errors.catalogError;
-        }
-      });
+      this.error = getErrorMessage(error);
+      toast.error(this.error);
     } finally {
       runInAction(() => {
         this.isLoading = false;
@@ -87,10 +81,9 @@ export class CartStore {
       const response = await cartService.addItemToCart(product, this.cart);
       runInAction(() => {
         this.cart = response;
+        void this.getProduct();
         toast.success(messages.success.addToCart);
       });
-
-      await this.getProduct();
     } catch (error) {
       this.error = getErrorMessage(error);
       toast.error(this.error);
@@ -118,10 +111,8 @@ export class CartStore {
       const response = await cartService.removeItemFromCart(item.id, this.cart);
       runInAction(() => {
         this.cart = response;
-        toast.success(messages.success.removeFromCart);
+        void toast.success(messages.success.removeFromCart);
       });
-
-      await this.getProduct();
     } catch (error) {
       this.error = getErrorMessage(error);
       toast.error(this.error);
@@ -233,6 +224,7 @@ export class CartStore {
 
       runInAction(() => {
         this.cart = cart;
+        void this.getProduct();
       });
     } catch (error) {
       this.error = getErrorMessage(error);
@@ -259,6 +251,7 @@ export class CartStore {
 
       runInAction(() => {
         this.cart = response;
+        void this.getProduct();
       });
     } catch (error) {
       this.error = getErrorMessage(error);
