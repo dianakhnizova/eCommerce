@@ -3,6 +3,7 @@ import styles from './product-info.module.css';
 import { CURRENCY_USD } from '../../../sources/constants/catalog.ts';
 import { observer } from 'mobx-react-lite';
 import { ProductMenu } from '../../../components/product-card/product-menu.tsx';
+import { cartStore } from '../../../store/cart-store.ts';
 
 type Props = {
   product: Catalog.DetailedProduct;
@@ -26,7 +27,7 @@ export const ProductInfo = observer(({ product }: Props) => {
       <p>{product.size}</p>
       <p className={styles.description}>{product.description}</p>
 
-      <ProductMenu productId={product.id} />
+      <ProductMenu productId={product.id} isDisabled={cartStore.isLoading} />
     </div>
   );
 });

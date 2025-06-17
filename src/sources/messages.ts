@@ -116,5 +116,6 @@ export const messages = {
     success: 'Promo code has been applied',
     actualPromocodesText: 'Actual promo codes',
     noDescriptionText: 'No description',
+    removed: 'Promo code removed',
   },
 };

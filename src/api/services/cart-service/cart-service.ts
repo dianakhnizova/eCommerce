@@ -174,6 +174,36 @@ export const cartService = {
     return response.data.results;
   },
 
+  removePromoCode: async (
+    discountCodeId: string,
+    cart: Cart.GeneralInfo
+  ): Promise<Cart.GeneralInfo> => {
+    const body = {
+      version: cart.version,
+      actions: [
+        {
+          action: CartUpdateActions.removeDiscountCode,
+          discountCode: {
+            typeId: 'discount-code',
+            id: discountCodeId,
+          },
+        },
+      ],
+    };
+
+    const params = new URLSearchParams({
+      manage_orders: PROJECT_KEY,
+    });
+
+    const response = await baseApi.post<Cart.GeneralInfo>(
+      `${PROJECT_KEY}${Endpoints.CARTS}/${cart.id}`,
+      body,
+      { params }
+    );
+
+    return response.data;
+  },
+
   clearCart: async (cart: Cart.GeneralInfo): Promise<Cart.GeneralInfo> => {
     if (cart.lineItems.length === 0) return cart;
 
