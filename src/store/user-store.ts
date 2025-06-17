@@ -41,13 +41,14 @@ class UserStore {
       const response = await customerService.getCustomerByID(userID);
       runInAction(() => {
         this.user = response;
-        void cartStore.init();
+        void cartStore.getCustomerCart();
       });
     } catch (error) {
       this.error = getErrorMessage(error);
       toast.error(this.error);
     } finally {
       this.isInitLoading = false;
+      void cartStore.getAnonCart();
     }
   };
 

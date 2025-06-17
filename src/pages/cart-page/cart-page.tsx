@@ -32,8 +32,6 @@ export const CartPage = observer(() => {
     void cartStore.addPromoCode(promoCode.trim());
   };
 
-  console.log(cartStore.cart);
-
   return (
     <>
       <BreadCrumbs />
