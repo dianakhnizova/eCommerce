@@ -32,6 +32,8 @@ export const CartPage = observer(() => {
     void cartStore.addPromoCode(promoCode.trim());
   };
 
+  console.log(cartStore.cart);
+
   return (
     <>
       <BreadCrumbs />
@@ -69,10 +71,28 @@ export const CartPage = observer(() => {
             </Button>
           </>
         )}
-        <h3>
-          {messages.totalCost} {CURRENCY_USD}
-          {(cartStore.cart?.totalPrice.centAmount ?? 0) / 100}
-        </h3>
+        <div className={styles.priceContainer}>
+          <span>{messages.totalCost}</span>
+          {cartStore.cart?.discountCodes?.length ? (
+            <>
+              <span className={styles.priceWithoutDiscount}>
+                {CURRENCY_USD}
+                {(cartStore.totalPriceBeforePromoCode?.centAmount ??
+                  cartStore.cart.totalPrice.centAmount ??
+                  0) / 100}
+              </span>
+              <span className={styles.discountPrice}>
+                {CURRENCY_USD}
+                {(cartStore.cart.totalPrice.centAmount ?? 0) / 100}
+              </span>
+            </>
+          ) : (
+            <span>
+              {CURRENCY_USD}
+              {(cartStore.cart?.totalPrice.centAmount ?? 0) / 100}
+            </span>
+          )}
+        </div>
       </Wrapper>
     </>
   );
