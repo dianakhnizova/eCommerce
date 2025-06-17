@@ -1,13 +1,12 @@
 import { makeAutoObservable, runInAction } from 'mobx';
 import type { Customer } from '../sources/types/customer';
 import { customerService } from '../api/services/customer-service/customer-service';
-import { messages } from '../sources/messages';
 import { TokenManager } from '../api/token-manager';
 import { LSKeys } from '../sources/enums/ls-keys';
-import { AxiosError } from 'axios';
-import { isApiError } from '../utils/is-api-error';
-import type { AddressUpdateActions } from '../api/services/customer-service/enums/update-actions';
 import { cartStore } from './cart-store';
+import { getErrorMessage } from './get-error-message';
+import { toast } from 'react-toastify';
+import type { AddressUpdateActions } from '../api/services/customer-service/enums/update-actions';
 
 class UserStore {
   public isInitLoading = false;
@@ -38,29 +37,17 @@ class UserStore {
 
     try {
       const userID = localStorage.getItem(LSKeys.USER_ID);
-      if (userID) {
-        const response = await customerService.getCustomerByID(userID);
-        runInAction(() => {
-          this.user = response;
-          void cartStore.init();
-        });
-      }
-    } catch (error) {
+      if (!userID) return;
+      const response = await customerService.getCustomerByID(userID);
       runInAction(() => {
-        console.log(error);
-        if (error instanceof AxiosError) {
-          this.error =
-            error.response?.data?.message || messages.errors.loginError;
-          return;
-        }
-        this.error =
-          error instanceof Error ? error.message : messages.errors.loginError;
-      });
-    } finally {
-      runInAction(() => {
-        this.isInitLoading = false;
+        this.user = response;
         void cartStore.init();
       });
+    } catch (error) {
+      this.error = getErrorMessage(error);
+      toast.error(this.error);
+    } finally {
+      this.isInitLoading = false;
     }
   };
 
@@ -91,18 +78,8 @@ class UserStore {
         this.user = updated;
       });
     } catch (error) {
-      runInAction(() => {
-        console.log(error);
-        if (isApiError(error)) {
-          this.error =
-            error.response?.data?.message || messages.errors.updateAddressError;
-          return;
-        }
-        this.error =
-          error instanceof Error
-            ? error.message
-            : messages.errors.updateAddressError;
-      });
+      this.error = getErrorMessage(error);
+      toast.error(this.error);
     } finally {
       runInAction(() => {
         this.isPending = false;
@@ -124,19 +101,10 @@ class UserStore {
         void cartStore.getCustomerCart();
       });
     } catch (error) {
-      runInAction(() => {
-        if (error instanceof AxiosError) {
-          this.error =
-            error.response?.data?.message || messages.errors.loginError;
-          return;
-        }
-        this.error =
-          error instanceof Error ? error.message : messages.errors.loginError;
-      });
+      this.error = getErrorMessage(error);
+      toast.error(this.error);
     } finally {
-      runInAction(() => {
-        this.isPending = false;
-      });
+      this.isPending = false;
     }
   };
 
@@ -151,19 +119,10 @@ class UserStore {
       });
       await TokenManager.fetchUserToken(customer);
     } catch (error) {
-      runInAction(() => {
-        if (error instanceof AxiosError) {
-          this.error =
-            error.response?.data?.message || messages.errors.loginError;
-          return;
-        }
-        this.error =
-          error instanceof Error ? error.message : messages.errors.loginError;
-      });
+      this.error = getErrorMessage(error);
+      toast.error(this.error);
     } finally {
-      runInAction(() => {
-        this.isPending = false;
-      });
+      this.isPending = false;
     }
   }
 
@@ -178,22 +137,10 @@ class UserStore {
         this.user = updated;
       });
     } catch (error) {
-      runInAction(() => {
-        console.log(error);
-        if (isApiError(error)) {
-          this.error =
-            error.response?.data?.message || messages.errors.updateProfileError;
-          return;
-        }
-        this.error =
-          error instanceof Error
-            ? error.message
-            : messages.errors.updateProfileError;
-      });
+      this.error = getErrorMessage(error);
+      toast.error(this.error);
     } finally {
-      runInAction(() => {
-        this.isInitLoading = false;
-      });
+      this.isInitLoading = false;
     }
   }
   public changePassword = async (
@@ -214,22 +161,10 @@ class UserStore {
         return updated;
       });
     } catch (error) {
-      runInAction(() => {
-        console.log(error);
-        if (isApiError(error)) {
-          this.error =
-            error.response?.data?.message || messages.errors.updateProfileError;
-          return;
-        }
-        this.error =
-          error instanceof Error
-            ? error.message
-            : messages.errors.updateProfileError;
-      });
+      this.error = getErrorMessage(error);
+      toast.error(this.error);
     } finally {
-      runInAction(() => {
-        this.isPending = false;
-      });
+      this.isPending = false;
     }
   };
 
