@@ -38,10 +38,6 @@ export class CartStore {
     };
   }
 
-  public async init() {
-    await (userStore.isAuth ? this.getCustomerCart() : this.getAnonCart());
-  }
-
   public getProduct = async () => {
     this.isLoading = true;
     this.error = null;
