@@ -15,6 +15,11 @@
   gap: 10px;
 }
 
+.promoItem {
+  display: flex;
+  gap: 10px;
+}
+
 @media (width <= 500px) {
   .promoCodeListWrapper {
     gap: 5px;

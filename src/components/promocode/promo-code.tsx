@@ -12,7 +12,7 @@ export const PromoCode = observer(() => {
       <ul className={styles.promoCodeList}>
         {cartStore.promoCodes.map(code => (
           <li key={code.id} className={styles.promoItem}>
-            <b>{code.code}</b> —{' '}
+            <b>{code.code}</b>
             {code.name.en || messages.promoCode.noDescriptionText}
           </li>
         ))}
