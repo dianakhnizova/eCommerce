@@ -8,8 +8,8 @@ import { Button } from '../../components/button/button';
 import emptyCartIllustration from '../../../assets/images/empty-cart.png';
 import { Wrapper } from '../../components/wrapper/wrapper';
 import { messages } from '../../sources/messages';
-import { CURRENCY_USD } from '../../sources/constants/catalog';
 import { ProductCard } from '../../components/product-card/product-card';
+import { CURRENCY_USD } from '../../sources/constants/catalog';
 import { Input } from '../../components/input/input.tsx';
 import { useState } from 'react';
 
@@ -35,18 +35,34 @@ export const CartPage = observer(() => {
   return (
     <>
       <BreadCrumbs />
+      <Button onClick={handleClearCart} className={styles.clearCartButton}>
+        {messages.buttons.clearCart}
+      </Button>
       <Wrapper className={styles.cartPageWrapper}>
-        <Button onClick={handleClearCart} className={styles.clearCartButton}>
-          {messages.buttons.clearCart}
-        </Button>
         {items.length > 0 ? (
           <>
             <ul className={styles.cartPageProductList}>
-              {cartStore.product.map(product => (
-                <ProductCard key={product.id} product={product} />
+              {items.map(item => (
+                <ProductCard
+                  key={item.id}
+                  isShowInCart={true}
+                  product={{
+                    id: item.productId,
+                    categorySlug: item.productSlug.en,
+                    description: '',
+                    image: item.variant.images[0].url,
+                    name: item.name.en,
+                    price: (item.price.value.centAmount / 100).toString(),
+                    color: item.variant.attributes[0].value,
+                    discountPrice: item.price.discounted
+                      ? (
+                          item.price.discounted.value.centAmount / 100
+                        ).toString()
+                      : '',
+                  }}
+                />
               ))}
             </ul>
-
             <div className={styles.promoCodeSection}>
               <Input
                 type="text"
@@ -69,10 +85,28 @@ export const CartPage = observer(() => {
             </Button>
           </>
         )}
-        <h3>
-          {messages.totalCost} {CURRENCY_USD}
-          {(cartStore.cart?.totalPrice.centAmount ?? 0) / 100}
-        </h3>
+        <div className={styles.priceContainer}>
+          <span>{messages.totalCost}</span>
+          {cartStore.cart?.discountCodes?.length ? (
+            <>
+              <span className={styles.priceWithoutDiscount}>
+                {CURRENCY_USD}
+                {(cartStore.totalPriceBeforePromoCode?.centAmount ??
+                  cartStore.cart.totalPrice.centAmount ??
+                  0) / 100}
+              </span>
+              <span className={styles.discountPrice}>
+                {CURRENCY_USD}
+                {(cartStore.cart.totalPrice.centAmount ?? 0) / 100}
+              </span>
+            </>
+          ) : (
+            <span>
+              {CURRENCY_USD}
+              {(cartStore.cart?.totalPrice.centAmount ?? 0) / 100}
+            </span>
+          )}
+        </div>
       </Wrapper>
     </>
   );
