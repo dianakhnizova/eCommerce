@@ -1,33 +1,51 @@
-import type { MouseEvent } from 'react';
+import { useState, type MouseEvent } from 'react';
 import { cartStore } from '../../store/cart-store';
 
 export const useCartHandlers = (productId: string) => {
-  const handleAddToCart = async (event: MouseEvent<HTMLButtonElement>) => {
-    event.preventDefault();
-    event.stopPropagation();
-    await cartStore.addItem({ productId });
-  };
+  const [isCardDisabled, setIsCardDisabled] = useState(cartStore.isLoading);
 
-  const handleRemoveFromCart = async (event: MouseEvent<HTMLButtonElement>) => {
-    event.preventDefault();
-    event.stopPropagation();
-    await cartStore.removeItem(productId);
-  };
+  async function handleAddToCart(event: MouseEvent<HTMLButtonElement>) {
+    setIsCardDisabled(true);
+    try {
+      event.preventDefault();
+      event.stopPropagation();
+      await cartStore.addItem({ productId });
+    } finally {
+      setIsCardDisabled(false);
+    }
+  }
 
-  const handleUpdateQuantity = async (
+  async function handleRemoveFromCart(event: MouseEvent<HTMLButtonElement>) {
+    setIsCardDisabled(true);
+    try {
+      event.preventDefault();
+      event.stopPropagation();
+      await cartStore.removeItem(productId);
+    } finally {
+      setIsCardDisabled(false);
+    }
+  }
+
+  async function handleUpdateQuantity(
     productQuantity: number,
     event: MouseEvent<HTMLButtonElement>
-  ) => {
-    event.preventDefault();
-    event.stopPropagation();
-    if (productQuantity <= 0) {
-      void cartStore.removeItem(productId);
-      return;
+  ) {
+    setIsCardDisabled(true);
+    try {
+      event.preventDefault();
+      event.stopPropagation();
+      if (productQuantity <= 0) {
+        void cartStore.removeItem(productId);
+        return;
+      }
+      await cartStore.updateItemQuantity(productId, productQuantity);
+    } finally {
+      setIsCardDisabled(false);
     }
-    await cartStore.updateItemQuantity(productId, productQuantity);
-  };
+  }
 
   return {
+    isCardDisabled,
     handleAddToCart,
     handleRemoveFromCart,
     handleUpdateQuantity,
