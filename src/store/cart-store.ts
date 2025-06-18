@@ -108,6 +108,7 @@ export class CartStore {
       const response = await cartService.removeItemFromCart(item.id, this.cart);
       runInAction(() => {
         this.cart = response;
+        void this.getProduct();
         void toast.success(messages.success.removeFromCart);
       });
     } catch (error) {

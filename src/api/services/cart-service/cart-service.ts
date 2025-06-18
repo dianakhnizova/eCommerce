@@ -162,13 +162,16 @@ export const cartService = {
   },
 
   getActivePromoCodes: async (): Promise<Cart.PromoCodeResponse[]> => {
+    const params = new URLSearchParams({
+      view_discount_codes: PROJECT_KEY,
+      where: 'isActive=true',
+      limit: '10',
+    });
+
     const response = await baseApi.get<{ results: Cart.PromoCodeResponse[] }>(
       `${PROJECT_KEY}${Endpoints.DISCOUNT_CODES}`,
       {
-        params: {
-          where: 'isActive=true',
-          limit: 10,
-        },
+        params,
       }
     );
     return response.data.results;
