@@ -7,13 +7,16 @@ import { PagePath } from '../../../router/enums';
 import { messages } from '../../../sources/messages';
 import styles from './promo-banner.module.css';
 import { PromoCode } from '../../../components/promocode/promo-code.tsx';
+import { userStore } from '../../../store/user-store.ts';
 
 export const PromoBanner = observer(() => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    void cartStore.getActivePromoCodes();
-  }, []);
+    if (userStore.isAuth) {
+      void cartStore.getActivePromoCodes();
+    }
+  }, [userStore.isAuth]);
 
   const toCatalogPage = () => {
     void navigate(PagePath.catalogPage);

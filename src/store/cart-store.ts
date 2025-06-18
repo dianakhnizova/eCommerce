@@ -108,6 +108,7 @@ export class CartStore {
       const response = await cartService.removeItemFromCart(item.id, this.cart);
       runInAction(() => {
         this.cart = response;
+        void this.getProduct();
         void toast.success(messages.success.removeFromCart);
       });
     } catch (error) {
@@ -313,8 +314,14 @@ export class CartStore {
     this.isLoading = true;
     this.error = null;
 
+    if (!userStore.isAuth) {
+      console.log('User not authenticated, skipping getActivePromoCodes');
+      return [];
+    }
+
     try {
       const data = await cartService.getActivePromoCodes();
+      console.log('getActivePromoCodes response:', data);
       runInAction(() => {
         this.promoCodes = preparePromoCode(data);
       });

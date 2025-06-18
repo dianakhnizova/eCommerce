@@ -4,10 +4,20 @@ import { isToken } from './is-token';
 
 export const loadTokenFromLS = (tokenKey: LSKeys): Auth.Token | undefined => {
   const raw = localStorage.getItem(tokenKey);
-  if (!raw) return;
-
-  const parsed: Auth.Token = JSON.parse(raw);
-  if (!isToken(parsed)) return;
-
-  return parsed;
+  if (!raw) {
+    console.log(`No token found for key: ${tokenKey}`);
+    return;
+  }
+  try {
+    const parsed: Auth.Token = JSON.parse(raw);
+    if (!isToken(parsed)) {
+      console.warn(`Invalid token format for key: ${tokenKey}`);
+      return;
+    }
+    console.log(`Loaded token for ${tokenKey}:`, parsed);
+    return parsed;
+  } catch (error) {
+    console.error(`Failed to parse token for ${tokenKey}:`, error);
+    return;
+  }
 };

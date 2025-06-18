@@ -3,6 +3,7 @@ import { Endpoints } from '../../endpoints';
 import { baseApi } from '../../axios';
 import { CartUpdateActions } from './enums/update-actions.ts';
 import type { Cart } from '../../../sources/types/cart';
+import { TokenManager } from '../../token-manager.ts';
 
 export const cartService = {
   getCart: async (cartId: string): Promise<Cart.GeneralInfo> => {
@@ -162,6 +163,8 @@ export const cartService = {
   },
 
   getActivePromoCodes: async (): Promise<Cart.PromoCodeResponse[]> => {
+    const token = await TokenManager.getAccessToken();
+    console.log('Token used for discount-codes:', token);
     const response = await baseApi.get<{ results: Cart.PromoCodeResponse[] }>(
       `${PROJECT_KEY}${Endpoints.DISCOUNT_CODES}`,
       {

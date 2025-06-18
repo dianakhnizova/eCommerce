@@ -110,8 +110,10 @@ class UserStore {
   };
 
   public async signUp(customer: Customer.Profile) {
-    this.isPending = true;
-    this.error = '';
+    runInAction(() => {
+      this.isPending = true;
+      this.error = '';
+    });
     try {
       const response = await customerService.signupNewCustomer(customer);
       runInAction(() => {
@@ -119,11 +121,20 @@ class UserStore {
         localStorage.setItem(LSKeys.USER_ID, response.customer.id);
       });
       await TokenManager.fetchUserToken(customer);
+      const userTokenRaw = localStorage.getItem(LSKeys.USER_TOKEN);
+      console.log(
+        'signUp completed, USER_TOKEN:',
+        userTokenRaw ? JSON.parse(userTokenRaw) : null
+      );
     } catch (error) {
-      this.error = getErrorMessage(error);
-      toast.error(this.error);
+      runInAction(() => {
+        this.error = getErrorMessage(error);
+        toast.error(this.error);
+      });
     } finally {
-      this.isPending = false;
+      runInAction(() => {
+        this.isPending = false;
+      });
     }
   }
 
@@ -170,13 +181,13 @@ class UserStore {
   };
 
   public logout() {
+    runInAction(() => {
+      this.isInitLoading = false;
+      this.user = null;
+      this.isPending = false;
+      this.error = '';
+    });
     TokenManager.cleanup();
-    void cartStore.getAnonCart();
-    localStorage.removeItem(LSKeys.USER_ID);
-    this.user = null;
-    this.error = '';
-    this.isPending = false;
-    this.isInitLoading = false;
   }
 }
 

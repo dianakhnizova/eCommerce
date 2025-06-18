@@ -2,19 +2,19 @@ import type { MouseEvent } from 'react';
 import { cartStore } from '../../store/cart-store';
 
 export const useCartHandlers = (productId: string) => {
-  const handleAddToCart = (event: MouseEvent<HTMLButtonElement>) => {
+  const handleAddToCart = async (event: MouseEvent<HTMLButtonElement>) => {
     event.preventDefault();
     event.stopPropagation();
-    void cartStore.addItem({ productId });
+    await cartStore.addItem({ productId });
   };
 
-  const handleRemoveFromCart = (event: MouseEvent<HTMLButtonElement>) => {
+  const handleRemoveFromCart = async (event: MouseEvent<HTMLButtonElement>) => {
     event.preventDefault();
     event.stopPropagation();
-    void cartStore.removeItem(productId);
+    await cartStore.removeItem(productId);
   };
 
-  const handleUpdateQuantity = (
+  const handleUpdateQuantity = async (
     productQuantity: number,
     event: MouseEvent<HTMLButtonElement>
   ) => {
@@ -24,7 +24,7 @@ export const useCartHandlers = (productId: string) => {
       void cartStore.removeItem(productId);
       return;
     }
-    void cartStore.updateItemQuantity(productId, productQuantity);
+    await cartStore.updateItemQuantity(productId, productQuantity);
   };
 
   return {

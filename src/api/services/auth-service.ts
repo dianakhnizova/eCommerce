@@ -47,7 +47,7 @@ export const authService = {
         },
       }
     );
-
+    console.log('getUserToken response:', response.data);
     return response.data;
   },
 
