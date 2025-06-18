@@ -42,7 +42,7 @@ export const ProductMenu = observer(({ productId }: Props) => {
             <RiAddFill />
           </Button>
           <span className={styles.totalCost}>
-            {messages.totalCost}: ${handleTotalCost(productId, quantity)}
+            {messages.totalCost} ${handleTotalCost(productId, quantity)}
           </span>
         </div>
       ) : (
