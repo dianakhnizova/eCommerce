@@ -314,14 +314,8 @@ export class CartStore {
     this.isLoading = true;
     this.error = null;
 
-    if (!userStore.isAuth) {
-      console.log('User not authenticated, skipping getActivePromoCodes');
-      return [];
-    }
-
     try {
       const data = await cartService.getActivePromoCodes();
-      console.log('getActivePromoCodes response:', data);
       runInAction(() => {
         this.promoCodes = preparePromoCode(data);
       });
