@@ -19,7 +19,8 @@ class UserStore {
   }
 
   public get isAuth() {
-    return !!this.user?.id;
+    const isHaveUserToken = localStorage.getItem(LSKeys.USER_TOKEN);
+    return this.user?.id && isHaveUserToken;
   }
 
   public resetError() {
@@ -119,13 +120,8 @@ class UserStore {
       runInAction(() => {
         this.user = response.customer;
         localStorage.setItem(LSKeys.USER_ID, response.customer.id);
+        void TokenManager.fetchUserToken(customer);
       });
-      await TokenManager.fetchUserToken(customer);
-      const userTokenRaw = localStorage.getItem(LSKeys.USER_TOKEN);
-      console.log(
-        'signUp completed, USER_TOKEN:',
-        userTokenRaw ? JSON.parse(userTokenRaw) : null
-      );
     } catch (error) {
       runInAction(() => {
         this.error = getErrorMessage(error);
