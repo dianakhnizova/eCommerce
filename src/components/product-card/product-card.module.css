@@ -65,3 +65,8 @@ li {
   display: flex;
   align-items: center;
 }
+
+.totalCost {
+  font-size: 20px;
+  font-weight: 500;
+}

@@ -5,6 +5,7 @@ import { useCartHandlers } from '../../utils/hooks/use-cart-handlers';
 import { Button } from '../button/button';
 import styles from './product-card.module.css';
 import { observer } from 'mobx-react-lite';
+import { handleTotalCost } from './handle-total-cost';
 
 type Props = {
   productId: string;
@@ -40,6 +41,9 @@ export const ProductMenu = observer(({ productId }: Props) => {
           >
             <RiAddFill />
           </Button>
+          <span className={styles.totalCost}>
+            {messages.totalCost}: ${handleTotalCost(productId, quantity)}
+          </span>
         </div>
       ) : (
         <Button onClick={handleAddToCart} disabled={isCardDisabled}>

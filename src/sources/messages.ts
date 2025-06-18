@@ -63,7 +63,7 @@ export const messages = {
   lastName: 'Last Name',
   birth: 'Birth',
   addresses: 'Addresses',
-  totalCost: 'Total cost ',
+  totalCost: 'Total cost: ',
 
   badges: {
     defaultBilling: '📋Default Billing',
