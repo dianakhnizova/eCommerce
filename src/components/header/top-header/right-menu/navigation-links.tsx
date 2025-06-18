@@ -9,6 +9,9 @@ import { CURRENCY_USD } from '../../../../sources/constants/catalog';
 
 export const navigationLinks = computed<LinkItems[]>(() => {
   const totalCoast = `${CURRENCY_USD}${(cartStore.cart?.totalPrice.centAmount ?? 0) / 100}`;
+  const totalItems =
+    cartStore.cart?.lineItems.reduce((sum, item) => sum + item.quantity, 0) ??
+    0;
 
   return userStore.isAuth
     ? [
@@ -21,7 +24,7 @@ export const navigationLinks = computed<LinkItems[]>(() => {
         {
           to: PagePath.cartPage,
           label: messages.cartLink,
-          data: totalCoast,
+          data: `${totalCoast} (${totalItems})`,
           iconType: IconType.Cart,
           onClick: () => PagePath.catalogPage,
         },
@@ -30,7 +33,7 @@ export const navigationLinks = computed<LinkItems[]>(() => {
         {
           to: PagePath.cartPage,
           label: messages.cartLink,
-          data: totalCoast,
+          data: `${totalCoast} (${totalItems})`,
           iconType: IconType.Cart,
           onClick: () => PagePath.catalogPage,
         },

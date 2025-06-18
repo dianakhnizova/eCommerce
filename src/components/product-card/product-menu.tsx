@@ -21,25 +21,31 @@ export const ProductMenu = observer(({ productId, isDisabled }: Props) => {
     <>
       {isInCart ? (
         <div className={styles.itemMenu}>
-          <Button onClick={handleRemoveFromCart} disabled={isDisabled}>
+          <Button
+            onClick={handleRemoveFromCart}
+            disabled={isDisabled || cartStore.isLoading}
+          >
             <RiDeleteBinLine />
           </Button>
           <Button
             onClick={event => handleUpdateQuantity(quantity - 1, event)}
-            disabled={isDisabled}
+            disabled={isDisabled || cartStore.isLoading}
           >
             <RiSubtractFill />
           </Button>
           <span>{quantity}</span>
           <Button
             onClick={event => handleUpdateQuantity(quantity + 1, event)}
-            disabled={isDisabled}
+            disabled={isDisabled || cartStore.isLoading}
           >
             <RiAddFill />
           </Button>
         </div>
       ) : (
-        <Button onClick={handleAddToCart} disabled={isDisabled}>
+        <Button
+          onClick={handleAddToCart}
+          disabled={isDisabled || cartStore.isLoading}
+        >
           {messages.buttons.addToCart}
         </Button>
       )}
