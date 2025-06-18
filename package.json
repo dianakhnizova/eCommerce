@@ -35,7 +35,9 @@
     "react-router-dom": "^7.6.0",
     "react-slick": "^0.30.3",
     "react-toastify": "^11.0.5",
-    "slick-carousel": "^1.8.1"
+    "slick-carousel": "^1.8.1",
+    "sweetalert2": "^11.22.0",
+    "sweetalert2-react-content": "^5.1.0"
   },
   "devDependencies": {
     "@commitlint/config-conventional": "^19.8.0",
