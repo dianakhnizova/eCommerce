@@ -21,6 +21,7 @@ export default tseslint
         '*.min.js',
         '.DS_Store',
         'coverage/',
+        'tests',
       ],
     },
     {
