@@ -22,7 +22,7 @@ export const RightNavMenu = observer(() => {
             {link.label}
             {Boolean(link.totalCountItems) && (
               <span className={styles.totalCountItems}>
-                &nbsp;({link.totalCountItems})
+                {link.totalCountItems}
               </span>
             )}
           </NavLink>
