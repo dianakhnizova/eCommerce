@@ -11,6 +11,10 @@ import { messages } from '../../sources/messages';
 import { ProductCard } from '../../components/product-card/product-card';
 import { PriceIndicator } from './components/price-indicator/price-indicator.tsx';
 import { PromoCodeInputPanel } from './components/promo-code-input-panel/promo-code-input-panel.tsx';
+import Swal from 'sweetalert2';
+import withReactContent from 'sweetalert2-react-content';
+
+const MySwal = withReactContent(Swal);
 
 export const CartPage = observer(() => {
   const items = cartStore.cart?.lineItems || [];
@@ -20,8 +24,27 @@ export const CartPage = observer(() => {
     void navigate(PagePath.catalogPage);
   };
 
-  const handleClearCart = () => {
-    void cartStore.clear();
+  const handleClearCart = async () => {
+    const result = await MySwal.fire({
+      title: messages.confirmClearCart,
+      text: 'This action cannot be undone.',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'Yes, clear it!',
+      cancelButtonText: 'Cancel',
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#fb2e86',
+    });
+
+    if (result.isConfirmed) {
+      await cartStore.clear();
+      await MySwal.fire({
+        title: 'Cleared!',
+        text: messages.success.clearCart,
+        icon: 'success',
+        timer: 1500,
+      });
+    }
   };
 
   return (

@@ -92,12 +92,6 @@ src
 |   |   `-- product-slider.tsx
 |   |-- promocode
 |   |   |-- messages.ts
-|   |   |-- price-indicator
-|   |   |   |-- price-indicator.module.css
-|   |   |   `-- price-indicator.tsx
-|   |   |-- promo-code-input-panel
-|   |   |   |-- promo-code-input-panel.tsx
-|   |   |   `-- promo-code-input.module.css
 |   |   |-- promo-code.module.css
 |   |   `-- promo-code.tsx
 |   |-- spinner
@@ -133,7 +127,14 @@ src
 |   |       `-- about-title.tsx
 |   |-- cart-page
 |   |   |-- cart-page.module.css
-|   |   `-- cart-page.tsx
+|   |   |-- cart-page.tsx
+|   |   `-- components
+|   |       |-- price-indicator
+|   |       |   |-- price-indicator.module.css
+|   |       |   `-- price-indicator.tsx
+|   |       `-- promo-code-input-panel
+|   |           |-- promo-code-input-panel.tsx
+|   |           `-- promo-code-input.module.css
 |   |-- catalog-page
 |   |   |-- catalog
 |   |   |   |-- catalog.module.css
@@ -285,5 +286,6 @@ src
 |   |-- prepare-product-card.ts
 |   `-- prepare-promo-code.ts
 `-- vite-environment.d.ts
+F:/ [error opening dir]
 
-74 directories, 212 files
+75 directories, 212 files

@@ -63,7 +63,8 @@ export const messages = {
   lastName: 'Last Name',
   birth: 'Birth',
   addresses: 'Addresses',
-  totalCost: 'Total cost ',
+  totalCost: 'Total cost: ',
+  confirmClearCart: 'Confirm cleared cart',
 
   badges: {
     defaultBilling: '📋Default Billing',
