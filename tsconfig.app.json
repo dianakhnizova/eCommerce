@@ -6,6 +6,7 @@
     "lib": ["ES2020", "DOM", "DOM.Iterable"],
     "module": "ESNext",
     "skipLibCheck": true,
+    "types": ["vitest", "@testing-library/jest-dom"],
 
     "moduleResolution": "bundler",
     "allowImportingTsExtensions": true,
@@ -21,5 +22,5 @@
     "allowJs": true,
     "noUncheckedSideEffectImports": true
   },
-  "include": ["src", "*.d.ts", "types/**/*"]
+  "include": ["src", "*.d.ts", "types/**/*", "tests/button.test.tsx"]
 }

@@ -67,7 +67,7 @@ VITE_CT_PROJECT_KEY=your_project_key
 VITE_CT_CLIENT_ID=your_client_id  
 VITE_CT_CLIENT_SECRET=your_client_secret  
 VITE_CT_API_URL=https://auth.australia-southeast1.gcp.commercetools.com/oauth/  
-VITE_CT_AUTH_URL=https://api.australia-southeast1.gcp.commercetools.com/   
+VITE_CT_AUTH_URL=https://api.australia-southeast1.gcp.commercetools.com/  
 Note: Ask your team or mentor for credentials if you don't have access.
 
 ### 4. Start the development server
@@ -77,10 +77,10 @@ This will launch the app at http://localhost:5173.
 
 👥 Contributors
 
-This project is developed by a team of students   
-[Diana Khnizova](https://github.com/dianakhnizova),   
-[Anastasiia Starkova](https://github.com/Starkoans),   
-[Aizhan Bexatova](https://github.com/Ulistonee)   
+This project is developed by a team of students  
+[Diana Khnizova](https://github.com/dianakhnizova),  
+[Anastasiia Starkova](https://github.com/Starkoans),  
+[Aizhan Bexatova](https://github.com/Ulistonee)  
 from the RS School Frontend Course.  
 All members have access to the repository and are actively collaborating through issues and pull requests.
 
