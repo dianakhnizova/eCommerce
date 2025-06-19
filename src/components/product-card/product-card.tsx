@@ -14,17 +14,15 @@ export const ProductCard: React.FC<{
   isShowInCart?: boolean;
 }> = observer(({ product, isShowInCart = false }) => {
   const quantity = cartStore.getItemQuantity(product.id);
+  const path = generatePath(PagePath.productPage, {
+    categorySlug: product.categorySlug || DEFAULT_VALUE.CATEGORY,
+    subcategorySlug: product.subcategorySlug || DEFAULT_VALUE.SUBCATEGORY,
+    id: product.id,
+  });
 
   return (
     <li key={product.id}>
-      <Link
-        to={generatePath(PagePath.productPage, {
-          categorySlug: product.categorySlug || DEFAULT_VALUE.CATEGORY,
-          subcategorySlug: product.subcategorySlug || DEFAULT_VALUE.SUBCATEGORY,
-          id: product.id,
-        })}
-        className={styles.card}
-      >
+      <Link to={path} className={styles.card}>
         <img
           className={styles.image}
           src={product.image}

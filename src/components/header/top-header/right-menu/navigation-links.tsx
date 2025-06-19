@@ -24,7 +24,7 @@ export const navigationLinks = computed<LinkItems[]>(() => {
         {
           to: PagePath.cartPage,
           label: messages.cartLink,
-          data: `${totalCoast} (${totalItems})`,
+          totalCountItems: `${totalCoast} (${totalItems})`,
           iconType: IconType.Cart,
           onClick: () => PagePath.catalogPage,
         },
@@ -33,7 +33,7 @@ export const navigationLinks = computed<LinkItems[]>(() => {
         {
           to: PagePath.cartPage,
           label: messages.cartLink,
-          data: `${totalCoast} (${totalItems})`,
+          totalCountItems: `${totalCoast} (${totalItems})`,
           iconType: IconType.Cart,
           onClick: () => PagePath.catalogPage,
         },

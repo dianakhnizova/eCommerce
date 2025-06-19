@@ -1,4 +1,7 @@
-import { PROJECT_KEY } from '../../../sources/constants/api';
+import {
+  DEFAULT_ITEM_QUANTITY,
+  PROJECT_KEY,
+} from '../../../sources/constants/api';
 import { Endpoints } from '../../endpoints';
 import { baseApi } from '../../axios';
 import { CartUpdateActions } from './enums/update-actions.ts';
@@ -47,7 +50,7 @@ export const cartService = {
     );
 
     const carts = response.data.results;
-    return carts.length > 0 ? carts[0] : null;
+    return carts[0] || null;
   },
 
   addItemToCart: async (
@@ -63,7 +66,7 @@ export const cartService = {
         {
           action: CartUpdateActions.addItem,
           productId: product.productId,
-          quantity: product.quantity ?? 1,
+          quantity: product.quantity ?? DEFAULT_ITEM_QUANTITY,
         },
       ],
     };

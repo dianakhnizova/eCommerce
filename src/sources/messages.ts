@@ -90,12 +90,16 @@ export const messages = {
     signIn: 'Sign In',
     shopNow: 'Shop now',
     backToHome: 'Back To Home',
+    confirmButtonText: 'Yes, clear it!',
+    cancelButtonText: 'Cancel',
   },
   errorPageImage: '404 Not Found',
   errorPageDescription: 'Oops! The page you requested was not found!',
   dontHaveAccount: 'Don’t have an Account? ',
   createAccount: 'Create account',
   allCategories: 'Select categories',
+  textWarn: 'This action cannot be undone.',
+  textClearCart: 'Cleared!',
 
   textAboutUs:
     "We're a team of passionate, driven, and slightly sleep-deprived developers who joined forces to build something amazing. Working together as Lazer Sharks, we turned code into a collaborative masterpiece! We stayed connected and productive with Trello, Figma, Discord, Telegram, and GitHub. These tools helped us plan, design, communicate, and collaborate—wherever we were. Each sprint, we divided tasks smartly. When someone finished early, they jumped in to help others—true team spirit! Diana introduced daily reports, helping us track our progress, and we held weekly video calls to discuss blockers, share wins, and stay motivated. Every pull request was reviewed thoroughly to keep our code sharp and clean. This project wasn’t just about coding—it taught us how real teamwork works. We learned how to communicate effectively, conduct meaningful code reviews, manage branches in GitHub, and most importantly—how to build an app together in React. ",
