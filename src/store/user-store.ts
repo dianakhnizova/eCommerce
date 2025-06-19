@@ -121,8 +121,8 @@ class UserStore {
       runInAction(() => {
         this.user = response.customer;
         localStorage.setItem(LSKeys.USER_ID, response.customer.id);
-        void TokenManager.fetchUserToken(customer);
       });
+
       await cartStore.getCustomerCart();
     } catch (error) {
       runInAction(() => {
