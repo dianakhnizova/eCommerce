@@ -20,6 +20,11 @@ export const RightNavMenu = observer(() => {
           >
             <SvgBuilder iconType={link.iconType} className={svgStyles.small} />
             {link.label}
+            {Boolean(link.totalCountItems) && (
+              <span className={styles.totalCountItems}>
+                ({link.totalCountItems})
+              </span>
+            )}
           </NavLink>
         );
       })}

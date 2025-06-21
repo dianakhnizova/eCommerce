@@ -68,6 +68,7 @@
 
   .titleContainer {
     padding: 10px 22px;
+    gap: 10px;
   }
 
   .mainTitle {

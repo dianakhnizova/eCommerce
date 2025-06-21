@@ -4,6 +4,7 @@ import type { MouseEvent } from 'react';
 export type LinkItems = {
   to: string;
   label: string;
+  totalCountItems?: string;
   iconType?: IconType;
   onClick?: (event: MouseEvent<HTMLAnchorElement>) => void;
 };

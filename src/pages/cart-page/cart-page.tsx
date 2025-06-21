@@ -8,6 +8,14 @@ import { Button } from '../../components/button/button';
 import emptyCartIllustration from '../../../assets/images/empty-cart.png';
 import { Wrapper } from '../../components/wrapper/wrapper';
 import { messages } from '../../sources/messages';
+import { ProductCard } from '../../components/product-card/product-card';
+import { PriceIndicator } from './components/price-indicator/price-indicator.tsx';
+import { PromoCodeInputPanel } from './components/promo-code-input-panel/promo-code-input-panel.tsx';
+import Swal from 'sweetalert2';
+import withReactContent from 'sweetalert2-react-content';
+
+const MySwal = withReactContent(Swal);
+
 export const CartPage = observer(() => {
   const items = cartStore.cart?.lineItems || [];
   const navigate = useNavigate();
@@ -16,18 +24,44 @@ export const CartPage = observer(() => {
     void navigate(PagePath.catalogPage);
   };
 
+  const handleClearCart = async () => {
+    const result = await MySwal.fire({
+      title: messages.confirmClearCart,
+      text: messages.textWarn,
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: messages.buttons.confirmButtonText,
+      cancelButtonText: messages.buttons.cancelButtonText,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#fb2e86',
+    });
+
+    if (result.isConfirmed) {
+      await cartStore.clear();
+      await MySwal.fire({
+        title: messages.textClearCart,
+        text: messages.success.clearCart,
+        icon: 'success',
+        timer: 1500,
+      });
+    }
+  };
+
   return (
     <>
       <BreadCrumbs />
       <Wrapper className={styles.cartPageWrapper}>
         {items.length > 0 ? (
-          items.map(item => (
-            <div key={item.id}>
-              <p>{item.name.en}</p>
-              <p>{item.productId}</p>
-              <img src={item.variant.images[0].url}></img>
-            </div>
-          ))
+          <>
+            <ul className={styles.cartPageProductList}>
+              {cartStore.product.map(product => (
+                <ProductCard key={product.id} product={product} />
+              ))}
+            </ul>
+
+            <PromoCodeInputPanel />
+            <PriceIndicator />
+          </>
         ) : (
           <>
             <p className={styles.emptyCartTitle}>{messages.emptyCart}</p>
@@ -37,6 +71,9 @@ export const CartPage = observer(() => {
             </Button>
           </>
         )}
+        <Button onClick={handleClearCart} className={styles.clearCartButton}>
+          {messages.buttons.clearCart}
+        </Button>
       </Wrapper>
     </>
   );
