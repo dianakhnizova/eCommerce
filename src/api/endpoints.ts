@@ -9,7 +9,6 @@ export enum Endpoints {
   LOGIN = '/me/login',
   OAUTH = '/oauth',
   CARTS = '/carts',
-  ACTIVE_CART = 'active-cart',
   INTROSPECT = '/introspect',
   PRODUCT_INFORMATION = '/product-projections',
   PRODUCT_PROJECTIONS_SEARCH = '/product-projections/search',

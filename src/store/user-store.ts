@@ -117,11 +117,13 @@ class UserStore {
     });
     try {
       const response = await customerService.signupNewCustomer(customer);
+      await TokenManager.fetchUserToken(customer);
       runInAction(() => {
         this.user = response.customer;
         localStorage.setItem(LSKeys.USER_ID, response.customer.id);
-        void TokenManager.fetchUserToken(customer);
       });
+
+      await cartStore.getCustomerCart();
     } catch (error) {
       runInAction(() => {
         this.error = getErrorMessage(error);

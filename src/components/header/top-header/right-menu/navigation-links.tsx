@@ -5,10 +5,8 @@ import { IconType } from '../../../svg-builder/enums';
 import { userStore } from '../../../../store/user-store';
 import { computed } from 'mobx';
 import { cartStore } from '../../../../store/cart-store';
-import { CURRENCY_USD } from '../../../../sources/constants/catalog';
 
 export const navigationLinks = computed<LinkItems[]>(() => {
-  const totalCoast = `${CURRENCY_USD}${(cartStore.cart?.totalPrice.centAmount ?? 0) / 100}`;
   const totalItems =
     cartStore.cart?.lineItems.reduce((sum, item) => sum + item.quantity, 0) ??
     0;
@@ -24,7 +22,7 @@ export const navigationLinks = computed<LinkItems[]>(() => {
         {
           to: PagePath.cartPage,
           label: messages.cartLink,
-          data: `${totalCoast} (${totalItems})`,
+          totalCountItems: `(${totalItems})`,
           iconType: IconType.Cart,
           onClick: () => PagePath.catalogPage,
         },
@@ -33,7 +31,7 @@ export const navigationLinks = computed<LinkItems[]>(() => {
         {
           to: PagePath.cartPage,
           label: messages.cartLink,
-          data: `${totalCoast} (${totalItems})`,
+          totalCountItems: `${totalItems}`,
           iconType: IconType.Cart,
           onClick: () => PagePath.catalogPage,
         },

@@ -27,11 +27,11 @@ export const CartPage = observer(() => {
   const handleClearCart = async () => {
     const result = await MySwal.fire({
       title: messages.confirmClearCart,
-      text: 'This action cannot be undone.',
+      text: messages.textWarn,
       icon: 'warning',
       showCancelButton: true,
-      confirmButtonText: 'Yes, clear it!',
-      cancelButtonText: 'Cancel',
+      confirmButtonText: messages.buttons.confirmButtonText,
+      cancelButtonText: messages.buttons.cancelButtonText,
       confirmButtonColor: '#3085d6',
       cancelButtonColor: '#fb2e86',
     });
@@ -39,7 +39,7 @@ export const CartPage = observer(() => {
     if (result.isConfirmed) {
       await cartStore.clear();
       await MySwal.fire({
-        title: 'Cleared!',
+        title: messages.textClearCart,
         text: messages.success.clearCart,
         icon: 'success',
         timer: 1500,

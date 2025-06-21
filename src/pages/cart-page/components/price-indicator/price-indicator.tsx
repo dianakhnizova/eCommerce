@@ -9,6 +9,7 @@ export const PriceIndicator = observer(() => {
   const totalPrice = (cartStore.cart?.totalPrice.centAmount ?? 0) / 100;
   const priceBeforePromo =
     (cartStore.totalPriceBeforePromoCode?.centAmount ?? totalPrice * 100) / 100;
+  const discount = (priceBeforePromo - totalPrice).toFixed(2);
 
   const hasDiscount =
     cartStore.cart?.discountCodes?.length && priceBeforePromo > totalPrice;
@@ -31,7 +32,7 @@ export const PriceIndicator = observer(() => {
             <span className={styles.mainPrice}>{messages.sale}</span>
             <span className={styles.discountPrice}>
               {CURRENCY_USD}
-              {totalPrice}
+              {discount}
             </span>
           </div>
 
