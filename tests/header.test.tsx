@@ -1,10 +1,8 @@
-// tests/header.test.tsx
 import { describe, it, expect, vi } from 'vitest';
 import { render, screen } from '@testing-library/react';
 import { Header } from '../src/components/header/header';
 import { MemoryRouter } from 'react-router-dom';
 
-// Мокаем вложенные компоненты
 vi.mock('../src/components/header/top-header/top-header', () => ({
   TopHeader: () => <div data-testid="top-header">TopHeader</div>,
 }));
