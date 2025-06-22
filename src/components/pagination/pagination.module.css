@@ -1,0 +1,25 @@
+.container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  padding: 80px 0;
+
+  .paginationButton {
+    background: transparent;
+    padding: 0;
+    color: var(--clr-secondary-800);
+  }
+}
+
+.panel {
+  align-items: center;
+  border: 1px solid var(--clr-accent-9);
+  padding: 10px 20px;
+  font-size: 20px;
+}
+
+.arrow {
+  width: 40px;
+  height: 40px;
+}

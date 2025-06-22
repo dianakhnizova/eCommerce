@@ -18,7 +18,6 @@ export const TokenManager = {
   async getAccessToken(): Promise<string> {
     const anon = loadTokenFromLS(LSKeys.ANON_TOKEN);
     const user = loadTokenFromLS(LSKeys.USER_TOKEN);
-
     if (user) {
       const userRefreshed = await TokenManager.ensureFresh(
         LSKeys.USER_TOKEN,
@@ -26,7 +25,6 @@ export const TokenManager = {
       );
       return userRefreshed.access_token;
     }
-
     if (anon) {
       const refreshed = await TokenManager.ensureFresh(LSKeys.ANON_TOKEN, anon);
       return refreshed.access_token;
@@ -35,13 +33,13 @@ export const TokenManager = {
     const newAnon = await authService.getAnonymousToken();
     const newAnonExtended = extendToken(newAnon);
     localStorage.setItem(LSKeys.ANON_TOKEN, JSON.stringify(newAnonExtended));
-
     return newAnonExtended.access_token;
   },
 
   cleanup() {
     localStorage.removeItem(LSKeys.USER_TOKEN);
     localStorage.removeItem(LSKeys.ANON_TOKEN);
+    localStorage.removeItem(LSKeys.USER_ID);
   },
 
   async ensureFresh(

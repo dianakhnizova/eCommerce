@@ -7,5 +7,8 @@ export default defineConfig({
     environment: 'jsdom',
     globals: true,
     setupFiles: './setupTests.ts',
+    alias: {
+      '\\.svg$': '/__mocks__/fileMock.js',
+    },
   },
 });

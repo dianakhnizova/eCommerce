@@ -29,19 +29,27 @@ export const messages = {
   noProducts: 'No products in the selected category',
 
   errors: {
+    default: 'Something went wrong',
     loginError: 'Login failed',
     updateAddressError: 'Update address failed',
     updateProfileError: 'Update profile failed',
     catalogError: 'Catalog failed',
     registerError: 'Sign up failed',
     productError: 'Product loading error',
+
     cartError: 'Cart loading error',
+    productNotFound: 'Product not found in the cart.',
   },
   success: {
+    addToCart: 'Item added to cart!',
     successPasswordChange: 'Password successfully changed',
     successAddressAdded: 'Address successfully added',
     successGeneralInfoUpdate: 'General information successfully changed',
     successfulAddressUpdate: 'Address updated successfully',
+    removeFromCart: 'Item removed from cart',
+    updateItemQuantity: 'Item quantity updated',
+    clearCart: 'Shopping cart has been cleared',
+    mergeCart: 'Success merged cart',
   },
 
   noName: 'No name',
@@ -55,6 +63,8 @@ export const messages = {
   lastName: 'Last Name',
   birth: 'Birth',
   addresses: 'Addresses',
+  totalCost: 'Total cost: ',
+  confirmClearCart: 'Confirm cleared cart',
 
   badges: {
     defaultBilling: '📋Default Billing',
@@ -68,6 +78,7 @@ export const messages = {
   buttons: {
     addToCart: 'Add To Cart',
     removeFromCart: 'Remove From Cart',
+    clearCart: 'Clear Cart',
     addAddress: 'New Address',
     contactButton: 'Contact us',
     save: 'Save',
@@ -79,15 +90,19 @@ export const messages = {
     signIn: 'Sign In',
     shopNow: 'Shop now',
     backToHome: 'Back To Home',
+    confirmButtonText: 'Yes, clear it!',
+    cancelButtonText: 'Cancel',
   },
   errorPageImage: '404 Not Found',
   errorPageDescription: 'Oops! The page you requested was not found!',
   dontHaveAccount: 'Don’t have an Account? ',
   createAccount: 'Create account',
   allCategories: 'Select categories',
+  textWarn: 'This action cannot be undone.',
+  textClearCart: 'Cleared!',
 
   textAboutUs:
-    'Our development team is a close-knit group of professionals united by a common goal: creating high-quality digital products. We bring together a wide range of expertise — from architectural design and writing clean code to ensuring the security, stability, and scalability of our solutions.',
+    "We're a team of passionate, driven, and slightly sleep-deprived developers who joined forces to build something amazing. Working together as Lazer Sharks, we turned code into a collaborative masterpiece! We stayed connected and productive with Trello, Figma, Discord, Telegram, and GitHub. These tools helped us plan, design, communicate, and collaborate—wherever we were. Each sprint, we divided tasks smartly. When someone finished early, they jumped in to help others—true team spirit! Diana introduced daily reports, helping us track our progress, and we held weekly video calls to discuss blockers, share wins, and stay motivated. Every pull request was reviewed thoroughly to keep our code sharp and clean. This project wasn’t just about coding—it taught us how real teamwork works. We learned how to communicate effectively, conduct meaningful code reviews, manage branches in GitHub, and most importantly—how to build an app together in React. ",
   id: 'Id',
   city: 'City',
   country: 'Country',
@@ -96,4 +111,16 @@ export const messages = {
   checkboxDefaultAddress: 'Default address',
   checkboxBillingAddress: 'Billing address',
   checkboxShippingAddress: 'Shipping address',
+  info: {
+    cartAlreadyEmpty: 'The cart is already empty',
+  },
+  promoCode: {
+    placeholder: 'Promo code',
+    button: 'Apply',
+    errorText: 'Promo code is invalid or cannot be applied.',
+    success: 'Promo code has been applied',
+    actualPromocodesText: 'Actual promo codes',
+    noDescriptionText: 'No description',
+    removed: 'Promo code removed',
+  },
 };

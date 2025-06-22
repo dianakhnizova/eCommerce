@@ -1,5 +1,5 @@
 import type { InputHTMLAttributes } from 'react';
-import { useState } from 'react';
+import { useState, useId } from 'react';
 import styles from './input.module.css';
 import classNames from 'classnames';
 import { Eye, EyeOff } from 'lucide-react';
@@ -15,11 +15,18 @@ export const Input = ({ label, error, className, type, ...rest }: Props) => {
   const isPasswordType = type === 'password';
   const inputType = isPasswordType && shouldShowPassword ? 'text' : type;
 
+  const inputId = useId();
+
   return (
     <div className={styles.wrapper}>
-      {label && <label className={styles.label}>{label}</label>}
+      {label && (
+        <label htmlFor={inputId} className={styles.label}>
+          {label}
+        </label>
+      )}
       <div className={styles.inputWrapper}>
         <input
+          id={inputId}
           type={inputType}
           className={classNames(styles.input, className, {
             [styles.error]: Boolean(error),

@@ -4,7 +4,6 @@ import styles from './catalog-page.module.css';
 import { Spinner } from '../../components/spinner/spinner';
 import { observer } from 'mobx-react-lite';
 import { Wrapper } from '../../components/wrapper/wrapper';
-import { CatalogOptions } from './catalog-options/catalog-options';
 import { Catalog } from './catalog/catalog';
 import { useParams } from 'react-router-dom';
 import { useEffect } from 'react';
@@ -27,7 +26,6 @@ export const CatalogPage = observer(() => {
       <BreadCrumbs />
       <Spinner isLoading={isLoading} />
       <Wrapper className={styles.catalogWrapper}>
-        <CatalogOptions />
         <Catalog />
       </Wrapper>
     </>
