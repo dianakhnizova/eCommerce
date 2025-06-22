@@ -16,7 +16,6 @@ describe('AboutDevelopers', () => {
       expect(screen.getByText(dev.name)).toBeInTheDocument();
     });
 
-    // Здесь мы ожидаем несколько одинаковых ролей — исправляем:
     const roles = developers.map(dev => dev.role);
     const uniqueRoles = new Set(roles);
 
